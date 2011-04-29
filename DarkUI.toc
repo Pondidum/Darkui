@@ -1,0 +1,12 @@
+## Interface: 40000
+## DefaultState: Enabled
+## Title: DarkUI
+## Author: Darkend
+## Version: 0.1
+
+core\core.lua
+core\settings.lua
+core\functions.lua
+core\events.lua
+
+modules\SlackCheck.lua
