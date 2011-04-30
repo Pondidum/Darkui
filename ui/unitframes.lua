@@ -239,17 +239,63 @@ local function Shared(self, unit)
 	
 end
 
+local UnitSpecific = {
+	player = function(self, ...)
+		Shared(self, ...)
 
+		self.Debuffs = self.Buffs
+		self.Buffs = nil
+	end,
+}
 
 
 
 oUF:RegisterStyle('DarkUI', Shared)
+for unit,layout in next, UnitSpecific do
+	-- Capitalize the unit name, so it looks better.
+	oUF:RegisterStyle('DarkUI' .. unit:gsub("^%l", string.upper), layout)
+end
 
-local player = oUF:Spawn('player', "DarkuiPlayer")
-player:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, -250)
 
-local target = oUF:Spawn('target', "DarkuiTarget")
-target:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)
+local spawnHelper = function(self, unit, ...)
+	if(UnitSpecific[unit]) then
+		self:SetActiveStyle('DarkUI' .. unit:gsub("^%l", string.upper))
+	else
+		self:SetActiveStyle('DarkUI')
+	end
 
-local focus = oUF:Spawn('focus', "DarkuiFocus")
-focus:SetPoint("RIGHT", DarkuiFrame, "CENTER", -150, -100)
+	local object = self:Spawn(unit)
+	object:SetPoint(...)
+	return object
+end
+
+oUF:Factory(function(self)
+	local player = spawnHelper(self, 'player', "CENTER", DarkuiFrame, "CENTER", 0, -250)
+	spawnHelper(self, 'target', "LEFT", DarkuiFrame, "CENTER", 150, -100)
+	spawnHelper(self, 'focus', "RIGHT", DarkuiFrame, "CENTER", 150, 100)
+
+	-- self:SetActiveStyle('ClassicParty')
+	-- local party = self:SpawnHeader(nil, nil, 'raid,party',
+	-- 'showParty', true,
+	-- 'yOffset', -40,
+	-- 'xOffset', -40,
+	-- 'maxColumns', 2,
+	-- 'unitsPerColumn', 2,
+	-- 'columnAnchorPoint', 'LEFT',
+	-- 'columnSpacing', 15,
+
+	-- 'oUF-initialConfigFunction', [[
+		-- self:SetWidth(260)
+		-- self:SetHeight(48)
+		-- ]]
+	-- )
+	-- party:SetPoint("TOPLEFT", 30, -30)
+end)
+-- local player = oUF:Spawn('player', "DarkuiPlayer")
+-- player:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, -250)
+
+-- local target = oUF:Spawn('target', "DarkuiTarget")
+-- target:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)
+
+-- local focus = oUF:Spawn('focus', "DarkuiFocus")
+-- focus:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)
