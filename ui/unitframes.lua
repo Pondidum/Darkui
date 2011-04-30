@@ -74,41 +74,21 @@ end
 
 local function PostCreateAura(element, button)
 	
-	-- button:SetBackdrop({
-	  -- bgFile = texture, 
-	  -- edgeFile = S["textures"].blank, 
-	  -- tile = false, tileSize = 0, edgeSize = 1, 
-	  -- insets = { left = -1, right = -1, top = -1, bottom = -1}
-	-- })
-	
-	-- button:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
-	-- button:SetBackdropBorderColor(borderr, borderg, borderb)
-	
 	button.remaining = D.CreateFontString(button, S["fonts"].normal, 8, "THINOUTLINE")
-	button.remaining:Point("CENTER", 1, 0)
+	button.remaining:SetPoint("CENTER", 1, 0)
 	
-	-- button.cd.noOCC = true		 	-- hide OmniCC CDs
-	-- button.cd.noCooldownCount = true	-- hide CDC CDs
-	
-	--button.cd:SetReverse()
-	button.icon:Point("TOPLEFT", 2, -2)
-	button.icon:Point("BOTTOMRIGHT", -2, 2)
+	button.icon:SetPoint("TOPLEFT", 2, -2)
+	button.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 	button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	button.icon:SetDrawLayer('ARTWORK')
 	
-	button.count:Point("BOTTOMRIGHT", 3, 3)
+	button.count:SetPoint("BOTTOMRIGHT", 3, 3)
 	button.count:SetJustifyH("RIGHT")
 	button.count:SetFont(S["fonts"].normal, 9, "THICKOUTLINE")
 	button.count:SetTextColor(0.84, 0.75, 0.65)
 	
 	button.overlayFrame = CreateFrame("frame", nil, button, nil)
 	
-	-- button.cd:SetFrameLevel(button:GetFrameLevel() + 1)
-	-- button.cd:ClearAllPoints()
-	-- button.cd:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
-	-- button.cd:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
-	
-	--button.overlayFrame:SetFrameLevel(button.cd:GetFrameLevel() + 1)	   
 	button.overlay:SetParent(button.overlayFrame)
 	button.count:SetParent(button.overlayFrame)
 	button.remaining:SetParent(button.overlayFrame)
@@ -231,6 +211,18 @@ local function Shared(self, unit)
 	castbar.Time:SetJustifyH("RIGHT")
 	castbar.CustomTimeText = CustomCastTimeText
 	
+	castbar.button = CreateFrame("Frame", nil, castbar)
+	castbar.button:SetHeight(20)
+	castbar.button:SetWidth(20)
+	castbar.button:SetPoint("RIGHT", castbar, "LEFT", -5, 0)
+	
+	castbar.Icon = castbar.button:CreateTexture(nil, "ARTWORK")
+	castbar.Icon:SetPoint("TOPLEFT", castbar.button, 0, 0)
+	castbar.Icon:SetPoint("BOTTOMRIGHT", castbar.button, 0, 0)
+	castbar.Icon:SetTexCoord(0.08, 0.92, 0.08, .92)
+
+	D.CreateShadow(castbar.button)
+
 	self.Castbar = castbar
 	
 	
