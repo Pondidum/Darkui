@@ -104,10 +104,15 @@ local DarkSlackCheck = function()
 		if food ~= nil then
 			
 			local _, _, _, _, _, _, foodExpirationTime = UnitAura(name, GetSpellInfo(food))
-			local remaining = foodExpirationTime - GetTime()
 			
-			if remaining/60 <= minBuffTime then
-				foodMessage = "Your food buff will expire soon, please eat."
+			if foodExpirationTime ~= 0 then
+			
+				local remaining = foodExpirationTime - GetTime()
+				
+				if remaining/60 <= minBuffTime then
+					foodMessage = "Your food buff will expire soon, please eat."
+				end
+			
 			end
 			
 		else
@@ -118,10 +123,14 @@ local DarkSlackCheck = function()
 		if flask ~= nil then
 			
 			local _, _, _, _, _, _, flaskExpirationTime = UnitAura(name, GetSpellInfo(flask))
-			local remaining = flaskExpirationTime - GetTime()
 			
-			if remaining/60 <= minBuffTime then
-				flaskMessage = "Your flask will expire soon, please pop a new one."
+			if flaskExpirationTime ~= 0 then
+	
+				local remaining = flaskExpirationTime - GetTime()
+				
+				if remaining/60 <= minBuffTime then
+					flaskMessage = "Your flask will expire soon, please pop a new one."
+				end
 			end
 			
 		else

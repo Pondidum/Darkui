@@ -4,12 +4,17 @@ local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, "DarkUI was unable to locate oUF install.")
 
-local frameWidth = 250
+local frameWidth = 240
+local frameWidthSmall = 132
 local healthHeight = 18
 local castHeight = 5
 local powerHeight = 5
 local buffHeight = 26
 
+local backdrop = {
+	bgFile = S["textures"].blank,
+	insets = {top = -1, left = -1, bottom = -1, right = -1},
+}
 local function CheckInterrupt(self, unit)
 	if unit == "vehicle" then unit = "player" end
 
@@ -103,6 +108,13 @@ local function PostCreateAura(element, button)
 	
 end
 
+local function UpdateName(self, event, unit)
+
+	if self.unit ~= unit then return end
+	
+end
+
+
 local function CreateMenu(self)
 
 	local unit = self.unit:gsub("(.)", string.upper, 1)
@@ -135,13 +147,16 @@ local function Shared(self, unit)
 	self:SetHeight(healthHeight + castHeight + powerHeight)
 	
 	
+	
 	local health = CreateFrame('StatusBar', nil, self)
 	health:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-	health:SetSize(frameWidth, healthHeight)
+	health:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+	health:SetHeight(healthHeight)
 	
 	health:SetStatusBarTexture(S["textures"].normal)
 	D.CreateShadow(health, "Default")
 	
+	health.frequentUpdates = true
 	health.colorDisconnected = true
 	health.colorTapping = true	
 	health.colorClass = true
@@ -156,7 +171,7 @@ local function Shared(self, unit)
 	local healthValue = D.CreateFontString(health, S["fonts"].normal, 12)
 	healthValue:SetPoint("RIGHT", health, "RIGHT", -4, 0)
 	
-	self:Tag(healthValue, '[dead][offline][Darkui:health]')
+	self:Tag(healthValue, '[Darkui:health]')
 	
 	self.Health = health
 	
@@ -171,11 +186,13 @@ local function Shared(self, unit)
 	
 	local power = CreateFrame('StatusBar', nil, self)
 	power:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, 5)
-	power:SetSize(frameWidth, powerHeight)
+	power:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, 5)
+	power:SetHeight(powerHeight)
 	
 	power:SetStatusBarTexture(S["textures"].normal)
 	D.CreateShadow(power, "Default")
-
+	D.CreateBackground(power)
+	
 	power.frequentUpdates = true
 	power.Smooth = true
 	
@@ -183,20 +200,15 @@ local function Shared(self, unit)
 	power.colorTapping = true
 	power.colorPower = true
 
-	
-	local powerBG = power:CreateTexture(nil, 'BORDER')
-	powerBG:SetAllPoints(power)
-	powerBG:SetTexture(S["textures"].normal)
-	powerBG.multiplier = 0.3
-	power.bg = powerBG
-	
 	self.Power = power
 	
 	
 	
 	local castbar = CreateFrame("StatusBar", nil, self)
 	castbar:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -10)
-	castbar:SetSize(frameWidth, castHeight)
+	castbar:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -10)
+	castbar:SetHeight(castHeight)
+	
 	castbar:SetStatusBarTexture(S["textures"].normal)
 	castbar.PostCastStart = CheckCast
 	castbar.PostChannelStart = CheckChannel
@@ -228,51 +240,138 @@ local function Shared(self, unit)
 	
 	local buffs = CreateFrame("Frame", nil, self)
 	buffs:SetPoint("BOTTOMLEFT", power, "TOPLEFT", -1, 5)
-	buffs:SetSize(frameWidth, buffHeight)
+	buffs:SetPoint("BOTTOMRIGHT", power, "TOPRIGHT", -1, 5)
+	buffs:SetHeight(buffHeight)
 	buffs.size = buffHeight
-	buffs.num = 5
+	buffs.num = 9
 	buffs.spacing = 1
 	buffs.initialAnchor = 'BOTTOMLEFT'
 	
 	buffs.PostCreateIcon = PostCreateAura
 	self.Buffs = buffs
 	
+	local debuffs = CreateFrame("Frame", nil, self)
+	debuffs:SetPoint("BOTTOMLEFT", buffs, "TOPLEFT", -1, 5)
+	debuffs:SetPoint("BOTTOMRIGHT", buffs, "TOPRIGHT", -1, 5)
+	debuffs:SetHeight(buffHeight)
+	debuffs.size = buffHeight
+	debuffs.num = 9
+	debuffs.spacing = 1
+	debuffs.initialAnchor = 'BOTTOMLEFT'
+	
+	debuffs.PostCreateIcon = PostCreateAura
+	self.Debuffs = debuffs
+	
 end
 
 local UnitSpecific = {
 	player = function(self, ...)
 		Shared(self, ...)
-
+		
 		self.Debuffs = self.Buffs
 		self.Buffs = nil
+		
+		if D.Player.level ~= MAX_PLAYER_LEVEL then
+		
+			local experience = CreateFrame("StatusBar", "Darkui_exp", self)
+			experience:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT",0, -5)
+			experience:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT",0, -5)
+			experience:SetHeight(5)
+			experience:SetFrameLevel(10)
+		
+			
+			
+			experience:SetStatusBarTexture(S["textures"].blank)
+			experience:SetStatusBarColor(0, 0.4, 1, .8)
+			
+			experience:SetAlpha(0)
+			experience:SetScript("OnEnter", function(x) x:SetAlpha(1) end)
+			experience:SetScript("OnLeave", function(x) x:SetAlpha(0) end)
+			
+			experience.Tooltip = true
+			
+			experience.Rested = CreateFrame('StatusBar', nil, self)
+			experience.Rested:SetParent(experience)
+			experience.Rested:SetAllPoints(experience)
+			
+			D.CreateShadow(experience.Rested)
+			D.CreateBackground(experience.Rested)
+				
+			local resting = experience:CreateTexture("Darkui_resting", "OVERLAY")
+			resting:SetPoint("BOTTOMLEFT", -17 , 12)
+			resting:SetSize(28, 28)
+			
+			resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
+			resting:SetTexCoord(0, 0.5, 0, 0.421875)
+			
+			self.Resting = resting
+			self.Experience = experience
+		end
+		
 	end,
+	
+	targettarget = function(self, ...)
+		Shared(self, ...)
+		
+		self:SetWidth(frameWidthSmall)
+		self.Buffs.num = 5
+	end,
+	
+	pet = function(self, ...)
+		Shared(self, ...)
+		
+		self:RegisterEvent("UNIT_PET", function(frame)
+		
+			for _, v in ipairs(frame.__elements) do
+				v(frame, "UpdateElement", frame.unit)
+			end
+			
+		end)
+		
+	end,
+	
 }
+UnitSpecific.focustarget = UnitSpecific.targettarget
 
-
-
-oUF:RegisterStyle('DarkUI', Shared)
+oUF:RegisterStyle('Darkui_', Shared)
 for unit,layout in next, UnitSpecific do
 	-- Capitalize the unit name, so it looks better.
-	oUF:RegisterStyle('DarkUI' .. unit:gsub("^%l", string.upper), layout)
+	oUF:RegisterStyle('Darkui_' .. unit:gsub("^%l", string.upper), layout)
 end
 
 
 local spawnHelper = function(self, unit, ...)
-	if(UnitSpecific[unit]) then
-		self:SetActiveStyle('DarkUI' .. unit:gsub("^%l", string.upper))
-	else
-		self:SetActiveStyle('DarkUI')
-	end
 
-	local object = self:Spawn(unit)
-	object:SetPoint(...)
-	return object
+	if UnitSpecific[unit]  then
+		self:SetActiveStyle('Darkui_' .. unit:gsub("^%l", string.upper))
+	else
+		self:SetActiveStyle('Darkui_')
+	end
+	
+	return self:Spawn(unit)
+ 
 end
 
 oUF:Factory(function(self)
-	local player = spawnHelper(self, 'player', "CENTER", DarkuiFrame, "CENTER", 0, -250)
-	spawnHelper(self, 'target', "LEFT", DarkuiFrame, "CENTER", 150, -100)
-	spawnHelper(self, 'focus', "RIGHT", DarkuiFrame, "CENTER", 150, 100)
+	
+	local player = spawnHelper(self, 'player')
+	player:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, -250)
+	
+	local pet = spawnHelper(self, 'pet')
+	pet:SetPoint("TOP", player, "BOTTOM", 0, -50)
+	
+	local target = spawnHelper(self, 'target')
+	target:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)
+	
+	local targettarget	= spawnHelper(self, 'targettarget')
+	targettarget:SetPoint("LEFT", target, "RIGHT", 25, 0)
+	
+	local focus = spawnHelper(self, 'focus')
+	focus:SetPoint("RIGHT", DarkuiFrame, "CENTER", -150, -100)
+	
+	local focustarget = spawnHelper(self, 'focustarget')
+	focustarget:SetPoint("RIGHT", focus, "LEFT", -25, 0)
+	
 
 	-- self:SetActiveStyle('ClassicParty')
 	-- local party = self:SpawnHeader(nil, nil, 'raid,party',

@@ -1,11 +1,14 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 
 	<Include file="libs\oUF\oUF.xml"/>
+	<Script file="libs\oUF_Experience\oUF_Experience.lua"/>
 	
 	<Script file="core\core.lua"/>
 	<Script file="core\settings.lua"/>
 	<Script file="core\functions.lua"/>
 	<Script file="core\events.lua"/>
+	
+	<Script file="core\init.lua" />
 	
 	<Script file="modules\SlackCheck.lua"/>
 

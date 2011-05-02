@@ -6,7 +6,17 @@ local border = [[Interface\AddOns\Tukui\medias\textures\blank]]
 local borderSize = 1
 local barHeight = 2
 
+D.CreateBackground = function(f)
 
+	local bg = f:CreateTexture(nil, 'BORDER')
+	
+	bg:SetAllPoints(f)
+	bg:SetTexture(S["textures"].normal)
+	--bg.multiplier = 0.3
+	
+	f.bg = bg 
+	
+end
 
 --thanks tuk
 D.CreateShadow = function(f, t)
