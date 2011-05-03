@@ -7,7 +7,7 @@ assert(oUF, "DarkUI was unable to locate oUF install.")
 local frameWidth = 240
 local frameWidthSmall = 132
 local healthHeight = 18
-local castHeight = 5
+local castHeight = 8
 local powerHeight = 5
 local buffHeight = 26
 
@@ -205,8 +205,8 @@ local function Shared(self, unit)
 	
 	
 	local castbar = CreateFrame("StatusBar", nil, self)
-	castbar:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -10)
-	castbar:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -10)
+	castbar:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -20)
+	castbar:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -20)
 	castbar:SetHeight(castHeight)
 	
 	castbar:SetStatusBarTexture(S["textures"].normal)
@@ -273,20 +273,22 @@ local UnitSpecific = {
 		
 		if D.Player.level ~= MAX_PLAYER_LEVEL then
 		
-			local experience = CreateFrame("StatusBar", "Darkui_exp", self)
+			local experience = CreateFrame("StatusBar", nil, self)
 			experience:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT",0, -5)
 			experience:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT",0, -5)
 			experience:SetHeight(5)
 			experience:SetFrameLevel(10)
 		
-			
-			
 			experience:SetStatusBarTexture(S["textures"].blank)
 			experience:SetStatusBarColor(0, 0.4, 1, .8)
 			
 			experience:SetAlpha(0)
+			
 			experience:SetScript("OnEnter", function(x) x:SetAlpha(1) end)
 			experience:SetScript("OnLeave", function(x) x:SetAlpha(0) end)
+			
+			self:SetScript("OnEnter", function(x) x.Experience:SetAlpha(1) end)
+			self:SetScript("OnLeave", function(x) x.Experience:SetAlpha(0) end)
 			
 			experience.Tooltip = true
 			
@@ -297,7 +299,7 @@ local UnitSpecific = {
 			D.CreateShadow(experience.Rested)
 			D.CreateBackground(experience.Rested)
 				
-			local resting = experience:CreateTexture("Darkui_resting", "OVERLAY")
+			local resting = experience:CreateTexture(nil, "OVERLAY")
 			resting:SetPoint("BOTTOMLEFT", -17 , 12)
 			resting:SetSize(28, 28)
 			
@@ -319,6 +321,9 @@ local UnitSpecific = {
 	
 	pet = function(self, ...)
 		Shared(self, ...)
+		
+		self:SetWidth(frameWidthSmall)
+		self.Buffs.num = 5
 		
 		self:RegisterEvent("UNIT_PET", function(frame)
 		
@@ -358,7 +363,7 @@ oUF:Factory(function(self)
 	player:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, -250)
 	
 	local pet = spawnHelper(self, 'pet')
-	pet:SetPoint("TOP", player, "BOTTOM", 0, -50)
+	pet:SetPoint("RIGHT", player, "LEFT", -25, 0)
 	
 	local target = spawnHelper(self, 'target')
 	target:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)
