@@ -12,7 +12,7 @@ D.CreateBackground = function(f)
 	
 	bg:SetAllPoints(f)
 	bg:SetTexture(S["textures"].normal)
-	--bg.multiplier = 0.3
+	bg.multiplier = 0.3
 	
 	f.bg = bg 
 	

@@ -11,10 +11,6 @@ local castHeight = 8
 local powerHeight = 5
 local buffHeight = 26
 
-local backdrop = {
-	bgFile = S["textures"].blank,
-	insets = {top = -1, left = -1, bottom = -1, right = -1},
-}
 local function CheckInterrupt(self, unit)
 	if unit == "vehicle" then unit = "player" end
 
@@ -114,7 +110,6 @@ local function UpdateName(self, event, unit)
 	
 end
 
-
 local function CreateMenu(self)
 
 	local unit = self.unit:gsub("(.)", string.upper, 1)
@@ -131,6 +126,75 @@ local function CreateMenu(self)
 		ToggleDropDownMenu(1, nil, FriendsDropDown, "cursor")
 	end
 	
+end
+
+local function CreateAltBar(self)
+
+	local alt = CreateFrame("StatusBar", nil, self)
+	alt:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT",0, -5)
+	alt:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT",0, -5)
+	alt:SetHeight(5)
+
+	alt:SetStatusBarTexture(S["textures"].blank)
+	
+	return alt
+	
+end
+
+local function CreateExperienceBar(self)
+
+	local experience = CreateAltBar(self)
+	experience:SetStatusBarColor(0, 0.4, 1, .8)
+	
+	experience:SetFrameLevel(10)
+	experience:SetAlpha(0)
+	
+	experience:SetScript("OnEnter", function(x) x:SetAlpha(1) end)
+	experience:SetScript("OnLeave", function(x) x:SetAlpha(0) end)
+	
+	self:SetScript("OnEnter", function(x) x.Experience:SetAlpha(1) end)
+	self:SetScript("OnLeave", function(x) x.Experience:SetAlpha(0) end)
+	
+	experience.Tooltip = true
+	
+	experience.Rested = CreateFrame('StatusBar', nil, self)
+	experience.Rested:SetParent(experience)
+	experience.Rested:SetAllPoints(experience)
+	experience.Rested:SetStatusBarTexture(S["textures"].blank)
+	
+	D.CreateShadow(experience.Rested)
+	D.CreateBackground(experience.Rested)
+		
+	local resting = experience:CreateTexture(nil, "OVERLAY")
+	resting:SetPoint("BOTTOMLEFT", -17 , 12)
+	resting:SetSize(28, 28)
+	
+	resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
+	resting:SetTexCoord(0, 0.5, 0, 0.421875)
+	
+	self.Resting = resting
+	self.Experience = experience
+			
+end
+
+local function CreateReputationBar(self)
+
+	local reputation = CreateAltBar(self)
+	reputation:SetStatusBarColor(0, 0.4, 1, .8)
+	
+	D.CreateShadow(reputation)
+	D.CreateBackground(reputation)
+	
+	reputation:SetFrameLevel(10)
+	reputation:SetAlpha(0)
+	
+	reputation:SetScript("OnEnter", function(x) x:SetAlpha(1) end)
+	reputation:SetScript("OnLeave", function(x) x:SetAlpha(0) end)
+	
+	self:SetScript("OnEnter", function(x) x.Reputation:SetAlpha(1) end)
+	self:SetScript("OnLeave", function(x) x.Reputation:SetAlpha(0) end)
+	
+	self.Reputation = reputation
 end
 
 
@@ -272,42 +336,9 @@ local UnitSpecific = {
 		self.Buffs = nil
 		
 		if D.Player.level ~= MAX_PLAYER_LEVEL then
-		
-			local experience = CreateFrame("StatusBar", nil, self)
-			experience:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT",0, -5)
-			experience:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT",0, -5)
-			experience:SetHeight(5)
-			experience:SetFrameLevel(10)
-		
-			experience:SetStatusBarTexture(S["textures"].blank)
-			experience:SetStatusBarColor(0, 0.4, 1, .8)
-			
-			experience:SetAlpha(0)
-			
-			experience:SetScript("OnEnter", function(x) x:SetAlpha(1) end)
-			experience:SetScript("OnLeave", function(x) x:SetAlpha(0) end)
-			
-			self:SetScript("OnEnter", function(x) x.Experience:SetAlpha(1) end)
-			self:SetScript("OnLeave", function(x) x.Experience:SetAlpha(0) end)
-			
-			experience.Tooltip = true
-			
-			experience.Rested = CreateFrame('StatusBar', nil, self)
-			experience.Rested:SetParent(experience)
-			experience.Rested:SetAllPoints(experience)
-			
-			D.CreateShadow(experience.Rested)
-			D.CreateBackground(experience.Rested)
-				
-			local resting = experience:CreateTexture(nil, "OVERLAY")
-			resting:SetPoint("BOTTOMLEFT", -17 , 12)
-			resting:SetSize(28, 28)
-			
-			resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
-			resting:SetTexCoord(0, 0.5, 0, 0.421875)
-			
-			self.Resting = resting
-			self.Experience = experience
+			CreateExperienceBar(self)
+		else
+			CreateReputationBar(self)
 		end
 		
 	end,
