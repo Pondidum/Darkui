@@ -10,13 +10,13 @@ S["cooldowns"] = {
 }
 
 S["textures"] = {
-	["shadow"] = [[Interface\AddOns\Tukui\medias\textures\glowTex]],
-	["normal"] = [[Interface\AddOns\Tukui\medias\textures\normTex]],
-	["blank"] = [[Interface\AddOns\Tukui\medias\textures\blank]],
+	["shadow"] = [[Interface\AddOns\Darkui\media\textures\glowTex]],
+	["normal"] = [[Interface\AddOns\Darkui\media\textures\normTex]],
+	["blank"] = [[Interface\AddOns\Darkui\media\textures\blank]],
 }
 
 S["fonts"] = {
-	["normal"] = [[Interface\AddOns\Tukui\medias\fonts\uf_font.ttf]]
+	["normal"] = [[Interface\AddOns\Darkui\media\fonts\BigNoodleTitling.ttf]]
 }
 
 S["colors"] = setmetatable({
