@@ -1,6 +1,11 @@
 local D, S, E = unpack(select(2, ...))
 
+local SetAddonInfo = function()
 
+	D.Addon = {
+		["name"] = "Darkui"
+	}
+end
 
 local SetupPlayer = function()
 		
@@ -13,5 +18,6 @@ local SetupPlayer = function()
 	
 end
 
+SetAddonInfo()
 SetupPlayer()
 E:Register("PLAYER_LEVEL_UP", SetupPlayer)

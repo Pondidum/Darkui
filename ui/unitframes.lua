@@ -1,8 +1,8 @@
-local D, S, E = unpack(DarkUI)
+local D, S, E = unpack(select(2, ...))
 
 local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
-assert(oUF, "DarkUI was unable to locate oUF install.")
+assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
 local frameWidth = 240
 local frameWidthSmall = 132
@@ -33,7 +33,7 @@ local function CustomCastTimeText(self, duration)
 	self.Time:SetText(("%.1f / %.1f"):format(self.channeling and duration or self.max - duration, self.max))
 end
 
-oUF.Tags['Darkui:health'] = function(unit)
+oUF.Tags[D.Addon.name.. ':health'] = function(unit)
 
 	if not UnitIsConnected(unit) then
 		 return "Disconnected"
@@ -235,7 +235,7 @@ local function Shared(self, unit)
 	local healthValue = D.CreateFontString(health, S["fonts"].normal, 12)
 	healthValue:SetPoint("RIGHT", health, "RIGHT", -4, 0)
 	
-	self:Tag(healthValue, '[Darkui:health]')
+	self:Tag(healthValue, '[' .. D.Addon.name .. ':health]')
 	
 	self.Health = health
 	
@@ -369,19 +369,19 @@ local UnitSpecific = {
 }
 UnitSpecific.focustarget = UnitSpecific.targettarget
 
-oUF:RegisterStyle('Darkui_', Shared)
+oUF:RegisterStyle(D.Addon.name, Shared)
 for unit,layout in next, UnitSpecific do
 	-- Capitalize the unit name, so it looks better.
-	oUF:RegisterStyle('Darkui_' .. unit:gsub("^%l", string.upper), layout)
+	oUF:RegisterStyle(D.Addon.name .. unit:gsub("^%l", string.upper), layout)
 end
 
 
 local spawnHelper = function(self, unit, ...)
 
 	if UnitSpecific[unit]  then
-		self:SetActiveStyle('Darkui_' .. unit:gsub("^%l", string.upper))
+		self:SetActiveStyle(D.Addon.name .. unit:gsub("^%l", string.upper))
 	else
-		self:SetActiveStyle('Darkui_')
+		self:SetActiveStyle(D.Addon.name)
 	end
 	
 	return self:Spawn(unit)
@@ -426,11 +426,3 @@ oUF:Factory(function(self)
 	-- )
 	-- party:SetPoint("TOPLEFT", 30, -30)
 end)
--- local player = oUF:Spawn('player', "DarkuiPlayer")
--- player:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, -250)
-
--- local target = oUF:Spawn('target', "DarkuiTarget")
--- target:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)
-
--- local focus = oUF:Spawn('focus', "DarkuiFocus")
--- focus:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)

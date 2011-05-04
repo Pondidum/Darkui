@@ -2,7 +2,7 @@ local D, S, E = unpack(select(2, ...))
 
 local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
-assert(oUF, "DarkUI was unable to locate oUF install.")
+assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
 
 S["cooldowns"] = {

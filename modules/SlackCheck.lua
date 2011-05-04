@@ -1,4 +1,4 @@
-local D, S, E = unpack(DarkUI)
+local D, S, E = unpack(select(2, ...))
 
 local flaskTable = {
 	92679, --Flask of Battle
