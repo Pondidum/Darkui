@@ -6,7 +6,7 @@ engine[3] = {} -- E, Events
 
 DarkUI = engine -- Allow other addons to use Engine
 
-DarkuiFrame = CreateFrame("Frame", D.Addon.name .. "Frame", UIParent) --used for the events and layout
+DarkuiFrame = CreateFrame("Frame", "DarkuiFrame", UIParent) --used for the events and layout
 DarkuiFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 20, -20)
 DarkuiFrame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -20, 20)
 

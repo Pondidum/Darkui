@@ -2,14 +2,27 @@ local D, S, E = unpack(select(2, ...))
 
 D.CreateBackground = function(f)
 
-	local bg = f:CreateTexture(nil, 'BORDER')
+	-- local bg = f:CreateTexture(nil, 'BORDER')
 	
+	-- bg:SetAllPoints(f)
+	-- bg:SetTexture(S["textures"].normal)
+	-- bg.multiplier = 0.3
+	
+	-- f.bg = bg 
+	
+	local bg = CreateFrame("Frame", nil, f)
 	bg:SetAllPoints(f)
-	bg:SetTexture(S["textures"].normal)
-	bg.multiplier = 0.3
+	bg:SetFrameLevel(1)
+	bg:SetFrameStrata(f:GetFrameStrata())
+	bg:SetBackdrop( { 
+		bgFile = S["textures"].normal,
+		edgeSize = 0,
+		tile = true,
+	})
 	
-	f.bg = bg 
+	bg:SetBackdropColor(0, 0, 0, 0.4)
 	
+	f.bg = bg
 end
 
 --thanks tuk
@@ -56,6 +69,19 @@ D.CreateFontString = function(parent, fontName, fontHeight, fontStyle)
 	fs:SetShadowColor(0, 0, 0)
 	fs:SetShadowOffset(1.25, -1.25)
 	return fs
+end
+
+
+D.Dummy = function () return end
+
+D.Kill = function(object)
+
+	if object.UnregisterAllEvents then
+		object:UnregisterAllEvents()
+	end
+	object.Show = D.Dummy
+	object:Hide()
+
 end
 
 

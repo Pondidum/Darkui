@@ -9,15 +9,25 @@ S["cooldowns"] = {
 	["minimum"] = 8,
 }
 
+S["chat"] = {
+	["width"] = 500,
+}
+
+
+
+---Move to MEDIA file:
 S["textures"] = {
 	["shadow"] = [[Interface\AddOns\Darkui\media\textures\glowTex]],
 	["normal"] = [[Interface\AddOns\Darkui\media\textures\normTex]],
 	["blank"] = [[Interface\AddOns\Darkui\media\textures\blank]],
+	["raidicons"] = [[Interface\AddOns\Darkui\media\textures\raidicons.blp]]
 }
 
 S["fonts"] = {
 	["normal"] = [[Interface\AddOns\Darkui\media\fonts\BigNoodleTitling.ttf]]
 }
+
+---Move to COLORS file
 
 S["colors"] = setmetatable({
 	tapped = {0.55, 0.57, 0.61},

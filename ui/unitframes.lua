@@ -197,6 +197,45 @@ local function CreateReputationBar(self)
 	self.Reputation = reputation
 end
 
+local function CreateCombatIndicator(self)
+
+	local combat = self.Health:CreateTexture(nil, "OVERLAY")
+	combat:SetHeight(19)
+	combat:SetWidth(19)
+	combat:SetPoint("LEFT", self.Name, "Right", 0, 1)
+	combat:SetVertexColor(0.69, 0.31, 0.31)
+	self.Combat = combat
+	
+end
+
+local function CreateLeaderAndMasterLooter(self)
+
+	local leader = self.Health:CreateTexture(nil, "OVERLAY")
+	leader:SetHeight(14)
+	leader:SetWidth(14)
+	leader:SetPoint("CENTER", self.Health, "CENTER", -15, 1)
+	self.Leader = leader
+	
+	-- master looter
+	local masterLooter = self.Health:CreateTexture(nil, "OVERLAY")
+	masterLooter:SetHeight(14)
+	masterLooter:SetWidth(14)
+	masterLooter:SetPoint("CENTER", self.Health, "CENTER", 15, 1)
+	self.MasterLooter = masterLooter
+	
+end
+
+local function CreateRaidIcon(self)
+
+	local raidIcon = self.Health:CreateTexture(nil, "OVERLAY")
+	raidIcon:SetTexture(S["textures"].raidicons) -- thx hankthetank for texture
+	raidIcon:SetHeight(20)
+	raidIcon:SetWidth(20)
+	raidIcon:SetPoint("TOP", 0, 11)
+	
+	self.RaidIcon = raidIcon
+	
+end
 
 local function Shared(self, unit)
 
@@ -234,6 +273,7 @@ local function Shared(self, unit)
 	
 	local healthValue = D.CreateFontString(health, S["fonts"].normal, 12)
 	healthValue:SetPoint("RIGHT", health, "RIGHT", -4, 0)
+	healthValue.frequentUpdates = true
 	
 	self:Tag(healthValue, '[' .. D.Addon.name .. ':health]')
 	
@@ -255,7 +295,13 @@ local function Shared(self, unit)
 	
 	power:SetStatusBarTexture(S["textures"].normal)
 	D.CreateShadow(power, "Default")
-	D.CreateBackground(power)
+	
+	local bg = power:CreateTexture(nil, 'BORDER')
+	bg:SetAllPoints(power)
+	bg:SetTexture(S["textures"].normal)
+	bg.multiplier = 0.3
+	
+	power.bg = bg 
 	
 	power.frequentUpdates = true
 	power.Smooth = true
@@ -274,6 +320,9 @@ local function Shared(self, unit)
 	castbar:SetHeight(castHeight)
 	
 	castbar:SetStatusBarTexture(S["textures"].normal)
+	D.CreateShadow(castbar, "Default")
+	D.CreateBackground(castbar)
+	
 	castbar.PostCastStart = CheckCast
 	castbar.PostChannelStart = CheckChannel
 	
@@ -326,6 +375,8 @@ local function Shared(self, unit)
 	debuffs.PostCreateIcon = PostCreateAura
 	self.Debuffs = debuffs
 	
+	CreateRaidIcon(self)
+	
 end
 
 local UnitSpecific = {
@@ -334,6 +385,9 @@ local UnitSpecific = {
 		
 		self.Debuffs = self.Buffs
 		self.Buffs = nil
+		
+		CreateCombatIndicator(self)
+		CreateLeaderAndMasterLooter(self)
 		
 		if D.Player.level ~= MAX_PLAYER_LEVEL then
 			CreateExperienceBar(self)
@@ -366,6 +420,13 @@ local UnitSpecific = {
 		
 	end,
 	
+	boss = function(self, ...)
+		Shared(self, ...)
+		
+		self.Buffs = nil
+		self.Debuffs = nil
+		
+	end,
 }
 UnitSpecific.focustarget = UnitSpecific.targettarget
 
@@ -408,21 +469,29 @@ oUF:Factory(function(self)
 	local focustarget = spawnHelper(self, 'focustarget')
 	focustarget:SetPoint("RIGHT", focus, "LEFT", -25, 0)
 	
+	local dummy = function() return end
+	
+	for i = 1,MAX_BOSS_FRAMES do
+		local t_boss = _G["Boss"..i.."TargetFrame"]
+		t_boss:UnregisterAllEvents()
+		t_boss.Show = dummy
+		t_boss:Hide()
+		_G["Boss"..i.."TargetFrame".."HealthBar"]:UnregisterAllEvents()
+		_G["Boss"..i.."TargetFrame".."ManaBar"]:UnregisterAllEvents()
+	end
 
-	-- self:SetActiveStyle('ClassicParty')
-	-- local party = self:SpawnHeader(nil, nil, 'raid,party',
-	-- 'showParty', true,
-	-- 'yOffset', -40,
-	-- 'xOffset', -40,
-	-- 'maxColumns', 2,
-	-- 'unitsPerColumn', 2,
-	-- 'columnAnchorPoint', 'LEFT',
-	-- 'columnSpacing', 15,
-
-	-- 'oUF-initialConfigFunction', [[
-		-- self:SetWidth(260)
-		-- self:SetHeight(48)
-		-- ]]
-	-- )
-	-- party:SetPoint("TOPLEFT", 30, -30)
+	local boss = {}
+	for i = 1, MAX_BOSS_FRAMES do
+		boss[i] = spawnHelper(self, "boss"..i) --oUF:Spawn("boss"..i, "TukuiBoss"..i)
+		
+		if i == 1 then
+			boss[i]:SetPoint("LEFT", UIParent, "LEFT", 50, 0)
+		else
+			boss[i]:SetPoint('BOTTOM', boss[i-1], 'TOP', 0, 35)             
+		end
+		
+	end
+	
+	
+	
 end)
