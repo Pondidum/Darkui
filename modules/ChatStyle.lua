@@ -5,25 +5,29 @@ local function SetupChatStyle(frame)
 	local id = frame:GetID()
 	local chat = frame:GetName()
 	local tab = _G[chat.."Tab"]
+	local tabtext = _G[chat.."TabText"]
 	local edit = _G[chat.."EditBox"]
 	
 	tab:SetAlpha(1)
 	tab.SetAlpha = UIFrameFadeRemoveFrame
 	
+	tabtext:ClearAllPoints()
+	tabtext:SetPoint("LEFT", tab, "LEFT")
+
 	frame:SetClampRectInsets(0,0,0,0)
 	frame:SetClampedToScreen(false)
 	
 	frame:ClearAllPoints()
-	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 20)
+	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editheight)
 	frame:SetSize(S.chat.width, 120)
-		
+
+	SetChatWindowSavedDimensions(id, S.chat.width, 120)
+	FCF_SavePositionAndDimensions(frame)
+	
 	frame.ClearAllPoints = D.Dummy
 	frame.SetPoint = D.Dummy
 	frame.SetSize = D.Dummy
-	-- if frame:IsMovable() then
-		-- frame:SetUserPlaced(true)
-	-- end
-	
+
 	for j = 1, #CHAT_FRAME_TEXTURES do
 		_G[chat..CHAT_FRAME_TEXTURES[j]]:SetTexture(nil)
 	end
@@ -66,7 +70,7 @@ local function SetupEditBox(frame)
 	
 	edit:ClearAllPoints()
 	edit:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 0)
-	edit:SetSize(S.chat.width, 20)
+	edit:SetSize(S.chat.width,  S.chat.editheight)
 	
 	-- Kills off the retarded new circle around the editbox
 	D.Kill(_G[format("ChatFrame%sEditBoxFocusLeft", id)])
