@@ -18,7 +18,7 @@ local function SetupChatStyle(frame)
 	frame:SetClampedToScreen(false)
 	
 	frame:ClearAllPoints()
-	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editheight)
+	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editheight + S.chat.editheight + 5)
 	frame:SetSize(S.chat.width, 120)
 
 	SetChatWindowSavedDimensions(id, S.chat.width, 120)
@@ -58,6 +58,13 @@ local function SetupChatStyle(frame)
 	D.Kill(_G[format("ChatFrame%sButtonFrameMinimizeButton", id)])
 	D.Kill(_G[format("ChatFrame%sButtonFrame", id)])
 	
+	if id > 2 then
+	
+		tab:ClearAllPoints()
+		tab:SetPoint("BOTTOMLEFT", _G[format("ChatFrame%sTab", id-1)], "BOTTOMRIGHT",0,0)
+		tab.ClearAllPoints = D.Dummy
+
+	end
 	
 end
 
@@ -139,6 +146,32 @@ end
 
 D.Kill(FriendsMicroButton)
 D.Kill(ChatFrameMenuButton)
+
+GeneralDockManager:ClearAllPoints()
+GeneralDockManager:SetSize(S.chat.width, S.chat.editheight)
+GeneralDockManager:SetPoint("BottomLeft", DarkuiFrame, "BottomLeft", 0, S.chat.editheight)
+
+ToggleChatColorNamesByClassGroup(true, "SAY")
+ToggleChatColorNamesByClassGroup(true, "EMOTE")
+ToggleChatColorNamesByClassGroup(true, "YELL")
+ToggleChatColorNamesByClassGroup(true, "GUILD")
+ToggleChatColorNamesByClassGroup(true, "OFFICER")
+ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
+ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
+ToggleChatColorNamesByClassGroup(true, "WHISPER")
+ToggleChatColorNamesByClassGroup(true, "PARTY")
+ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
+ToggleChatColorNamesByClassGroup(true, "RAID")
+ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
+ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
+ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND")
+ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND_LEADER")	
+ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
+ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
+ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
+ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
+ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
+
 E:Register("ADDON_LOADED", InitChat, "initChat_addon")
 --E:Register("PLAYER_ENTERING_WORLD", InitChat, "initChat_enter")
 
