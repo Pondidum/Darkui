@@ -13,6 +13,8 @@ S["chat"] = {
 	["width"] = 500,
 	["editheight"] = 15,
 	["urlcolor"] = "16FF5D",
+	["enablefading"] = true,
+	["fadetime"] = 10,
 }
 
 

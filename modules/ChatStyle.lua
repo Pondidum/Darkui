@@ -66,6 +66,11 @@ local function SetupChatStyle(frame)
 
 	end
 	
+	if frame ~= COMBATLOG then
+		frame:SetFading(S.chat.enablefading)
+		frame:SetTimeVisible(S.chat.fadetime)
+	end
+	
 end
 
 local function SetupEditBox(frame)
