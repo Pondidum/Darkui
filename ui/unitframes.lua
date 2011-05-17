@@ -451,6 +451,10 @@ end
 
 oUF:Factory(function(self)
 	
+	local xoffset = 250
+	local yoffset = -150
+	
+	
 	local player = spawnHelper(self, 'player')
 	player:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, -250)
 	
@@ -458,13 +462,13 @@ oUF:Factory(function(self)
 	pet:SetPoint("RIGHT", player, "LEFT", -25, 0)
 	
 	local target = spawnHelper(self, 'target')
-	target:SetPoint("LEFT", DarkuiFrame, "CENTER", 150, -100)
+	target:SetPoint("LEFT", DarkuiFrame, "CENTER", xoffset, yoffset)
 	
 	local targettarget	= spawnHelper(self, 'targettarget')
 	targettarget:SetPoint("LEFT", target, "RIGHT", 25, 0)
 	
 	local focus = spawnHelper(self, 'focus')
-	focus:SetPoint("RIGHT", DarkuiFrame, "CENTER", -150, -100)
+	focus:SetPoint("RIGHT", DarkuiFrame, "CENTER", -xoffset, yoffset)
 	
 	local focustarget = spawnHelper(self, 'focustarget')
 	focustarget:SetPoint("RIGHT", focus, "LEFT", -25, 0)
