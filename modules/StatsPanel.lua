@@ -2,7 +2,7 @@ local D, S, E = unpack(select(2, ...))
 
 if S.stats.enable == false then return end
 
-local panel = CreateFrame("Frame", D.Addon.name .. "Statistics", DarkuiFrame)
+local panel = CreateFrame("Frame", D.Addon.name .. "Stats", DarkuiFrame)
 S.stats.panel = panel
 
 panel:SetPoint("BOTTOMRIGHT", DarkuiFrame, "BOTTOMRIGHT", 0, 0)
@@ -13,7 +13,7 @@ function panel:Add(name, index)
 
 	if index < 0 then return end
 	
-	local frame = CreateFrame("Frame", D.Addon.name .. "Statistics" .. name, panel)
+	local frame = CreateFrame("Frame", D.Addon.name .. "Stats" .. name, panel)
 	frame:SetSize(75, panel:GetHeight())
 	
 	if index == 0 then
