@@ -7,9 +7,15 @@ assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 local frameWidth = 240
 local frameWidthSmall = 132
 local healthHeight = 18
-local castHeight = 8
+local castHeight = 16
+local castOffset = -20
 local powerHeight = 5
 local buffHeight = 26
+
+
+if S.unitframes.floatingcastbars then
+	castOffset = 120
+end
 
 local function CheckInterrupt(self, unit)
 	if unit == "vehicle" then unit = "player" end
@@ -101,6 +107,22 @@ local function PostCreateAura(element, button)
 	button.Glow:SetBackdrop{edgeFile =  S["textures"].shadow, edgeSize = 3, insets = {left = 0, right = 0, top = 0, bottom = 0}}
 	button.Glow:SetBackdropColor(0, 0, 0, 0)
 	button.Glow:SetBackdropBorderColor(0, 0, 0)
+	
+end
+
+local function PostUpdateAura(icons, unit, icon, index, offset, filter, isDebuff, duration, timeLeft)
+	local _, _, _, _, dtype, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, icon.filter)
+
+	if(icon.debuff) then
+		if(not UnitIsFriend("player", unit) and icon.owner ~= "player" and icon.owner ~= "vehicle") then
+			--icon:SetBackdropBorderColor(unpack(C["media"].bordercolor))
+			icon.icon:SetDesaturated(true)
+		else
+			local color = DebuffTypeColor[dtype] or DebuffTypeColor.none
+			--icon:SetBackdropBorderColor(color.r * 0.6, color.g * 0.6, color.b * 0.6)
+			icon.icon:SetDesaturated(false)
+		end
+	end
 	
 end
 
@@ -315,8 +337,8 @@ local function Shared(self, unit)
 	
 	
 	local castbar = CreateFrame("StatusBar", nil, self)
-	castbar:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -20)
-	castbar:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -20)
+	castbar:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, castOffset)
+	castbar:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, castOffset)
 	castbar:SetHeight(castHeight)
 	
 	castbar:SetStatusBarTexture(S["textures"].normal)
@@ -361,6 +383,7 @@ local function Shared(self, unit)
 	buffs.initialAnchor = 'BOTTOMLEFT'
 	
 	buffs.PostCreateIcon = PostCreateAura
+	buffs.PostUpdateIcon = PostUpdateAura
 	self.Buffs = buffs
 	
 	local debuffs = CreateFrame("Frame", nil, self)
@@ -373,6 +396,7 @@ local function Shared(self, unit)
 	debuffs.initialAnchor = 'BOTTOMLEFT'
 	
 	debuffs.PostCreateIcon = PostCreateAura
+	debuffs.PostUpdateIcon = PostUpdateAura
 	self.Debuffs = debuffs
 	
 	CreateRaidIcon(self)
@@ -382,6 +406,10 @@ end
 local UnitSpecific = {
 	player = function(self, ...)
 		Shared(self, ...)
+		
+		self.Castbar:ClearAllPoints()
+		self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 100)
+		self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 100)
 		
 		self.Debuffs = self.Buffs
 		self.Buffs = nil
@@ -397,11 +425,20 @@ local UnitSpecific = {
 		
 	end,
 	
+	target = function(self, ...)
+		Shared(self, ...)
+			
+	end,
+	
 	targettarget = function(self, ...)
 		Shared(self, ...)
 		
 		self:SetWidth(frameWidthSmall)
-		self.Buffs.num = 5
+		self.Buffs  = nil
+		self.Debuffs = nil
+		
+		D.Kill(self.Castbar)
+		self.Castbar = nil
 	end,
 	
 	pet = function(self, ...)
@@ -409,6 +446,7 @@ local UnitSpecific = {
 		
 		self:SetWidth(frameWidthSmall)
 		self.Buffs.num = 5
+		self.Debuffs.num = 5
 		
 		self:RegisterEvent("UNIT_PET", function(frame)
 		
@@ -429,6 +467,7 @@ local UnitSpecific = {
 	end,
 }
 UnitSpecific.focustarget = UnitSpecific.targettarget
+UnitSpecific.focus = UnitSpecific.target
 
 oUF:RegisterStyle(D.Addon.name, Shared)
 for unit,layout in next, UnitSpecific do
@@ -452,24 +491,24 @@ end
 oUF:Factory(function(self)
 	
 	local xoffset = 250
-	local yoffset = -150
+	local yoffset = 100
 	
 	
 	local player = spawnHelper(self, 'player')
-	player:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, -250)
+	player:SetPoint("BOTTOM", DarkuiFrame, "BOTTOM", 0, 150)
 	
 	local pet = spawnHelper(self, 'pet')
 	pet:SetPoint("RIGHT", player, "LEFT", -25, 0)
 	
 	local target = spawnHelper(self, 'target')
-	target:SetPoint("LEFT", DarkuiFrame, "CENTER", xoffset, yoffset)
+	target:SetPoint("LEFT", player, "CENTER", xoffset, yoffset)
 	
 	local targettarget	= spawnHelper(self, 'targettarget')
 	targettarget:SetPoint("LEFT", target, "RIGHT", 25, 0)
 	
 	local focus = spawnHelper(self, 'focus')
-	focus:SetPoint("RIGHT", DarkuiFrame, "CENTER", -xoffset, yoffset)
-	
+	focus:SetPoint("RIGHT", player, "CENTER", -xoffset, yoffset)
+
 	local focustarget = spawnHelper(self, 'focustarget')
 	focustarget:SetPoint("RIGHT", focus, "LEFT", -25, 0)
 	

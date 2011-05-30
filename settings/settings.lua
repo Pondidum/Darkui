@@ -31,6 +31,11 @@ S["stats"] = {
 	["fps"] = 2,
 }
 
+S["unitframes"] = {
+	["floatingcastbars"] = true,
+}
+
+
 
 ---Move to MEDIA file:
 S["textures"] = {
