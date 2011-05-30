@@ -28,6 +28,7 @@ S["stats"] = {
 	["fontsize"] = 10,
 	["durability"] = 0,
 	["memory"] = 1,
+	["fps"] = 2,
 }
 
 
