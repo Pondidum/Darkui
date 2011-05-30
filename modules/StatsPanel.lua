@@ -29,6 +29,8 @@ function panel:Add(name, index)
 	
 	panel.frames[index] = frame
 	
+	panel:SetWidth((#panel.frames + 1) * (75 + 5))
+	
 	return frame
 	
 end
