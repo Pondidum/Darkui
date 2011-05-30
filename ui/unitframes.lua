@@ -75,7 +75,7 @@ end
 
 local function PostCreateAura(element, button)
 	
-	button.remaining = D.CreateFontString(button, S["fonts"].normal, 8, "THINOUTLINE")
+	button.remaining = D.CreateFontString(button, S.fonts.unitframe, 8, "THINOUTLINE")
 	button.remaining:SetPoint("CENTER", 1, 0)
 	
 	button.icon:SetPoint("TOPLEFT", 2, -2)
@@ -85,7 +85,7 @@ local function PostCreateAura(element, button)
 	
 	button.count:SetPoint("BOTTOMRIGHT", 3, 3)
 	button.count:SetJustifyH("RIGHT")
-	button.count:SetFont(S["fonts"].normal, 9, "THICKOUTLINE")
+	button.count:SetFont(S.fonts.unitframe, 9, "THICKOUTLINE")
 	button.count:SetTextColor(0.84, 0.75, 0.65)
 	
 	button.overlayFrame = CreateFrame("frame", nil, button, nil)
@@ -271,7 +271,7 @@ local function Shared(self, unit)
 	healthBG.multiplier = 0.3
 	health.bg = healthBG
 	
-	local healthValue = D.CreateFontString(health, S["fonts"].normal, 12)
+	local healthValue = D.CreateFontString(health, S.fonts.unitframe, 12)
 	healthValue:SetPoint("RIGHT", health, "RIGHT", -4, 0)
 	healthValue.frequentUpdates = true
 	
@@ -280,7 +280,7 @@ local function Shared(self, unit)
 	self.Health = health
 	
 	
-	local name =  D.CreateFontString(health, S["fonts"].normal, 12, "OUTLINE")
+	local name =  D.CreateFontString(health, S.fonts.unitframe, 12, "OUTLINE")
 	name:SetPoint("LEFT", health, "LEFT", 4, 0)
 	name:SetTextColor(1, 1, 1)
 	name:SetJustifyH("LEFT")
@@ -326,11 +326,11 @@ local function Shared(self, unit)
 	castbar.PostCastStart = CheckCast
 	castbar.PostChannelStart = CheckChannel
 	
-	castbar.Text = D.CreateFontString(castbar, S["fonts"].normal, 12)
+	castbar.Text = D.CreateFontString(castbar, S.fonts.unitframe, 12)
 	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 	castbar.Text:SetTextColor(1, 1, 1)
 	
-	castbar.Time = D.CreateFontString(castbar, S["fonts"].normal, 12)
+	castbar.Time = D.CreateFontString(castbar, S.fonts.unitframe, 12)
 	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
 	castbar.Time:SetTextColor(0.8, 0.8, 0.8)
 	castbar.Time:SetJustifyH("RIGHT")

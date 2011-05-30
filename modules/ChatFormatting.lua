@@ -29,19 +29,24 @@ local function DarkAddMessage(frame, text, ...)
   if not text then
     return
   end
-  text = tostring(text)
-
+  
+  -- for k,v in pairs(S.chat.aliases) do 
+    -- text = text:gsub("|h%[%d%. "..k.."%]|h", "|h["..v.."]|h")
+  -- end
+  
   return originals[frame](frame, text, ...)
+  
+end
 
-  end
 
 for i = 1, NUM_CHAT_WINDOWS do
 
 	local frame = _G[format("ChatFrame%s", i)]
 	
-	originals[frame] = frame.AddMessage
-	frame.AddMessage = DarkAddMessage
-	
+	if frame ~= COMBATLOG then
+		originals[frame] = frame.AddMessage
+		frame.AddMessage = DarkAddMessage
+	end
 end
       
       

@@ -14,9 +14,20 @@ S["chat"] = {
 	["editheight"] = 15,
 	["urlcolor"] = "16FF5D",
 	["enablefading"] = true,
-	["fadetime"] = 10,
+	["fadetime"] = 20,
+	["aliases"] = {
+		["slapraidlead"] = "SRL",
+		["slapcaster"] = "SC",
+		["slaphealer"] = "SH",
+		["slapdk"] = "DK",
+	}
 }
 
+S["stats"] = {
+	["enable"] = true,
+	["fontsize"] = 10,
+	["durability"] = 0,
+}
 
 
 ---Move to MEDIA file:
@@ -28,7 +39,8 @@ S["textures"] = {
 }
 
 S["fonts"] = {
-	["normal"] = [[Interface\AddOns\Darkui\media\fonts\BigNoodleTitling.ttf]]
+	["unitframe"] = [[Interface\AddOns\Darkui\media\fonts\BigNoodleTitling.ttf]],
+	["normal"] = [[Interface\AddOns\Darkui\media\fonts\Santana-Bold.ttf]],
 }
 
 ---Move to COLORS file
