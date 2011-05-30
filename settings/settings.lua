@@ -27,6 +27,7 @@ S["stats"] = {
 	["enable"] = true,
 	["fontsize"] = 10,
 	["durability"] = 0,
+	["memory"] = 1,
 }
 
 
