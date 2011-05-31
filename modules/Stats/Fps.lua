@@ -3,14 +3,16 @@ local D, S, E = unpack(select(2, ...))
 if S.stats.enable == false or S.stats.fps < 0 then return end 
 
 local frame = S.stats.panel:Add("Fps", S.stats.fps)
-local threshhold = 1
+local DEFAULT_THREASHOLD = 10
+local threshold = DEFAULT_THREASHOLD
 
 local function GetData()
 	
-	threshhold = threshhold - 1
-	if threshhold < 0 then
+	threshold = threshold - 1
+	
+	if threshold < 0 then
 		frame.text:SetText(floor(GetFramerate()) .. "FPS")
-		threshhold = 1
+		threshold = DEFAULT_THREASHOLD
 	end
 	
 end

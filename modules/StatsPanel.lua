@@ -5,7 +5,7 @@ if S.stats.enable == false then return end
 local panel = CreateFrame("Frame", D.Addon.name .. "Stats", DarkuiFrame)
 S.stats.panel = panel
 
-panel:SetPoint("BOTTOMRIGHT", DarkuiFrame, "BOTTOMRIGHT", 0, 0)
+panel:SetPoint("BOTTOMRIGHT", DarkuiFrame, "BOTTOMRIGHT", 0, 15)
 panel:SetSize(S.chat.width, S.chat.editheight)
 panel.frames = {}
 
@@ -23,7 +23,7 @@ function panel:Add(name, index)
 	end
 	
 	local text = frame:CreateFontString(nil, "OVERLAY")
-	text:SetFont(S.fonts.normal, S.stats.fontsize)
+	text:SetFont(S.fonts.normal, S.stats.fontsize, "OUTLINE")
 	text:SetAllPoints(frame)
 	frame.text = text
 	

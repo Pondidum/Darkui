@@ -8,6 +8,9 @@ local memoryTable = {}
 local kiloByteString = "%d kb"
 local megaByteString = "%.2f mb"
 
+local DEFAULT_THREASHOLD = 10
+local threshold = DEFAULT_THREASHOLD
+
 local function FormatMemory(memory)
 	local mult = 10^1
 	if memory > 999 then
@@ -58,14 +61,20 @@ local function UpdateMemory()
 	
 end
 
-local threashold = 5
 
 local function GetData()
 
-	BuildAddonList()
-	local memory = UpdateMemory()
+
+	threshold = threshold - 1
 	
-	frame.text:SetText(FormatMemory(memory))
+	if threshold < 0 then
+	
+		BuildAddonList()
+		frame.text:SetText(FormatMemory(UpdateMemory()))
+		
+		threshold = DEFAULT_THREASHOLD
+	end
+	
 end
 
 
