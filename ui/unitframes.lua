@@ -259,6 +259,40 @@ local function CreateRaidIcon(self)
 	
 end
 
+local function CreateComboPoints(self)
+	
+	local spacing = 4
+	local numberOfPoints = 5
+	local totalSpacing = (numberOfPoints - 1) * spacing 
+	local pointWidth = (self:GetWidth()  - totalSpacing) / numberOfPoints
+	
+	
+	local points = {}
+	points.unit = PlayerFrame.unit
+	
+	for i = 1, numberOfPoints do
+	
+		points[i] = CreateFrame("Frame", nil, self)
+		points[i]:SetHeight(8)
+		points[i]:SetWidth(pointWidth)
+
+		D.CreateBackground(points[i])
+		D.CreateShadow(points[i], "Default")
+	
+		points[i].bg:SetBackdropColor(0.65, 0.63, 0.35, 0.6)
+		if i == 1 then
+			points[i]:SetPoint("TOPLEFT", self.Castbar, "BOTTOMLEFT", 0, -5)
+		else
+			points[i]:SetPoint("LEFT", points[i-1], "RIGHT", spacing, 0)
+		end
+		
+	end
+	
+	self.CPoints = points
+	
+end
+
+
 local function Shared(self, unit)
 
 	self:RegisterForClicks("AnyUp")
@@ -414,6 +448,7 @@ local UnitSpecific = {
 		self.Debuffs = self.Buffs
 		self.Buffs = nil
 		
+		CreateComboPoints(self)
 		CreateCombatIndicator(self)
 		CreateLeaderAndMasterLooter(self)
 		
@@ -468,6 +503,8 @@ local UnitSpecific = {
 }
 UnitSpecific.focustarget = UnitSpecific.targettarget
 UnitSpecific.focus = UnitSpecific.target
+
+
 
 oUF:RegisterStyle(D.Addon.name, Shared)
 for unit,layout in next, UnitSpecific do
