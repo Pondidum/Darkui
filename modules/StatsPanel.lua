@@ -2,6 +2,9 @@ local D, S, E = unpack(select(2, ...))
 
 if S.stats.enable == false then return end
 
+local FRAME_WIDTH = 75
+local FRAME_SPACING = 5
+
 local panel = CreateFrame("Frame", D.Addon.name .. "Stats", DarkuiFrame)
 S.stats.panel = panel
 
@@ -14,12 +17,12 @@ function panel:Add(name, index)
 	if index < 0 then return end
 	
 	local frame = CreateFrame("Frame", D.Addon.name .. "Stats" .. name, panel)
-	frame:SetSize(75, panel:GetHeight())
+	frame:SetSize(FRAME_WIDTH, panel:GetHeight())
 	
 	if index == 0 then
 		frame:SetPoint("LEFT", panel, "LEFT")
 	else
-		frame:SetPoint("LEFT", panel.frames[index-1], "RIGHT", 5, 0)
+		frame:SetPoint("LEFT", panel.frames[index-1], "RIGHT", FRAME_SPACING, 0)
 	end
 	
 	local text = frame:CreateFontString(nil, "OVERLAY")
@@ -29,7 +32,7 @@ function panel:Add(name, index)
 	
 	panel.frames[index] = frame
 	
-	panel:SetWidth((#panel.frames + 1) * (75 + 5))
+	panel:SetWidth((#panel.frames + 1) * (FRAME_WIDTH + FRAME_SPACING))
 	
 	return frame
 	
