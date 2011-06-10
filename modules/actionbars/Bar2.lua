@@ -25,6 +25,7 @@ for i=1, 12 do
 	else
 		b:SetPoint("LEFT", b2, "RIGHT", S.actionbars.buttonspacing, 0)
 	end
+	
 end
 
 for i=7, 12 do

@@ -19,8 +19,6 @@
 	<Script file="modules\actionbars\Bar3.lua" />
 	<Script file="modules\actionbars\Bar4.lua" />
 	<Script file="modules\actionbars\Bar5.lua" />
-	<Script file="modules\actionbars\Bar6.lua" />
-	<Script file="modules\actionbars\Bar7.lua" />
 	<Script file="modules\actionbars\BarPet.lua" />
 	<Script file="modules\actionbars\Bars.lua" />
 	<Script file="modules\actionbars\BarShift.lua" />

@@ -2,6 +2,11 @@ local D, S, E = unpack(select(2, ...))
 
 if not S.actionbars.enable == true then return end
 
+D.Kill(InterfaceOptionsActionBarsPanelBottomLeft)
+D.Kill(InterfaceOptionsActionBarsPanelBottomRight)
+D.Kill(InterfaceOptionsActionBarsPanelRight)
+D.Kill(InterfaceOptionsActionBarsPanelRightTwo)
+D.Kill(InterfaceOptionsActionBarsPanelAlwaysShowActionBars)
 
 local DarkuiBar1 = CreateFrame("Frame", "DarkuiBar1", UIParent, "SecureHandlerStateTemplate")
 DarkuiBar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 14)
