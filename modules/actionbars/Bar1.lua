@@ -8,7 +8,7 @@ if not S.actionbars.enable == true then return end
 -- Since t12, it's also working for druid cat stealth. (a lot requested)
 ---------------------------------------------------------------------------
 
-local bar = TukuiBar1
+local bar = DarkuiBar1
 --[[ 
 	Bonus bar classes id
 

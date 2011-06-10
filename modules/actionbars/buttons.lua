@@ -10,12 +10,12 @@ local function ShowOrHideBar(bar, button)
 		bar:Hide()
 
 		-- for bar 2�+3�+4, high reso only
-		if bar == TukuiBar4 then
-			TukuiBar1:SetHeight((S.actionbars.buttonsize * 1) + (S.actionbars.buttonspacing * 2))
-			TukuiBar2:SetHeight(TukuiBar1:GetHeight())
-			TukuiBar3:SetHeight(TukuiBar1:GetHeight())
-			TukuiBar2Button:SetHeight(TukuiBar1:GetHeight())
-			TukuiBar3Button:SetHeight(TukuiBar1:GetHeight())
+		if bar == DarkuiBar4 then
+			DarkuiBar1:SetHeight((S.actionbars.buttonsize * 1) + (S.actionbars.buttonspacing * 2))
+			DarkuiBar2:SetHeight(DarkuiBar1:GetHeight())
+			DarkuiBar3:SetHeight(DarkuiBar1:GetHeight())
+			DarkuiBar2Button:SetHeight(DarkuiBar1:GetHeight())
+			DarkuiBar3Button:SetHeight(DarkuiBar1:GetHeight())
 		
 			for i = 7, 12 do
 				local left = _G["MultiBarBottomLeftButton"..i]
@@ -29,12 +29,12 @@ local function ShowOrHideBar(bar, button)
 		bar:Show()
 		
 		-- for bar 2�+3�+4, high reso only
-		if bar == TukuiBar4 then
-			TukuiBar1:SetHeight((S.actionbars.buttonsize * 2) + (S.actionbars.buttonspacing * 3))
-			TukuiBar2:SetHeight(TukuiBar4:GetHeight())
-			TukuiBar3:SetHeight(TukuiBar4:GetHeight())
-			TukuiBar2Button:SetHeight(TukuiBar2:GetHeight())
-			TukuiBar3Button:SetHeight(TukuiBar3:GetHeight())
+		if bar == DarkuiBar4 then
+			DarkuiBar1:SetHeight((S.actionbars.buttonsize * 2) + (S.actionbars.buttonspacing * 3))
+			DarkuiBar2:SetHeight(DarkuiBar4:GetHeight())
+			DarkuiBar3:SetHeight(DarkuiBar4:GetHeight())
+			DarkuiBar2Button:SetHeight(DarkuiBar2:GetHeight())
+			DarkuiBar3Button:SetHeight(DarkuiBar3:GetHeight())
 			
 			for i = 7, 12 do
 				local left = _G["MultiBarBottomLeftButton"..i]
@@ -50,35 +50,35 @@ end
 local function MoveButtonBar(button, bar)
 	local db = TukuiDataPerChar
 	
-	if button == TukuiBar2Button then
+	if button == DarkuiBar2Button then
 		if bar:IsShown() then
 			db.hidebar2 = false
 			button:ClearAllPoints()
-			button:Point("BOTTOMRIGHT", TukuiBar2, "BOTTOMLEFT", -2, 0)
+			button:Point("BOTTOMRIGHT", DarkuiBar2, "BOTTOMLEFT", -2, 0)
 			button.text:SetText("|cff4BAF4C>|r")
 		else
 			db.hidebar2 = true
 			button:ClearAllPoints()
-			button:Point("BOTTOMRIGHT", TukuiBar1, "BOTTOMLEFT", -2, 0)
+			button:Point("BOTTOMRIGHT", DarkuiBar1, "BOTTOMLEFT", -2, 0)
 			button.text:SetText("|cff4BAF4C<|r")
 		end
 	end
 	
-	if button == TukuiBar3Button then
+	if button == DarkuiBar3Button then
 		if bar:IsShown() then
 			db.hidebar3 = false
 			button:ClearAllPoints()
-			button:Point("BOTTOMLEFT", TukuiBar3, "BOTTOMRIGHT", 2, 0)
+			button:Point("BOTTOMLEFT", DarkuiBar3, "BOTTOMRIGHT", 2, 0)
 			button.text:SetText("|cff4BAF4C<|r")
 		else
 			db.hidebar3 = true
 			button:ClearAllPoints()
-			button:Point("BOTTOMLEFT", TukuiBar1, "BOTTOMRIGHT", 2, 0)
+			button:Point("BOTTOMLEFT", DarkuiBar1, "BOTTOMRIGHT", 2, 0)
 			button.text:SetText("|cff4BAF4C>|r")
 		end
 	end
 
-	if button == TukuiBar4Button then
+	if button == DarkuiBar4Button then
 		if bar:IsShown() then
 			db.hidebar4 = false
 			button.text:SetText("|cff4BAF4C- - - - - -|r")
@@ -88,9 +88,9 @@ local function MoveButtonBar(button, bar)
 		end
 	end
 	
-	if button == TukuiBar5ButtonTop or button == TukuiBar5ButtonBottom then		
-		local buttontop = TukuiBar5ButtonTop
-		local buttonbot = TukuiBar5ButtonBottom
+	if button == DarkuiBar5ButtonTop or button == DarkuiBar5ButtonBottom then		
+		local buttontop = DarkuiBar5ButtonTop
+		local buttonbot = DarkuiBar5ButtonBottom
 		if bar:IsShown() then
 			db.hidebar5 = false
 			buttontop:ClearAllPoints()
@@ -104,23 +104,23 @@ local function MoveButtonBar(button, bar)
 			buttonbot.text:SetText("|cff4BAF4C>|r")
 				
 			-- move the pet
-			TukuiPetBar:ClearAllPoints()
-			TukuiPetBar:Point("RIGHT", bar, "LEFT", -6, 0)		
+			DarkuiBarPet:ClearAllPoints()
+			DarkuiBarPet:Point("RIGHT", bar, "LEFT", -6, 0)		
 		else
 			db.hidebar5 = true
 			buttonbot:ClearAllPoints()
-			buttonbot:SetSize(TukuiLineToPetActionBarBackground:GetWidth(), TukuiLineToPetActionBarBackground:GetHeight())
-			buttonbot:Point("LEFT", TukuiPetBar, "RIGHT", 2, 0)
+			buttonbot:SetSize(23, 265)
+			buttonbot:Point("LEFT", DarkuiBarPet, "RIGHT", 2, 0)
 			buttonbot.text:SetText("|cff4BAF4C<|r")
 			
 			buttontop:ClearAllPoints()
-			buttontop:SetSize(TukuiLineToPetActionBarBackground:GetWidth(), TukuiLineToPetActionBarBackground:GetHeight())
-			buttontop:Point("LEFT", TukuiPetBar, "RIGHT", 2, 0)
+			buttontop:SetSize(23, 265)
+			buttontop:Point("LEFT", DarkuiBarPet, "RIGHT", 2, 0)
 			buttontop.text:SetText("|cff4BAF4C<|r")
 			
 			-- move the pet
-			TukuiPetBar:ClearAllPoints()
-			TukuiPetBar:Point("RIGHT", UIParent, "RIGHT", -23, -14)
+			DarkuiBarPet:ClearAllPoints()
+			DarkuiBarPet:Point("RIGHT", UIParent, "RIGHT", -23, -14)
 		end	
 	end
 end
@@ -135,83 +135,83 @@ local function DrPepper(self, bar) -- guess what! :P
 	MoveButtonBar(button, bar)
 end
 
-local TukuiBar2Button = CreateFrame("Button", "TukuiBar2Button", UIParent)
-TukuiBar2Button:Width(17)
-TukuiBar2Button:SetHeight(TukuiBar2:GetHeight())
-TukuiBar2Button:Point("BOTTOMRIGHT", TukuiBar2, "BOTTOMLEFT", -2, 0)
-TukuiBar2Button:SetTemplate("Default")
-TukuiBar2Button:RegisterForClicks("AnyUp")
-TukuiBar2Button:SetAlpha(0)
-TukuiBar2Button:SetScript("OnClick", function(self) DrPepper(self, TukuiBar2) end)
-TukuiBar2Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-TukuiBar2Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-TukuiBar2Button.text = D.CreateFontString(TukuiBar2Button, C.media.uffont, 20)
-TukuiBar2Button.text:Point("CENTER", 1, 1)
-TukuiBar2Button.text:SetText("|cff4BAF4C>|r")
+local DarkuiBar2Button = CreateFrame("Button", "DarkuiBar2Button", UIParent)
+DarkuiBar2Button:Width(17)
+DarkuiBar2Button:SetHeight(DarkuiBar2:GetHeight())
+DarkuiBar2Button:Point("BOTTOMRIGHT", DarkuiBar2, "BOTTOMLEFT", -2, 0)
+DarkuiBar2Button:SetTemplate("Default")
+DarkuiBar2Button:RegisterForClicks("AnyUp")
+DarkuiBar2Button:SetAlpha(0)
+DarkuiBar2Button:SetScript("OnClick", function(self) DrPepper(self, DarkuiBar2) end)
+DarkuiBar2Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
+DarkuiBar2Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
+DarkuiBar2Button.text = D.CreateFontString(DarkuiBar2Button, C.media.uffont, 20)
+DarkuiBar2Button.text:Point("CENTER", 1, 1)
+DarkuiBar2Button.text:SetText("|cff4BAF4C>|r")
 
-local TukuiBar3Button = CreateFrame("Button", "TukuiBar3Button", UIParent)
-TukuiBar3Button:Width(17)
-TukuiBar3Button:SetHeight(TukuiBar3:GetHeight())
-TukuiBar3Button:Point("BOTTOMLEFT", TukuiBar3, "BOTTOMRIGHT", 2, 0)
+local DarkuiBar3Button = CreateFrame("Button", "DarkuiBar3Button", UIParent)
+DarkuiBar3Button:Width(17)
+DarkuiBar3Button:SetHeight(DarkuiBar3:GetHeight())
+DarkuiBar3Button:Point("BOTTOMLEFT", DarkuiBar3, "BOTTOMRIGHT", 2, 0)
 
-TukuiBar3Button:SetTemplate("Default")
-TukuiBar3Button:RegisterForClicks("AnyUp")
-TukuiBar3Button:SetAlpha(0)
-TukuiBar3Button:SetScript("OnClick", function(self) DrPepper(self, TukuiBar3) end)
-TukuiBar3Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-TukuiBar3Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-TukuiBar3Button.text = D.CreateFontString(TukuiBar3Button, C.media.uffont, 20)
-TukuiBar3Button.text:Point("CENTER", 1, 1)
-TukuiBar3Button.text:SetText("|cff4BAF4C<|r")
+DarkuiBar3Button:SetTemplate("Default")
+DarkuiBar3Button:RegisterForClicks("AnyUp")
+DarkuiBar3Button:SetAlpha(0)
+DarkuiBar3Button:SetScript("OnClick", function(self) DrPepper(self, DarkuiBar3) end)
+DarkuiBar3Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
+DarkuiBar3Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
+DarkuiBar3Button.text = D.CreateFontString(DarkuiBar3Button, C.media.uffont, 20)
+DarkuiBar3Button.text:Point("CENTER", 1, 1)
+DarkuiBar3Button.text:SetText("|cff4BAF4C<|r")
 
-local TukuiBar4Button = CreateFrame("Button", "TukuiBar4Button", UIParent)
-TukuiBar4Button:SetWidth(TukuiBar1:GetWidth())
-TukuiBar4Button:Height(10)
-TukuiBar4Button:Point("TOP", TukuiBar1, "BOTTOM", 0, -2)
-TukuiBar4Button:SetTemplate("Default")
-TukuiBar4Button:RegisterForClicks("AnyUp")
-TukuiBar4Button:SetAlpha(0)
-TukuiBar4Button:SetScript("OnClick", function(self) DrPepper(self, TukuiBar4) end)
-TukuiBar4Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-TukuiBar4Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-TukuiBar4Button.text = D.CreateFontString(TukuiBar4Button, C.media.uffont, 30)
-TukuiBar4Button.text:SetPoint("CENTER", 0, 0)
-TukuiBar4Button.text:SetText("|cff4BAF4C- - - - - -|r")
+local DarkuiBar4Button = CreateFrame("Button", "DarkuiBar4Button", UIParent)
+DarkuiBar4Button:SetWidth(DarkuiBar1:GetWidth())
+DarkuiBar4Button:Height(10)
+DarkuiBar4Button:Point("TOP", DarkuiBar1, "BOTTOM", 0, -2)
+DarkuiBar4Button:SetTemplate("Default")
+DarkuiBar4Button:RegisterForClicks("AnyUp")
+DarkuiBar4Button:SetAlpha(0)
+DarkuiBar4Button:SetScript("OnClick", function(self) DrPepper(self, DarkuiBar4) end)
+DarkuiBar4Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
+DarkuiBar4Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
+DarkuiBar4Button.text = D.CreateFontString(DarkuiBar4Button, C.media.uffont, 30)
+DarkuiBar4Button.text:SetPoint("CENTER", 0, 0)
+DarkuiBar4Button.text:SetText("|cff4BAF4C- - - - - -|r")
 
-local TukuiBar5ButtonTop = CreateFrame("Button", "TukuiBar5ButtonTop", UIParent)
-TukuiBar5ButtonTop:SetWidth(TukuiBar5:GetWidth())
-TukuiBar5ButtonTop:Height(17)
-TukuiBar5ButtonTop:Point("BOTTOM", TukuiBar5, "TOP", 0, 2)
-TukuiBar5ButtonTop:SetTemplate("Default")
-TukuiBar5ButtonTop:RegisterForClicks("AnyUp")
-TukuiBar5ButtonTop:SetAlpha(0)
-TukuiBar5ButtonTop:SetScript("OnClick", function(self) DrPepper(self, TukuiBar5) end)
-TukuiBar5ButtonTop:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-TukuiBar5ButtonTop:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-TukuiBar5ButtonTop.text = D.CreateFontString(TukuiBar5ButtonTop, C.media.uffont, 20)
-TukuiBar5ButtonTop.text:Point("CENTER", 1, 1)
-TukuiBar5ButtonTop.text:SetText("|cff4BAF4C>|r")
+local DarkuiBar5ButtonTop = CreateFrame("Button", "DarkuiBar5ButtonTop", UIParent)
+DarkuiBar5ButtonTop:SetWidth(DarkuiBar5:GetWidth())
+DarkuiBar5ButtonTop:Height(17)
+DarkuiBar5ButtonTop:Point("BOTTOM", DarkuiBar5, "TOP", 0, 2)
+DarkuiBar5ButtonTop:SetTemplate("Default")
+DarkuiBar5ButtonTop:RegisterForClicks("AnyUp")
+DarkuiBar5ButtonTop:SetAlpha(0)
+DarkuiBar5ButtonTop:SetScript("OnClick", function(self) DrPepper(self, DarkuiBar5) end)
+DarkuiBar5ButtonTop:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
+DarkuiBar5ButtonTop:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
+DarkuiBar5ButtonTop.text = D.CreateFontString(DarkuiBar5ButtonTop, C.media.uffont, 20)
+DarkuiBar5ButtonTop.text:Point("CENTER", 1, 1)
+DarkuiBar5ButtonTop.text:SetText("|cff4BAF4C>|r")
 
-local TukuiBar5ButtonBottom = CreateFrame("Button", "TukuiBar5ButtonBottom", UIParent)
-TukuiBar5ButtonBottom:SetFrameLevel(TukuiBar5ButtonTop:GetFrameLevel() + 1)
-TukuiBar5ButtonBottom:SetWidth(TukuiBar5:GetWidth())
-TukuiBar5ButtonBottom:Height(17)
-TukuiBar5ButtonBottom:Point("TOP", TukuiBar5, "BOTTOM", 0, -2)
-TukuiBar5ButtonBottom:SetTemplate("Default")
-TukuiBar5ButtonBottom:RegisterForClicks("AnyUp")
-TukuiBar5ButtonBottom:SetAlpha(0)
-TukuiBar5ButtonBottom:SetScript("OnClick", function(self) DrPepper(self, TukuiBar5) end)
-TukuiBar5ButtonBottom:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-TukuiBar5ButtonBottom:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-TukuiBar5ButtonBottom.text = D.CreateFontString(TukuiBar5ButtonBottom, C.media.uffont, 20)
-TukuiBar5ButtonBottom.text:Point("CENTER", 1, 1)
-TukuiBar5ButtonBottom.text:SetText("|cff4BAF4C>|r")
+local DarkuiBar5ButtonBottom = CreateFrame("Button", "DarkuiBar5ButtonBottom", UIParent)
+DarkuiBar5ButtonBottom:SetFrameLevel(DarkuiBar5ButtonTop:GetFrameLevel() + 1)
+DarkuiBar5ButtonBottom:SetWidth(DarkuiBar5:GetWidth())
+DarkuiBar5ButtonBottom:Height(17)
+DarkuiBar5ButtonBottom:Point("TOP", DarkuiBar5, "BOTTOM", 0, -2)
+DarkuiBar5ButtonBottom:SetTemplate("Default")
+DarkuiBar5ButtonBottom:RegisterForClicks("AnyUp")
+DarkuiBar5ButtonBottom:SetAlpha(0)
+DarkuiBar5ButtonBottom:SetScript("OnClick", function(self) DrPepper(self, DarkuiBar5) end)
+DarkuiBar5ButtonBottom:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
+DarkuiBar5ButtonBottom:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
+DarkuiBar5ButtonBottom.text = D.CreateFontString(DarkuiBar5ButtonBottom, C.media.uffont, 20)
+DarkuiBar5ButtonBottom.text:Point("CENTER", 1, 1)
+DarkuiBar5ButtonBottom.text:SetText("|cff4BAF4C>|r")
 
 -- exit vehicle button on left side of bottom action bar
 local vehicleleft = CreateFrame("Button", "TukuiExitVehicleButtonLeft", UIParent, "SecureHandlerClickTemplate")
-vehicleleft:SetAllPoints(TukuiBar2Button)
-vehicleleft:SetFrameStrata(TukuiBar2Button:GetFrameStrata())
-vehicleleft:SetFrameLevel(TukuiBar2Button:GetFrameLevel() + 1)
+vehicleleft:SetAllPoints(DarkuiBar2Button)
+vehicleleft:SetFrameStrata(DarkuiBar2Button:GetFrameStrata())
+vehicleleft:SetFrameLevel(DarkuiBar2Button:GetFrameLevel() + 1)
 vehicleleft:SetTemplate("Default")
 vehicleleft:SetBackdropBorderColor(75/255,  175/255, 76/255)
 vehicleleft:RegisterForClicks("AnyUp")
@@ -223,10 +223,10 @@ RegisterStateDriver(vehicleleft, "visibility", "[target=vehicle,exists] show;hid
 
 -- exit vehicle button on right side of bottom action bar
 local vehicleright = CreateFrame("Button", "TukuiExitVehicleButtonRight", UIParent, "SecureHandlerClickTemplate")
-vehicleright:SetAllPoints(TukuiBar3Button)
+vehicleright:SetAllPoints(DarkuiBar3Button)
 vehicleright:SetTemplate("Default")
-vehicleright:SetFrameStrata(TukuiBar3Button:GetFrameStrata())
-vehicleright:SetFrameLevel(TukuiBar3Button:GetFrameLevel() + 1)
+vehicleright:SetFrameStrata(DarkuiBar3Button:GetFrameStrata())
+vehicleright:SetFrameLevel(DarkuiBar3Button:GetFrameLevel() + 1)
 vehicleright:SetBackdropBorderColor(75/255,  175/255, 76/255)
 vehicleright:RegisterForClicks("AnyUp")
 vehicleright:SetScript("OnClick", function() VehicleExit() end)
@@ -246,18 +246,18 @@ init:SetScript("OnEvent", function(self, event)
 	local db = TukuiDataPerChar
 	
 	if db.hidebar2 then 
-		DrPepper(TukuiBar2Button, TukuiBar2)
+		DrPepper(DarkuiBar2Button, DarkuiBar2)
 	end
 	
 	if db.hidebar3 then
-		DrPepper(TukuiBar3Button, TukuiBar3)
+		DrPepper(DarkuiBar3Button, DarkuiBar3)
 	end
 	
 	if db.hidebar4 then
-		DrPepper(TukuiBar4Button, TukuiBar4)
+		DrPepper(DarkuiBar4Button, DarkuiBar4)
 	end
 	
 	if db.hidebar5 then
-		DrPepper(TukuiBar5ButtonTop, TukuiBar5)
+		DrPepper(DarkuiBar5ButtonTop, DarkuiBar5)
 	end
 end)

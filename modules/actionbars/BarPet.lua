@@ -85,10 +85,8 @@ local function PetBarUpdate(self, event)
 	end
 end
 
-local bar = TukuiPetBar
-local link = TukuiLineToPetActionBarBackground
+local bar = DarkuiBarPet
 bar:SetAlpha(1)
-link:SetAlpha(.8)
 	
 bar:RegisterEvent("PLAYER_LOGIN")
 bar:RegisterEvent("PLAYER_CONTROL_LOST")
@@ -112,7 +110,7 @@ bar:SetScript("OnEvent", function(self, event, arg1)
 		for i = 1, 10 do
 			button = _G["PetActionButton"..i]
 			button:ClearAllPoints()
-			button:SetParent(TukuiPetBar)
+			button:SetParent(DarkuiBarPet)
 
 			button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
 			if i == 1 then

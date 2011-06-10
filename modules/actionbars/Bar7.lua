@@ -2,7 +2,7 @@ local D, S, E = unpack(select(2, ...))
 
 if not S.actionbars.enable == true then return end
 
-local bar = TukuiBar7
+local bar = DarkuiBar7
 bar:SetAlpha(1)
 MultiBarBottomRight:SetParent(bar)
 

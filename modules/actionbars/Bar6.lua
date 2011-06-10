@@ -2,9 +2,9 @@ local D, S, E = unpack(select(2, ...))
 
 if not S.actionbars.enable == true then return end
 
-TukuiBar5:SetWidth((S.actionbars.buttonsize * 3) + (S.actionbars.buttonspacing * 4))
+DarkuiBar5:SetWidth((S.actionbars.buttonsize * 3) + (S.actionbars.buttonspacing * 4))
 
-local bar = TukuiBar6
+local bar = DarkuiBar6
 bar:SetAlpha(1)
 MultiBarBottomLeft:SetParent(bar)
 

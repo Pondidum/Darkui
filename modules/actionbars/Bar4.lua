@@ -6,7 +6,7 @@ if not S.actionbars.enable == true then return end
 -- setup MultiBarRight as bar #4
 ---------------------------------------------------------------------------
 
-local bar = TukuiBar4
+local bar = DarkuiBar4
 bar:SetAlpha(1)
 MultiBarLeft:SetParent(bar)
 

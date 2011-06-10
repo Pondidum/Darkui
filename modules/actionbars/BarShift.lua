@@ -47,7 +47,7 @@ end
 
 -- used for anchor totembar or shapeshiftbar
 local TukuiShift = CreateFrame("Frame","TukuiShiftBar",UIParent)
-TukuiShift:SetPoint("BOTTOMLEFT", TukuiBar2, "TOPLEFT", 0, 0)
+TukuiShift:SetPoint("BOTTOMLEFT", DarkuiBar2, "TOPLEFT", 0, 0)
 TukuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
 TukuiShift:SetHeight(20)
 TukuiShift:SetFrameStrata("HIGH")

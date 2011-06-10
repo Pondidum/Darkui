@@ -13,7 +13,26 @@
 	<Script file="settings\settings.lua" />
 	<Script file="settings\profiles.lua" />
 	
-	
+	<Script file="modules\actionbars\Bars.lua" />
+	<Script file="modules\actionbars\Bar1.lua" />
+	<Script file="modules\actionbars\Bar2.lua" />
+	<Script file="modules\actionbars\Bar3.lua" />
+	<Script file="modules\actionbars\Bar4.lua" />
+	<Script file="modules\actionbars\Bar5.lua" />
+	<Script file="modules\actionbars\Bar6.lua" />
+	<Script file="modules\actionbars\Bar7.lua" />
+	<Script file="modules\actionbars\BarPet.lua" />
+	<Script file="modules\actionbars\Bars.lua" />
+	<Script file="modules\actionbars\BarShift.lua" />
+	<Script file="modules\actionbars\BarTotem.lua" />
+	<Script file="modules\actionbars\Bind.lua" />
+	<Script file="modules\actionbars\buttons.lua" />
+	<Script file="modules\actionbars\Cooldowns.lua" />
+	<Script file="modules\actionbars\files.txt" />
+	<Script file="modules\actionbars\Hide.lua" />
+	<Script file="modules\actionbars\Others.lua" />
+	<Script file="modules\actionbars\Range.lua" />
+	<Script file="modules\actionbars\Style.lua" />
 	
 	<Script file="modules\ChatStyle.lua" />
 	<Script file="modules\ChatLinks.lua" />
