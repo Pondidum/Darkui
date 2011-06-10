@@ -35,6 +35,10 @@ S["unitframes"] = {
 	["floatingcastbars"] = true,
 }
 
+S["actionbars"] = {
+	["buttonsize"] = 27,
+	["buttonspacing"] = 4
+}
 
 
 ---Move to MEDIA file:
