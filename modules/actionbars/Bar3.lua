@@ -1,5 +1,6 @@
 local D, S, E = unpack(select(2, ...))
-if not C["actionbar"].enable == true then return end
+
+if not S.actionbars.enable == true then return end
 
 ---------------------------------------------------------------------------
 -- setup MultiBarLeft as bar #3 

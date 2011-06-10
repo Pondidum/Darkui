@@ -1,29 +1,69 @@
 local D, S, E = unpack(select(2, ...))
-if not C["actionbar"].enable == true then return end
+
+if not S.actionbars.enable == true then return end
 
 ---------------------------------------------------------------------------
 -- Setup Shapeshift Bar
 ---------------------------------------------------------------------------
 
+local function ShiftBarUpdate = function()
+
+	local numForms = GetNumShapeshiftForms()
+	local texture, name, isActive, isCastable
+	local button, icon, cooldown
+	local start, duration, enable
+	for i = 1, NUM_SHAPESHIFT_SLOTS do
+		button = _G["ShapeshiftButton"..i]
+		icon = _G["ShapeshiftButton"..i.."Icon"]
+		if i <= numForms then
+			texture, name, isActive, isCastable = GetShapeshiftFormInfo(i)
+			icon:SetTexture(texture)
+			
+			cooldown = _G["ShapeshiftButton"..i.."Cooldown"]
+			if texture then
+				cooldown:SetAlpha(1)
+			else
+				cooldown:SetAlpha(0)
+			end
+			
+			start, duration, enable = GetShapeshiftFormCooldown(i)
+			CooldownFrame_SetTimer(cooldown, start, duration, enable)
+			
+			if isActive then
+				ShapeshiftBarFrame.lastSelected = button:GetID()
+				button:SetChecked(1)
+			else
+				button:SetChecked(0)
+			end
+
+			if isCastable then
+				icon:SetVertexColor(1.0, 1.0, 1.0)
+			else
+				icon:SetVertexColor(0.4, 0.4, 0.4)
+			end
+		end
+	end
+end
+
 -- used for anchor totembar or shapeshiftbar
 local TukuiShift = CreateFrame("Frame","TukuiShiftBar",UIParent)
-TukuiShift:SetPoint("TOPLEFT", 4, -46)
-TukuiShift:SetWidth((T.petbuttonsize * 5) + (T.petbuttonsize * 4))
+TukuiShift:SetPoint("BOTTOMLEFT", TukuiBar2, "TOPLEFT", 0, 0)
+TukuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
 TukuiShift:SetHeight(20)
 TukuiShift:SetFrameStrata("HIGH")
 TukuiShift:SetMovable(true)
 TukuiShift:SetClampedToScreen(true)
 
 -- shapeshift command to move totem or shapeshift in-game
-local ssmover = CreateFrame("Frame", "TukuiShapeShiftHolder", UIParent)
-ssmover:SetAllPoints(TukuiShift)
-ssmover:SetTemplate("Default")
-ssmover:SetFrameStrata("HIGH")
-ssmover:SetBackdropBorderColor(1,0,0)
-ssmover:SetAlpha(0)
-ssmover.text = T.SetFontString(ssmover, C.media.uffont, 12)
-ssmover.text:SetPoint("CENTER")
-ssmover.text:SetText(L.move_shapeshift)
+-- local ssmover = CreateFrame("Frame", "TukuiShapeShiftHolder", UIParent)
+-- ssmover:SetAllPoints(TukuiShift)
+-- ssmover:SetTemplate("Default")
+-- ssmover:SetFrameStrata("HIGH")
+-- ssmover:SetBackdropBorderColor(1,0,0)
+-- ssmover:SetAlpha(0)
+-- ssmover.text = T.SetFontString(ssmover, C.media.uffont, 12)
+-- ssmover.text:SetPoint("CENTER")
+-- ssmover.text:SetText(L.move_shapeshift)
 
 -- hide it if not needed and stop executing code
 if C.actionbar.hideshapeshift then TukuiShift:Hide() return end
@@ -84,10 +124,10 @@ bar:SetScript("OnEvent", function(self, event, ...)
 				button:Hide()
 			end
 		end
-		T.TukuiShiftBarUpdate()
+		ShiftBarUpdate()
 	elseif event == "PLAYER_ENTERING_WORLD" then
-		T.StyleShift()
+		D.StyleShift()
 	else
-		T.TukuiShiftBarUpdate()
+		ShiftBarUpdate()
 	end
 end)

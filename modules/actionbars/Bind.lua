@@ -4,7 +4,7 @@ local bind = CreateFrame("Frame", "TukuiHoverBind", UIParent)
 
 -- SLASH COMMAND
 SlashCmdList.MOUSEOVERBIND = function()
-	if InCombatLockdown() then print(L.bind_combat) return end
+	if InCombatLockdown() then print("You can't bind keys in combat.") return end
 	if not bind.loaded then
 		local find = string.find
 		local _G = getfenv(0)
@@ -218,10 +218,10 @@ SlashCmdList.MOUSEOVERBIND = function()
 		function bind:Deactivate(save)
 			if save then
 				SaveBindings(1)
-				print(L.bind_saved)
+				print("All keybindings have been saved.")
 			else
 				LoadBindings(1)
-				print(L.bind_discard)
+				print("All newly set keybindings have been discarded.")
 			end
 			self.enabled = false
 			self:HideFrame()
@@ -230,9 +230,9 @@ SlashCmdList.MOUSEOVERBIND = function()
 		end
 
 		StaticPopupDialogs["KEYBIND_MODE"] = {
-			text = L.bind_instruct,
-			button1 = L.bind_save,
-			button2 = L.bind_discardbind,
+			text = "Hover your mouse over any actionbutton to bind it. Press the escape key or right click to clear the current actionbuttons keybinding.",
+			button1 ="All keybindings have been saved.",
+			button2 = "All newly set keybindings have been discarded.",
 			OnAccept = function() bind:Deactivate(true) end,
 			OnCancel = function() bind:Deactivate(false) end,
 			timeout = 0,

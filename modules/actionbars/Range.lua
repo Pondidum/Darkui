@@ -5,7 +5,7 @@ local D, S, E = unpack(select(2, ...))
 		Derived from RedRange and TullaRange
 --]]
 
-if not C["actionbar"].enable == true then return end
+if not S.actionbars.enable == true then return end
 
 --locals and speed
 local _G = _G

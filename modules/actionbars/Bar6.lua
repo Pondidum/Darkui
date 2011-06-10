@@ -1,5 +1,6 @@
 local D, S, E = unpack(select(2, ...))
-if not C["actionbar"].enable == true or not T.lowversion then return end
+
+if not S.actionbars.enable == true then return end
 
 TukuiBar5:SetWidth((S.actionbars.buttonsize * 3) + (S.actionbars.buttonspacing * 4))
 

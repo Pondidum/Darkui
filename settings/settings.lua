@@ -6,7 +6,9 @@ assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
 
 S["cooldowns"] = {
+	["enable"] = true,
 	["minimum"] = 8,
+	
 }
 
 S["chat"] = {
@@ -37,7 +39,9 @@ S["unitframes"] = {
 
 S["actionbars"] = {
 	["buttonsize"] = 27,
-	["buttonspacing"] = 4
+	["buttonspacing"] = 4,
+	["showgrid"] = true,
+	["showhotkey"]
 }
 
 
@@ -46,7 +50,8 @@ S["textures"] = {
 	["shadow"] = [[Interface\AddOns\Darkui\media\textures\glowTex]],
 	["normal"] = [[Interface\AddOns\Darkui\media\textures\normTex]],
 	["blank"] = [[Interface\AddOns\Darkui\media\textures\blank]],
-	["raidicons"] = [[Interface\AddOns\Darkui\media\textures\raidicons.blp]]
+	["raidicons"] = [[Interface\AddOns\Darkui\media\textures\raidicons.blp]],
+	["buttonhover"] = [[Interface\AddOns\Tukui\medias\textures\button_hover]],
 }
 
 S["fonts"] = {

@@ -5,7 +5,7 @@ local D, S, E = unpack(select(2, ...))
                 This version should work on absolutely everything, but I've removed pretty much all of the options
 --]]
 
-if IsAddOnLoaded("OmniCC") or IsAddOnLoaded("ncCooldown") or C["cooldown"].enable ~= true then return end
+if IsAddOnLoaded("OmniCC") or IsAddOnLoaded("ncCooldown") or S.cooldowns.enable ~= true then return end
 
 --constants!
 OmniCC = true --hack to work around detection from other addons for OmniCC
@@ -15,17 +15,17 @@ local DAYISH, HOURISH, MINUTEISH = 3600 * 23.5, 60 * 59.5, 59.5 --used for forma
 local HALFDAYISH, HALFHOURISH, HALFMINUTEISH = DAY/2 + 0.5, HOUR/2 + 0.5, MINUTE/2 + 0.5 --used for calculating next update times
 
 --configuration settings
-local FONT_FACE = C["media"].font --what font to use
+local FONT_FACE = S.fonts.normal --what font to use
 local FONT_SIZE = 20 --the base font size to use at a scale of 1
 local MIN_SCALE = 0.5 --the minimum scale we want to show cooldown counts at, anything below this will be hidden
 local MIN_DURATION = 2.5 --the minimum duration to show cooldown text for
-local EXPIRING_DURATION = C["cooldown"].treshold --the minimum number of seconds a cooldown must be to use to display in the expiring format
+local EXPIRING_DURATION = S.cooldowns.minimum --the minimum number of seconds a cooldown must be to use to display in the expiring format
 
-local EXPIRING_FORMAT = T.RGBToHex(1, 0, 0)..'%.1f|r' --format for timers that are soon to expire
-local SECONDS_FORMAT = T.RGBToHex(1, 1, 0)..'%d|r' --format for timers that have seconds remaining
-local MINUTES_FORMAT = T.RGBToHex(1, 1, 1)..'%dm|r' --format for timers that have minutes remaining
-local HOURS_FORMAT = T.RGBToHex(0.4, 1, 1)..'%dh|r' --format for timers that have hours remaining
-local DAYS_FORMAT = T.RGBToHex(0.4, 0.4, 1)..'%dh|r' --format for timers that have days remaining
+local EXPIRING_FORMAT = D.RGBToHex(1, 0, 0)..'%.1f|r' --format for timers that are soon to expire
+local SECONDS_FORMAT = D.RGBToHex(1, 1, 0)..'%d|r' --format for timers that have seconds remaining
+local MINUTES_FORMAT = D.RGBToHex(1, 1, 1)..'%dm|r' --format for timers that have minutes remaining
+local HOURS_FORMAT = D.RGBToHex(0.4, 1, 1)..'%dh|r' --format for timers that have hours remaining
+local DAYS_FORMAT = D.RGBToHex(0.4, 0.4, 1)..'%dh|r' --format for timers that have days remaining
 
 --local bindings!
 local floor = math.floor
@@ -36,7 +36,7 @@ local GetTime = GetTime
 local function getTimeText(s)
 	--format text as seconds when below a minute
 	if s < MINUTEISH then
-		local seconds = tonumber(T.Round(s))
+		local seconds = tonumber(D.Round(s))
 		if seconds > EXPIRING_DURATION then
 			return SECONDS_FORMAT, seconds, s - (seconds - 0.51)
 		else
@@ -44,15 +44,15 @@ local function getTimeText(s)
 		end
 	--format text as minutes when below an hour
 	elseif s < HOURISH then
-		local minutes = tonumber(T.Round(s/MINUTE))
+		local minutes = tonumber(D.Round(s/MINUTE))
 		return MINUTES_FORMAT, minutes, minutes > 1 and (s - (minutes*MINUTE - HALFMINUTEISH)) or (s - MINUTEISH)
 	--format text as hours when below a day
 	elseif s < DAYISH then
-		local hours = tonumber(T.Round(s/HOUR))
+		local hours = tonumber(D.Round(s/HOUR))
 		return HOURS_FORMAT, hours, hours > 1 and (s - (hours*HOUR - HALFHOURISH)) or (s - HOURISH)
 	--format text as days
 	else
-		local days = tonumber(T.Round(s/DAY))
+		local days = tonumber(D.Round(s/DAY))
 		return DAYS_FORMAT, days,  days > 1 and (s - (days*DAY - HALFDAYISH)) or (s - DAYISH)
 	end
 end
@@ -72,7 +72,7 @@ end
 --adjust font size whenever the timer's parent size changes
 --hide if it gets too tiny
 local function Timer_OnSizeChanged(self, width, height)
-	local fontScale = T.Round(width) / ICON_SIZE
+	local fontScale = D.Round(width) / ICON_SIZE
 	if fontScale == self.fontScale then
 		return
 	end
@@ -97,7 +97,7 @@ local function Timer_OnUpdate(self, elapsed)
 		self.nextUpdate = self.nextUpdate - elapsed
 	else
 		local remain = self.duration - (GetTime() - self.start)
-		if tonumber(T.Round(remain)) > 0 then
+		if tonumber(D.Round(remain)) > 0 then
 			if (self.fontScale * self:GetEffectiveScale() / UIParent:GetScale()) < MIN_SCALE then
 				self.text:SetText('')
 				self.nextUpdate  = 1

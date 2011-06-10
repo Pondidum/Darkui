@@ -1,5 +1,6 @@
 local D, S, E = unpack(select(2, ...))
-if C["actionbar"].enable ~= true then return end
+
+if not S.actionbars.enable == true then return end
 
 -- we just use default totem bar for shaman
 -- we parent it to our shapeshift bar.
@@ -16,8 +17,8 @@ if D.Player.class == "SHAMAN" then
  
 		hooksecurefunc("MultiCastActionButton_Update",function(actionbutton) if not InCombatLockdown() then actionbutton:SetAllPoints(actionbutton.slotButton) end end)
  
-		MultiCastActionBarFrame.SetParent = T.dummy
-		MultiCastActionBarFrame.SetPoint = T.dummy
-		MultiCastRecallSpellButton.SetPoint = T.dummy
+		MultiCastActionBarFrame.SetParent = D.Dummy
+		MultiCastActionBarFrame.SetPoint = D.Dummy
+		MultiCastRecallSpellButton.SetPoint = D.Dummy
 	end
 end

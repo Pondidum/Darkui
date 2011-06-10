@@ -1,5 +1,6 @@
 local D, S, E = unpack(select(2, ...))
-if not C["actionbar"].enable == true or not T.lowversion then return end
+
+if not S.actionbars.enable == true then return end
 
 local bar = TukuiBar7
 bar:SetAlpha(1)

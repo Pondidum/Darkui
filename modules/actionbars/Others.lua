@@ -1,6 +1,6 @@
-
 local D, S, E = unpack(select(2, ...))
-if not C["actionbar"].enable == true then return end
+
+if not S.actionbars.enable == true then return end
 ---------------------------------------------------------------------------
 -- Manage all others stuff for actionbars
 ---------------------------------------------------------------------------
@@ -11,7 +11,7 @@ TukuiOnLogon:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")	
 	SetActionBarToggles(1, 1, 1, 1, 0)
 	SetCVar("alwaysShowActionBars", 0)	
-	if C["actionbar"].showgrid == true then
+	if S.actionbars.showgrid == true then
 		ActionButton_HideGrid = T.dummy
 		for i = 1, 12 do
 			local button = _G[format("ActionButton%d", i)]

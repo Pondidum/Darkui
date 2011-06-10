@@ -1,8 +1,8 @@
 local D, S, E = unpack(select(2, ...))
-if not C["actionbar"].enable == true then return end
+
+if not S.actionbars.enable == true then return end
 
 local _G = _G
-local media = C["media"]
 local securehandler = CreateFrame("Frame", nil, nil, "SecureHandlerBaseTemplate")
 local replace = string.gsub
 
@@ -26,11 +26,11 @@ local function style(self)
 	Button:SetNormalTexture("")
  
 	Border:Hide()
-	Border = T.dummy
+	Border = D.Dummy
  
 	Count:ClearAllPoints()
 	Count:Point("BOTTOMRIGHT", 0, 2)
-	Count:SetFont(C["media"].font, 12, "OUTLINE")
+	Count:SetFont(S.fonts.normal, 12, "OUTLINE")
  
 	Btname:SetText("")
 	Btname:Kill()
@@ -55,11 +55,11 @@ local function style(self)
 
 	HotKey:ClearAllPoints()
 	HotKey:Point("TOPRIGHT", 0, -3)
-	HotKey:SetFont(C["media"].font, 12, "OUTLINE")
-	HotKey.ClearAllPoints = T.dummy
-	HotKey.SetPoint = T.dummy
+	HotKey:SetFont(S.fonts.normal, 12, "OUTLINE")
+	HotKey.ClearAllPoints = D.Dummy
+	HotKey.SetPoint = D.Dummy
  
-	if not C["actionbar"].hotkey == true then
+	if not S.actionbars.showhotkey == true then
 		HotKey:SetText("")
 		HotKey:Kill()
 	end
@@ -76,33 +76,33 @@ local function stylesmallbutton(normal, button, icon, name, pet)
 	button:SetNormalTexture("")
 	
 	-- another bug fix reported by Affli in t12 beta
-	button.SetNormalTexture = T.dummy
+	button.SetNormalTexture = D.Dummy
 	
-	Flash:SetTexture(media.buttonhover)
+	Flash:SetTexture(S.textures.buttonhover)
 	
 	if not _G[name.."Panel"] then
-		button:SetWidth(T.petbuttonsize)
-		button:SetHeight(T.petbuttonsize)
+		button:SetWidth(S.actionbars.buttonsize)
+		button:SetHeight(S.actionbars.buttonsize)
 		
 		local panel = CreateFrame("Frame", name.."Panel", button)
-		panel:CreatePanel("Default", T.petbuttonsize, T.petbuttonsize, "CENTER", button, "CENTER", 0, 0)
-		panel:SetBackdropColor(unpack(media.backdropcolor))
+		panel:CreatePanel("Default", S.actionbars.buttonsize, S.actionbars.buttonsize, "CENTER", button, "CENTER", 0, 0)
+		panel:SetBackdropColor(.1, .1, .1)
 		panel:SetFrameStrata(button:GetFrameStrata())
 		panel:SetFrameLevel(button:GetFrameLevel() - 1)
 
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:ClearAllPoints()
 		if pet then			
-			if T.petbuttonsize < 30 then
+			if S.actionbars.buttonsize < 30 then
 				local autocast = _G[name.."AutoCastable"]
 				autocast:SetAlpha(0)
 			end
 			local shine = _G[name.."Shine"]
-			shine:Size(T.petbuttonsize, T.petbuttonsize)
+			shine:Size(S.actionbars.buttonsize, S.actionbars.buttonsize)
 			shine:ClearAllPoints()
 			shine:SetPoint("CENTER", button, 0, 0)
-			icon:Point("TOPLEFT", button, T.Scale(2), T.Scale(-2))
-			icon:Point("BOTTOMRIGHT", button, T.Scale(-2), T.Scale(2))
+			icon:Point("TOPLEFT", button, 2, -2)
+			icon:Point("BOTTOMRIGHT", button, -2, 2)
 		else
 			icon:Point("TOPLEFT", button, 2, -2)
 			icon:Point("BOTTOMRIGHT", button, -2, 2)
@@ -116,7 +116,7 @@ local function stylesmallbutton(normal, button, icon, name, pet)
 	end
 end
 
-function T.StyleShift()
+function D.StyleShift()
 	for i=1, NUM_SHAPESHIFT_SLOTS do
 		local name = "ShapeshiftButton"..i
 		local button  = _G[name]
@@ -126,7 +126,7 @@ function T.StyleShift()
 	end
 end
 
-function T.StylePet()
+function D.StylePet()
 	for i=1, NUM_PET_ACTION_SLOTS do
 		local name = "PetActionButton"..i
 		local button  = _G[name]
@@ -381,8 +381,8 @@ local function StyleTotemSlotButton(button, index)
 	button.overlayTex:SetTexture(nil)
 	button.background:SetDrawLayer("ARTWORK")
 	button.background:ClearAllPoints()
-	button.background:SetPoint("TOPLEFT",button,"TOPLEFT",T.Scale(2),T.Scale(-2))
-	button.background:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",T.Scale(-2),T.Scale(2))
+	button.background:SetPoint("TOPLEFT",button,"TOPLEFT",2,-2)
+	button.background:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-2,2)
 	if not InCombatLockdown() then button:Size(30) end
 	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
 	button:StyleButton()
