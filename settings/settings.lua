@@ -38,10 +38,12 @@ S["unitframes"] = {
 }
 
 S["actionbars"] = {
+	["enable"] = true,
 	["buttonsize"] = 27,
 	["buttonspacing"] = 4,
 	["showgrid"] = true,
 	["showhotkey"] = true,
+	["hideshapeshift"] = false,
 }
 
 

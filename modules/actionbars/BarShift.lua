@@ -6,7 +6,7 @@ if not S.actionbars.enable == true then return end
 -- Setup Shapeshift Bar
 ---------------------------------------------------------------------------
 
-local function ShiftBarUpdate = function()
+local function ShiftBarUpdate()
 
 	local numForms = GetNumShapeshiftForms()
 	local texture, name, isActive, isCastable
@@ -66,7 +66,7 @@ TukuiShift:SetClampedToScreen(true)
 -- ssmover.text:SetText(L.move_shapeshift)
 
 -- hide it if not needed and stop executing code
-if C.actionbar.hideshapeshift then TukuiShift:Hide() return end
+if S.actionbars.hideshapeshift then TukuiShift:Hide() return end
 
 -- create the shapeshift bar if we enabled it
 local bar = CreateFrame("Frame", "TukuiShapeShift", TukuiShift, "SecureHandlerStateTemplate")
@@ -99,10 +99,10 @@ bar:SetScript("OnEvent", function(self, event, ...)
 			button:ClearAllPoints()
 			button:SetParent(self)
 			if i == 1 then
-				button:Point("BOTTOMLEFT", TukuiShift, 0, 24)
+				button:SetPoint("BOTTOMLEFT", TukuiShift, 0, 24)
 			else
 				local previous = _G["ShapeshiftButton"..i-1]
-				button:Point("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
+				button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
 			end
 			local _, name = GetShapeshiftFormInfo(i)
 			if name then
