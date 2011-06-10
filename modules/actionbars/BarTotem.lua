@@ -11,9 +11,9 @@ if D.Player.class == "SHAMAN" then
 		MultiCastActionBarFrame:SetScript("OnUpdate", nil)
 		MultiCastActionBarFrame:SetScript("OnShow", nil)
 		MultiCastActionBarFrame:SetScript("OnHide", nil)
-		MultiCastActionBarFrame:SetParent(TukuiShiftBar)
+		MultiCastActionBarFrame:SetParent(DarkuiShiftBar)
 		MultiCastActionBarFrame:ClearAllPoints()
-		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", TukuiShiftBar, -3, 23)
+		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", DarkuiShiftBar, -3, 23)
  
 		hooksecurefunc("MultiCastActionButton_Update",function(actionbutton) if not InCombatLockdown() then actionbutton:SetAllPoints(actionbutton.slotButton) end end)
  

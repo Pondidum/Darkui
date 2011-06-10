@@ -100,8 +100,8 @@ local function style(self)
 	end
 
 	HotKey:ClearAllPoints()
-	HotKey:SetPoint("TOPRIGHT", 0, -3)
-	HotKey:SetFont(S.fonts.normal, 12, "OUTLINE")
+	HotKey:SetPoint("TOPRIGHT", 0, 0)
+	HotKey:SetFont(S.fonts.normal, 10, "OUTLINE")
 	HotKey.ClearAllPoints = D.Dummy
 	HotKey.SetPoint = D.Dummy
  
