@@ -54,11 +54,11 @@ local function PetBarUpdate(self, event)
 		
 		-- grid display
 		if name then
-			if not C["actionbar"].showgrid then
+			if not S.actionbars.showgrid then
 				petActionButton:SetAlpha(1)
 			end			
 		else
-			if not C["actionbar"].showgrid then
+			if not S.actionbars.showgrid then
 				petActionButton:SetAlpha(0)
 			end
 		end
