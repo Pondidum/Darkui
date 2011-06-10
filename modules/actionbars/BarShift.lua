@@ -46,32 +46,21 @@ local function ShiftBarUpdate()
 end
 
 -- used for anchor totembar or shapeshiftbar
-local TukuiShift = CreateFrame("Frame","TukuiShiftBar",UIParent)
-TukuiShift:SetPoint("BOTTOMLEFT", DarkuiBar2, "TOPLEFT", 0, 0)
-TukuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
-TukuiShift:SetHeight(20)
-TukuiShift:SetFrameStrata("HIGH")
-TukuiShift:SetMovable(true)
-TukuiShift:SetClampedToScreen(true)
-
--- shapeshift command to move totem or shapeshift in-game
--- local ssmover = CreateFrame("Frame", "TukuiShapeShiftHolder", UIParent)
--- ssmover:SetAllPoints(TukuiShift)
--- ssmover:SetTemplate("Default")
--- ssmover:SetFrameStrata("HIGH")
--- ssmover:SetBackdropBorderColor(1,0,0)
--- ssmover:SetAlpha(0)
--- ssmover.text = T.SetFontString(ssmover, C.media.uffont, 12)
--- ssmover.text:SetPoint("CENTER")
--- ssmover.text:SetText(L.move_shapeshift)
+local DarkuiShift = CreateFrame("Frame","DarkuiShiftBar",UIParent)
+DarkuiShift:SetPoint("BOTTOMLEFT", InvDarkuiActionBarBackground, "TOPLEFT",  S.actionbars.buttonspacing, -S.actionbars.buttonspacing)
+DarkuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
+DarkuiShift:SetHeight(20)
+DarkuiShift:SetFrameStrata("HIGH")
+DarkuiShift:SetMovable(true)
+DarkuiShift:SetClampedToScreen(true)
 
 -- hide it if not needed and stop executing code
-if S.actionbars.hideshapeshift then TukuiShift:Hide() return end
+if S.actionbars.hideshapeshift then DarkuiShift:Hide() return end
 
 -- create the shapeshift bar if we enabled it
-local bar = CreateFrame("Frame", "TukuiShapeShift", TukuiShift, "SecureHandlerStateTemplate")
+local bar = CreateFrame("Frame", "DarkuiShapeShift", DarkuiShift, "SecureHandlerStateTemplate")
 bar:ClearAllPoints()
-bar:SetAllPoints(TukuiShift)
+bar:SetAllPoints(DarkuiShift)
 
 local States = {
 	["DRUID"] = "show",
@@ -99,7 +88,7 @@ bar:SetScript("OnEvent", function(self, event, ...)
 			button:ClearAllPoints()
 			button:SetParent(self)
 			if i == 1 then
-				button:SetPoint("BOTTOMLEFT", TukuiShift, 0, 24)
+				button:SetPoint("BOTTOMLEFT", DarkuiShift, 0, 24)
 			else
 				local previous = _G["ShapeshiftButton"..i-1]
 				button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)

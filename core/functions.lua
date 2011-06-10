@@ -2,14 +2,6 @@ local D, S, E = unpack(select(2, ...))
 
 D.CreateBackground = function(f)
 
-	-- local bg = f:CreateTexture(nil, 'BORDER')
-	
-	-- bg:SetAllPoints(f)
-	-- bg:SetTexture(S["textures"].normal)
-	-- bg.multiplier = 0.3
-	
-	-- f.bg = bg 
-	
 	local bg = CreateFrame("Frame", nil, f)
 	bg:SetAllPoints(f)
 	bg:SetFrameLevel(1)
@@ -26,8 +18,10 @@ D.CreateBackground = function(f)
 end
 
 --thanks tuk
-D.CreateShadow = function(f, t)
+D.CreateShadow = function(f, t, offset)
 	if f.shadow then return end -- we seriously don't want to create shadow 2 times in a row on the same frame.
+	
+	if offset == nil then offset = 3 end
 	
 	borderr, borderg, borderb = 0, 0, 0
 	backdropr, backdropg, backdropb = 0, 0, 0
@@ -41,13 +35,13 @@ D.CreateShadow = function(f, t)
 	local shadow = CreateFrame("Frame", nil, f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:SetPoint("TOPLEFT", -3, 3)
-	shadow:SetPoint("BOTTOMLEFT", -3, -3)
-	shadow:SetPoint("TOPRIGHT", 3, 3)
-	shadow:SetPoint("BOTTOMRIGHT", 3, -3)
+	shadow:SetPoint("TOPLEFT", -offset, offset)
+	shadow:SetPoint("BOTTOMLEFT", -offset, -offset)
+	shadow:SetPoint("TOPRIGHT", offset, offset)
+	shadow:SetPoint("BOTTOMRIGHT", offset, -offset)
 	shadow:SetBackdrop( { 
 		edgeFile = S["textures"].shadow, 
-		edgeSize = 3,
+		edgeSize = offset,
 		insets = {
 			left = 5, 
 			right = 5, 

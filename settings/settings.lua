@@ -39,8 +39,8 @@ S["unitframes"] = {
 
 S["actionbars"] = {
 	["enable"] = true,
-	["buttonsize"] = 27,
-	["buttonspacing"] = 4,
+	["buttonsize"] = 25,
+	["buttonspacing"] = 6,
 	["showgrid"] = true,
 	["showhotkey"] = true,
 	["hideshapeshift"] = false,
