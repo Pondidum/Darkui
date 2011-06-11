@@ -15,12 +15,13 @@ if D.Player.class == "SHAMAN" then
 		MultiCastActionBarFrame:SetScript("OnHide", nil)
 		MultiCastActionBarFrame:SetParent(DarkuiShiftBar)
 		MultiCastActionBarFrame:ClearAllPoints()
-		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", DarkuiShiftBar, -3, S.actionbars.buttonspacing)
+		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", DarkuiShiftBar, -3, 14)
  
 		hooksecurefunc("MultiCastActionButton_Update",function(actionbutton) if not InCombatLockdown() then actionbutton:SetAllPoints(actionbutton.slotButton) end end)
  
 		MultiCastActionBarFrame.SetParent = D.Dummy
 		MultiCastActionBarFrame.SetPoint = D.Dummy
 		MultiCastRecallSpellButton.SetPoint = D.Dummy
+		
 	end
 end
