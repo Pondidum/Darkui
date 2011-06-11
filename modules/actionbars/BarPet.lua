@@ -113,11 +113,21 @@ bar:SetScript("OnEvent", function(self, event, arg1)
 			button:SetParent(DarkuiBarPet)
 
 			button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
-			if i == 1 then
-				button:SetPoint("TOPLEFT", S.actionbars.buttonspacing,-S.actionbars.buttonspacing)
+			
+			if S.actionbars.petbaronside == true then
+				if i == 1 then
+					button:SetPoint("TOPLEFT", S.actionbars.buttonspacing, -S.actionbars.buttonspacing)
+				else
+					button:SetPoint("TOP", _G["PetActionButton"..(i - 1)], "BOTTOM", 0, -S.actionbars.buttonspacing)
+				end
 			else
-				button:SetPoint("TOP", _G["PetActionButton"..(i - 1)], "BOTTOM", 0, -S.actionbars.buttonspacing)
+				if i == 1 then
+					button:SetPoint("BOTTOMLEFT", S.actionbars.buttonspacing, S.actionbars.buttonspacing)
+				else
+					button:SetPoint("LEFT", _G["PetActionButton"..(i - 1)], "RIGHT", S.actionbars.buttonspacing, 0)
+				end
 			end
+			
 			button:Show()
 			self:SetAttribute("addchild", button)
 		end

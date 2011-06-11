@@ -49,26 +49,17 @@ DarkuiBar5:SetFrameStrata("BACKGROUND")
 DarkuiBar5:SetFrameLevel(2)
 DarkuiBar5:SetAlpha(0)
 
-local DarkuiBar6 = CreateFrame("Frame", "DarkuiBar6", UIParent)
-DarkuiBar6:SetWidth((S.actionbars.buttonsize * 1) + (S.actionbars.buttonspacing * 2))
-DarkuiBar6:SetHeight((S.actionbars.buttonsize * 12) + (S.actionbars.buttonspacing * 13))
-DarkuiBar6:SetPoint("LEFT", DarkuiBar5, "LEFT", 0, 0)
-DarkuiBar6:SetFrameStrata("BACKGROUND")
-DarkuiBar6:SetFrameLevel(2)
-DarkuiBar6:SetAlpha(0)
-
-local DarkuiBar7 = CreateFrame("Frame", "DarkuiBar7", UIParent)
-DarkuiBar7:SetWidth((S.actionbars.buttonsize * 1) + (S.actionbars.buttonspacing * 2))
-DarkuiBar7:SetHeight((S.actionbars.buttonsize * 12) + (S.actionbars.buttonspacing * 13))
-DarkuiBar7:SetPoint("TOP", DarkuiBar5, "TOP", 0 , 0)
-DarkuiBar7:SetFrameStrata("BACKGROUND")
-DarkuiBar7:SetFrameLevel(2)
-DarkuiBar7:SetAlpha(0)
-
 local petbg = CreateFrame("Frame", "DarkuiBarPet", UIParent, "SecureHandlerStateTemplate")
-petbg:SetWidth(S.actionbars.buttonsize + (S.actionbars.buttonspacing * 2))
-petbg:SetHeight((S.actionbars.buttonsize * 10) + (S.actionbars.buttonspacing * 11))
-petbg:SetPoint("RIGHT", DarkuiBar5, "LEFT", -6, 0)
+if S.actionbars.petbaronside == true then
+	petbg:SetWidth(S.actionbars.buttonsize + (S.actionbars.buttonspacing * 2))
+	petbg:SetHeight((S.actionbars.buttonsize * 10) + (S.actionbars.buttonspacing * 11))
+	petbg:SetPoint("RIGHT", DarkuiBar5, "LEFT", -6, 0)
+else
+	petbg:SetWidth((S.actionbars.buttonsize * 10) + (S.actionbars.buttonspacing * 11))
+	petbg:SetHeight(S.actionbars.buttonsize + (S.actionbars.buttonspacing * 2))
+	petbg:SetPoint("BOTTOM", DarkuiBar1, "TOP", 0, 14)
+end
+
 petbg:SetAlpha(0)
 
 -- INVISIBLE FRAME COVERING BOTTOM ACTIONBARS JUST TO PARENT UF CORRECTLY

@@ -44,6 +44,7 @@ S["actionbars"] = {
 	["showgrid"] = true,
 	["showhotkey"] = true,
 	["hideshapeshift"] = false,
+	["petbaronside"] = false,
 }
 
 
