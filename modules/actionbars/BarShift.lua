@@ -47,7 +47,7 @@ end
 
 -- used for anchor totembar or shapeshiftbar
 local DarkuiShift = CreateFrame("Frame","DarkuiShiftBar",UIParent)
-DarkuiShift:SetPoint("BOTTOMLEFT", InvDarkuiActionBarBackground, "TOPLEFT",  S.actionbars.buttonspacing, -S.actionbars.buttonspacing)
+DarkuiShift:SetPoint("BOTTOMLEFT", DarkuiActionBarBackground, "TOPLEFT",  S.actionbars.buttonspacing, -S.actionbars.buttonspacing)
 DarkuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
 DarkuiShift:SetHeight(20)
 DarkuiShift:SetFrameStrata("HIGH")

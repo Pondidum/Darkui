@@ -63,6 +63,6 @@ end
 petbg:SetAlpha(0)
 
 -- INVISIBLE FRAME COVERING BOTTOM ACTIONBARS JUST TO PARENT UF CORRECTLY
-local invbarbg = CreateFrame("Frame", "InvDarkuiActionBarBackground", UIParent)
+local invbarbg = CreateFrame("Frame", "DarkuiActionBarBackground", UIParent)
 invbarbg:SetPoint("TOPLEFT", DarkuiBar2)
 invbarbg:SetPoint("BOTTOMRIGHT", DarkuiBar3)

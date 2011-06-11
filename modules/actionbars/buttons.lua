@@ -3,7 +3,7 @@ local D, S, E = unpack(select(2, ...))
 -- exit vehicle button on left side of bottom action bar
 local vehicleleft = CreateFrame("Button", "DarkuiExitVehicleButtonLeft", UIParent, "SecureHandlerClickTemplate")
 vehicleleft:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
-vehicleleft:SetPoint("TOPRIGHT", DarkuiBar2, "TOPLEFT", 0, -S.actionbars.buttonspacing)
+vehicleleft:SetPoint("TOPRIGHT", DarkuiActionBarBackground, "TOPLEFT", 0, -S.actionbars.buttonspacing)
 D.CreateBackground(vehicleleft)
 D.CreateShadow(vehicleleft)
 vehicleleft:SetBackdropBorderColor(75/255,  175/255, 76/255)
@@ -17,7 +17,7 @@ RegisterStateDriver(vehicleleft, "visibility", "[target=vehicle,exists] show;hid
 -- exit vehicle button on right side of bottom action bar
 local vehicleright = CreateFrame("Button", "DarkuiExitVehicleButtonRight", UIParent, "SecureHandlerClickTemplate")
 vehicleright:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
-vehicleright:SetPoint("TOPLEFT", InvDarkuiActionBarBackground, "TOPRIGHT", 0, -S.actionbars.buttonspacing)
+vehicleright:SetPoint("TOPLEFT", DarkuiActionBarBackground, "TOPRIGHT", 0, -S.actionbars.buttonspacing)
 D.CreateBackground(vehicleright)
 D.CreateShadow(vehicleright)
 vehicleright:SetBackdropBorderColor(75/255,  175/255, 76/255)
