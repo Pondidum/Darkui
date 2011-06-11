@@ -8,12 +8,14 @@ if not S.actionbars.enable == true then return end
 
 if D.Player.class == "SHAMAN" then
 	if MultiCastActionBarFrame then
+		D.Kill(MultiCastRecallSpellButton)
+	
 		MultiCastActionBarFrame:SetScript("OnUpdate", nil)
 		MultiCastActionBarFrame:SetScript("OnShow", nil)
 		MultiCastActionBarFrame:SetScript("OnHide", nil)
 		MultiCastActionBarFrame:SetParent(DarkuiShiftBar)
 		MultiCastActionBarFrame:ClearAllPoints()
-		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", DarkuiShiftBar, -3, 23)
+		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", DarkuiShiftBar, -3, S.actionbars.buttonspacing)
  
 		hooksecurefunc("MultiCastActionButton_Update",function(actionbutton) if not InCombatLockdown() then actionbutton:SetAllPoints(actionbutton.slotButton) end end)
  

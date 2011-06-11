@@ -355,10 +355,10 @@ local function StyleTotemFlyout(flyout)
 		local icon = select(1,button:GetRegions())
 		icon:SetTexCoord(.09,.91,.09,.91)
 		icon:SetDrawLayer("ARTWORK")
-		icon:SetPoint("TOPLEFT",button,"TOPLEFT",2,-2)
-		icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-2,2)			
+		icon:SetPoint("TOPLEFT",button,"TOPLEFT",0,0)
+		icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",0,0)			
 		if not InCombatLockdown() then
-			button:SetSize(30,30)
+			button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
 			button:ClearAllPoints()
 			button:SetPoint("BOTTOM",last,"TOP",0,4)
 		end			
@@ -376,6 +376,7 @@ local function StyleTotemFlyout(flyout)
 	
 	-- Skin Close button
 	local close = MultiCastFlyoutFrameCloseButton
+	D.CreateBackground(close)
 	D.CreateShadow(close)
 	close:GetHighlightTexture():SetTexture([[Interface\Buttons\ButtonHilight-Square]])
 	close:GetHighlightTexture():SetPoint("TOPLEFT",close,"TOPLEFT",1,-1)
@@ -408,6 +409,7 @@ local function StyleTotemOpenButton(button, parent)
 		button.visibleBut.highlight:SetTexture([[Interface\Buttons\ButtonHilight-Square]])
 		button.visibleBut.highlight:SetPoint("TOPLEFT",button.visibleBut,"TOPLEFT",1,-1)
 		button.visibleBut.highlight:SetPoint("BOTTOMRIGHT",button.visibleBut,"BOTTOMRIGHT",-1,1)
+		D.CreateBackground(button.visibleBut)
 		D.CreateShadow(button.visibleBut)
 	end
 	
@@ -425,12 +427,15 @@ local bordercolors = {
 
 local function StyleTotemSlotButton(button, index)
 	D.CreateShadow(button)
+	
 	button.overlayTex:SetTexture(nil)
 	button.background:SetDrawLayer("ARTWORK")
 	button.background:ClearAllPoints()
-	button.background:SetPoint("TOPLEFT",button,"TOPLEFT",2,-2)
-	button.background:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-2,2)
-	if not InCombatLockdown() then button:SetSize(30, 30) end
+	button.background:SetPoint("TOPLEFT",button,"TOPLEFT",0,0)
+	button.background:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",0,0)
+	if not InCombatLockdown() then 
+		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize) 
+	end
 	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
 	StyleButton(button)
 end
@@ -439,21 +444,27 @@ hooksecurefunc("MultiCastSlotButton_Update",function(self, slot) StyleTotemSlotB
 -- Skin the actual totem buttons
 local function StyleTotemActionButton(button, index)
 	local icon = select(1,button:GetRegions())
+	
 	icon:SetTexCoord(.09,.91,.09,.91)
 	icon:SetDrawLayer("ARTWORK")
-	icon:SetPoint("TOPLEFT",button,"TOPLEFT",2,-2)
-	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-2,2)
+	icon:SetPoint("TOPLEFT",button,"TOPLEFT",0,0)
+	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",0,0)
+	
 	button.overlayTex:SetTexture(nil)
 	button.overlayTex:Hide()
 	button:GetNormalTexture():SetTexCoord(0,0,0,0)
+	
 	if not InCombatLockdown() and button.slotButton then
 		button:ClearAllPoints()
 		button:SetAllPoints(button.slotButton)
 		button:SetFrameLevel(button.slotButton:GetFrameLevel()+1)
 	end
+	
 	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
 	button:SetBackdropColor(0,0,0,0)
+	
 	StyleButton(button, true)
+	
 end
 hooksecurefunc("MultiCastActionButton_Update",function(actionButton, actionId, actionIndex, slot) StyleTotemActionButton(actionButton,actionIndex) end)
 
@@ -463,11 +474,13 @@ local function StyleTotemSpellButton(button, index)
 	local icon = select(1,button:GetRegions())
 	icon:SetTexCoord(.09,.91,.09,.91)
 	icon:SetDrawLayer("ARTWORK")
-	icon:SetPoint("TOPLEFT",button,"TOPLEFT",2,-2)
-	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-2,2)
+	icon:SetPoint("TOPLEFT",button,"TOPLEFT", 0, 0)
+	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT", 0, 0)
 	D.CreateShadow(button)
 	button:GetNormalTexture():SetTexture(nil)
-	if not InCombatLockdown() then button:SetSize(30, 30) end
+	if not InCombatLockdown() then 
+		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize) 
+	end
 	_G[button:GetName().."Highlight"]:SetTexture(nil)
 	_G[button:GetName().."NormalTexture"]:SetTexture(nil)
 	StyleButton(button)
