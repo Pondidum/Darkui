@@ -7,8 +7,9 @@
 	<Script file="core\core.lua" />
 	<Script file="core\functions.lua" />
 	<Script file="core\events.lua" />
-	
+		
 	<Script file="core\init.lua" />
+	<Script file="core\commands.lua" />
 	
 	<Script file="settings\settings.lua" />
 	<Script file="settings\profiles.lua" />
