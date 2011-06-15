@@ -32,6 +32,8 @@
 	<Script file="modules\actionbars\Range.lua" />
 	<Script file="modules\actionbars\Style.lua" />
 	
+	<Script file="modules\ToolTip.lua" />
+	
 	<Script file="modules\ChatStyle.lua" />
 	<Script file="modules\ChatLinks.lua" />
 	<Script file="modules\ChatFormatting.lua" />
