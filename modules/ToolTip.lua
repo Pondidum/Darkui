@@ -311,6 +311,7 @@ local BorderColor = function(self)
 	local br, bg, bb = unpack(S.colors.default.background)
 	self.bg:SetBackdropColor(br, bg, bb, 0.8)
 	self.shadow:SetBackdropBorderColor(unpack(S.colors.default.border))
+	healthBar:SetStatusBarColor(unpack(S.colors.default.background))
 	
 	if player then
 		
@@ -331,8 +332,6 @@ local BorderColor = function(self)
 		if quality and quality >= 2 then
 			local r, g, b = GetItemQualityColor(quality)
 			self.shadow:SetBackdropBorderColor(r, g, b)
-		else
-			healthBar:SetStatusBarColor(unpack(S.colors.default.background))
 		end
 		
 	end
