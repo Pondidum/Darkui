@@ -45,5 +45,6 @@
 	
 	<Script file="modules\SlackCheck.lua" />
 
+	<Script file="ui\Font.lua" />
 	<Script file="ui\unitframes.lua" />
 </Ui>

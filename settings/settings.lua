@@ -59,12 +59,13 @@ S["textures"] = {
 	["normal"] = [[Interface\AddOns\Darkui\media\textures\normTex]],
 	["blank"] = [[Interface\AddOns\Darkui\media\textures\blank]],
 	["raidicons"] = [[Interface\AddOns\Darkui\media\textures\raidicons.blp]],
-	["buttonhover"] = [[Interface\AddOns\Tukui\medias\textures\button_hover]],
+	["buttonhover"] = [[Interface\AddOns\Darkui\medias\textures\button_hover]],
 }
 
 S["fonts"] = {
 	["unitframe"] = [[Interface\AddOns\Darkui\media\fonts\BigNoodleTitling.ttf]],
-	["normal"] = [[Interface\AddOns\Darkui\media\fonts\Santana-Bold.ttf]],
+	["normal"] = [[Interface\AddOns\Darkui\media\fonts\PT-Sans-Narrow.ttf]],
+	["combat"] = [[Interface\AddOns\Darkui\media\fonts\Ultima_Campagnoli.ttf]],
 }
 
 ---Move to COLORS file

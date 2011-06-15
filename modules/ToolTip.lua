@@ -349,7 +349,6 @@ end
 
 local function EnteringWorldEventHandler(self)
 	
-	print("entering")
 	for _, tt in pairs(Tooltips) do
 		tt:HookScript("OnShow", SetStyle)
 	end
@@ -358,7 +357,7 @@ local function EnteringWorldEventHandler(self)
 	ItemRefTooltip:HookScript("OnShow", SetStyle)	
 	FriendsTooltip:SetTemplate("Default")
 		
-	E:Unregister("PLAYER_ENTERING_WORLD", "DarkuiTooltipEnteringWorld")
+	E:Unregister("PLAYER_ENTERING_WORLD", "Darkui_Tooltip_PlayerEnteringWorld")
 	
 	-- move health status bar if anchor is found at top
 	local position = DarkuiTooltipAnchor:GetPoint()
@@ -370,7 +369,7 @@ local function EnteringWorldEventHandler(self)
 	
 end
 
-E:Register("PLAYER_ENTERING_WORLD", EnteringWorldEventHandler, "DarkuiTooltipEnteringWorld")
+E:Register("PLAYER_ENTERING_WORLD", EnteringWorldEventHandler, "Darkui_Tooltip_PlayerEnteringWorld")
 
 hooksecurefunc(GameTooltip, "SetUnitBuff", function(self,...)
 	local id = select(11,UnitBuff(...))

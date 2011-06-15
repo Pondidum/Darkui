@@ -136,12 +136,12 @@ local function InitChat(self, event, ...)
 
 		if addon == "Blizzard_CombatLog" then
 			SetupChat(self)
-			E:Unregister("ADDON_LOADED", "initChat_addon")
+			E:Unregister("ADDON_LOADED", "Darkui_ChatStyle_AddonLoaded")
 		end
 
 	elseif event == "PLAYER_ENTERING_WORLD" then
 
-		E:Unregister("ADDON_LOADED", "initChat_enter")
+		E:Unregister("ADDON_LOADED", "Darkui_ChatStyle_AddonLoaded")
 		SetupChatPosAndFont(self)
 
 	end
@@ -177,8 +177,7 @@ ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
 ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
 ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
 
-E:Register("ADDON_LOADED", InitChat, "initChat_addon")
---E:Register("PLAYER_ENTERING_WORLD", InitChat, "initChat_enter")
+E:Register("ADDON_LOADED", InitChat, "Darkui_ChatStyle_AddonLoaded")
 
 local function SetupTempChat()
 	 
