@@ -496,8 +496,12 @@ local UnitSpecific = {
 	boss = function(self, ...)
 		Shared(self, ...)
 		
+		self:SetWidth(frameWidthSmall)
 		self.Buffs = nil
 		self.Debuffs = nil
+		
+		D.Kill(self.Castbar)
+		self.Castbar = nil
 		
 	end,
 }
@@ -517,6 +521,8 @@ local spawnHelper = function(self, unit, ...)
 
 	if UnitSpecific[unit]  then
 		self:SetActiveStyle(D.Addon.name .. unit:gsub("^%l", string.upper))
+	elseif UnitSpecific[unit:match('[^%d]+')] then -- boss1 -> boss
+		self:SetActiveStyle(D.Addon.name .. unit:match('[^%d]+'):gsub("^%l", string.upper))
 	else
 		self:SetActiveStyle(D.Addon.name)
 	end
@@ -562,16 +568,15 @@ oUF:Factory(function(self)
 
 	local boss = {}
 	for i = 1, MAX_BOSS_FRAMES do
-		boss[i] = spawnHelper(self, "boss"..i) --oUF:Spawn("boss"..i, "TukuiBoss"..i)
+	
+		boss[i] = spawnHelper(self, "boss"..i)
 		
 		if i == 1 then
-			boss[i]:SetPoint("LEFT", UIParent, "LEFT", 50, 0)
+			boss[i]:SetPoint("BOTTOMRIGHT", DarkuiBar5, "BOTTOMLEFT", -50, -15)
 		else
 			boss[i]:SetPoint('BOTTOM', boss[i-1], 'TOP', 0, 35)             
 		end
 		
 	end
-	
-	
 	
 end)
