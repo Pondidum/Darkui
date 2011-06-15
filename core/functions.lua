@@ -2,6 +2,8 @@ local D, S, E = unpack(select(2, ...))
 
 D.CreateBackground = function(f)
 
+	if f.bg then return end
+	
 	local bg = CreateFrame("Frame", nil, f)
 	bg:SetAllPoints(f)
 	bg:SetFrameLevel(1)
@@ -12,7 +14,7 @@ D.CreateBackground = function(f)
 		tile = true,
 	})
 	
-	bg:SetBackdropColor(0, 0, 0, 0.4)
+	bg:SetBackdropColor(unpack(S.colors.default.background))
 	
 	f.bg = bg
 end
@@ -22,16 +24,7 @@ D.CreateShadow = function(f, t, offset)
 	if f.shadow then return end -- we seriously don't want to create shadow 2 times in a row on the same frame.
 	
 	if offset == nil then offset = 3 end
-	
-	borderr, borderg, borderb = 0, 0, 0
-	backdropr, backdropg, backdropb = 0, 0, 0
-	
-	-- if t == "ClassColor" then
-		-- local c = T.oUF_colors.class[class]
-		-- borderr, borderg, borderb = c[1], c[2], c[3]
-		-- backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
-	-- end
-	
+
 	local shadow = CreateFrame("Frame", nil, f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
@@ -50,8 +43,8 @@ D.CreateShadow = function(f, t, offset)
 		},
 	})
 	
-	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.8)
+	shadow:SetBackdropColor(0, 0, 0, 0)
+	shadow:SetBackdropBorderColor(unpack(S.colors.default.border))
 	f.shadow = shadow
 	
 end

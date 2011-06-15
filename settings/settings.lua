@@ -47,6 +47,11 @@ S["actionbars"] = {
 	["petbaronside"] = false,
 }
 
+S["tooltip"] = {
+	["enable"] = true,
+	["hideincombat"] = false,
+}
+
 
 ---Move to MEDIA file:
 S["textures"] = {
@@ -65,6 +70,10 @@ S["fonts"] = {
 ---Move to COLORS file
 
 S["colors"] = setmetatable({
+	default = {
+		["border"] =  {0, 0, 0, 0.8},
+		["background"] = {0, 0, 0, 0.4}
+	},
 	tapped = {0.55, 0.57, 0.61},
 	disconnected = {0.84, 0.75, 0.65},
 	power = setmetatable({
