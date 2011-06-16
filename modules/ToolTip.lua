@@ -355,7 +355,6 @@ local function EnteringWorldEventHandler(self)
 	
 	ItemRefTooltip:HookScript("OnTooltipSetItem", SetStyle)
 	ItemRefTooltip:HookScript("OnShow", SetStyle)	
-	FriendsTooltip:SetTemplate("Default")
 		
 	E:Unregister("PLAYER_ENTERING_WORLD", "Darkui_Tooltip_PlayerEnteringWorld")
 	

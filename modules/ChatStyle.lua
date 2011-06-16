@@ -18,7 +18,7 @@ local function SetupChatStyle(frame)
 	frame:SetClampedToScreen(false)
 	
 	frame:ClearAllPoints()
-	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editheight + S.chat.editheight + 5)
+	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editheight + 5)
 	frame:SetSize(S.chat.width, 120)
 
 	SetChatWindowSavedDimensions(id, S.chat.width, 120)
@@ -81,7 +81,7 @@ local function SetupEditBox(frame)
 	local edit = _G[chat.."EditBox"]
 	
 	edit:ClearAllPoints()
-	edit:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 0)
+	edit:SetPoint("TOPLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 0)
 	edit:SetSize(S.chat.width,  S.chat.editheight)
 	
 	-- Kills off the retarded new circle around the editbox
@@ -154,7 +154,7 @@ D.Kill(ChatFrameMenuButton)
 
 GeneralDockManager:ClearAllPoints()
 GeneralDockManager:SetSize(S.chat.width, S.chat.editheight)
-GeneralDockManager:SetPoint("BottomLeft", DarkuiFrame, "BottomLeft", 0, S.chat.editheight)
+GeneralDockManager:SetPoint("BottomLeft", DarkuiFrame, "BottomLeft", 0, 0)
 
 ToggleChatColorNamesByClassGroup(true, "SAY")
 ToggleChatColorNamesByClassGroup(true, "EMOTE")

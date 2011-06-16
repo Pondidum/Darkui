@@ -12,7 +12,7 @@ S["cooldowns"] = {
 }
 
 S["chat"] = {
-	["width"] = 500,
+	["width"] = 550,
 	["editheight"] = 15,
 	["urlcolor"] = "16FF5D",
 	["enablefading"] = true,

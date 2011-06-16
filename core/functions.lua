@@ -63,9 +63,12 @@ D.Dummy = function () return end
 
 D.Kill = function(object)
 
+	if object == nil then return end
+	
 	if object.UnregisterAllEvents then
 		object:UnregisterAllEvents()
 	end
+	
 	object.Show = D.Dummy
 	object:Hide()
 

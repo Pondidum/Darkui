@@ -6,6 +6,7 @@ assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
 local frameWidth = 240
 local frameWidthSmall = 132
+local frameWidthRaid = 80
 local healthHeight = 18
 local castHeight = 16
 local castOffset = -20
@@ -334,7 +335,7 @@ local function Shared(self, unit)
 	self:Tag(healthValue, '[' .. D.Addon.name .. ':health]')
 	
 	self.Health = health
-	
+	self.HealthValue = healthValue
 	
 	local name =  D.CreateFontString(health, S.fonts.unitframe, 12, "OUTLINE")
 	name:SetPoint("LEFT", health, "LEFT", 4, 0)
@@ -504,6 +505,25 @@ local UnitSpecific = {
 		self.Castbar = nil
 		
 	end,
+	
+	raid = function(self, ...)
+		Shared(self, ...)
+		
+		self:SetHeight(healthHeight)
+		self:SetWidth(frameWidthRaid)
+		
+		self.Buffs = nil
+		self.Debuffs = nil
+		
+		D.Kill(self.Power)
+		self.Power = nil
+		
+		D.Kill(self.Castbar)
+		self.Castbar = nil
+		
+		self:Tag(self.HealthValue, '')
+	end,
+	
 }
 UnitSpecific.focustarget = UnitSpecific.targettarget
 UnitSpecific.focus = UnitSpecific.target
@@ -555,12 +575,10 @@ oUF:Factory(function(self)
 	local focustarget = spawnHelper(self, 'focustarget')
 	focustarget:SetPoint("RIGHT", focus, "LEFT", -25, 0)
 	
-	local dummy = function() return end
-	
 	for i = 1,MAX_BOSS_FRAMES do
 		local t_boss = _G["Boss"..i.."TargetFrame"]
 		t_boss:UnregisterAllEvents()
-		t_boss.Show = dummy
+		t_boss.Show = D.Dummy
 		t_boss:Hide()
 		_G["Boss"..i.."TargetFrame".."HealthBar"]:UnregisterAllEvents()
 		_G["Boss"..i.."TargetFrame".."ManaBar"]:UnregisterAllEvents()
@@ -577,6 +595,32 @@ oUF:Factory(function(self)
 			boss[i]:SetPoint('BOTTOM', boss[i-1], 'TOP', 0, 35)             
 		end
 		
+	end
+	
+	
+	self:SetActiveStyle(D.Addon.name .. "Raid")
+	local raid = {}
+	for i = 1, 8 do
+		local group = oUF:SpawnHeader(D.Addon.name .. 'raid' ..i, nil, "raid,party",
+			'oUF-initialConfigFunction', ([[
+											self:SetWidth(71)
+											self:SetHeight(%d)
+										 ]]):format(healthHeight),
+			'showPlayer', true,
+			'showSolo', true,
+			'showParty', true,
+			'showRaid', true,
+			'xoffset', -5,
+			'yOffset', 0,
+			'point', "RIGHT",
+			'groupFilter', i)
+		
+		if i == 1 then
+			group:SetPoint("BOTTOMRIGHT", DarkuiFrame, "BOTTOMRIGHT", 0, 0)
+		else
+			group:SetPoint("BOTTOMRIGHT", raid[i-1], "TOPRIGHT", 0, 5)
+		end
+		raid[i] = group
 	end
 	
 end)

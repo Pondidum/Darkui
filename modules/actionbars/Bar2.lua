@@ -19,9 +19,9 @@ for i=1, 12 do
 	b:SetFrameLevel(15)
 	
 	if i == 1 then
-		b:SetPoint("BOTTOMLEFT", bar, S.actionbars.buttonspacing, S.actionbars.buttonspacing)
+		b:SetPoint("BOTTOMLEFT", bar, 0, 0)
 	elseif i == 7 then
-		b:SetPoint("TOPLEFT", bar, S.actionbars.buttonspacing, -S.actionbars.buttonspacing)
+		b:SetPoint("TOPLEFT", bar, 0, 0)
 	else
 		b:SetPoint("LEFT", b2, "RIGHT", S.actionbars.buttonspacing, 0)
 	end
