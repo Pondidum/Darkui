@@ -285,7 +285,6 @@ local function styleflyout(self)
 	end
 end
 
--- rework the mouseover, pushed, checked texture to match Tukui theme.
 do
 	for i = 1, 12 do
 		StyleButton(_G["ActionButton"..i], true)

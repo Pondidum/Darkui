@@ -1,8 +1,8 @@
 local D, S, E = unpack(select(2, ...))
 --[[
         An edited lightweight OmniCC for Tukui
-                A featureless, 'pure' version of OmniCC.
-                This version should work on absolutely everything, but I've removed pretty much all of the options
+        A featureless, 'pure' version of OmniCC.
+        This version should work on absolutely everything, but I've removed pretty much all of the options
 --]]
 
 if IsAddOnLoaded("OmniCC") or IsAddOnLoaded("ncCooldown") or S.cooldowns.enable ~= true then return end

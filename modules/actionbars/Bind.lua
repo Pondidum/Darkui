@@ -1,6 +1,6 @@
 local D, S, E = unpack(select(2, ...))
 -- keybind feature
-local bind = CreateFrame("Frame", "TukuiHoverBind", UIParent)
+local bind = CreateFrame("Frame", "DarkuiHoverBind", UIParent)
 
 -- SLASH COMMAND
 SlashCmdList.MOUSEOVERBIND = function()
@@ -59,7 +59,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 				GameTooltip:Show()
 				GameTooltip:SetScript("OnHide", function(self)
 					self:SetOwner(bind, "ANCHOR_NONE")
-					self:SetPoint("BOTTOM", bind, "TOP", 0, 1)
+					--self:SetPoint("BOTTOM", bind, "TOP", 0, 1)
 					self:AddLine(bind.button.name, 1, 1, 1)
 					bind.button.bindings = {GetBindingKey(spellmacro.." "..bind.button.name)}
 					if #bind.button.bindings == 0 then
@@ -81,7 +81,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 				self.button.name = GetMacroInfo(self.button.id)
 				
 				GameTooltip:SetOwner(bind, "ANCHOR_NONE")
-				GameTooltip:SetPoint("BOTTOM", bind, "TOP", 0, 1)
+				--GameTooltip:SetPoint("BOTTOM", bind, "TOP", 0, 1)
 				GameTooltip:AddLine(bind.button.name, 1, 1, 1)
 				
 				bind.button.bindings = {GetBindingKey(spellmacro.." "..bind.button.name)}
@@ -110,7 +110,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 				GameTooltip:Show()
 				GameTooltip:SetScript("OnHide", function(self)
 					self:SetOwner(bind, "ANCHOR_NONE")
-					self:SetPoint("BOTTOM", bind, "TOP", 0, 1)
+					--self:SetPoint("BOTTOM", bind, "TOP", 0, 1)
 					self:AddLine(bind.button.name, 1, 1, 1)
 					bind.button.bindings = {GetBindingKey(bind.button.bindstring)}
 					if #bind.button.bindings == 0 then
@@ -151,7 +151,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 				GameTooltip:Show()
 				GameTooltip:SetScript("OnHide", function(self)
 					self:SetOwner(bind, "ANCHOR_NONE")
-					self:SetPoint("BOTTOM", bind, "TOP", 0, 1)
+					--self:SetPoint("BOTTOM", bind, "TOP", 0, 1)
 					self:AddLine(bind.button.name, 1, 1, 1)
 					bind.button.bindings = {GetBindingKey(bind.button.bindstring)}
 					if #bind.button.bindings == 0 then

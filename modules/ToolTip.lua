@@ -34,8 +34,7 @@ anchor.text = D.CreateFontString(anchor, S.fonts.normal, 12)
 anchor.text:SetPoint("CENTER")
 anchor.text:SetText("Move Tooltip")
 
--- Update Tukui Tooltip Position on some specifics Tooltip
--- Also used because on Eyefinity, SetClampedToScreen doesn't work on left and right side of screen #1
+-- Update Tooltip Position on some specifics Tooltip
 local function UpdateTooltip(self)
 	local owner = self:GetOwner()
 	if not owner then return end	
@@ -57,19 +56,7 @@ local function UpdateTooltip(self)
 	elseif self:GetAnchorType() == "ANCHOR_NONE" and InCombatLockdown() and S.tooltip.hideincombat == true then
 		self:Hide()
 	end
-	
-	if name and (TukuiPlayerBuffs or TukuiPlayerDebuffs) then
-		if (TukuiPlayerBuffs:GetPoint():match("LEFT") or TukuiPlayerDebuffs:GetPoint():match("LEFT")) and (name:match("TukuiPlayerBuffs") or name:match("TukuiPlayerDebuffs")) then
-			self:SetAnchorType("ANCHOR_BOTTOMRIGHT", x, -x)
-		end
-	end
-		
-	if (owner == MiniMapBattlefieldFrame or owner == MiniMapMailFrame) and TukuiMinimap then
-		if TukuiMinimap:GetPoint():match("LEFT") then 
-			self:SetAnchorType("ANCHOR_TOPRIGHT", x, -x)
-		end
-	end
-	
+
 	if self:GetAnchorType() == "ANCHOR_NONE" and DarkuiTooltipAnchor then
 	
 		local point = DarkuiTooltipAnchor:GetPoint()
@@ -87,13 +74,8 @@ local function UpdateTooltip(self)
 			self:ClearAllPoints()
 			self:SetPoint("BOTTOMLEFT", DarkuiTooltipAnchor, "TOPLEFT", 0, x)		
 		elseif point == "BOTTOMRIGHT" or point == "RIGHT" then
-			if TukuiBags and TukuiBags:IsShown() then
-				self:ClearAllPoints()
-				self:SetPoint("BOTTOMRIGHT", TukuiBags, "TOPRIGHT", 0, x)			
-			else
-				self:ClearAllPoints()
-				self:SetPoint("BOTTOMRIGHT", DarkuiTooltipAnchor, "TOPRIGHT", 0, x)
-			end
+			self:ClearAllPoints()
+			self:SetPoint("BOTTOMRIGHT", DarkuiTooltipAnchor, "TOPRIGHT", 0, x)
 		else
 			self:ClearAllPoints()
 			self:SetPoint("BOTTOM", DarkuiTooltipAnchor, "TOP", 0, x)		
