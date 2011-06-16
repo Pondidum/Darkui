@@ -39,55 +39,59 @@ local function GetBar()
 	return condition
 end
 
-bar:RegisterEvent("PLAYER_LOGIN")
-bar:RegisterEvent("PLAYER_ENTERING_WORLD")
-bar:RegisterEvent("KNOWN_CURRENCY_TYPES_UPDATE")
-bar:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
-bar:RegisterEvent("BAG_UPDATE")
-bar:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-bar:SetScript("OnEvent", function(self, event, ...)
-	if event == "PLAYER_LOGIN" then
-		local button
-		for i = 1, NUM_ACTIONBAR_BUTTONS do
-			button = _G["ActionButton"..i]
-			self:SetFrameRef("ActionButton"..i, button)
-		end	
+local function HandleEvents(self, event, ...)
+	MainMenuBar_OnEvent(self, event, ...)
+end
 
-		self:Execute([[
-			buttons = table.new()
-			for i = 1, 12 do
-				table.insert(buttons, self:GetFrameRef("ActionButton"..i))
-			end
-		]])
+E:Register("KNOWN_CURRENCY_TYPES_UPDATE", HandleEvents)
+E:Register("CURRENCY_DISPLAY_UPDATE", HandleEvents)
+E:Register("BAG_UPDATE", HandleEvents)
+E:Register("ACTIVE_TALENT_GROUP_CHANGED", HandleEvents)
 
-		self:SetAttribute("_onstate-page", [[ 
-			for i, button in ipairs(buttons) do
-				button:SetAttribute("actionpage", tonumber(newstate))
-			end
-		]])
-			
-		RegisterStateDriver(self, "page", GetBar())
-	elseif event == "PLAYER_ENTERING_WORLD" then
-		MainMenuBar_UpdateKeyRing()
-		local button
-		for i = 1, 12 do
-			button = _G["ActionButton"..i]
-			button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
-			button:ClearAllPoints()
-			button:SetParent(bar)
-			button:SetFrameStrata("BACKGROUND")
-			button:SetFrameLevel(15)
-			if i == 1 then
-				button:SetPoint("BOTTOMLEFT", 0, 0)
-			else
-				local previous = _G["ActionButton"..i-1]
-				button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
-			end
+
+E:Register("PLAYER_ENTERING_WORLD", function(self) 
+	MainMenuBar_UpdateKeyRing()
+	local button
+	for i = 1, 12 do
+		button = _G["ActionButton"..i]
+		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
+		button:ClearAllPoints()
+		button:SetParent(bar)
+		button:SetFrameStrata("BACKGROUND")
+		button:SetFrameLevel(15)
+		if i == 1 then
+			button:SetPoint("BOTTOMLEFT", 0, 0)
+		else
+			local previous = _G["ActionButton"..i-1]
+			button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
 		end
-	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
-		-- attempt to fix blocked glyph change after switching spec.
-		LoadAddOn("Blizzard_GlyphUI")
-	else
-		MainMenuBar_OnEvent(self, event, ...)
 	end
+end)
+
+E:Register("ACTIVE_TALENT_GROUP_CHANGED", function(self)
+	LoadAddOn("Blizzard_GlyphUI")
+end)
+
+bar:RegisterEvent("PLAYER_LOGIN")
+bar:SetScript("OnEvent", function(self, event, ...)
+	local button
+	for i = 1, NUM_ACTIONBAR_BUTTONS do
+		button = _G["ActionButton"..i]
+		self:SetFrameRef("ActionButton"..i, button)
+	end	
+
+	self:Execute([[
+		buttons = table.new()
+		for i = 1, 12 do
+			table.insert(buttons, self:GetFrameRef("ActionButton"..i))
+		end
+	]])
+
+	self:SetAttribute("_onstate-page", [[ 
+		for i, button in ipairs(buttons) do
+			button:SetAttribute("actionpage", tonumber(newstate))
+		end
+	]])
+		
+	RegisterStateDriver(self, "page", GetBar())
 end)

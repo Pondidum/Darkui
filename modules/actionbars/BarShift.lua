@@ -45,22 +45,8 @@ local function ShiftBarUpdate()
 	end
 end
 
--- used for anchor totembar or shapeshiftbar
-local DarkuiShift = CreateFrame("Frame","DarkuiShiftBar",UIParent)
-DarkuiShift:SetPoint("BOTTOMLEFT", DarkuiActionBarBackground, "TOPLEFT",  0, 0)
-DarkuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
-DarkuiShift:SetHeight(20)
-DarkuiShift:SetFrameStrata("HIGH")
-DarkuiShift:SetMovable(true)
-DarkuiShift:SetClampedToScreen(true)
-
--- hide it if not needed and stop executing code
-if S.actionbars.hideshapeshift then DarkuiShift:Hide() return end
-
 -- create the shapeshift bar if we enabled it
-local bar = CreateFrame("Frame", "DarkuiShapeShift", DarkuiShift, "SecureHandlerStateTemplate")
-bar:ClearAllPoints()
-bar:SetAllPoints(DarkuiShift)
+local bar = DarkuiBarShift
 
 local States = {
 	["DRUID"] = "show",
@@ -84,21 +70,27 @@ bar:SetScript("OnEvent", function(self, event, ...)
 	if event == "PLAYER_LOGIN" then
 		local button
 		for i = 1, NUM_SHAPESHIFT_SLOTS do
+			
 			button = _G["ShapeshiftButton"..i]
 			button:ClearAllPoints()
 			button:SetParent(self)
+			
 			if i == 1 then
-				button:SetPoint("BOTTOMLEFT", DarkuiShift, 0, 24)
+				button:SetPoint("BOTTOMLEFT", bar, 0, 0)
 			else
 				local previous = _G["ShapeshiftButton"..i-1]
 				button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
 			end
+			
 			local _, name = GetShapeshiftFormInfo(i)
 			if name then
 				button:Show()
 			end
+			
 		end
+		
 		RegisterStateDriver(self, "visibility", States[D.Player.class] or "hide")
+		
 	elseif event == "UPDATE_SHAPESHIFT_FORMS" then
 		-- Update Shapeshift Bar Button Visibility
 		-- I seriously don't know if it's the best way to do it on spec changes or when we learn a new stance.

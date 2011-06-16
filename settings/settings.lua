@@ -41,6 +41,7 @@ S["actionbars"] = {
 	["enable"] = true,
 	["buttonsize"] = 25,
 	["buttonspacing"] = 6,
+	["barspacing"] = 14,
 	["showgrid"] = true,
 	["showhotkey"] = true,
 	["hideshapeshift"] = false,

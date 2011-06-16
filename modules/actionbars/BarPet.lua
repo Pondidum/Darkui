@@ -106,6 +106,8 @@ bar:SetScript("OnEvent", function(self, event, arg1)
 		-- bug reported by Affli on t12 BETA
 		PetActionBarFrame.showgrid = 1 -- hack to never hide pet button. :X
 		
+		D.StylePet()
+		
 		local button		
 		for i = 1, 10 do
 			button = _G["PetActionButton"..i]
@@ -118,7 +120,7 @@ bar:SetScript("OnEvent", function(self, event, arg1)
 				if i == 1 then
 					button:SetPoint("TOPLEFT", 0, 0)
 				else
-					button:SetPoint("TOP", _G["PetActionButton"..(i - 1)], "BOTTOM", 0, -S.actionbars.buttonspacing)
+					button:SetPoint("TOP", _G["PetActionButton"..(i - 1)], "BOTTOM", 0, 0)
 				end
 			else
 				if i == 1 then
@@ -131,6 +133,7 @@ bar:SetScript("OnEvent", function(self, event, arg1)
 			button:Show()
 			self:SetAttribute("addchild", button)
 		end
+		
 		RegisterStateDriver(self, "visibility", "[pet,novehicleui,nobonusbar:5] show; hide")
 		hooksecurefunc("PetActionBar_Update", PetBarUpdate)
 		
@@ -138,7 +141,5 @@ bar:SetScript("OnEvent", function(self, event, arg1)
 		PetBarUpdate()
 	elseif event == "PET_BAR_UPDATE_COOLDOWN" then
 		PetActionBar_UpdateCooldowns()
-	else
-		D.StylePet()
 	end
 end)
