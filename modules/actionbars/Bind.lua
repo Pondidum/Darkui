@@ -231,8 +231,8 @@ SlashCmdList.MOUSEOVERBIND = function()
 
 		StaticPopupDialogs["KEYBIND_MODE"] = {
 			text = "Hover your mouse over any actionbutton to bind it. Press the escape key or right click to clear the current actionbuttons keybinding.",
-			button1 ="All keybindings have been saved.",
-			button2 = "All newly set keybindings have been discarded.",
+			button1 ="Save",
+			button2 = "Discard",
 			OnAccept = function() bind:Deactivate(true) end,
 			OnCancel = function() bind:Deactivate(false) end,
 			timeout = 0,

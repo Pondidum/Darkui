@@ -8,7 +8,6 @@ if not S.actionbars.enable == true then return end
 -- Since t12, it's also working for druid cat stealth. (a lot requested)
 ---------------------------------------------------------------------------
 
-local bar = DarkuiBar1
 --[[ 
 	Bonus bar classes id
 
@@ -48,15 +47,14 @@ E:Register("CURRENCY_DISPLAY_UPDATE", HandleEvents)
 E:Register("BAG_UPDATE", HandleEvents)
 E:Register("ACTIVE_TALENT_GROUP_CHANGED", HandleEvents)
 
-
-E:Register("PLAYER_ENTERING_WORLD", function(self) 
+E:Register("PLAYER_ENTERING_WORLD", function() 
 	MainMenuBar_UpdateKeyRing()
 	local button
 	for i = 1, 12 do
 		button = _G["ActionButton"..i]
 		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
 		button:ClearAllPoints()
-		button:SetParent(bar)
+		button:SetParent(DarkuiBar1)
 		button:SetFrameStrata("BACKGROUND")
 		button:SetFrameLevel(15)
 		if i == 1 then
@@ -68,30 +66,29 @@ E:Register("PLAYER_ENTERING_WORLD", function(self)
 	end
 end)
 
-E:Register("ACTIVE_TALENT_GROUP_CHANGED", function(self)
+E:Register("ACTIVE_TALENT_GROUP_CHANGED", function()
 	LoadAddOn("Blizzard_GlyphUI")
 end)
 
-bar:RegisterEvent("PLAYER_LOGIN")
-bar:SetScript("OnEvent", function(self, event, ...)
+E:Register("PLAYER_LOGIN", function() 
 	local button
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
 		button = _G["ActionButton"..i]
-		self:SetFrameRef("ActionButton"..i, button)
+		DarkuiBar1:SetFrameRef("ActionButton"..i, button)
 	end	
 
-	self:Execute([[
+	DarkuiBar1:Execute([[
 		buttons = table.new()
 		for i = 1, 12 do
 			table.insert(buttons, self:GetFrameRef("ActionButton"..i))
 		end
 	]])
 
-	self:SetAttribute("_onstate-page", [[ 
+	DarkuiBar1:SetAttribute("_onstate-page", [[ 
 		for i, button in ipairs(buttons) do
 			button:SetAttribute("actionpage", tonumber(newstate))
 		end
 	]])
 		
-	RegisterStateDriver(self, "page", GetBar())
+	RegisterStateDriver(DarkuiBar1, "page", GetBar())
 end)

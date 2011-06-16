@@ -5,12 +5,13 @@ if not S.actionbars.enable == true then return end
 -- Manage all others stuff for actionbars
 ---------------------------------------------------------------------------
 
-local TukuiOnLogon = CreateFrame("Frame")
-TukuiOnLogon:RegisterEvent("PLAYER_ENTERING_WORLD")
-TukuiOnLogon:SetScript("OnEvent", function(self, event)
+local function EnteringWorldEventHandler(self, event)
+	E:Unregister("PLAYER_ENTERING_WORLD", EnteringWorldEventHandler, "Darkui_BarsOther_PlayerEnteringWorld")
+	
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")	
 	SetActionBarToggles(1, 1, 1, 1, 0)
 	SetCVar("alwaysShowActionBars", 0)	
+	
 	if S.actionbars.showgrid == true then
 		ActionButton_HideGrid = D.Dummy
 		for i = 1, 12 do
@@ -39,4 +40,7 @@ TukuiOnLogon:SetScript("OnEvent", function(self, event)
 			ActionButton_ShowGrid(button)
 		end
 	end
-end)
+	
+end
+
+E:Register("PLAYER_ENTERING_WORLD", EnteringWorldEventHandler, "Darkui_BarsOther_PlayerEnteringWorld")

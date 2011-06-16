@@ -45,9 +45,6 @@ local function ShiftBarUpdate()
 	end
 end
 
--- create the shapeshift bar if we enabled it
-local bar = DarkuiBarShift
-
 local States = {
 	["DRUID"] = "show",
 	["WARRIOR"] = "show",
@@ -59,56 +56,52 @@ local States = {
 	["WARLOCK"] = "show,",
 }
 
-bar:RegisterEvent("PLAYER_LOGIN")
-bar:RegisterEvent("PLAYER_ENTERING_WORLD")
-bar:RegisterEvent("UPDATE_SHAPESHIFT_FORMS")
-bar:RegisterEvent("UPDATE_SHAPESHIFT_USABLE")
-bar:RegisterEvent("UPDATE_SHAPESHIFT_COOLDOWN")
-bar:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
-bar:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
-bar:SetScript("OnEvent", function(self, event, ...)
-	if event == "PLAYER_LOGIN" then
-		local button
-		for i = 1, NUM_SHAPESHIFT_SLOTS do
-			
-			button = _G["ShapeshiftButton"..i]
-			button:ClearAllPoints()
-			button:SetParent(self)
-			
-			if i == 1 then
-				button:SetPoint("BOTTOMLEFT", bar, 0, 0)
-			else
-				local previous = _G["ShapeshiftButton"..i-1]
-				button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
-			end
-			
-			local _, name = GetShapeshiftFormInfo(i)
-			if name then
-				button:Show()
-			end
-			
+E:Register("UPDATE_SHAPESHIFT_USABLE", ShiftBarUpdate)
+E:Register("UPDATE_SHAPESHIFT_COOLDOWN", ShiftBarUpdate)
+E:Register("UPDATE_SHAPESHIFT_FORM", ShiftBarUpdate)
+E:Register("ACTIONBAR_PAGE_CHANGED", ShiftBarUpdate)
+E:Register("PLAYER_ENTERING_WORLD", function() D.StyleShift() end)
+
+E:Register("UPDATE_SHAPESHIFT_FORMS", function(self, event, ...)
+	-- Update Shapeshift Bar Button Visibility
+	-- I seriously don't know if it's the best way to do it on spec changes or when we learn a new stance.
+	if InCombatLockdown() then return end -- > just to be safe ;p
+	local button
+	for i = 1, NUM_SHAPESHIFT_SLOTS do
+		button = _G["ShapeshiftButton"..i]
+		local _, name = GetShapeshiftFormInfo(i)
+		if name then
+			button:Show()
+		else
+			button:Hide()
 		end
-		
-		RegisterStateDriver(self, "visibility", States[D.Player.class] or "hide")
-		
-	elseif event == "UPDATE_SHAPESHIFT_FORMS" then
-		-- Update Shapeshift Bar Button Visibility
-		-- I seriously don't know if it's the best way to do it on spec changes or when we learn a new stance.
-		if InCombatLockdown() then return end -- > just to be safe ;p
-		local button
-		for i = 1, NUM_SHAPESHIFT_SLOTS do
-			button = _G["ShapeshiftButton"..i]
-			local _, name = GetShapeshiftFormInfo(i)
-			if name then
-				button:Show()
-			else
-				button:Hide()
-			end
-		end
-		ShiftBarUpdate()
-	elseif event == "PLAYER_ENTERING_WORLD" then
-		D.StyleShift()
-	else
-		ShiftBarUpdate()
 	end
+	ShiftBarUpdate()
+end)
+
+E:Register("PLAYER_LOGIN", function()  
+
+	local button
+	for i = 1, NUM_SHAPESHIFT_SLOTS do
+		
+		button = _G["ShapeshiftButton"..i]
+		button:ClearAllPoints()
+		button:SetParent(DarkuiBarShift)
+		
+		if i == 1 then
+			button:SetPoint("BOTTOMLEFT", DarkuiBarShift, 0, 0)
+		else
+			local previous = _G["ShapeshiftButton"..i-1]
+			button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
+		end
+		
+		local _, name = GetShapeshiftFormInfo(i)
+		if name then
+			button:Show()
+		end
+		
+	end
+
+	RegisterStateDriver(DarkuiBarShift, "visibility", States[D.Player.class] or "hide")
+
 end)

@@ -85,61 +85,53 @@ local function PetBarUpdate(self, event)
 	end
 end
 
-local bar = DarkuiBarPet
-bar:SetAlpha(1)
+DarkuiBarPet:SetAlpha(1)
+
+E:Register("PLAYER_CONTROL_LOST", PetBarUpdate)
+E:Register("PLAYER_CONTROL_GAINED", PetBarUpdate)
+E:Register("PLAYER_ENTERING_WORLD", PetBarUpdate)
+E:Register("PLAYER_FARSIGHT_FOCUS_CHANGED", PetBarUpdate)
+E:Register("PET_BAR_UPDATE", PetBarUpdate)
+E:Register("PET_BAR_UPDATE_USABLE", PetBarUpdate)
+E:Register("PET_BAR_HIDE", PetBarUpdate)
+E:Register("UNIT_PET", PetBarUpdate)
+E:Register("UNIT_FLAGS", PetBarUpdate)
+E:Register("UNIT_AURA", PetBarUpdate)
+E:Register("PET_BAR_UPDATE_COOLDOWN", PetActionBar_UpdateCooldowns)
+
+E:Register("PLAYER_LOGIN", function()
+
+	PetActionBarFrame.showgrid = 1 -- hack to never hide pet button. :X
 	
-bar:RegisterEvent("PLAYER_LOGIN")
-bar:RegisterEvent("PLAYER_CONTROL_LOST")
-bar:RegisterEvent("PLAYER_CONTROL_GAINED")
-bar:RegisterEvent("PLAYER_ENTERING_WORLD")
-bar:RegisterEvent("PLAYER_FARSIGHT_FOCUS_CHANGED")
-bar:RegisterEvent("PET_BAR_UPDATE")
-bar:RegisterEvent("PET_BAR_UPDATE_USABLE")
-bar:RegisterEvent("PET_BAR_UPDATE_COOLDOWN")
-bar:RegisterEvent("PET_BAR_HIDE")
-bar:RegisterEvent("UNIT_PET")
-bar:RegisterEvent("UNIT_FLAGS")
-bar:RegisterEvent("UNIT_AURA")
-bar:SetScript("OnEvent", function(self, event, arg1)
+	D.StylePet()
+	
+	local button		
+	for i = 1, 10 do
+		button = _G["PetActionButton"..i]
+		button:ClearAllPoints()
+		button:SetParent(DarkuiBarPet)
 
-	if event == "PLAYER_LOGIN" then	
-		-- bug reported by Affli on t12 BETA
-		PetActionBarFrame.showgrid = 1 -- hack to never hide pet button. :X
+		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
 		
-		D.StylePet()
-		
-		local button		
-		for i = 1, 10 do
-			button = _G["PetActionButton"..i]
-			button:ClearAllPoints()
-			button:SetParent(DarkuiBarPet)
-
-			button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
-			
-			if S.actionbars.petbaronside == true then
-				if i == 1 then
-					button:SetPoint("TOPLEFT", 0, 0)
-				else
-					button:SetPoint("TOP", _G["PetActionButton"..(i - 1)], "BOTTOM", 0, 0)
-				end
+		if S.actionbars.petbaronside == true then
+			if i == 1 then
+				button:SetPoint("TOPLEFT", 0, 0)
 			else
-				if i == 1 then
-					button:SetPoint("BOTTOMLEFT", 0, 0)
-				else
-					button:SetPoint("LEFT", _G["PetActionButton"..(i - 1)], "RIGHT", S.actionbars.buttonspacing, 0)
-				end
+				button:SetPoint("TOP", _G["PetActionButton"..(i - 1)], "BOTTOM", 0, 0)
 			end
-			
-			button:Show()
-			self:SetAttribute("addchild", button)
+		else
+			if i == 1 then
+				button:SetPoint("BOTTOMLEFT", 0, 0)
+			else
+				button:SetPoint("LEFT", _G["PetActionButton"..(i - 1)], "RIGHT", S.actionbars.buttonspacing, 0)
+			end
 		end
 		
-		RegisterStateDriver(self, "visibility", "[pet,novehicleui,nobonusbar:5] show; hide")
-		hooksecurefunc("PetActionBar_Update", PetBarUpdate)
-		
-	elseif event == "PET_BAR_UPDATE" or event == "UNIT_PET" and arg1 == "player" or event == "PLAYER_CONTROL_LOST" or event == "PLAYER_CONTROL_GAINED" or event == "PLAYER_FARSIGHT_FOCUS_CHANGED" or event == "UNIT_FLAGS" or arg1 == "pet" and (event == "UNIT_AURA") then
-		PetBarUpdate()
-	elseif event == "PET_BAR_UPDATE_COOLDOWN" then
-		PetActionBar_UpdateCooldowns()
+		button:Show()
+		DarkuiBarPet:SetAttribute("addchild", button)
 	end
+	
+	RegisterStateDriver(DarkuiBarPet, "visibility", "[pet,novehicleui,nobonusbar:5] show; hide")
+	hooksecurefunc("PetActionBar_Update", PetBarUpdate)
+	
 end)
