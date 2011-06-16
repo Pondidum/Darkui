@@ -8,7 +8,6 @@ if not S.actionbars.enable == true then return end
 local function EnteringWorldEventHandler(self, event)
 	E:Unregister("PLAYER_ENTERING_WORLD", EnteringWorldEventHandler, "Darkui_BarsOther_PlayerEnteringWorld")
 	
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")	
 	SetActionBarToggles(1, 1, 1, 1, 0)
 	SetCVar("alwaysShowActionBars", 0)	
 	
