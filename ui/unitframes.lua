@@ -304,7 +304,7 @@ local function CreateBuffs(self)
 	
 end
 
-local function CreateDebuffs(self, unit)
+local function CreateDebuffs(self)
 
 	local anchor = self.Buffs or self.Power
 	
@@ -323,6 +323,45 @@ local function CreateDebuffs(self, unit)
 	
 end
 
+local function CreateCastbar(self)
+	
+	local castbar = CreateFrame("StatusBar", nil, self)
+	castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, castOffset)
+	castbar:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", 0, castOffset)
+	castbar:SetHeight(castHeight)
+	
+	castbar:SetStatusBarTexture(S["textures"].normal)
+	D.CreateShadow(castbar)
+	D.CreateBackground(castbar)
+	
+	castbar.PostCastStart = CheckCast
+	castbar.PostChannelStart = CheckChannel
+	
+	castbar.Text = D.CreateFontString(castbar, S.fonts.unitframe, 12)
+	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
+	castbar.Text:SetTextColor(1, 1, 1)
+	
+	castbar.Time = D.CreateFontString(castbar, S.fonts.unitframe, 12)
+	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
+	castbar.Time:SetTextColor(0.8, 0.8, 0.8)
+	castbar.Time:SetJustifyH("RIGHT")
+	castbar.CustomTimeText = CustomCastTimeText
+	
+	castbar.button = CreateFrame("Frame", nil, castbar)
+	castbar.button:SetHeight(20)
+	castbar.button:SetWidth(20)
+	castbar.button:SetPoint("RIGHT", castbar, "LEFT", -5, 0)
+	
+	castbar.Icon = castbar.button:CreateTexture(nil, "ARTWORK")
+	castbar.Icon:SetPoint("TOPLEFT", castbar.button, 0, 0)
+	castbar.Icon:SetPoint("BOTTOMRIGHT", castbar.button, 0, 0)
+	castbar.Icon:SetTexCoord(0.08, 0.92, 0.08, .92)
+
+	D.CreateShadow(castbar.button)
+
+	self.Castbar = castbar
+	
+end
 
 local function Shared(self, unit)
 
@@ -398,42 +437,6 @@ local function Shared(self, unit)
 	power.colorPower = true
 
 	self.Power = power
-	
-	local castbar = CreateFrame("StatusBar", nil, self)
-	castbar:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, castOffset)
-	castbar:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, castOffset)
-	castbar:SetHeight(castHeight)
-	
-	castbar:SetStatusBarTexture(S["textures"].normal)
-	D.CreateShadow(castbar, "Default")
-	D.CreateBackground(castbar)
-	
-	castbar.PostCastStart = CheckCast
-	castbar.PostChannelStart = CheckChannel
-	
-	castbar.Text = D.CreateFontString(castbar, S.fonts.unitframe, 12)
-	castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
-	castbar.Text:SetTextColor(1, 1, 1)
-	
-	castbar.Time = D.CreateFontString(castbar, S.fonts.unitframe, 12)
-	castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
-	castbar.Time:SetTextColor(0.8, 0.8, 0.8)
-	castbar.Time:SetJustifyH("RIGHT")
-	castbar.CustomTimeText = CustomCastTimeText
-	
-	castbar.button = CreateFrame("Frame", nil, castbar)
-	castbar.button:SetHeight(20)
-	castbar.button:SetWidth(20)
-	castbar.button:SetPoint("RIGHT", castbar, "LEFT", -5, 0)
-	
-	castbar.Icon = castbar.button:CreateTexture(nil, "ARTWORK")
-	castbar.Icon:SetPoint("TOPLEFT", castbar.button, 0, 0)
-	castbar.Icon:SetPoint("BOTTOMRIGHT", castbar.button, 0, 0)
-	castbar.Icon:SetTexCoord(0.08, 0.92, 0.08, .92)
-
-	D.CreateShadow(castbar.button)
-
-	self.Castbar = castbar
 
 	CreateRaidIcon(self)
 	
@@ -445,14 +448,15 @@ local UnitSpecific = {
 	player = function(self, ...)
 		Shared(self, ...)
 		
-		self.Castbar:ClearAllPoints()
-		self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 100)
-		self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 100)
-		
-		CreateDebuffs(self, ...)
+		CreateCastbar(self)
+		CreateDebuffs(self)
 		CreateComboPoints(self)
 		CreateCombatIndicator(self)
 		CreateLeaderAndMasterLooter(self)
+		
+		self.Castbar:ClearAllPoints()
+		self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 100)
+		self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 100)
 		
 		if D.Player.level ~= MAX_PLAYER_LEVEL then
 			CreateExperienceBar(self)
@@ -465,8 +469,9 @@ local UnitSpecific = {
 	target = function(self, ...)
 		Shared(self, ...)
 		
+		CreateCastbar(self)
 		CreateBuffs(self)
-		CreateDebuffs(self, ...)
+		CreateDebuffs(self)
 		
 	end,
 	
@@ -475,8 +480,6 @@ local UnitSpecific = {
 		
 		self:SetWidth(frameWidthSmall)
 		
-		D.Kill(self.Castbar)
-		self.Castbar = nil
 	end,
 	
 	pet = function(self, ...)
@@ -484,11 +487,11 @@ local UnitSpecific = {
 		
 		self:SetWidth(frameWidthSmall)
 		
-		CreateBuffs(self)
-		CreateDebuffs(self, ...)
+		CreateCastbar(self)
 		
-		self.Buffs.num = 5
-		self.Debuffs.num = 5
+		self.Castbar:ClearAllPoints()
+		self.Castbar:SetPoint("BOTTOMLEFT", self.Power, "TOPLEFT", 0, 5)
+		self.Castbar:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", 0, 5)
 		
 		self:RegisterEvent("UNIT_PET", function(frame)
 		
@@ -505,9 +508,6 @@ local UnitSpecific = {
 		
 		self:SetWidth(frameWidthSmall)
 		
-		D.Kill(self.Castbar)
-		self.Castbar = nil
-		
 	end,
 	
 	raid = function(self, ...)
@@ -518,9 +518,6 @@ local UnitSpecific = {
 		
 		D.Kill(self.Power)
 		self.Power = nil
-		
-		D.Kill(self.Castbar)
-		self.Castbar = nil
 		
 		self:Tag(self.HealthValue, '')
 	end,
