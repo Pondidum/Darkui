@@ -127,12 +127,6 @@ local function PostUpdateAura(icons, unit, icon, index, offset, filter, isDebuff
 	
 end
 
-local function UpdateName(self, event, unit)
-
-	if self.unit ~= unit then return end
-	
-end
-
 local function CreateMenu(self)
 
 	local unit = self.unit:gsub("(.)", string.upper, 1)
@@ -293,6 +287,42 @@ local function CreateComboPoints(self)
 	
 end
 
+local function CreateBuffs(self)
+	
+	local buffs = CreateFrame("Frame", nil, self)
+	buffs:SetPoint("BOTTOMLEFT", self.Power, "TOPLEFT", -1, 5)
+	buffs:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", -1, 5)
+	buffs:SetHeight(buffHeight)
+	buffs.size = buffHeight
+	buffs.num = 9
+	buffs.spacing = 1
+	buffs.initialAnchor = 'BOTTOMLEFT'
+	
+	buffs.PostCreateIcon = PostCreateAura
+	buffs.PostUpdateIcon = PostUpdateAura
+	self.Buffs = buffs
+	
+end
+
+local function CreateDebuffs(self, unit)
+
+	local anchor = self.Buffs or self.Power
+	
+	local debuffs = CreateFrame("Frame", nil, self)
+	debuffs:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", -1, 5)
+	debuffs:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", -1, 5)
+	debuffs:SetHeight(buffHeight)
+	debuffs.size = buffHeight
+	debuffs.num = 9
+	debuffs.spacing = 1
+	debuffs.initialAnchor = 'BOTTOMLEFT'
+	
+	debuffs.PostCreateIcon = PostCreateAura
+	debuffs.PostUpdateIcon = PostUpdateAura
+	self.Debuffs = debuffs
+	
+end
+
 
 local function Shared(self, unit)
 
@@ -369,8 +399,6 @@ local function Shared(self, unit)
 
 	self.Power = power
 	
-	
-	
 	local castbar = CreateFrame("StatusBar", nil, self)
 	castbar:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, castOffset)
 	castbar:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, castOffset)
@@ -406,39 +434,14 @@ local function Shared(self, unit)
 	D.CreateShadow(castbar.button)
 
 	self.Castbar = castbar
-	
-	
-	local buffs = CreateFrame("Frame", nil, self)
-	buffs:SetPoint("BOTTOMLEFT", power, "TOPLEFT", -1, 5)
-	buffs:SetPoint("BOTTOMRIGHT", power, "TOPRIGHT", -1, 5)
-	buffs:SetHeight(buffHeight)
-	buffs.size = buffHeight
-	buffs.num = 9
-	buffs.spacing = 1
-	buffs.initialAnchor = 'BOTTOMLEFT'
-	
-	buffs.PostCreateIcon = PostCreateAura
-	buffs.PostUpdateIcon = PostUpdateAura
-	self.Buffs = buffs
-	
-	local debuffs = CreateFrame("Frame", nil, self)
-	debuffs:SetPoint("BOTTOMLEFT", buffs, "TOPLEFT", -1, 5)
-	debuffs:SetPoint("BOTTOMRIGHT", buffs, "TOPRIGHT", -1, 5)
-	debuffs:SetHeight(buffHeight)
-	debuffs.size = buffHeight
-	debuffs.num = 9
-	debuffs.spacing = 1
-	debuffs.initialAnchor = 'BOTTOMLEFT'
-	
-	debuffs.PostCreateIcon = PostCreateAura
-	debuffs.PostUpdateIcon = PostUpdateAura
-	self.Debuffs = debuffs
-	
+
 	CreateRaidIcon(self)
 	
 end
 
+
 local UnitSpecific = {
+
 	player = function(self, ...)
 		Shared(self, ...)
 		
@@ -446,9 +449,7 @@ local UnitSpecific = {
 		self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 100)
 		self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 100)
 		
-		self.Debuffs = self.Buffs
-		self.Buffs = nil
-		
+		CreateDebuffs(self, ...)
 		CreateComboPoints(self)
 		CreateCombatIndicator(self)
 		CreateLeaderAndMasterLooter(self)
@@ -463,15 +464,16 @@ local UnitSpecific = {
 	
 	target = function(self, ...)
 		Shared(self, ...)
-			
+		
+		CreateBuffs(self)
+		CreateDebuffs(self, ...)
+		
 	end,
 	
 	targettarget = function(self, ...)
 		Shared(self, ...)
 		
 		self:SetWidth(frameWidthSmall)
-		self.Buffs  = nil
-		self.Debuffs = nil
 		
 		D.Kill(self.Castbar)
 		self.Castbar = nil
@@ -481,6 +483,10 @@ local UnitSpecific = {
 		Shared(self, ...)
 		
 		self:SetWidth(frameWidthSmall)
+		
+		CreateBuffs(self)
+		CreateDebuffs(self, ...)
+		
 		self.Buffs.num = 5
 		self.Debuffs.num = 5
 		
@@ -498,8 +504,6 @@ local UnitSpecific = {
 		Shared(self, ...)
 		
 		self:SetWidth(frameWidthSmall)
-		self.Buffs = nil
-		self.Debuffs = nil
 		
 		D.Kill(self.Castbar)
 		self.Castbar = nil
@@ -511,9 +515,6 @@ local UnitSpecific = {
 		
 		self:SetHeight(healthHeight)
 		self:SetWidth(frameWidthRaid)
-		
-		self.Buffs = nil
-		self.Debuffs = nil
 		
 		D.Kill(self.Power)
 		self.Power = nil
