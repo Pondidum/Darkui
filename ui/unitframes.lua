@@ -4,7 +4,8 @@ local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
-
+local layout =  S.unitframes.layouts[S.unitframes.layout]
+ 
 local frameWidth = 240
 local frameWidthSmall = 132
 local frameWidthRaid = 80
@@ -16,7 +17,7 @@ local buffHeight = 26
 local segmentHeight = 8 --used for runes, totems, holypower, soulshards etc
 
 
-if S.unitframes.floatingcastbars then
+if layout.floatingcastbars then
 	castOffset = 120
 end
 
@@ -552,9 +553,9 @@ local UnitSpecific = {
 		CreateCombatIndicator(self)
 		CreateLeaderAndMasterLooter(self)
 		
-		self.Castbar:ClearAllPoints()
-		self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 100)
-		self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 100)
+		-- self.Castbar:ClearAllPoints()
+		-- self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 100)
+		-- self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 100)
 		
 		if D.Player.level ~= MAX_PLAYER_LEVEL then
 			CreateExperienceBar(self)
@@ -640,7 +641,7 @@ for unit,layout in next, UnitSpecific do
 end
 
 
-local spawnHelper = function(self, unit, ...)
+local function SpawnHelper(self, unit, ...)
 
 	if UnitSpecific[unit]  then
 		self:SetActiveStyle(D.Addon.name .. unit:gsub("^%l", string.upper))
@@ -650,40 +651,29 @@ local spawnHelper = function(self, unit, ...)
 		self:SetActiveStyle(D.Addon.name)
 	end
 	
-	return self:Spawn(unit)
- 
+	local frame = self:Spawn(unit)
+	local point = layout[unit]
+	
+	if point ~= nil then
+		frame:SetPoint( unpack(point) )
+	end
+	
+	return frame
+
 end
 
-local function GetPointFor(unit)
-	
-	local layout = S.unitframes.layout
-	print(unpack(S.unitframes.layouts[layout][unit]))
-	return unpack(S.unitframes.layouts[layout][unit])
-	
-end
 
 
 oUF:Factory(function(self)
 		
 	
-	local player = spawnHelper(self, 'player')
-	player:SetPoint( GetPointFor("player") )
-	
-	local pet = spawnHelper(self, 'pet')
-	pet:SetPoint( GetPointFor("pet") )
-	
-	local target = spawnHelper(self, 'target')
-	target:SetPoint( GetPointFor("target") )
-	
-	local targettarget	= spawnHelper(self, 'targettarget')
-	targettarget:SetPoint( GetPointFor("targettarget") )
-	
-	local focus = spawnHelper(self, 'focus')
-	focus:SetPoint( GetPointFor("focus") )
+	local player =			SpawnHelper(self, 'player')
+	local pet =				SpawnHelper(self, 'pet')
+	local target =			SpawnHelper(self, 'target')
+	local targettarget	=	SpawnHelper(self, 'targettarget')
+	local focus =			SpawnHelper(self, 'focus')
+	local focustarget =		SpawnHelper(self, 'focustarget')
 
-	local focustarget = spawnHelper(self, 'focustarget')
-	focustarget:SetPoint( GetPointFor("focustarget") )
-	
 	for i = 1,MAX_BOSS_FRAMES do
 		local t_boss = _G["Boss"..i.."TargetFrame"]
 		t_boss:UnregisterAllEvents()
@@ -696,7 +686,7 @@ oUF:Factory(function(self)
 	local boss = {}
 	for i = 1, MAX_BOSS_FRAMES do
 	
-		boss[i] = spawnHelper(self, "boss"..i)
+		boss[i] = SpawnHelper(self, "boss"..i)
 		
 		if i == 1 then
 			boss[i]:SetPoint("BOTTOMRIGHT", DarkuiBar5, "BOTTOMLEFT", -50, -15)
@@ -725,7 +715,7 @@ oUF:Factory(function(self)
 			'groupFilter', i)
 		
 		if i == 1 then
-			group:SetPoint( GetPointFor("raid") )
+			group:SetPoint( unpack(layout["raid"]) )
 		else
 			group:SetPoint("BOTTOMRIGHT", raid[i-1], "TOPRIGHT", 0, 5)
 		end

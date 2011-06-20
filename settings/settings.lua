@@ -34,10 +34,20 @@ S["stats"] = {
 }
 
 S["unitframes"] = {
-	["floatingcastbars"] = true,
-	["layout"] = "default",
+	["layout"] = "healer",
 	["layouts"] = {
 		["default"] = {
+			["floatingcastbars"] = true,
+			["player"]			= {"BOTTOM","DarkuiFrame", "BOTTOM", 0, 150},
+			["pet"]				= {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
+			["target"]			= {"LEFT", "oUF_DarkuiPlayer", "CENTER", 250, 100},
+			["focus"]			= {"RIGHT", "oUF_DarkuiPlayer", "CENTER", -250, 100},
+			["targettarget"]	= {"LEFT", "oUF_DarkuiTarget", "RIGHT", 25, 0},
+			["focustarget"]		= {"RIGHT", "oUF_DarkuiFocus", "LEFT", -25, 0},
+			["raid"]			= {"BOTTOMRIGHT", "DarkuiFrame", "BOTTOMRIGHT", 0, 0}
+		},
+		["healer"] = {
+			["floatingcastbars"] = false,
 			["player"]			= {"BOTTOM","DarkuiFrame", "BOTTOM", 0, 150},
 			["pet"]				= {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
 			["target"]			= {"LEFT", "oUF_DarkuiPlayer", "CENTER", 250, 100},
