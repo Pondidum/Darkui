@@ -418,7 +418,7 @@ local function Shared(self, unit)
 	self.menu = CreateMenu
 	
 	self:SetWidth(frameWidth) --, )
-	self:SetHeight(healthHeight + castHeight + powerHeight)
+	self:SetHeight(healthHeight)
 	
 	
 	
@@ -651,15 +651,18 @@ local function SpawnHelper(self, unit, ...)
 		self:SetActiveStyle(D.Addon.name)
 	end
 	
-	local frame = self:Spawn(unit)
+	return self:Spawn(unit)
+	
+end
+
+local function SetLayout(self, unit)
+	
 	local point = layout[unit]
 	
 	if point ~= nil then
-		frame:SetPoint( unpack(point) )
+		self:SetPoint( unpack(point) )
 	end
 	
-	return frame
-
 end
 
 
@@ -673,7 +676,7 @@ oUF:Factory(function(self)
 	local targettarget	=	SpawnHelper(self, 'targettarget')
 	local focus =			SpawnHelper(self, 'focus')
 	local focustarget =		SpawnHelper(self, 'focustarget')
-
+	
 	for i = 1,MAX_BOSS_FRAMES do
 		local t_boss = _G["Boss"..i.."TargetFrame"]
 		t_boss:UnregisterAllEvents()
@@ -688,9 +691,7 @@ oUF:Factory(function(self)
 	
 		boss[i] = SpawnHelper(self, "boss"..i)
 		
-		if i == 1 then
-			boss[i]:SetPoint("BOTTOMRIGHT", DarkuiBar5, "BOTTOMLEFT", -50, -15)
-		else
+		if i > 1 then
 			boss[i]:SetPoint('BOTTOM', boss[i-1], 'TOP', 0, 35)             
 		end
 		
@@ -698,13 +699,14 @@ oUF:Factory(function(self)
 	
 	
 	self:SetActiveStyle(D.Addon.name .. "Raid")
+	local raidHeader = CreateFrame("Frame", "oUF_DarkuiRaid", UIParent)
 	local raid = {}
 	for i = 1, 8 do
-		local group = oUF:SpawnHeader(D.Addon.name .. 'raid' ..i, nil, "raid,party",
+		local group = oUF:SpawnHeader(D.Addon.name .. 'Raid' ..i, nil, "raid,party",
 			'oUF-initialConfigFunction', ([[
-											self:SetWidth(71)
+											self:SetWidth(%d)
 											self:SetHeight(%d)
-										 ]]):format(healthHeight),
+										 ]]):format(frameWidthRaid, healthHeight),
 			'showPlayer', true,
 			'showSolo', true,
 			'showParty', true,
@@ -715,11 +717,26 @@ oUF:Factory(function(self)
 			'groupFilter', i)
 		
 		if i == 1 then
-			group:SetPoint( unpack(layout["raid"]) )
+			group:SetPoint("BOTTOMRIGHT", raidHeader, "BOTTOMRIGHT", 0, 0)
 		else
 			group:SetPoint("BOTTOMRIGHT", raid[i-1], "TOPRIGHT", 0, 5)
 		end
+		
 		raid[i] = group
 	end
+	
+	local raidWidth = (frameWidthRaid + 5) * 5
+	local raidHeight = (healthHeight + 5) * 8
+	raidHeader:SetSize(raidWidth - 5, raidHeight - 5)
+		
+	
+	SetLayout(player, 		'player')
+	SetLayout(pet, 			'pet')
+	SetLayout(target, 		'target')
+	SetLayout(targettarget, 'targettarget')
+	SetLayout(focus, 		'focus')
+	SetLayout(focustarget, 	'focustarget')
+	SetLayout(raidHeader,	'raid')
+	SetLayout(boss[1], 		'boss')
 	
 end)

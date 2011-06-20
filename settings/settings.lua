@@ -34,27 +34,29 @@ S["stats"] = {
 }
 
 S["unitframes"] = {
-	["layout"] = "healer",
+	["layout"] = "default",
 	["layouts"] = {
 		["default"] = {
 			["floatingcastbars"] = true,
-			["player"]			= {"BOTTOM","DarkuiFrame", "BOTTOM", 0, 150},
-			["pet"]				= {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
-			["target"]			= {"LEFT", "oUF_DarkuiPlayer", "CENTER", 250, 100},
-			["focus"]			= {"RIGHT", "oUF_DarkuiPlayer", "CENTER", -250, 100},
-			["targettarget"]	= {"LEFT", "oUF_DarkuiTarget", "RIGHT", 25, 0},
-			["focustarget"]		= {"RIGHT", "oUF_DarkuiFocus", "LEFT", -25, 0},
-			["raid"]			= {"BOTTOMRIGHT", "DarkuiFrame", "BOTTOMRIGHT", 0, 0}
+			["player"]			= {"BOTTOM",		"DarkuiFrame",		"BOTTOM", 0, 150},
+			["pet"]				= {"RIGHT",			"oUF_DarkuiPlayer",	"LEFT", -25, 0},
+			["target"]			= {"LEFT",			"oUF_DarkuiPlayer",	"CENTER", 250, 100},
+			["focus"]			= {"RIGHT",			"oUF_DarkuiPlayer",	"CENTER", -250, 100},
+			["targettarget"]	= {"LEFT",			"oUF_DarkuiTarget",	"RIGHT", 25, 0},
+			["focustarget"]		= {"RIGHT",			"oUF_DarkuiFocus",	"LEFT", -25, 0},
+			["boss"]			= {"BOTTOMRIGHT",	"DarkuiBar5",		"BOTTOMLEFT", -50, -15},
+			["raid"]			= {"BOTTOMRIGHT",	"DarkuiFrame",		"BOTTOMRIGHT", 0, 0},
 		},
 		["healer"] = {
 			["floatingcastbars"] = false,
-			["player"]			= {"BOTTOM","DarkuiFrame", "BOTTOM", 0, 150},
-			["pet"]				= {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
-			["target"]			= {"LEFT", "oUF_DarkuiPlayer", "CENTER", 250, 100},
-			["focus"]			= {"RIGHT", "oUF_DarkuiPlayer", "CENTER", -250, 100},
-			["targettarget"]	= {"LEFT", "oUF_DarkuiTarget", "RIGHT", 25, 0},
-			["focustarget"]		= {"RIGHT", "oUF_DarkuiFocus", "LEFT", -25, 0},
-			["raid"]			= {"BOTTOMRIGHT", "DarkuiFrame", "BOTTOMRIGHT", 0, 0}
+			["player"]			= {"TOPRIGHT",		"oUF_DarkuiRaid",	"TOPLEFT", -35, 0},
+			["pet"]				= {"BOTTOMRIGHT",	"oUF_DarkuiRaid",	"BOTTOMLEFT", -35, 0},
+			["target"]			= {"TOPLEFT",		"oUF_DarkuiRaid",	"TOPRIGHT", 35, 0},
+			["focus"]			= {"BOTTOMLEFT",	"oUF_DarkuiRaid",	"BOTTOMRIGHT", 35, 0},
+			["targettarget"]	= {"LEFT",			"oUF_DarkuiTarget",	"RIGHT", 25, 0},
+			["focustarget"]		= {"LEFT",			"oUF_DarkuiFocus", 	"RIGHT", 25, 0},
+			["boss"]			= {"BOTTOMRIGHT",	"DarkuiBar5", 		"BOTTOMLEFT", -50, -15},
+			["raid"]			= {"BOTTOM", 		"DarkuiFrame", 		"BOTTOM", 0, 150},
 		}
 	}
 }
