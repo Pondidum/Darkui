@@ -54,6 +54,7 @@ local States = {
 	["PRIEST"] = "show,",
 	["HUNTER"] = "show,",
 	["WARLOCK"] = "show,",
+	["SHAMAN"] = "show,",
 }
 
 E:Register("UPDATE_SHAPESHIFT_USABLE", ShiftBarUpdate)
