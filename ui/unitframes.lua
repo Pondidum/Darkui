@@ -4,6 +4,7 @@ local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
+
 local frameWidth = 240
 local frameWidthSmall = 132
 local frameWidthRaid = 80
@@ -12,6 +13,7 @@ local castHeight = 16
 local castOffset = -20
 local powerHeight = 5
 local buffHeight = 26
+local segmentHeight = 8 --used for runes, totems, holypower, soulshards etc
 
 
 if S.unitframes.floatingcastbars then
@@ -118,30 +120,42 @@ local function CreateAltBar(self)
 	
 end
 
-local function CreateSegments(parent, number)
+local function LayoutSegments(parent, segments)
 
 	local spacing = 4
-	local totalSpacing = (number - 1) * spacing 
-	local segmentWidth = (parent:GetWidth()  - totalSpacing) / number
+	local totalSpacing = (#segments - 1) * spacing 
+	local segmentWidth = (parent:GetWidth()  - totalSpacing) / #segments
 	
-	local segments = {}
-	
-	for i = 1, number do
-	
-		segments[i] = CreateFrame("Frame", nil, parent)
-		segments[i]:SetHeight(8)
+	-- note we dont attach the first one to anything
+	for i = 1, #segments do
+		
+		segments[i]:SetHeight(segmentHeight)
 		segments[i]:SetWidth(segmentWidth)
-
-		D.CreateBackground(segments[i])
-		D.CreateShadow(segments[i], "Default")
-	
-		segments[i].bg:SetBackdropColor(0.65, 0.63, 0.35, 0.6)
 		
 		if i > 1 then
 			segments[i]:SetPoint("LEFT", segments[i-1], "RIGHT", spacing, 0)
 		end
 		
 	end
+	
+end
+
+local function CreateSegments(parent, number)
+
+	local segments = {}
+	
+	for i = 1, number do
+	
+		segments[i] = CreateFrame("Frame", nil, parent)
+
+		D.CreateBackground(segments[i])
+		D.CreateShadow(segments[i], "Default")
+	
+		segments[i].bg:SetBackdropColor(0.65, 0.63, 0.35, 0.6)
+	
+	end
+	
+	LayoutSegments(parent, segments)
 	
 	return segments
 	
@@ -298,7 +312,7 @@ local function CreateCastbar(self)
 	castbar:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", 0, castOffset)
 	castbar:SetHeight(castHeight)
 	
-	castbar:SetStatusBarTexture(S["textures"].normal)
+	castbar:SetStatusBarTexture(S.textures.normal)
 	D.CreateShadow(castbar)
 	D.CreateBackground(castbar)
 	
@@ -329,6 +343,68 @@ local function CreateCastbar(self)
 
 	self.Castbar = castbar
 	
+end
+
+local function CreateAuraWatchIcon(self, icon)
+	icon.icon:SetPoint("TOPLEFT", 1, -1)
+	icon.icon:SetPoint("BOTTOMRIGHT", -1, 1)
+	icon.icon:SetTexCoord(.08, .92, .08, .92)
+	icon.icon:SetDrawLayer("ARTWORK")
+	icon.overlay:SetTexture()
+end
+
+local function CreateAuraWatch(self, unit)
+	local auras = CreateFrame("Frame", nil, self)
+	auras:SetPoint("TOPLEFT", self.Health, 2, -2)
+	auras:SetPoint("BOTTOMRIGHT", self.Health, -2, 2)
+	auras.presentAlpha = 1
+	auras.missingAlpha = 0
+	auras.onlyShowPresent = true
+	auras.icons = {}
+	auras.PostCreateIcon = CreateAuraWatchIcon
+	auras.hideCooldown = true
+
+	local buffs = {}
+
+	if (S.buffwatch.buffids["ALL"]) then
+		for key, value in pairs(S.buffwatch.buffids["ALL"]) do
+			tinsert(buffs, value)
+		end
+	end
+
+	if (S.buffwatch.buffids[D.Player.class]) then
+		for key, value in pairs(S.buffwatch.buffids[D.Player.class]) do
+			tinsert(buffs, value)
+		end
+	end
+
+	-- "Cornerbuffs"
+	if (buffs) then
+		
+		for i, spell in pairs(buffs) do
+		
+			local icon = CreateFrame("Frame", nil, auras)
+			icon.spellID = spell[1]
+			icon.anyUnit = spell[4]
+			icon:SetWidth(6)
+			icon:SetHeight(6)
+			icon:SetPoint("LEFT", self.Health, "LEFT", 50 + (8 * i), 0)
+			icon.count = nil
+
+			local tex = icon:CreateTexture(nil, "OVERLAY")
+			tex:SetAllPoints(icon)
+			tex:SetTexture(S.textures.blank)
+			if (spell[3]) then
+				tex:SetVertexColor(unpack(spell[3]))
+			else
+				tex:SetVertexColor(0.8, 0.8, 0.8)
+			end
+
+			auras.icons[spell[1]] = icon
+		end
+	end
+	
+	self.AuraWatch = auras
 end
 
 local function Shared(self, unit)
@@ -411,6 +487,60 @@ local function Shared(self, unit)
 end
 
 
+local ClassSpecific = {
+	WARLOCK = function(self, ...)
+		
+		local shards = CreateSegments(self, 3)
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		
+		shards[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
+		self.SoulShards = shards
+	end,
+	
+	PALADIN = function(self, ...)
+		
+		local holyPower = CreateSegments(self, 3)
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		
+		holyPower[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
+		self.HolyPower = holyPower
+	end,
+	
+	DEATHKNIGHT = function(self, ...)
+		
+		local offset = 5
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		
+		local runes = CreateFrame("Frame", "DarkuiRunes", self)
+		runes:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, offset)
+		runes:SetSize(self:GetWidth(), (segmentHeight * 3) + (offset * 2))
+		
+		for i = 1, 6 do
+			
+			local rune = CreateFrame("StatusBar", "DarkuiRune"..i, self)
+			rune:SetStatusBarTexture(S.textures.normal)
+			rune:GetStatusBarTexture():SetHorizTile(false)
+			
+			D.CreateShadow(rune)
+			D.CreateBackground(rune)
+			rune.bg = rune:CreateTexture(nil, 'BORDER')
+			
+			runes[i] = rune
+		end
+	
+		LayoutSegments(self, {runes[1], runes[2]} ) 
+		LayoutSegments(self, {runes[3], runes[4]} ) 
+		LayoutSegments(self, {runes[5], runes[6]} ) 
+		
+		runes[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 0)
+		runes[3]:SetPoint("BOTTOMLEFT", runes[1], "TOPLEFT", 0, offset)
+		runes[5]:SetPoint("BOTTOMLEFT", runes[3], "TOPLEFT", 0, offset)
+		
+		self.Runes = runes
+	end,
+	
+}
+
 local UnitSpecific = {
 
 	player = function(self, ...)
@@ -432,6 +562,9 @@ local UnitSpecific = {
 			CreateReputationBar(self)
 		end
 		
+		if ClassSpecific[D.Player.class] then
+			ClassSpecific[D.Player.class](self)
+		end
 	end,
 	
 	target = function(self, ...)
@@ -481,11 +614,16 @@ local UnitSpecific = {
 	raid = function(self, ...)
 		Shared(self, ...)
 		
+		CreateAuraWatch(self)
+		
 		self:SetHeight(healthHeight)
 		self:SetWidth(frameWidthRaid)
 		
 		D.Kill(self.Power)
 		self.Power = nil
+		
+		local range = {insideAlpha = 1, outsideAlpha = 0.3}
+		self.Range = range
 		
 		self:Tag(self.HealthValue, '')
 	end,
@@ -493,7 +631,6 @@ local UnitSpecific = {
 }
 UnitSpecific.focustarget = UnitSpecific.targettarget
 UnitSpecific.focus = UnitSpecific.target
-
 
 
 oUF:RegisterStyle(D.Addon.name, Shared)
@@ -517,29 +654,35 @@ local spawnHelper = function(self, unit, ...)
  
 end
 
+local function GetPointFor(unit)
+	
+	local layout = S.unitframes.layout
+	print(unpack(S.unitframes.layouts[layout][unit]))
+	return unpack(S.unitframes.layouts[layout][unit])
+	
+end
+
+
 oUF:Factory(function(self)
-	
-	local xoffset = 250
-	local yoffset = 100
-	
+		
 	
 	local player = spawnHelper(self, 'player')
-	player:SetPoint("BOTTOM", DarkuiFrame, "BOTTOM", 0, 150)
+	player:SetPoint( GetPointFor("player") )
 	
 	local pet = spawnHelper(self, 'pet')
-	pet:SetPoint("RIGHT", player, "LEFT", -25, 0)
+	pet:SetPoint( GetPointFor("pet") )
 	
 	local target = spawnHelper(self, 'target')
-	target:SetPoint("LEFT", player, "CENTER", xoffset, yoffset)
+	target:SetPoint( GetPointFor("target") )
 	
 	local targettarget	= spawnHelper(self, 'targettarget')
-	targettarget:SetPoint("LEFT", target, "RIGHT", 25, 0)
+	targettarget:SetPoint( GetPointFor("targettarget") )
 	
 	local focus = spawnHelper(self, 'focus')
-	focus:SetPoint("RIGHT", player, "CENTER", -xoffset, yoffset)
+	focus:SetPoint( GetPointFor("focus") )
 
 	local focustarget = spawnHelper(self, 'focustarget')
-	focustarget:SetPoint("RIGHT", focus, "LEFT", -25, 0)
+	focustarget:SetPoint( GetPointFor("focustarget") )
 	
 	for i = 1,MAX_BOSS_FRAMES do
 		local t_boss = _G["Boss"..i.."TargetFrame"]
@@ -582,7 +725,7 @@ oUF:Factory(function(self)
 			'groupFilter', i)
 		
 		if i == 1 then
-			group:SetPoint("BOTTOMRIGHT", DarkuiFrame, "BOTTOMRIGHT", 0, 0)
+			group:SetPoint( GetPointFor("raid") )
 		else
 			group:SetPoint("BOTTOMRIGHT", raid[i-1], "TOPRIGHT", 0, 5)
 		end

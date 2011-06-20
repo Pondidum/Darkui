@@ -35,6 +35,59 @@ S["stats"] = {
 
 S["unitframes"] = {
 	["floatingcastbars"] = true,
+	["layout"] = "default",
+	["layouts"] = {
+		["default"] = {
+			["player"]			= {"BOTTOM","DarkuiFrame", "BOTTOM", 0, 150},
+			["pet"]				= {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
+			["target"]			= {"LEFT", "oUF_DarkuiPlayer", "CENTER", 250, 100},
+			["focus"]			= {"RIGHT", "oUF_DarkuiPlayer", "CENTER", -250, 100},
+			["targettarget"]	= {"LEFT", "oUF_DarkuiTarget", "RIGHT", 25, 0},
+			["focustarget"]		= {"RIGHT", "oUF_DarkuiFocus", "LEFT", -25, 0},
+			["raid"]			= {"BOTTOMRIGHT", "DarkuiFrame", "BOTTOMRIGHT", 0, 0}
+		}
+	}
+}
+
+S["buffwatch"] = {
+	["buffids"] = {
+		PRIEST = {
+			{6788, "TOPLEFT", {1, 0, 0}, true}, -- Weakened Soul
+			{33076, "TOPRIGHT", {0.2, 0.7, 0.2}}, -- Prayer of Mending
+			{139, "BOTTOMLEFT", {0.4, 0.7, 0.2}}, -- Renew
+			{17, "BOTTOMRIGHT", {0.81, 0.85, 0.1}, true}, -- Power Word: Shield
+		},
+		DRUID = {
+			{774, "TOPLEFT", {0.8, 0.4, 0.8}}, -- Rejuvenation
+			{8936, "TOPRIGHT", {0.2, 0.8, 0.2}}, -- Regrowth
+			{33763, "BOTTOMLEFT", {0.4, 0.8, 0.2}}, -- Lifebloom
+			{48438, "BOTTOMRIGHT", {0.8, 0.4, 0}}, -- Wild Growth
+		},
+		PALADIN = {
+			{53563, "TOPLEFT", {0.7, 0.3, 0.7}}, -- Beacon of Light
+		},
+		SHAMAN = {
+			{61295, "TOPLEFT", {0.7, 0.3, 0.7}}, -- Riptide 
+			{51945, "TOPRIGHT", {0.2, 0.7, 0.2}}, -- Earthliving
+			{16177, "BOTTOMLEFT", {0.4, 0.7, 0.2}}, -- Ancestral Fortitude
+			{974, "BOTTOMRIGHT", {0.7, 0.4, 0}, true}, -- Earth Shield
+		},
+		ALL = {
+			{14253, "RIGHT", {0, 1, 0}}, -- Abolish Poison
+			{23333, "LEFT", {1, 0, 0}}, -- Warsong flag xD
+		},
+	},
+	["countOffsets"] = {
+		TOPLEFT = {6, 1},
+		TOPRIGHT = {-6, 1},
+		BOTTOMLEFT = {6, 1},
+		BOTTOMRIGHT = {-6, 1},
+		LEFT = {6, 1},
+		RIGHT = {-6, 1},
+		TOP = {0, 0},
+		BOTTOM = {0, 0},
+	},
+
 }
 
 S["actionbars"] = {
