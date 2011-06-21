@@ -6,16 +6,12 @@ assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
 local layout =  S.unitframes.layouts[S.unitframes.layout]
  
-local frameWidth = 240
-local frameWidthSmall = 132
-local frameWidthRaid = 80
-local healthHeight = 18
 local castHeight = 16
 local castOffset = -20
 local powerHeight = 5
 local buffHeight = 26
 local segmentHeight = 8 --used for runes, totems, holypower, soulshards etc
-
+local auraHeight = 14
 
 if layout.floatingcastbars then
 	castOffset = 120
@@ -356,8 +352,9 @@ end
 
 local function CreateAuraWatch(self, unit)
 	local auras = CreateFrame("Frame", nil, self)
-	auras:SetPoint("TOPLEFT", self.Health, 2, -2)
-	auras:SetPoint("BOTTOMRIGHT", self.Health, -2, 2)
+	auras:SetPoint("LEFT", self.Name, "RIGHT", 2, 0)
+	auras:SetPoint("TOP", self.Health, 0, 0)
+	auras:SetPoint("BOTTOMRIGHT", self.Health, -2, 0)
 	auras.presentAlpha = 1
 	auras.missingAlpha = 0
 	auras.onlyShowPresent = true
@@ -379,17 +376,17 @@ local function CreateAuraWatch(self, unit)
 		end
 	end
 
-	-- "Cornerbuffs"
 	if (buffs) then
-		
+			
+		local spacing = 1
 		for i, spell in pairs(buffs) do
 		
 			local icon = CreateFrame("Frame", nil, auras)
 			icon.spellID = spell[1]
 			icon.anyUnit = spell[4]
-			icon:SetWidth(6)
-			icon:SetHeight(6)
-			icon:SetPoint("LEFT", self.Health, "LEFT", 50 + (8 * i), 0)
+			icon:SetWidth(auraHeight)
+			icon:SetHeight(auraHeight)
+			icon:SetPoint("RIGHT", auras, "RIGHT", -((auraHeight + spacing) * (i - 1)) - spacing, 0)
 			icon.count = nil
 
 			local tex = icon:CreateTexture(nil, "OVERLAY")
@@ -417,15 +414,9 @@ local function Shared(self, unit)
 	self.colors = S["colors"]
 	self.menu = CreateMenu
 	
-	self:SetWidth(frameWidth) --, )
-	self:SetHeight(healthHeight)
-	
-	
-	
 	local health = CreateFrame('StatusBar', nil, self)
 	health:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-	health:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
-	health:SetHeight(healthHeight)
+	health:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
 	
 	health:SetStatusBarTexture(S["textures"].normal)
 	D.CreateShadow(health, "Default")
@@ -580,15 +571,11 @@ local UnitSpecific = {
 	targettarget = function(self, ...)
 		Shared(self, ...)
 		
-		self:SetWidth(frameWidthSmall)
-		
 	end,
 	
 	pet = function(self, ...)
 		Shared(self, ...)
-		
-		self:SetWidth(frameWidthSmall)
-		
+
 		CreateCastbar(self)
 		
 		self.Castbar:ClearAllPoints()
@@ -607,18 +594,13 @@ local UnitSpecific = {
 	
 	boss = function(self, ...)
 		Shared(self, ...)
-		
-		self:SetWidth(frameWidthSmall)
-		
+	
 	end,
 	
 	raid = function(self, ...)
 		Shared(self, ...)
 		
 		CreateAuraWatch(self)
-		
-		self:SetHeight(healthHeight)
-		self:SetWidth(frameWidthRaid)
 		
 		D.Kill(self.Power)
 		self.Power = nil
@@ -657,12 +639,17 @@ end
 
 local function SetLayout(self, unit)
 	
-	local point = layout[unit]
+	local point = layout.positions[unit]
+	local size = layout.sizes[unit]
 	
-	if point ~= nil then
+	if point ~= nil then 
 		self:SetPoint( unpack(point) )
 	end
 	
+	if size ~= nil then
+		self:SetSize( unpack(size) )
+	end
+
 end
 
 
@@ -701,12 +688,14 @@ oUF:Factory(function(self)
 	self:SetActiveStyle(D.Addon.name .. "Raid")
 	local raidHeader = CreateFrame("Frame", "oUF_DarkuiRaid", UIParent)
 	local raid = {}
+	local partWidth, parthHeight = unpack( layout.sizes["raid"] )
+	
 	for i = 1, 8 do
 		local group = oUF:SpawnHeader(D.Addon.name .. 'Raid' ..i, nil, "raid,party",
 			'oUF-initialConfigFunction', ([[
 											self:SetWidth(%d)
 											self:SetHeight(%d)
-										 ]]):format(frameWidthRaid, healthHeight),
+										 ]]):format(partWidth, parthHeight),
 			'showPlayer', true,
 			'showSolo', true,
 			'showParty', true,
@@ -725,9 +714,6 @@ oUF:Factory(function(self)
 		raid[i] = group
 	end
 	
-	local raidWidth = (frameWidthRaid + 5) * 5
-	local raidHeight = (healthHeight + 5) * 8
-	raidHeader:SetSize(raidWidth - 5, raidHeight - 5)
 		
 	
 	SetLayout(player, 		'player')
@@ -736,7 +722,11 @@ oUF:Factory(function(self)
 	SetLayout(targettarget, 'targettarget')
 	SetLayout(focus, 		'focus')
 	SetLayout(focustarget, 	'focustarget')
-	SetLayout(raidHeader,	'raid')
+	SetLayout(raidHeader,	'raidheader')
 	SetLayout(boss[1], 		'boss')
+	
+	local raidWidth = (partWidth + 5) * 5
+	local raidHeight = (parthHeight + 5) * 8
+	raidHeader:SetSize(raidWidth - 5, raidHeight - 5)
 	
 end)

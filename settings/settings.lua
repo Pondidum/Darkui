@@ -38,25 +38,49 @@ S["unitframes"] = {
 	["layouts"] = {
 		["default"] = {
 			["floatingcastbars"] = true,
-			["player"]			= {"BOTTOM",		"DarkuiFrame",		"BOTTOM", 0, 150},
-			["pet"]				= {"RIGHT",			"oUF_DarkuiPlayer",	"LEFT", -25, 0},
-			["target"]			= {"LEFT",			"oUF_DarkuiPlayer",	"CENTER", 250, 100},
-			["focus"]			= {"RIGHT",			"oUF_DarkuiPlayer",	"CENTER", -250, 100},
-			["targettarget"]	= {"LEFT",			"oUF_DarkuiTarget",	"RIGHT", 25, 0},
-			["focustarget"]		= {"RIGHT",			"oUF_DarkuiFocus",	"LEFT", -25, 0},
-			["boss"]			= {"BOTTOMRIGHT",	"DarkuiBar5",		"BOTTOMLEFT", -50, -15},
-			["raid"]			= {"BOTTOMRIGHT",	"DarkuiFrame",		"BOTTOMRIGHT", 0, 0},
+			["positions"] = {
+				["player"]			= {"BOTTOM",		"DarkuiFrame",		"BOTTOM", 0, 150},
+				["pet"]				= {"RIGHT",			"oUF_DarkuiPlayer",	"LEFT", -25, 0},
+				["target"]			= {"LEFT",			"oUF_DarkuiPlayer",	"CENTER", 250, 100},
+				["focus"]			= {"RIGHT",			"oUF_DarkuiPlayer",	"CENTER", -250, 100},
+				["targettarget"]	= {"LEFT",			"oUF_DarkuiTarget",	"RIGHT", 25, 0},
+				["focustarget"]		= {"RIGHT",			"oUF_DarkuiFocus",	"LEFT", -25, 0},
+				["boss"]			= {"BOTTOMRIGHT",	"DarkuiBar5",		"BOTTOMLEFT", -50, -15},
+				["raidheader"]		= {"BOTTOMRIGHT",	"DarkuiFrame",		"BOTTOMRIGHT", 0, 0},			--note raidheader has is position set, and not its size
+			},
+			["sizes"] = {
+				["player"]			= {240, 18},
+				["pet"]				= {132, 18},
+				["target"]			= {240, 18},
+				["focus"]			= {240, 18},
+				["targettarget"]	= {132, 18},
+				["focustarget"]		= {132, 18},
+				["boss"]			= {132, 18},
+				["raid"]			= {80 , 18},			--note raid has is size set, and not its position
+			},
 		},
 		["healer"] = {
 			["floatingcastbars"] = false,
-			["player"]			= {"TOPRIGHT",		"oUF_DarkuiRaid",	"TOPLEFT", -35, 0},
-			["pet"]				= {"BOTTOMRIGHT",	"oUF_DarkuiRaid",	"BOTTOMLEFT", -35, 0},
-			["target"]			= {"TOPLEFT",		"oUF_DarkuiRaid",	"TOPRIGHT", 35, 0},
-			["focus"]			= {"BOTTOMLEFT",	"oUF_DarkuiRaid",	"BOTTOMRIGHT", 35, 0},
-			["targettarget"]	= {"LEFT",			"oUF_DarkuiTarget",	"RIGHT", 25, 0},
-			["focustarget"]		= {"LEFT",			"oUF_DarkuiFocus", 	"RIGHT", 25, 0},
-			["boss"]			= {"BOTTOMRIGHT",	"DarkuiBar5", 		"BOTTOMLEFT", -50, -15},
-			["raid"]			= {"BOTTOM", 		"DarkuiFrame", 		"BOTTOM", 0, 150},
+			["positions"] = {
+				["player"]			= {"TOPRIGHT",		"oUF_DarkuiRaid",	"TOPLEFT", -35, 0},
+				["pet"]				= {"BOTTOMRIGHT",	"oUF_DarkuiRaid",	"BOTTOMLEFT", -35, 0},
+				["target"]			= {"TOPLEFT",		"oUF_DarkuiRaid",	"TOPRIGHT", 35, 0},
+				["focus"]			= {"BOTTOMLEFT",	"oUF_DarkuiRaid",	"BOTTOMRIGHT", 35, 0},
+				["targettarget"]	= {"LEFT",			"oUF_DarkuiTarget",	"RIGHT", 25, 0},
+				["focustarget"]		= {"LEFT",			"oUF_DarkuiFocus", 	"RIGHT", 25, 0},
+				["boss"]			= {"BOTTOMRIGHT",	"DarkuiBar5", 		"BOTTOMLEFT", -50, -15},
+				["raidheader"]		= {"BOTTOM", 		"DarkuiFrame", 		"BOTTOM", 0, 150},			--note raidheader has is position set, and not its size
+			},
+			["sizes"] = {
+				["player"]			= {240, 18},
+				["pet"]				= {132, 18},
+				["target"]			= {240, 18},
+				["focus"]			= {240, 18},
+				["targettarget"]	= {132, 18},
+				["focustarget"]		= {132, 18},
+				["boss"]			= {132, 18},
+				["raid"]			= {80 , 36},			--ote raid has is size set, and not its position
+			},
 		}
 	}
 }
@@ -70,10 +94,10 @@ S["buffwatch"] = {
 			{17, "BOTTOMRIGHT", {0.81, 0.85, 0.1}, true}, -- Power Word: Shield
 		},
 		DRUID = {
-			{774, "TOPLEFT", {0.8, 0.4, 0.8}}, -- Rejuvenation
 			{8936, "TOPRIGHT", {0.2, 0.8, 0.2}}, -- Regrowth
+			{774, "TOPLEFT", {0.8, 0.4, 0.8}}, -- Rejuvenation
 			{33763, "BOTTOMLEFT", {0.4, 0.8, 0.2}}, -- Lifebloom
-			{48438, "BOTTOMRIGHT", {0.8, 0.4, 0}}, -- Wild Growth
+			--{48438, "BOTTOMRIGHT", {0.8, 0.4, 0}}, -- Wild Growth
 		},
 		PALADIN = {
 			{53563, "TOPLEFT", {0.7, 0.3, 0.7}}, -- Beacon of Light
