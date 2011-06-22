@@ -11,7 +11,7 @@ local castOffset = -20
 local powerHeight = 5
 local buffHeight = 26
 local segmentHeight = 8 --used for runes, totems, holypower, soulshards etc
-local auraHeight = 14
+local auraHeight = 16
 
 if layout.floatingcastbars then
 	castOffset = 120
@@ -352,9 +352,9 @@ end
 
 local function CreateAuraWatch(self, unit)
 	local auras = CreateFrame("Frame", nil, self)
+	auras:SetPoint("TOPRIGHT", self.Health, "TOPRIGHT", -1, -1)
+	auras:SetPoint("BOTTOMRIGHT", self.Health, -1, 1)
 	auras:SetPoint("LEFT", self.Name, "RIGHT", 2, 0)
-	auras:SetPoint("TOP", self.Health, 0, 0)
-	auras:SetPoint("BOTTOMRIGHT", self.Health, -2, 0)
 	auras.presentAlpha = 1
 	auras.missingAlpha = 0
 	auras.onlyShowPresent = true
@@ -377,8 +377,7 @@ local function CreateAuraWatch(self, unit)
 	end
 
 	if (buffs) then
-			
-		local spacing = 1
+		
 		for i, spell in pairs(buffs) do
 		
 			local icon = CreateFrame("Frame", nil, auras)
@@ -386,7 +385,7 @@ local function CreateAuraWatch(self, unit)
 			icon.anyUnit = spell[4]
 			icon:SetWidth(auraHeight)
 			icon:SetHeight(auraHeight)
-			icon:SetPoint("RIGHT", auras, "RIGHT", -((auraHeight + spacing) * (i - 1)) - spacing, 0)
+			icon:SetPoint(spell[2], auras, spell[2], 0, 0)
 			icon.count = nil
 
 			local tex = icon:CreateTexture(nil, "OVERLAY")
@@ -444,6 +443,8 @@ local function Shared(self, unit)
 	
 	local name =  D.CreateFontString(health, S.fonts.unitframe, 12, "OUTLINE")
 	name:SetPoint("LEFT", health, "LEFT", 4, 0)
+	name:SetPoint("TOP", health, "TOP", 4, 0)
+	name:SetPoint("BOTTOM", health, "BOTTOM", 4, 0)	
 	name:SetTextColor(1, 1, 1)
 	name:SetJustifyH("LEFT")
 	
