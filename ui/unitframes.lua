@@ -600,7 +600,9 @@ local UnitSpecific = {
 	raid = function(self, ...)
 		Shared(self, ...)
 		
-		CreateAuraWatch(self)
+		if layout.buffwatch then
+			CreateAuraWatch(self)
+		end
 		
 		D.Kill(self.Power)
 		self.Power = nil
@@ -617,9 +619,9 @@ UnitSpecific.focus = UnitSpecific.target
 
 
 oUF:RegisterStyle(D.Addon.name, Shared)
-for unit,layout in next, UnitSpecific do
+for unit, ouflayout in next, UnitSpecific do
 	-- Capitalize the unit name, so it looks better.
-	oUF:RegisterStyle(D.Addon.name .. unit:gsub("^%l", string.upper), layout)
+	oUF:RegisterStyle(D.Addon.name .. unit:gsub("^%l", string.upper), ouflayout)
 end
 
 
@@ -639,14 +641,14 @@ end
 
 local function SetLayout(self, unit)
 	
-	local point = layout.positions[unit]
-	local size = layout.sizes[unit]
+	local point = layout[unit].point
+	local size = layout[unit].size
 	
 	if point ~= nil then 
 		self:SetPoint( unpack(point) )
 	end
 	
-	if size ~= nil then
+	if size ~= nil and #size > 0 then
 		self:SetSize( unpack(size) )
 	end
 
@@ -688,7 +690,7 @@ oUF:Factory(function(self)
 	self:SetActiveStyle(D.Addon.name .. "Raid")
 	local raidHeader = CreateFrame("Frame", "oUF_DarkuiRaid", UIParent)
 	local raid = {}
-	local partWidth, parthHeight = unpack( layout.sizes["raid"] )
+	local partWidth, parthHeight = unpack( layout.raid.size )
 	
 	for i = 1, 8 do
 		local group = oUF:SpawnHeader(D.Addon.name .. 'Raid' ..i, nil, "raid,party",

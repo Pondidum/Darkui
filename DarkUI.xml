@@ -13,6 +13,7 @@
 	<Script file="core\commands.lua" />
 	
 	<Script file="settings\settings.lua" />
+	<Script file="settings\layouts.lua" />
 	<Script file="settings\profiles.lua" />
 	
 	<Script file="modules\actionbars\Bars.lua" />
