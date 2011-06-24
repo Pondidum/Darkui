@@ -6,7 +6,6 @@ local slotSpacing = 5
 local bagFrame = nil
 local bankFrame = nil
 
-
 local function UpdateBag(bag)
 	
 	local bagID = bag:GetID()
@@ -44,7 +43,6 @@ local function UpdateBag(bag)
 		end
 		
 	end
-	
 	
 end
 
@@ -95,17 +93,43 @@ local function CreateBag(parent, bagID, numSlots)
 	
 end
 
-local function InitBags(parent)
-	
+local function InitBag(parent, start, finish, specialFrame)
+
 	if parent.InitComplete then
 		return
 	end
 	
 	local bags = {}
-	
-	local start = 0
-	local finish = NUM_BAG_SLOTS
 	local width = 0
+
+	for i = start, finish do 
+		bags[i] = CreateBag(parent, i, GetContainerNumSlots(i))
+		
+		if i == start then
+			bags[i]:SetPoint("TOPLEFT", specialFrame, "BOTTOMLEFT", 0, -slotSpacing)
+		else
+			bags[i]:SetPoint("TOPLEFT", bags[i - 1], "BOTTOMLEFT", 0, -slotSpacing)
+		end
+		
+		if bags[i]:GetWidth() > width then
+			width = bags[i]:GetWidth()
+		end
+	end
+
+	
+	parent:SetWidth( width )
+	parent:SetHeight( ((#bags * slotSize) + ((#bags - 1) * slotSpacing)) + (specialFrame:GetHeight() + slotSpacing) ) 
+	
+	parent.Bags = bags
+	parent.InitComplete = true
+end
+
+
+local function InitBags(parent)
+	
+	if parent.InitComplete then
+		return
+	end
 	
 	local currencyFrame = CreateFrame("Frame", nil, parent)
 	currencyFrame:SetPoint("TOPLEFT")
@@ -119,39 +143,18 @@ local function InitBags(parent)
 	
 	D.CreateBackground(currencyFrame)
 	D.CreateShadow(currencyFrame)
-	
-	local updateGold = function()
-		currencyFrame.Gold:SetText(GetMoneyString(GetMoney(), 12))
-	end
-	
+
+	InitBag(parent, 0, NUM_BAG_SLOTS, currencyFrame)
+		
+	local updateGold = function() currencyFrame.Gold:SetText(GetMoneyString(GetMoney(), 12)) end
 	E:Register("PLAYER_MONEY", updateGold)
 	E:Register("PLAYER_LOGIN", updateGold)
 	E:Register("PLAYER_TRADE_MONEY", updateGold)
 	E:Register("TRADE_MONEY_CHANGED", updateGold)
 	updateGold()
 	
-	
-	for i = start, finish do 
-		bags[i] = CreateBag(parent, i, GetContainerNumSlots(i))
-		
-		if i == start then
-			bags[i]:SetPoint("TOPLEFT", currencyFrame, "BOTTOMLEFT", 0, -slotSpacing)
-		else
-			bags[i]:SetPoint("TOPLEFT", bags[i - 1], "BOTTOMLEFT", 0, -slotSpacing)
-		end
-		
-		if bags[i]:GetWidth() > width then
-			width = bags[i]:GetWidth()
-		end
-	end
-
-	
-	parent:SetWidth( width )
-	parent:SetHeight( ((#bags * slotSize) + ((#bags - 1) * slotSpacing)) + (currencyFrame:GetHeight() + slotSpacing) ) 
 	parent:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, 50)
-	
-	parent.Bags = bags
-	parent.InitComplete = true
+
 end
 
 local function InitBank(parent)
@@ -160,37 +163,18 @@ local function InitBank(parent)
 		return
 	end
 	
-	local bags = {}
+	local bank = CreateBag(parent, BANK_CONTAINER, GetContainerNumSlots(BANK_CONTAINER))
+	bank:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
 	
-	local start = NUM_BAG_SLOTS + 1
-	local finish = NUM_BAG_SLOTS + NUM_BANKBAGSLOTS
-	local width = 0
-	
-	bags[BANK_CONTAINER] = CreateBag(parent, BANK_CONTAINER, GetContainerNumSlots(BANK_CONTAINER))
-	bags[BANK_CONTAINER]:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
-	
-	for i = start, finish  do 
-		bags[i] = CreateBag(parent, i, GetContainerNumSlots(i))
-	
-		if i == start then
-			bags[i]:SetPoint("TOPLEFT", bags[BANK_CONTAINER], "BOTTOMLEFT", 0, -slotSpacing)
-		else
-			bags[i]:SetPoint("TOPLEFT", bags[i - 1], "BOTTOMLEFT", 0, -slotSpacing)
-		end
-			
-		if bags[i]:GetWidth() > width then
-			width = bags[i]:GetWidth()
-		end
-		
+	InitBag(parent, NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS, bank)
+
+	if parent:GetWidth() == 0 then			--fix for if the player has only the bank bag, as we construct it outside the fn.
+		parent:SetWidth(bank:GetWidth())
 	end
 	
-	
-	parent:SetWidth( width )
-	parent:SetHeight( (#bags * slotSize) + ((#bags - 1) * slotSpacing) )
+	parent.Bags[BANK_CONTAINER] = bank
 	parent:SetPoint("TOPLEFT", DarkuiFrame, "TOPLEFT", 0, 0)
 	
-	parent.Bags = bags
-	parent.InitComplete = true
 end
 
 local function BagOnShow()
@@ -201,7 +185,6 @@ local function BagOnShow()
 end
 
 local function BagOnHide(self)
-	
 end
 
 local function DarkuiBagsOpen()
@@ -221,10 +204,6 @@ local function DarkuiBagsToggle()
 end
 
 local function DarkuiBagsToggleBag(id)
-		-- if id == -2 then
-		-- ToggleKeyRing()
-		-- return
-	-- end
 	DarkuiBagsToggle()
 end
 
@@ -262,9 +241,7 @@ local function Init()
 	bankFrame:SetScript("OnHide", BankOnHide)
 	E:Register("BANKFRAME_OPENED", BankOnShow)
 	E:Register("BANKFRAME_CLOSED", function() bankFrame:Hide() end)
-	
-	
-	
+		
 	tinsert(UISpecialFrames, bagFrame:GetName())
 	tinsert(UISpecialFrames, bankFrame:GetName())
 	
@@ -274,8 +251,6 @@ local function Init()
 	OpenBackpack = DarkuiBagsOpen
 	CloseAllBags = DarkuiBagsClose
 	CloseBackpack = DarkuiBagsClose
-
-	
 	
 	BankFrame:UnregisterAllEvents()
 	
