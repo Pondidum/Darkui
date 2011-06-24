@@ -27,7 +27,7 @@ S["chat"] = {
 
 S["stats"] = {
 	["enable"] = true,
-	["fontsize"] = 10,
+	["fontsize"] = 11,
 	["durability"] = 0,
 	["memory"] = 1,
 	["fps"] = 2,
@@ -104,6 +104,10 @@ S["fonts"] = {
 	["unitframe"] = [[Interface\AddOns\Darkui\media\fonts\BigNoodleTitling.ttf]],
 	["normal"] = [[Interface\AddOns\Darkui\media\fonts\PT-Sans-Narrow.ttf]],
 	["combat"] = [[Interface\AddOns\Darkui\media\fonts\Ultima_Campagnoli.ttf]],
+	["default"] = {
+		["size"] = 12,
+		["style"] = "",
+	},
 }
 
 ---Move to COLORS file

@@ -41,6 +41,8 @@
 	<Script file="modules\ChatLinks.lua" />
 	<Script file="modules\ChatFormatting.lua" />
 	
+	<Script file="modules\bags.lua" />
+	
 	<Script file="modules\StatsPanel.lua" />
 	<Script file="modules\Stats\Durability.lua" />
 	<Script file="modules\Stats\Memory.lua" />
