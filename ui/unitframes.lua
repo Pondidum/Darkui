@@ -119,9 +119,14 @@ end
 
 local function LayoutSegments(parent, segments)
 
+	--Hack:
+	--What i would like to do is to anchor each frame to the previous, anchor 1 to parent left, and N to parent right.
+	--But you dont seem to be able to do that :(
+	local partWidth, parthHeight = unpack( layout.player.size )
+	
 	local spacing = 4
 	local totalSpacing = (#segments - 1) * spacing 
-	local segmentWidth = (parent:GetWidth()  - totalSpacing) / #segments
+	local segmentWidth = (partWidth  - totalSpacing) / #segments
 	
 	-- note we dont attach the first one to anything
 	for i = 1, #segments do
@@ -354,7 +359,9 @@ local function CreateAuraWatch(self, unit)
 	local auras = CreateFrame("Frame", nil, self)
 	auras:SetPoint("TOPRIGHT", self.Health, "TOPRIGHT", -1, -1)
 	auras:SetPoint("BOTTOMRIGHT", self.Health, -1, 1)
-	auras:SetPoint("LEFT", self.Name, "RIGHT", 2, 0)
+	auras:SetWidth(auraHeight + 2 + auraHeight)
+	auras:SetHeight(auraHeight + 2 + auraHeight)
+	
 	auras.presentAlpha = 1
 	auras.missingAlpha = 0
 	auras.onlyShowPresent = true
@@ -506,7 +513,8 @@ local ClassSpecific = {
 		
 		local runes = CreateFrame("Frame", "DarkuiRunes", self)
 		runes:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, offset)
-		runes:SetSize(self:GetWidth(), (segmentHeight * 3) + (offset * 2))
+		runes:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", 0, offset)
+		runes:SetHeight((segmentHeight * 3) + (offset * 2))
 		
 		for i = 1, 6 do
 			
@@ -611,7 +619,7 @@ local UnitSpecific = {
 		local range = {insideAlpha = 1, outsideAlpha = 0.3}
 		self.Range = range
 		
-		self:Tag(self.HealthValue, '')
+		self:Tag(self.HealthValue, '[' .. D.Addon.name .. ':healthshort]')
 	end,
 	
 }

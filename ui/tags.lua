@@ -7,7 +7,7 @@ assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 oUF.Tags[D.Addon.name.. ':health'] = function(unit)
 
 	if not UnitIsConnected(unit) then
-		 return "Disconnected"
+		return "Disconnected"
 	end
 	
 	if UnitIsDead(unit) then
@@ -41,5 +41,26 @@ oUF.Tags[D.Addon.name.. ':health'] = function(unit)
 			return " "
 		end
 	end
+	
+end
+
+oUF.Tags[D.Addon.name .. ":healthshort"] = function(unit)
+
+	if not UnitIsConnected(unit) then
+		return "Disconnected"
+	end
+	
+	if UnitIsDead(unit) then
+		return "D"
+	end
+	
+	if UnitIsGhost(unit) then
+		return "G"
+	end
+	
+	local min = UnitHealth(unit)
+	local max = UnitHealthMax(unit)
+	
+	return floor(min / max * 100) .. "%"
 	
 end
