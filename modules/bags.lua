@@ -29,11 +29,6 @@ local function UpdateBag(bag)
 			CooldownFrame_SetTimer(cd, cdStart, cdFinish, cdEnable)
 		end
 		
-		local icon = _G[slot:GetName() .. "IconTexture"]
-		icon:SetTexCoord(.08, .92, .08, .92)
-		icon:SetPoint("TOPLEFT", slot, 0, 0)
-		icon:SetPoint("BOTTOMRIGHT", slot, 0, 0)
-	
 		if quality ~= nil and quality > 1 then
 			local r, g, b = GetItemQualityColor(quality)
 			
@@ -51,7 +46,6 @@ local function CreateBag(parent, bagID, numSlots)
 	local bag = CreateFrame("Frame", D.Addon.name .. "Bag" .. bagID, parent)
 	bag:SetID(bagID)
 	
-	
 	local slots = {}
 	
 	for i = 1, numSlots do
@@ -63,6 +57,11 @@ local function CreateBag(parent, bagID, numSlots)
 		slot:SetNormalTexture("")
 		slot:ClearAllPoints()
 		slot:SetSize(slotSize,slotSize)
+		
+		local icon = _G[slot:GetName() .. "IconTexture"]
+		icon:SetTexCoord(.08, .92, .08, .92)
+		icon:SetPoint("TOPLEFT", slot, 0, 0)
+		icon:SetPoint("BOTTOMRIGHT", slot, 0, 0)
 		
 		if i == 1 then
 			slot:SetPoint("TOPLEFT", bag, "TOPLEFT", 0, 0)
@@ -85,6 +84,7 @@ local function CreateBag(parent, bagID, numSlots)
 	bag:SetWidth( (#slots * slotSize) + ((#slots-1) * slotSpacing) )
 	
 	bag:RegisterEvent("BAG_UPDATE", UpdateBag)
+	bag:RegisterEvent("MAIL_SEND_INFO_UPDATE", UpdateBag)
 	bag:SetScript("OnEvent", function(self, event, ...)
 		UpdateBag(self)
 	end)
