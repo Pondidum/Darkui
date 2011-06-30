@@ -47,8 +47,7 @@ E:Register("CURRENCY_DISPLAY_UPDATE", HandleEvents)
 E:Register("BAG_UPDATE", HandleEvents)
 E:Register("ACTIVE_TALENT_GROUP_CHANGED", HandleEvents)
 
-E:Register("PLAYER_ENTERING_WORLD", function() 
-	MainMenuBar_UpdateKeyRing()
+E:Register("PLAYER_ENTERING_WORLD", function()
 	local button
 	for i = 1, 12 do
 		button = _G["ActionButton"..i]
