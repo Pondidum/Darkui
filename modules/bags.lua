@@ -100,20 +100,18 @@ local function InitBag(parent, start, finish, specialFrame)
 	end
 	
 	local bags = {}
-	local width = 0
-
+	local width = specialFrame:GetWidth()
+	
 	for i = start, finish do 
 		bags[i] = CreateBag(parent, i, GetContainerNumSlots(i))
 		
 		if i == start then
 			bags[i]:SetPoint("TOPLEFT", specialFrame, "BOTTOMLEFT", 0, -slotSpacing)
+			width = bags[i]:GetWidth()
 		else
 			bags[i]:SetPoint("TOPLEFT", bags[i - 1], "BOTTOMLEFT", 0, -slotSpacing)
 		end
 		
-		if bags[i]:GetWidth() > width then
-			width = bags[i]:GetWidth()
-		end
 	end
 
 	
@@ -168,7 +166,7 @@ local function InitBank(parent)
 	
 	InitBag(parent, NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS, bank)
 
-	if parent:GetWidth() == 0 then			--fix for if the player has only the bank bag, as we construct it outside the fn.
+	if parent:GetWidth() == nil or parent:GetWidth() == 0 then			--fix for if the player has only the bank bag, as we construct it outside the fn.
 		parent:SetWidth(bank:GetWidth())
 	end
 	
