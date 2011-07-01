@@ -13,6 +13,8 @@
 	<Script file="core\commands.lua" />
 	
 	<Script file="settings\settings.lua" />
+	<Script file="settings\media.lua" />
+	<Script file="settings\colors.lua" />
 	<Script file="settings\layouts.lua" />
 	<Script file="settings\profiles.lua" />
 	
@@ -42,6 +44,7 @@
 	<Script file="modules\ChatFormatting.lua" />
 	
 	<Script file="modules\bags.lua" />
+	<Script file="modules\minimap.lua" />
 	
 	<Script file="modules\StatsPanel.lua" />
 	<Script file="modules\Stats\Durability.lua" />
