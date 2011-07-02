@@ -7,6 +7,15 @@ minimap:SetSize(140, 140)
 D.CreateShadow(minimap)
 D.CreateBackground(minimap)
 
+local minimapInfo = CreateFrame("Frame", D.Addon.name .. "MinimapInfo", minimap )
+minimapInfo:SetPoint("TOPLEFT", minimap , "BOTTOMLEFT", 0, -5)
+minimapInfo:SetPoint("TOPRIGHT", minimap, "BOTTOMRIGHT", 0, -5)
+minimapInfo:SetHeight(15)
+
+D.CreateBackground(minimapInfo)
+D.CreateShadow(minimapInfo)
+
+
 Minimap:SetParent(minimap)
 Minimap:ClearAllPoints()
 Minimap:SetAllPoints(minimap)
@@ -48,8 +57,6 @@ GuildInstanceDifficulty:ClearAllPoints()
 GuildInstanceDifficulty:SetParent(Minimap)
 GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 0)
 
-
-
 -- LFG ICON
 
 local function UpdateLFG()
@@ -87,13 +94,32 @@ function GetMinimapShape()
 	return "SQUARE" 
 end
 
+-- Time Manager
+local function StyleTimeManager(self, event, addon)
 
--- Time manager
-local function KillTimeManager(self, event, addon)
 	if addon == "Blizzard_TimeManager" then
-		TimeManagerClockButton:Kill()
 		E:Unregister("ADDON_LOADED", "Darkui_Minimap_AddonLoaded")
+		
+		local timeFrame = TimeManagerClockButton
+		local alarmGlow = TimeManagerAlarmFiredTexture
+		local timeText = TimeManagerClockTicker 
+
+		timeFrame:DisableDrawLayer("BORDER") 
+		timeFrame:SetParent(minimapInfo)
+		timeFrame:ClearAllPoints()
+		timeFrame:SetPoint("TOPLEFT")
+		timeFrame:SetPoint("BOTTOMLEFT")
+
+		timeText:ClearAllPoints()
+		timeText:SetPoint("LEFT", timeFrame, "LEFT", 5, -1)
+
+		alarmGlow:ClearAllPoints()
+		alarmGlow:SetPoint("TOPLEFT", TimeManagerClockButton, "TOPLEFT", -10, 4)
+		alarmGlow:SetPoint("BOTTOMRIGHT", TimeManagerClockButton, "BOTTOMRIGHT", -15, -7)
+		
 	end
+	
 end
 
-E:Register("ADDON_LOADED", KillTimeManager, "Darkui_Minimap_AddonLoaded")
+E:Register("ADDON_LOADED", StyleTimeManager, "Darkui_Minimap_AddonLoaded")
+
