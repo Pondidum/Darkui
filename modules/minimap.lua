@@ -85,6 +85,21 @@ Minimap:SetScript("OnMouseWheel", function(self, d)
 	end
 end)
 
+Minimap:SetScript("OnMouseUp", function(self, btn)
+
+	if btn == "MiddleButton" then
+		local xoff = 0
+		ToggleDropDownMenu(1, nil, MiniMapTrackingDropDown, DarkuiMinimap, xoff, -2)
+		
+	elseif btn == "RightButton" then
+		if not CalendarFrame then 
+			LoadAddOn("Blizzard_Calendar") 
+		end
+		Calendar_Toggle()
+	else
+		Minimap_OnClick(self)
+	end
+end)
 
 
 
