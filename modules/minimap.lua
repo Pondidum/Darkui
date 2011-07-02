@@ -123,3 +123,37 @@ end
 
 E:Register("ADDON_LOADED", StyleTimeManager, "Darkui_Minimap_AddonLoaded")
 
+
+-- coordinates
+local DEFAULT_THREASHOLD = 10
+local threshold = DEFAULT_THREASHOLD
+
+local coords = D.CreateFontString(minimapInfo, S.fonts.normal, S.fonts.default.size, S.fonts.default.style)
+coords:SetPoint("RIGHT", minimapInfo, "RIGHT", -5, 0)
+
+coords:SetWidth(50)
+coords:SetJustifyH("RIGHT")
+
+local function UpdateCoordinates()
+	
+	threshold = threshold - 1
+	
+	if threshold < 0 then
+		
+		local x, y = GetPlayerMapPosition("player")
+		
+		x = math.floor(100 * x)
+		y = math.floor(100 * y)
+		
+		if x == 0 and y == 0 then
+			coordst:SetText("")
+		else
+			coords:SetText(x .. "," .. y)
+		end
+		
+		threshold = DEFAULT_THREASHOLD
+	end
+	
+end
+
+minimapInfo:SetScript("OnUpdate", UpdateCoordinates)
