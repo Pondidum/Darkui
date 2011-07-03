@@ -161,7 +161,7 @@ local function UpdateCoordinates()
 		y = math.floor(100 * y)
 		
 		if x == 0 and y == 0 then
-			coordst:SetText("")
+			coords:SetText("")
 		else
 			coords:SetText(x .. "," .. y)
 		end
