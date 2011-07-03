@@ -17,3 +17,8 @@ S["fonts"] = {
 		["style"] = "",
 	},
 }
+
+S["sounds"] = {
+	["warning"] = [[Interface\AddOns\Darkui\media\sounds\warning.mp3]],
+	["whisper"] = [[Interface\AddOns\Darkui\media\sounds\whisper.mp3]],
+}
