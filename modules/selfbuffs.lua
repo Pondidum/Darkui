@@ -61,6 +61,8 @@ if S.selfbuffs.enable and buffs and buffs[1]  then
 	buffFrame:SetSize(40, 40)
 	buffFrame:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, 200)
 	
+	D.CreateShadow(frame)
+	
 	buffFrame.icon = buffFrame:CreateTexture(nil, "OVERLAY")
 	buffFrame.icon:SetPoint("CENTER")
 	buffFrame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
