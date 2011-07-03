@@ -55,7 +55,7 @@ local function SpellsChanged(self, event)
 	
 end
 
-if (buffs and buffs[1]) then
+if S.selfbuffs.enable and buffs and buffs[1]  then
 	
 	buffFrame = CreateFrame("Frame", D.Addon.name .. "SelfBuffReminder", DarkuiFrame)
 	buffFrame:SetSize(40, 40)
