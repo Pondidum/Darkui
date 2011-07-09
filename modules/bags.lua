@@ -52,6 +52,7 @@ local function CreateBag(parent, bagID, numSlots)
 		
 		local slot = CreateFrame("CheckButton", string.format("DarkuiBag%dSlot%d", bagID, i), bag, "ContainerFrameItemButtonTemplate")
 		slot:SetID(i)
+		slot:SetFrameStrata("HIGH")
 		
 		slot:SetPushedTexture("")
 		slot:SetNormalTexture("")
