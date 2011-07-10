@@ -27,6 +27,12 @@ S["stats"] = {
 	["fps"] = 2,
 }
 
+S["merchant"] = {
+	["autosellgreys"] = true,
+	["autorepair"] = true,
+	["guildrepair"] = true,
+}
+
 S["buffwatch"] = {
 	["buffids"] = {
 		PRIEST = {

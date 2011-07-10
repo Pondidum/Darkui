@@ -45,6 +45,7 @@
 	
 	<Script file="modules\bags.lua" />
 	<Script file="modules\minimap.lua" />
+	<Script file="modules\merchant.lua" />
 	<Script file="modules\objectives.lua" />
 	
 	<Script file="modules\StatsPanel.lua" />
