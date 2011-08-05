@@ -71,7 +71,7 @@ local function RepairGear()
 			local silver = math.floor((cost % 10000) / 100)
 			local gold = math.floor(cost / 10000)
 			
-			DEFAULT_CHAT_FRAME:AddMessage("Your gear has been repaired for |cffffffff"..gold.."g"..silver.."s"..copper.."c|r.", 255, 255, 0)
+			DEFAULT_CHAT_FRAME:AddMessage("Your gear has been repaired for |cffffffff"..gold.."g "..silver.."s "..copper.."c|r.", 255, 255, 0)
 			
 		else
 			
