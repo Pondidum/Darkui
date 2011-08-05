@@ -41,7 +41,7 @@ local function UpdateBag(bag)
 	
 end
 
-local function CreateBag(parent, bagID, numSlots)
+local function CreateBag(parent, bagID, numSlots, maxSlots)
 	
 	local bag = CreateFrame("Frame", D.Addon.name .. "Bag" .. bagID, parent)
 	bag:SetID(bagID)
@@ -66,6 +66,8 @@ local function CreateBag(parent, bagID, numSlots)
 		
 		if i == 1 then
 			slot:SetPoint("TOPLEFT", bag, "TOPLEFT", 0, 0)
+		elseif i % (1+maxSlots) == 0 then
+			slot:SetPoint("TOPLEFT", slots[i-maxSlots], "BOTTOMLEFT", 0, -slotSpacing)
 		else
 			slot:SetPoint("LEFT", slots[i-1], "RIGHT", slotSpacing, 0)
 		end
@@ -80,9 +82,10 @@ local function CreateBag(parent, bagID, numSlots)
 	
 	bag.Slots = slots
 	
+	local rowCount = ceil(numSlots / maxSlots)
 	bag:ClearAllPoints()
-	bag:SetHeight(slotSize)
-	bag:SetWidth( (#slots * slotSize) + ((#slots-1) * slotSpacing) )
+	bag:SetHeight( (rowCount * slotSize) + ((rowCount-1) * slotSpacing) )
+	bag:SetWidth( (maxSlots * slotSize) + ((maxSlots-1) * slotSpacing) )
 	
 	bag:RegisterEvent("BAG_UPDATE", UpdateBag)
 	bag:RegisterEvent("MAIL_SEND_INFO_UPDATE", UpdateBag)
@@ -102,22 +105,25 @@ local function InitBag(parent, start, finish, specialFrame)
 	
 	local bags = {}
 	local width = specialFrame:GetWidth()
+	local height = specialFrame:GetHeight()
 	
 	for i = start, finish do 
-		bags[i] = CreateBag(parent, i, GetContainerNumSlots(i))
+		bags[i] = CreateBag(parent, i, GetContainerNumSlots(i), 16)
 		
 		if i == start then
-			bags[i]:SetPoint("TOPLEFT", specialFrame, "BOTTOMLEFT", 0, -slotSpacing)
+			bags[i]:SetPoint("TOPLEFT", specialFrame, "BOTTOMLEFT", 0, -(slotSpacing+slotSpacing))
 			width = bags[i]:GetWidth()
 		else
-			bags[i]:SetPoint("TOPLEFT", bags[i - 1], "BOTTOMLEFT", 0, -slotSpacing)
+			bags[i]:SetPoint("TOPLEFT", bags[i - 1], "BOTTOMLEFT", 0, -(slotSpacing+slotSpacing))
 		end
+		
+		height = height + bags[i]:GetHeight()
 		
 	end
 
 	
 	parent:SetWidth( width )
-	parent:SetHeight( ((#bags * slotSize) + ((#bags - 1) * slotSpacing)) + (specialFrame:GetHeight() + slotSpacing) ) 
+	parent:SetHeight( height + ((#bags + 1) * (slotSpacing + slotSpacing)))
 	
 	parent.Bags = bags
 	parent.InitComplete = true
@@ -162,7 +168,7 @@ local function InitBank(parent)
 		return
 	end
 	
-	local bank = CreateBag(parent, BANK_CONTAINER, GetContainerNumSlots(BANK_CONTAINER))
+	local bank = CreateBag(parent, BANK_CONTAINER, GetContainerNumSlots(BANK_CONTAINER), 16)
 	bank:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
 	
 	InitBag(parent, NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS, bank)
