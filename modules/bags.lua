@@ -146,6 +146,15 @@ local function InitBags(parent)
 	currencyFrame.Gold:SetPoint("BOTTOMLEFT", currencyFrame, "BOTTOMLEFT", 2, 0)
 	currencyFrame.Gold:SetWidth(200)
 	
+	currencyFrame.CloseButton = CreateFrame("Button", nil, parent, "UIPanelCloseButton")
+	currencyFrame.CloseButton:SetPoint("TOPRIGHT", currencyFrame, "TOPRIGHT", 4, 4)
+	currencyFrame.CloseButton:SetSize(slotSize, slotSize)
+	currencyFrame.CloseButton:GetNormalTexture():SetDesaturated(1)
+	currencyFrame.CloseButton:RegisterForClicks("AnyUp")
+	currencyFrame.CloseButton:SetScript("OnClick", function(self, btn)
+		self:GetParent():Hide()
+	end)
+	
 	D.CreateBackground(currencyFrame)
 	D.CreateShadow(currencyFrame)
 
