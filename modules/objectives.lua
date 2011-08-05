@@ -6,6 +6,7 @@ local header = WatchFrameHeader
 
 frame:ClearAllPoints()
 frame:SetPoint("LEFT", DarkuiFrame, "LEFT")
+frame.ClearAllPoints = D.Dummy
 
 button:ClearAllPoints()
 button:SetPoint("TOPLEFT")
