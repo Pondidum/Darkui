@@ -18,6 +18,19 @@ local SetupPlayer = function()
 	
 end
 
+local SetupSystem = function()
+
+	local resolution = ({GetScreenResolutions()})[GetCurrentResolution()]
+	
+	D.System = {
+		["resolution"] = {
+			["width"] = tonumber(string.match(resolution, "(%d+)x+%d")),
+			["height"] = tonumber(string.match(resolution, "%d+x(%d+)")),
+		}
+	}
+end
+
 SetAddonInfo()
 SetupPlayer()
+SetupSystem()
 E:Register("PLAYER_LEVEL_UP", SetupPlayer)
