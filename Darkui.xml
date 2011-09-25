@@ -1,0 +1,61 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+
+	<Include file="libs\oUF\oUF.xml" />
+	<Script file="libs\oUF_Experience\oUF_Experience.lua" />
+	<Script file="libs\oUF_Reputation\oUF_Reputation.lua" />
+	<Script file="libs\oUF_AuraWatch\oUF_AuraWatch.lua" />
+	
+	<Script file="core\core.lua" />
+	<Script file="core\functions.lua" />
+	<Script file="core\events.lua" />
+		
+	<Script file="core\init.lua" />
+	<Script file="core\commands.lua" />
+	
+	<Script file="settings\settings.lua" />
+	<Script file="settings\media.lua" />
+	<Script file="settings\colors.lua" />
+	<Script file="settings\layouts.lua" />
+	<Script file="settings\profiles.lua" />
+	
+	<Script file="modules\actionbars\bars.lua" />
+	<Script file="modules\actionbars\bar1.lua" />
+	<Script file="modules\actionbars\bar2.lua" />
+	<Script file="modules\actionbars\bar3.lua" />
+	<Script file="modules\actionbars\bar4.lua" />
+	<Script file="modules\actionbars\bar5.lua" />
+	<Script file="modules\actionbars\barpet.lua" />
+	<Script file="modules\actionbars\bars.lua" />
+	<Script file="modules\actionbars\barshift.lua" />
+	<Script file="modules\actionbars\bartotem.lua" />
+	<Script file="modules\actionbars\bind.lua" />
+	<Script file="modules\actionbars\buttons.lua" />
+	<Script file="modules\actionbars\cooldowns.lua" />
+	<Script file="modules\actionbars\hide.lua" />
+	<Script file="modules\actionbars\others.lua" />
+	<Script file="modules\actionbars\range.lua" />
+	<Script file="modules\actionbars\style.lua" />
+	
+	<Script file="modules\tooltip.lua" />
+	
+	<Script file="modules\chatstyle.lua" />
+	<Script file="modules\chatlinks.lua" />
+	<Script file="modules\chatformatting.lua" />
+	
+	<Script file="modules\bags.lua" />
+	<Script file="modules\minimap.lua" />
+	<Script file="modules\merchant.lua" />
+	<Script file="modules\objectives.lua" />
+	
+	<Script file="modules\statspanel.lua" />
+	<Script file="modules\stats\durability.lua" />
+	<Script file="modules\stats\memory.lua" />
+	<Script file="modules\stats\fps.lua" />
+	
+	<Script file="modules\selfbuffs.lua" />
+	<Script file="modules\slackcheck.lua" />
+
+	<Script file="ui\Font.lua" />
+	<Script file="ui\tags.lua" />
+	<Script file="ui\unitframes.lua" />
+</Ui>

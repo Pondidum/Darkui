@@ -1,7 +1,7 @@
 ## Interface: 40000
 ## DefaultState: Enabled
-## Title: DarkUI
+## Title: Darkui
 ## Author: Darkend
 ## Version: 0.1
 
-DarkUI.xml
+Darkui.xml
