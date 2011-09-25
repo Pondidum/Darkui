@@ -64,7 +64,7 @@ local function PostCreateAura(element, button)
 	button.Glow:SetPoint("TOPLEFT", button, "TOPLEFT", -1, 1)
 	button.Glow:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, -1)
 	button.Glow:SetFrameStrata("BACKGROUND")	
-	button.Glow:SetBackdrop{edgeFile =  S["textures"].shadow, edgeSize = 3, insets = {left = 0, right = 0, top = 0, bottom = 0}}
+	button.Glow:SetBackdrop{edgeFile =  S.textures.shadow, edgeSize = 3, insets = {left = 0, right = 0, top = 0, bottom = 0}}
 	button.Glow:SetBackdropColor(0, 0, 0, 0)
 	button.Glow:SetBackdropBorderColor(0, 0, 0)
 	
@@ -111,7 +111,7 @@ local function CreateAltBar(self)
 	alt:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT",0, -5)
 	alt:SetHeight(5)
 
-	alt:SetStatusBarTexture(S["textures"].blank)
+	alt:SetStatusBarTexture(S.textures.blank)
 	
 	return alt
 	
@@ -183,7 +183,7 @@ local function CreateExperienceBar(self)
 	experience.Rested = CreateFrame('StatusBar', nil, self)
 	experience.Rested:SetParent(experience)
 	experience.Rested:SetAllPoints(experience)
-	experience.Rested:SetStatusBarTexture(S["textures"].blank)
+	experience.Rested:SetStatusBarTexture(S.textures.blank)
 	
 	D.CreateShadow(experience.Rested)
 	D.CreateBackground(experience.Rested)
@@ -251,7 +251,7 @@ end
 local function CreateRaidIcon(self)
 
 	local raidIcon = self.Health:CreateTexture(nil, "OVERLAY")
-	raidIcon:SetTexture(S["textures"].raidicons) -- thx hankthetank for texture
+	raidIcon:SetTexture(S.textures.raidicons) -- thx hankthetank for texture
 	raidIcon:SetHeight(20)
 	raidIcon:SetWidth(20)
 	raidIcon:SetPoint("TOP", 0, 11)
@@ -424,7 +424,7 @@ local function Shared(self, unit)
 	health:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 	health:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
 	
-	health:SetStatusBarTexture(S["textures"].normal)
+	health:SetStatusBarTexture(S.textures.normal)
 	D.CreateShadow(health, "Default")
 	
 	health.frequentUpdates = true
@@ -435,7 +435,7 @@ local function Shared(self, unit)
 	
 	local healthBG = health:CreateTexture(nil, 'BORDER')
 	healthBG:SetAllPoints(health)
-	healthBG:SetTexture(S["textures"].normal)
+	healthBG:SetTexture(S.textures.normal)
 	healthBG.multiplier = 0.3
 	health.bg = healthBG
 	
@@ -463,12 +463,12 @@ local function Shared(self, unit)
 	power:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, 5)
 	power:SetHeight(powerHeight)
 	
-	power:SetStatusBarTexture(S["textures"].normal)
+	power:SetStatusBarTexture(S.textures.normal)
 	D.CreateShadow(power, "Default")
 	
 	local bg = power:CreateTexture(nil, 'BORDER')
 	bg:SetAllPoints(power)
-	bg:SetTexture(S["textures"].normal)
+	bg:SetTexture(S.textures.normal)
 	bg.multiplier = 0.3
 	
 	power.bg = bg 

@@ -9,7 +9,7 @@ D.CreateBackground = function(f)
 	bg:SetFrameLevel(1)
 	bg:SetFrameStrata(f:GetFrameStrata())
 	bg:SetBackdrop( { 
-		bgFile = S["textures"].normal,
+		bgFile = S.textures.normal,
 		edgeSize = 0,
 		tile = true,
 	})
@@ -33,7 +33,7 @@ D.CreateShadow = function(f, t, offset)
 	shadow:SetPoint("TOPRIGHT", offset, offset)
 	shadow:SetPoint("BOTTOMRIGHT", offset, -offset)
 	shadow:SetBackdrop( { 
-		edgeFile = S["textures"].shadow, 
+		edgeFile = S.textures.shadow, 
 		edgeSize = offset,
 		insets = {
 			left = 5, 
