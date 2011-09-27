@@ -19,7 +19,7 @@ function E:Register(event, func, id)
 end
 
 function E:Unregister(event, id)
-	if (registeredEvents[event][id]) then
+	if registeredEvents[event] and registeredEvents[event][id] then
 		registeredEvents[event][id] = nil
 	end
 end
