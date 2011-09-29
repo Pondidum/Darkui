@@ -130,3 +130,9 @@ S["tooltip"] = {
 	["enable"] = true,
 	["hideincombat"] = false,
 }
+
+S["slackcheck"] = {
+	["enable"] = true,
+	["prefix"] = "DSC",
+	["minbufftime"] = 10, --mins
+}
