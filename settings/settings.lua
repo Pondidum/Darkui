@@ -11,12 +11,6 @@ S["chat"] = {
 	["urlcolor"] = "16FF5D",
 	["enablefading"] = true,
 	["fadetime"] = 20,
-	["aliases"] = {
-		["slapraidlead"] = "SRL",
-		["slapcaster"] = "SC",
-		["slaphealer"] = "SH",
-		["slapdk"] = "DK",
-	}
 }
 
 S["stats"] = {
