@@ -18,10 +18,10 @@ local function SetupChatStyle(frame)
 	frame:SetClampedToScreen(false)
 	
 	frame:ClearAllPoints()
-	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editheight + 5)
-	frame:SetSize(S.chat.width, 120)
+	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editsize[2] + 5)
+	frame:SetSize(unpack(S.chat.size))
 
-	SetChatWindowSavedDimensions(id, S.chat.width, 120)
+	SetChatWindowSavedDimensions(id, unpack(S.chat.size))
 	FCF_SavePositionAndDimensions(frame)
 	
 	frame.ClearAllPoints = D.Dummy
@@ -82,7 +82,7 @@ local function SetupEditBox(frame)
 	
 	edit:ClearAllPoints()
 	edit:SetPoint("TOPLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 0)
-	edit:SetSize(S.chat.width,  S.chat.editheight)
+	edit:SetSize(unpack(S.chat.editsize))
 	
 	-- Kills off the retarded new circle around the editbox
 	D.Kill(_G[format("ChatFrame%sEditBoxFocusLeft", id)])
@@ -119,6 +119,16 @@ local function SetupChat(self)
 
 	end
 	
+	if S.chat.background then
+		local frame = CreateFrame("Frame", D.Addon.name .. "ChatBackground", DarkuiFrame)
+		frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 2)
+		frame:SetSize(S.chat.size[1], S.chat.size[2] + (S.chat.editsize[2] * 2))
+		frame:SetFrameStrata("BACKGROUND")
+		
+		D.CreateShadow(frame)
+		D.CreateBackground(frame)
+	end
+	
 	-- Remember last channel
 	ChatTypeInfo.WHISPER.sticky = 1
 	ChatTypeInfo.BN_WHISPER.sticky = 1
@@ -153,7 +163,7 @@ D.Kill(FriendsMicroButton)
 D.Kill(ChatFrameMenuButton)
 
 GeneralDockManager:ClearAllPoints()
-GeneralDockManager:SetSize(S.chat.width, S.chat.editheight)
+GeneralDockManager:SetSize(unpack(S.chat.editsize))
 GeneralDockManager:SetPoint("BottomLeft", DarkuiFrame, "BottomLeft", 0, 0)
 
 ToggleChatColorNamesByClassGroup(true, "SAY")

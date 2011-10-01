@@ -9,7 +9,7 @@ local panel = CreateFrame("Frame", D.Addon.name .. "Stats", DarkuiFrame)
 S.stats.panel = panel
 
 panel:SetPoint("BOTTOMRIGHT", DarkuiActionBarBackground, "BOTTOMLEFT", 0, 0)
-panel:SetSize(S.chat.width, S.chat.editheight)
+panel:SetSize(unpack(S.chat.editsize))
 panel.frames = {}
 
 function panel:Add(name, index) 
