@@ -12,12 +12,6 @@ S["chat"] = {
 	["urlcolor"] = "16FF5D",
 	["enablefading"] = true,
 	["fadetime"] = 20,
-	["aliases"] = {
-		["slapraidlead"] = "SRL",
-		["slapcaster"] = "SC",
-		["slaphealer"] = "SH",
-		["slapdk"] = "DK",
-	}
 }
 
 S["stats"] = {
@@ -130,4 +124,10 @@ S["actionbars"] = {
 S["tooltip"] = {
 	["enable"] = true,
 	["hideincombat"] = false,
+}
+
+S["slackcheck"] = {
+	["enable"] = true,
+	["prefix"] = "DSC",
+	["minbufftime"] = 10, --mins
 }

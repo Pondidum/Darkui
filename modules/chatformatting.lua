@@ -30,10 +30,6 @@ local function DarkAddMessage(frame, text, ...)
     return
   end
   
-  -- for k,v in pairs(S.chat.aliases) do 
-    -- text = text:gsub("|h%[%d%. "..k.."%]|h", "|h["..v.."]|h")
-  -- end
-  
   return originals[frame](frame, text, ...)
   
 end

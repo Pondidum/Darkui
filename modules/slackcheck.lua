@@ -1,5 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
+if S.slackcheck.enable ~= true then return end
+
 local flaskTable = {
 	92679, --Flask of Battle
 	94160, --Flask of Flowing Water
@@ -27,11 +29,9 @@ local foodTable = {
 	
 }
 
-local minBuffTime = 10 --minutes
-
 function DscChatFilter(self, event, msg, author, ...)
 	
-	if msg and self and msg:find("DSC: ") ~= nil then
+	if msg and self and msg:find(S.slackcheck.prefix .. ": ") ~= nil then
 		return true
 	end
 	
@@ -109,7 +109,7 @@ local DarkSlackCheck = function()
 			
 				local remaining = foodExpirationTime - GetTime()
 				
-				if remaining/60 <= minBuffTime then
+				if remaining/60 <= S.slackcheck.minbufftime then
 					foodMessage = "Your food buff will expire soon, please eat."
 				end
 			
@@ -128,7 +128,7 @@ local DarkSlackCheck = function()
 	
 				local remaining = flaskExpirationTime - GetTime()
 				
-				if remaining/60 <= minBuffTime then
+				if remaining/60 <= S.slackcheck.minbufftime then
 					flaskMessage = "Your flask will expire soon, please pop a new one."
 				end
 			end
@@ -138,12 +138,12 @@ local DarkSlackCheck = function()
 		end
 		
 		if foodMessage ~= "" then
-			SendChatMessage("DSC: " .. foodMessage, "WHISPER", nil, name)
+			SendChatMessage(S.slackcheck.prefix .. ": " .. foodMessage, "WHISPER", nil, name)
 			raidFoodMessage = raidFoodMessage .. name ..", "	
 		end
 		
 		if flaskMessage ~= "" then
-			SendChatMessage("DSC: " .. flaskMessage, "WHISPER", nil, name)		
+			SendChatMessage(S.slackcheck.prefix .. ": " .. flaskMessage, "WHISPER", nil, name)		
 			raidFlaskMessage = raidFlaskMessage .. name ..", "	
 		end
 		
@@ -152,11 +152,11 @@ local DarkSlackCheck = function()
 	
 	
 	if raidFoodMessage ~= "" then
-		SendChatMessage("Dark Slack Check: No Food: " .. string.sub(raidFoodMessage, 0, -3), "RAID")
+		SendChatMessage(S.slackcheck.prefix .. ": No Food: " .. string.sub(raidFoodMessage, 0, -3), "RAID")
 	end
 	
 	if raidFlaskMessage ~= "" then
-		SendChatMessage("Dark Slack Check: No Flask: " .. string.sub(raidFlaskMessage, 0, -3), "RAID")
+		SendChatMessage(S.slackcheck.prefix .. ": No Flask: " .. string.sub(raidFlaskMessage, 0, -3), "RAID")
 	end
 	
 	if #notChecked > 0 then
@@ -167,12 +167,12 @@ local DarkSlackCheck = function()
 			message = message .. notChecked[i] .. ", " 
 		end
 		
-		SendChatMessage("Dark Slack Check: Not Checked: " .. string.sub(message, 0, -3), "RAID")	
+		SendChatMessage(S.slackcheck.prefix .. ": Not Checked: " .. string.sub(message, 0, -3), "RAID")	
 		
 	end 
 	
 	if raidFoodMessage == "" and raidFlaskMessage == "" and #notChecked == 0 then
-	SendChatMessage("Dark Slack Check: Everyone has Flask and Food.", "RAID")	
+	SendChatMessage(S.slackcheck.prefix .. ": Everyone has Flask and Food.", "RAID")	
 	end
 	
 end
