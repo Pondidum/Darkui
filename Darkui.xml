@@ -58,7 +58,6 @@
 	
 	<Script file="modules\selfbuffs.lua" />
 	<Script file="modules\slackcheck.lua" />
-	<Script file="modules\tracker.lua" />
 
 	<Script file="ui\Font.lua" />
 	
