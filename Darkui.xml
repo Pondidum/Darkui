@@ -36,6 +36,9 @@
 	<Script file="modules\actionbars\range.lua" />
 	<Script file="modules\actionbars\style.lua" />
 	
+	<Script file="ui\tags.lua" />
+	<Script file="ui\unitframes.lua" />
+	
 	<Script file="modules\tooltip.lua" />
 	
 	<Script file="modules\chatstyle.lua" />
@@ -46,6 +49,7 @@
 	<Script file="modules\minimap.lua" />
 	<Script file="modules\merchant.lua" />
 	<Script file="modules\objectives.lua" />
+	<Script file="modules\lootroll.lua" />
 	
 	<Script file="modules\statspanel.lua" />
 	<Script file="modules\stats\durability.lua" />
@@ -54,8 +58,8 @@
 	
 	<Script file="modules\selfbuffs.lua" />
 	<Script file="modules\slackcheck.lua" />
+	<Script file="modules\tracker.lua" />
 
 	<Script file="ui\Font.lua" />
-	<Script file="ui\tags.lua" />
-	<Script file="ui\unitframes.lua" />
+	
 </Ui>

@@ -8,7 +8,7 @@ S["cooldowns"] = {
 S["chat"] = {
 	["size"] = {550, 120},
 	["editsize"] = {550, 15},
-	["background"] = true,
+	["background"] = false,
 	["urlcolor"] = "16FF5D",
 	["enablefading"] = true,
 	["fadetime"] = 20,
@@ -130,4 +130,8 @@ S["slackcheck"] = {
 	["enable"] = true,
 	["prefix"] = "DSC",
 	["minbufftime"] = 10, --mins
+}
+
+S["loot"] = {
+	["enable"] = true,
 }
