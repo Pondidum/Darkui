@@ -151,7 +151,7 @@ local function CreateSegments(parent, number)
 		segments[i] = CreateFrame("Frame", nil, parent)
 
 		D.CreateBackground(segments[i])
-		D.CreateShadow(segments[i], "Default")
+		D.CreateShadow(segments[i])
 	
 		segments[i].bg:SetBackdropColor(0.65, 0.63, 0.35, 0.6)
 	
@@ -425,7 +425,7 @@ local function Shared(self, unit)
 	health:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
 	
 	health:SetStatusBarTexture(S.textures.normal)
-	D.CreateShadow(health, "Default")
+	D.CreateShadow(health)
 	
 	health.frequentUpdates = true
 	health.colorDisconnected = true
@@ -464,7 +464,7 @@ local function Shared(self, unit)
 	power:SetHeight(powerHeight)
 	
 	power:SetStatusBarTexture(S.textures.normal)
-	D.CreateShadow(power, "Default")
+	D.CreateShadow(power)
 	
 	local bg = power:CreateTexture(nil, 'BORDER')
 	bg:SetAllPoints(power)

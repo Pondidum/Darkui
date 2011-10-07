@@ -20,7 +20,7 @@ D.CreateBackground = function(f)
 end
 
 --thanks tuk
-D.CreateShadow = function(f, t, offset)
+D.CreateShadow = function(f, offset)
 	if f.shadow then return end -- we seriously don't want to create shadow 2 times in a row on the same frame.
 	
 	if offset == nil then offset = 3 end
