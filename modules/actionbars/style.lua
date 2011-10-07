@@ -21,7 +21,7 @@ local function StyleButton(b, c)
 	local icontexture     = _G[name.."IconTexture"]
 	
 	D.CreateBackground(button)
-	D.CreateShadow(button, 0)
+	D.CreateShadow(button)
 	
 	local hover = b:CreateTexture("frame", nil, self) -- hover
 	hover:SetTexture(1,1,1,0.3)
