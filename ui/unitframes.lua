@@ -9,7 +9,7 @@ local layout =  S.unitframes.layouts[S.unitframes.layout]
 local castHeight = 16
 local castOffset = -20
 local powerHeight = 5
-local buffHeight = 26
+local buffHeight = 29
 local segmentHeight = 8 --used for runes, totems, holypower, soulshards etc
 local auraHeight = 16
 
@@ -41,9 +41,6 @@ end
 
 local function PostCreateAura(element, button)
 	
-	button.remaining = D.CreateFontString(button, S.fonts.unitframe, 8, "THINOUTLINE")
-	button.remaining:SetPoint("CENTER", 1, 0)
-	
 	button.icon:SetPoint("TOPLEFT", 2, -2)
 	button.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 	button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
@@ -51,14 +48,14 @@ local function PostCreateAura(element, button)
 	
 	button.count:SetPoint("BOTTOMRIGHT", 3, 3)
 	button.count:SetJustifyH("RIGHT")
-	button.count:SetFont(S.fonts.unitframe, 9, "THICKOUTLINE")
+	button.count:SetFont(S.fonts.unitframe, 12, "THICKOUTLINE")
 	button.count:SetTextColor(0.84, 0.75, 0.65)
+	button.count:SetDrawLayer('OVERLAY')
 	
 	button.overlayFrame = CreateFrame("frame", nil, button, nil)
 	
 	button.overlay:SetParent(button.overlayFrame)
 	button.count:SetParent(button.overlayFrame)
-	button.remaining:SetParent(button.overlayFrame)
 			
 	button.Glow = CreateFrame("Frame", nil, button)
 	button.Glow:SetPoint("TOPLEFT", button, "TOPLEFT", -1, 1)
@@ -278,7 +275,7 @@ local function CreateBuffs(self)
 	buffs:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", -1, 5)
 	buffs:SetHeight(buffHeight)
 	buffs.size = buffHeight
-	buffs.num = 9
+	buffs.num = 8
 	buffs.spacing = 1
 	buffs.initialAnchor = 'BOTTOMLEFT'
 	
@@ -297,7 +294,7 @@ local function CreateDebuffs(self)
 	debuffs:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", -1, 5)
 	debuffs:SetHeight(buffHeight)
 	debuffs.size = buffHeight
-	debuffs.num = 9
+	debuffs.num = 8
 	debuffs.spacing = 1
 	debuffs.initialAnchor = 'BOTTOMLEFT'
 	
