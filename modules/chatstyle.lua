@@ -1,5 +1,6 @@
 local D, S, E = unpack(select(2, ...))
 
+if true then return end
 local function SetupChatStyle(frame)
 	
 	local id = frame:GetID()
@@ -19,7 +20,8 @@ local function SetupChatStyle(frame)
 	
 	frame:ClearAllPoints()
 	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editsize[2] + 5)
-	frame:SetSize(unpack(S.chat.size))
+	frame:SetPoint("BOTTOMRIGHT", "DarkuiActionBarBackground", "BOTTOMLEFT", 0, 0)
+	frame:SetHeight(S.chat.size[2])
 
 	SetChatWindowSavedDimensions(id, unpack(S.chat.size))
 	FCF_SavePositionAndDimensions(frame)
@@ -82,7 +84,8 @@ local function SetupEditBox(frame)
 	
 	edit:ClearAllPoints()
 	edit:SetPoint("TOPLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 0)
-	edit:SetSize(unpack(S.chat.editsize))
+	edit:SetPoint("RIGHT", DarkuiActionBarBackground, "LEFT", 0, 0)
+	edit:SetHeight(S.chat.editsize[2])
 	
 	-- Kills off the retarded new circle around the editbox
 	D.Kill(_G[format("ChatFrame%sEditBoxFocusLeft", id)])

@@ -83,6 +83,15 @@ local function PostUpdateAura(icons, unit, icon, index, offset, filter, isDebuff
 	
 end
 
+local function EclipseDirection(self)
+	if ( GetEclipseDirection() == "sun" ) then
+			self.Text:SetText("|cffE5994C".."Starfire".."|r")
+	elseif ( GetEclipseDirection() == "moon" ) then
+			self.Text:SetText("|cff4478BC".."Wrath".."|r")
+	else
+			self.Text:SetText("")
+	end
+end
 local function CreateMenu(self)
 
 	local unit = self.unit:gsub("(.)", string.upper, 1)
@@ -537,6 +546,41 @@ local ClassSpecific = {
 		self.Runes = runes
 	end,
 	
+	DRUID = function(self, ...)
+
+		local anchor = self.Debuffs or self.Buffs or self.Power
+
+		local eclipseBar = CreateFrame('Frame', "EclipseBar", self)
+		eclipseBar:SetHeight(segmentHeight)
+		
+		D.CreateShadow(eclipseBar)
+		D.CreateBackground(eclipseBar)
+		LayoutSegments(self, {eclipseBar})
+
+		eclipseBar:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 0)
+
+		local lunarBar = CreateFrame('StatusBar', nil, eclipseBar)
+		lunarBar:SetPoint('LEFT', eclipseBar, 'LEFT', 0, 0)
+		lunarBar:SetSize(eclipseBar:GetWidth(), eclipseBar:GetHeight())
+		lunarBar:SetStatusBarTexture(S.textures.normal)
+		lunarBar:SetStatusBarColor(.50, .52, .70)
+		eclipseBar.LunarBar = lunarBar
+
+		local solarBar = CreateFrame('StatusBar', nil, eclipseBar)
+		solarBar:SetPoint('LEFT', lunarBar:GetStatusBarTexture(), 'RIGHT', 0, 0)
+		solarBar:SetSize(eclipseBar:GetWidth(), eclipseBar:GetHeight())
+		solarBar:SetStatusBarTexture(S.textures.normal)
+		solarBar:SetStatusBarColor(.80, .82,  .60)
+		eclipseBar.SolarBar = solarBar
+
+		local eclipseBarText = eclipseBar:CreateFontString(nil, 'OVERLAY')
+		eclipseBarText:SetPoint('BOTTOM', eclipseBar, 'TOP')
+		eclipseBarText:SetFont(S.fonts.unitframe, 12)
+		eclipseBar.PostUpdatePower = EclipseDirection
+
+		self.EclipseBar = eclipseBar
+		self.EclipseBar.Text = eclipseBarText
+	end,
 }
 
 local UnitSpecific = {
@@ -549,10 +593,6 @@ local UnitSpecific = {
 		CreateComboPoints(self)
 		CreateCombatIndicator(self)
 		CreateLeaderAndMasterLooter(self)
-		
-		-- self.Castbar:ClearAllPoints()
-		-- self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 100)
-		-- self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 100)
 		
 		if D.Player.level ~= MAX_PLAYER_LEVEL then
 			CreateExperienceBar(self)
