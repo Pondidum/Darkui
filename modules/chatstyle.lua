@@ -1,6 +1,5 @@
 local D, S, E = unpack(select(2, ...))
 
-if true then return end
 local function SetupChatStyle(frame)
 	
 	local id = frame:GetID()
