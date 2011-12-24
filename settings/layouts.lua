@@ -43,7 +43,7 @@ S.unitframes.layouts["default"] = {
 	},
 	["raid"] = {			--note raid has is size set, and not its position
 		["point"] = {},
-		["size"] = {80 , 18},
+		["size"] = {70 , 18},
 	},
 }
 
