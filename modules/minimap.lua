@@ -64,11 +64,11 @@ local function UpdateLFG()
 	MiniMapLFGFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 2, 1)
 	MiniMapLFGFrameBorder:Hide()
 end
-hooksecurefunc("MiniMapLFG_UpdateIsShown", UpdateLFG)
+hooksecurefunc("MiniMapLFG_Update", UpdateLFG)
 
 
 local function UpdateLFGTooltip()
-	LFDSearchStatus:SetPoint("BOTTOMRIGHT", MiniMapLFGFrame, "BOTTOMRIGHT", 0, 0)		
+	LFGSearchStatus:SetPoint("BOTTOMRIGHT", MiniMapLFGFrame, "BOTTOMRIGHT", 0, 0)
 end
 E:Register("PLAYER_LOGIN", UpdateLFGTooltip)
 
