@@ -4,16 +4,16 @@ assert(oUF, 'oUF Reputation was unable to locate oUF install')
 
 for tag, func in pairs({
 	['currep'] = function()
-		local _, _, _, _, value = GetWatchedFactionInfo()
-		return value
+		local _, _, min, _, value = GetWatchedFactionInfo()
+		return value - min
 	end,
 	['maxrep'] = function()
-		local _, _, _, max = GetWatchedFactionInfo()
-		return max
+		local _, _, min, max = GetWatchedFactionInfo()
+		return max - min
 	end,
 	['perrep'] = function()
-		local _, _, _, max, value = GetWatchedFactionInfo()
-		return math.floor(value / max * 100 + 0.5)
+		local _, _, min, max, value = GetWatchedFactionInfo()
+		return math.floor((value - min) / (max - min) * 100 + 0.5)
 	end,
 	['standing'] = function()
 		local _, standing = GetWatchedFactionInfo()
@@ -23,22 +23,27 @@ for tag, func in pairs({
 		return GetWatchedFactionInfo()
 	end,
 }) do
-	oUF.Tags[tag] = func
-	oUF.TagEvents[tag] = 'UPDATE_FACTION'
+	oUF.Tags.Methods[tag] = func
+	oUF.Tags.Events[tag] = 'UPDATE_FACTION'
 end
 
 local function Update(self, event, unit)
 	local reputation = self.Reputation
-	
-	if(not GetWatchedFactionInfo()) then
+
+	local name, standing, min, max, value = GetWatchedFactionInfo()
+	if(not name) then
 		return reputation:Hide()
 	else
 		reputation:Show()
 	end
 
-	local name, standing, min, max, value = GetWatchedFactionInfo()
-	reputation:SetMinMaxValues(min, max)
-	reputation:SetValue(value)
+	reputation:SetMinMaxValues(0, max - min)
+	reputation:SetValue(value - min)
+
+	if(reputation.colorStanding) then
+		local color = FACTION_BAR_COLORS[standing]
+		reputation:SetStatusBarColor(color.r, color.g, color.b)
+	end
 
 	if(reputation.PostUpdate) then
 		return reputation:PostUpdate(unit, name, standing, min, max, value)
