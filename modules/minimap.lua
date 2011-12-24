@@ -39,7 +39,7 @@ MiniMapWorldMapButton:Hide()
 MiniMapMailFrame:ClearAllPoints()
 MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, 3, 3)
 MiniMapMailBorder:Hide()
-MiniMapMailIcon:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\mail")
+MiniMapMailIcon:SetTexture(S.textures.mail)
 
 -- Move battleground icon
 MiniMapBattlefieldFrame:ClearAllPoints()

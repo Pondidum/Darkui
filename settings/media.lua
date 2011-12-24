@@ -5,7 +5,8 @@ S["textures"] = {
 	["normal"] = [[Interface\AddOns\Darkui\media\textures\normTex]],
 	["blank"] = [[Interface\AddOns\Darkui\media\textures\blank]],
 	["raidicons"] = [[Interface\AddOns\Darkui\media\textures\raidicons.blp]],
-	["buttonhover"] = [[Interface\AddOns\Darkui\medias\textures\button_hover]],
+	["buttonhover"] = [[Interface\AddOns\Darkui\media\textures\button_hover]],
+	["mail"] = [[Interface\AddOns\Darkui\media\textures\mail]],
 }
 
 S["fonts"] = {
