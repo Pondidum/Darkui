@@ -4,8 +4,8 @@ local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
-oUF.Tags[D.Addon.name.. ':health'] = function(unit)
-
+oUF.Tags.Methods[D.Addon.name.. ':health'] = function(unit)
+	
 	if not UnitIsConnected(unit) then
 		return "Disconnected"
 	end
@@ -44,7 +44,7 @@ oUF.Tags[D.Addon.name.. ':health'] = function(unit)
 	
 end
 
-oUF.Tags[D.Addon.name .. ":healthshort"] = function(unit)
+oUF.Tags.Methods[D.Addon.name .. ":healthshort"] = function(unit)
 
 	if not UnitIsConnected(unit) then
 		return "Disconnected"
