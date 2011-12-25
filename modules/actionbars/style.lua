@@ -55,6 +55,7 @@ local function style(self)
 	
 	--> fixing a taint issue while changing totem flyout button in combat.
 	if name:match("MultiCast") then return end 
+	if name:match("ExtraActionButton") then return end
 	
 	local action = self.action
 	local Button = self
@@ -70,15 +71,19 @@ local function style(self)
 	Flash:SetTexture("")
 	Button:SetNormalTexture("")
  
-	Border:Hide()
-	Border = D.Dummy
+ 	if Border then
+		Border:Hide()
+		Border = D.Dummy
+	end
  
 	Count:ClearAllPoints()
 	Count:SetPoint("BOTTOMRIGHT", 0, 2)
 	Count:SetFont(S.fonts.normal, 12, "OUTLINE")
  
-	Btname:SetText("")
-	D.Kill(Btname)
+ 	if Btname then
+		Btname:SetText("")
+		D.Kill(Btname)
+	end
  
 	if not _G[name.."Panel"] then
 		-- resize all button not matching S.actionbars.buttonsize
@@ -95,8 +100,8 @@ local function style(self)
 		panel:SetFrameLevel(self:GetFrameLevel() - 1)
  
 		Icon:SetTexCoord(.08, .92, .08, .92)
-		Icon:SetPoint("TOPLEFT", Button, 0,0)
-		Icon:SetPoint("BOTTOMRIGHT", Button, 0,0)
+		Icon:SetPoint("TOPLEFT", Button, 0, 0)
+		Icon:SetPoint("BOTTOMRIGHT", Button, 0, 0)
 	end
 
 	HotKey:ClearAllPoints()
@@ -118,12 +123,11 @@ local function style(self)
 end
 
 local function stylesmallbutton(normal, button, icon, name, pet)
-	local Flash	 = _G[name.."Flash"]
-	button:SetNormalTexture("")
-	
-	-- another bug fix reported by Affli in t12 beta
+		
 	button.SetNormalTexture = D.Dummy
 	
+	local Flash	 = _G[name.."Flash"]
+	button:SetNormalTexture("")
 	Flash:SetTexture(S.textures.buttonhover)
 	
 	if not _G[name.."Panel"] then
