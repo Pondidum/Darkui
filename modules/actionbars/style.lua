@@ -67,6 +67,7 @@ local function style(self)
 	local Btname = _G[name.."Name"]
 	local normal  = _G[name.."NormalTexture"]
 	local shine = _G[name.."Shine"]
+	local background = _G[name.."FloatingBG"]
 	
 	Flash:SetTexture("")
 	Button:SetNormalTexture("")
@@ -102,6 +103,7 @@ local function style(self)
 		Icon:SetTexCoord(.08, .92, .08, .92)
 		Icon:SetPoint("TOPLEFT", Button, 0, 0)
 		Icon:SetPoint("BOTTOMRIGHT", Button, 0, 0)
+
 	end
 
 	HotKey:ClearAllPoints()
@@ -119,6 +121,10 @@ local function style(self)
 		normal:ClearAllPoints()
 		normal:SetPoint("TOPLEFT")
 		normal:SetPoint("BOTTOMRIGHT")
+	end
+
+	if background then
+		D.Kill(background)
 	end
 end
 
