@@ -160,7 +160,7 @@ local function InitBags(parent)
 
 	InitBag(parent, 0, NUM_BAG_SLOTS, currencyFrame)
 		
-	local updateGold = function() currencyFrame.Gold:SetText(GetMoneyString(GetMoney(), 12)) end
+	local updateGold = function() currencyFrame.Gold:SetText(D.GetMoneyString(GetMoney(), 12)) end
 	E:Register("PLAYER_MONEY", updateGold)
 	E:Register("PLAYER_LOGIN", updateGold)
 	E:Register("PLAYER_TRADE_MONEY", updateGold)

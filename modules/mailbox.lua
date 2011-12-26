@@ -121,8 +121,19 @@ local TakeCash = function()
 	
 end
 
+local function GetGold()
 
-local Initialise = function()
+	local i
+	local total = 0
+
+	for i = 0, GetInboxNumItems() do
+		total = total + select(5, GetInboxHeaderInfo(i))
+	end
+
+	return D.GetMoneyString(total)
+end
+
+local function Initialise()
 	
 	if initialised then
 		return
@@ -140,11 +151,15 @@ local Initialise = function()
 	takeGold:SetText("Take Gold")
 	takeGold:SetScript("OnClick", TakeCash)
 	
+	takeGold.Label = D.CreateFontString(takeGold, S.fonts.normal, S.fonts.default.size)
+	takeGold.Label:SetPoint("LEFT", takeGold, "RIGHT", 10, 0)
+	
 	initialised = true
 	
 end
 
-
 E:Register("MAIL_SHOW",	function ()
 		Initialise()
 end)
+
+E:Register("MAIL_INBOX_UPDATE", function() DarkuiTakeGold.Label:SetText(GetGold()) end)
