@@ -129,11 +129,11 @@ local function style(self)
 end
 
 local function stylesmallbutton(normal, button, icon, name, pet)
-		
+	
+	button:SetNormalTexture("")	
 	button.SetNormalTexture = D.Dummy
 	
 	local Flash	 = _G[name.."Flash"]
-	button:SetNormalTexture("")
 	Flash:SetTexture(S.textures.buttonhover)
 	
 	if not _G[name.."Panel"] then
