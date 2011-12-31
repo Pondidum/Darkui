@@ -77,6 +77,14 @@ DarkuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 
 DarkuiShift:SetHeight(singleBarHeight)
 DarkuiShift:SetFrameStrata("HIGH")
 
+-- extra action button
+
+local DarkuiExtra = CreateFrame("Frame", "DarkuiBarExtra", UIParent)
+DarkuiExtra:SetPoint("BOTTOMRIGHT", DarkuiBar3, "TOPRIGHT", 0, S.actionbars.barspacing)
+DarkuiExtra:SetWidth(singleBarHeight) --only 1 button for now
+DarkuiExtra:SetHeight(singleBarHeight)
+DarkuiExtra:SetFrameStrata("HIGH")
+
 -- hide it if not needed and stop executing code
 if S.actionbars.hideshapeshift then DarkuiShift:Hide() return end
 

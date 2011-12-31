@@ -24,6 +24,7 @@
 	<Script file="modules\actionbars\bar3.lua" />
 	<Script file="modules\actionbars\bar4.lua" />
 	<Script file="modules\actionbars\bar5.lua" />
+	<Script file="modules\actionbars\barextra.lua" />
 	<Script file="modules\actionbars\barpet.lua" />
 	<Script file="modules\actionbars\bars.lua" />
 	<Script file="modules\actionbars\barshift.lua" />

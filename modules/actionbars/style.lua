@@ -311,6 +311,10 @@ do
 		StyleButton(_G["ShapeshiftButton"..i], true)
 		StyleButton(_G["PetActionButton"..i], true)
 	end
+
+	for i = 1, 1 do
+		StyleButton(_G["ExtraActionButton"..i], true)
+	end
 end
 
 hooksecurefunc("ActionButton_Update", style)
