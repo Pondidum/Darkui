@@ -1,15 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
 --[[
-LargerMacroIconSelection v1.0.2
-3rd December 2011
-Copyright (C) 2011 Xinhuan
-
-Shows you a much bigger macro icon selection frame instead of the
-standard 5x4 one.
-
-Slash commands:
-/lmis width height
+Based on LargerMacroIconSelection v1.0.2 by Xinhuan
 
 -----
 This program is free software: you can redistribute it and/or modify
@@ -28,18 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 if S.utilities.macroicons.enable ~= true then return end
 
--- Make sure the Blizzard_MacroUI is loaded, as this is depended on.
--- (We have a LoadWith clause, but other addons may try to load this one.)
-UIParentLoadAddOn("Blizzard_MacroUI")
-
 -- Local constants
 local NUM_ICONS_PER_ROW
 local NUM_ICON_ROWS
 local NUM_MACRO_ICONS_SHOWN
-local MacroPopupFrame_OrigWidth = MacroPopupFrame:GetWidth()
-local MacroPopupFrame_OrigHeight = MacroPopupFrame:GetHeight()
-local MacroPopupScrollFrame_OrigWidth = MacroPopupScrollFrame:GetWidth()
-local MacroPopupScrollFrame_OrigHeight = MacroPopupScrollFrame:GetHeight()
+local MacroPopupFrame_OrigWidth 
+local MacroPopupFrame_OrigHeight 
+local MacroPopupScrollFrame_OrigWidth
+local MacroPopupScrollFrame_OrigHeight 
 
 -- More locals
 local extrawidth
@@ -83,48 +71,8 @@ local function Hooked_MacroPopupFrame_Update()
 	FauxScrollFrame_Update(MacroPopupScrollFrame, ceil(numMacroIcons / NUM_ICONS_PER_ROW) , NUM_ICON_ROWS, MACRO_ICON_ROW_HEIGHT );
 end
 
--- Addon frame object
-local LargerMacroIconSelection = CreateFrame("Frame", "LargerMacroIconSelection")
-
-LargerMacroIconSelection:RegisterEvent("ADDON_LOADED")
-LargerMacroIconSelection:SetScript("OnEvent", function(self, event, arg1)
-	
-	if event == "ADDON_LOADED" and arg1 == "Darkui" then
-		NUM_ICONS_PER_ROW = S.utilities.macroicons.width
-		NUM_ICON_ROWS = S.utilities.macroicons.height
-		NUM_MACRO_ICONS_SHOWN = NUM_ICONS_PER_ROW * NUM_ICON_ROWS
-		self:InitOnce()
-		self:Init()
-		self:UnregisterEvent("ADDON_LOADED")
-	end
-end)
-
--- Initialization that should only be done once
-function LargerMacroIconSelection:InitOnce()
-	-- Get the textures into a table since they are unnamed in Blizzard XML code
-	kids = {MacroPopupFrame:GetRegions()}
-	kids2 = {MacroPopupScrollFrame:GetRegions()}
-
-	-- Create extra background textures
-	MacroPopupFrame.largertexture1 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- top side
-	MacroPopupFrame.largertexture2 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- left side
-	MacroPopupFrame.largertexture3 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- middle
-	MacroPopupFrame.largertexture4 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- right side
-	MacroPopupFrame.largertexture5 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- bottom side1
-	MacroPopupFrame.largertexture6 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- bottom side2
-
-	-- And some more for the scrollframe
-	MacroPopupScrollFrame.largertexture1 = MacroPopupScrollFrame:CreateTexture(nil, "BACKGROUND")
-
-	-- Hook the macro update function
-	hooksecurefunc("MacroPopupFrame_Update", Hooked_MacroPopupFrame_Update)
-
-	-- Kill myself so I won't get called twice
-	LargerMacroIconSelection.InitOnce = function() end
-end
-
 -- Initialization that should be called when the width/height values change
-function LargerMacroIconSelection:Init()
+local function Init()
 	-- Create the extra buttons
 	for i = 21, NUM_MACRO_ICONS_SHOWN do
 		local a = "MacroPopupButton"..i
@@ -233,3 +181,54 @@ function LargerMacroIconSelection:Init()
 		end
 	end
 end
+
+-- Initialization that should only be done once
+local function InitOnce()
+	-- Get the textures into a table since they are unnamed in Blizzard XML code
+	kids = {MacroPopupFrame:GetRegions()}
+	kids2 = {MacroPopupScrollFrame:GetRegions()}
+
+	-- Create extra background textures
+	MacroPopupFrame.largertexture1 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- top side
+	MacroPopupFrame.largertexture2 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- left side
+	MacroPopupFrame.largertexture3 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- middle
+	MacroPopupFrame.largertexture4 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- right side
+	MacroPopupFrame.largertexture5 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- bottom side1
+	MacroPopupFrame.largertexture6 = MacroPopupFrame:CreateTexture(nil, "BACKGROUND") -- bottom side2
+
+	-- And some more for the scrollframe
+	MacroPopupScrollFrame.largertexture1 = MacroPopupScrollFrame:CreateTexture(nil, "BACKGROUND")
+
+	-- Hook the macro update function
+	hooksecurefunc("MacroPopupFrame_Update", Hooked_MacroPopupFrame_Update)
+
+	-- Kill myself so I won't get called twice
+	InitOnce = function() end
+end
+
+local function InitMacroUI()
+
+	MacroPopupFrame_OrigWidth = MacroPopupFrame:GetWidth()
+	MacroPopupFrame_OrigHeight = MacroPopupFrame:GetHeight()
+	MacroPopupScrollFrame_OrigWidth = MacroPopupScrollFrame:GetWidth()
+	MacroPopupScrollFrame_OrigHeight = MacroPopupScrollFrame:GetHeight()
+
+	NUM_ICONS_PER_ROW = S.utilities.macroicons.width
+	NUM_ICON_ROWS = S.utilities.macroicons.height
+	NUM_MACRO_ICONS_SHOWN = NUM_ICONS_PER_ROW * NUM_ICON_ROWS
+		
+	InitOnce()
+	Init()
+
+end
+
+local function OnAddonLoaded(self, event, arg1)
+	
+	if arg1 == "Blizzard_MacroUI" then
+		E:Unregister("ADDON_LOADED", OnAddonLoaded)
+		InitMacroUI()
+	end
+
+end
+
+E:Register("ADDON_LOADED", OnAddonLoaded, "Darkui_Macros_AddonLoaded")
