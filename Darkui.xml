@@ -50,6 +50,7 @@
 	<Script file="modules\minimap.lua" />
 	<Script file="modules\merchant.lua" />
 	<Script file="modules\mailbox.lua" />
+	<Script file="modules\macros.lua" />
 	<Script file="modules\objectives.lua" />
 	<Script file="modules\lootroll.lua" />
 	

@@ -135,3 +135,12 @@ S["slackcheck"] = {
 S["loot"] = {
 	["enable"] = true,
 }
+
+S["utilities"] = {
+	["mailbox"] = true,
+	["macroicons"] = {
+		["enable"] = true,
+		["width"] = 10,
+		["height"] = 6,
+	}
+}
