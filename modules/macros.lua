@@ -88,8 +88,8 @@ local LargerMacroIconSelection = CreateFrame("Frame", "LargerMacroIconSelection"
 
 LargerMacroIconSelection:RegisterEvent("ADDON_LOADED")
 LargerMacroIconSelection:SetScript("OnEvent", function(self, event, arg1)
-	print(arg1)
-	if event == "ADDON_LOADED" and arg1 == "LargerMacroIconSelection" then
+	
+	if event == "ADDON_LOADED" and arg1 == "Darkui" then
 		NUM_ICONS_PER_ROW = S.utilities.macroicons.width
 		NUM_ICON_ROWS = S.utilities.macroicons.height
 		NUM_MACRO_ICONS_SHOWN = NUM_ICONS_PER_ROW * NUM_ICON_ROWS
