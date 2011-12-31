@@ -141,6 +141,6 @@ S["utilities"] = {
 	["macroicons"] = {
 		["enable"] = true,
 		["width"] = 10,
-		["height"] = 10,
+		["height"] = 6,
 	}
 }
