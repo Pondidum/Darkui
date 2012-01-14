@@ -6,7 +6,7 @@ local _G = _G
 local securehandler = CreateFrame("Frame", nil, nil, "SecureHandlerBaseTemplate")
 local replace = string.gsub
 
-local function StyleButton(b, c) 
+function D.StyleButton(b, c) 
     local name = b:GetName()
  
     local button          = _G[name]
@@ -243,7 +243,7 @@ local function SetupFlyoutButton()
 		--prevent error if you don't have max ammount of buttons
 		if _G["SpellFlyoutButton"..i] then
 			style(_G["SpellFlyoutButton"..i])
-			StyleButton(_G["SpellFlyoutButton"..i], true)
+			D.StyleButton(_G["SpellFlyoutButton"..i], true)
 		end
 	end
 end
@@ -300,20 +300,20 @@ end
 
 do
 	for i = 1, 12 do
-		StyleButton(_G["ActionButton"..i], true)
-		StyleButton(_G["MultiBarBottomLeftButton"..i], true)
-		StyleButton(_G["MultiBarBottomRightButton"..i], true)
-		StyleButton(_G["MultiBarLeftButton"..i], true)
-		StyleButton(_G["MultiBarRightButton"..i], true)
+		D.StyleButton(_G["ActionButton"..i], true)
+		D.StyleButton(_G["MultiBarBottomLeftButton"..i], true)
+		D.StyleButton(_G["MultiBarBottomRightButton"..i], true)
+		D.StyleButton(_G["MultiBarLeftButton"..i], true)
+		D.StyleButton(_G["MultiBarRightButton"..i], true)
 	end
 		 
 	for i=1, 10 do
-		StyleButton(_G["ShapeshiftButton"..i], true)
-		StyleButton(_G["PetActionButton"..i], true)
+		D.StyleButton(_G["ShapeshiftButton"..i], true)
+		D.StyleButton(_G["PetActionButton"..i], true)
 	end
 
 	for i = 1, 1 do
-		StyleButton(_G["ExtraActionButton"..i], true)
+		D.StyleButton(_G["ExtraActionButton"..i], true)
 	end
 end
 
@@ -380,7 +380,7 @@ local function StyleTotemFlyout(flyout)
 		end			
 		if button:IsVisible() then last = button end
 		button:SetBackdropBorderColor(flyout.parent:GetBackdropBorderColor())
-		StyleButton(button)
+		D.StyleButton(button)
 	end
 	
 	flyout.buttons[1]:SetPoint("BOTTOM",flyout,"BOTTOM")
@@ -453,7 +453,7 @@ local function StyleTotemSlotButton(button, index)
 		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize) 
 	end
 	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
-	StyleButton(button)
+	D.StyleButton(button)
 end
 hooksecurefunc("MultiCastSlotButton_Update",function(self, slot) StyleTotemSlotButton(self,tonumber( string.match(self:GetName(),"MultiCastSlotButton(%d)"))) end)
 
@@ -479,7 +479,7 @@ local function StyleTotemActionButton(button, index)
 	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
 	button:SetBackdropColor(0,0,0,0)
 	
-	StyleButton(button, true)
+	D.StyleButton(button, true)
 	
 end
 hooksecurefunc("MultiCastActionButton_Update",function(actionButton, actionId, actionIndex, slot) StyleTotemActionButton(actionButton,actionIndex) end)
@@ -499,7 +499,7 @@ local function StyleTotemSpellButton(button, index)
 	end
 	_G[button:GetName().."Highlight"]:SetTexture(nil)
 	_G[button:GetName().."NormalTexture"]:SetTexture(nil)
-	StyleButton(button)
+	D.StyleButton(button)
 end
 hooksecurefunc("MultiCastSummonSpellButton_Update", function(self) StyleTotemSpellButton(self,0) end)
 hooksecurefunc("MultiCastRecallSpellButton_Update", function(self) StyleTotemSpellButton(self,5) end)
