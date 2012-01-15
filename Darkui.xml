@@ -46,6 +46,10 @@
 	<Script file="modules\chatlinks.lua" />
 	<Script file="modules\chatformatting.lua" />
 	
+	<Script file="modules\tracker\tracker.lua" />
+	<Script file="modules\tracker\stack.lua" />
+	<!--<Script file="modules\tracker\bar.lua" />-->
+
 	<Script file="modules\bags.lua" />
 	<Script file="modules\minimap.lua" />
 	<Script file="modules\merchant.lua" />
@@ -53,7 +57,7 @@
 	<Script file="modules\macros.lua" />
 	<Script file="modules\objectives.lua" />
 	<Script file="modules\lootroll.lua" />
-	
+
 	<Script file="modules\statspanel.lua" />
 	<Script file="modules\stats\durability.lua" />
 	<Script file="modules\stats\memory.lua" />
