@@ -1,6 +1,8 @@
 local D, S, E = unpack(select(2, ...))
 local T = D.Tracker
 
+if S.Tracker.enable ~= true then return end
+
 function T.CreateBar(name, setup)
 
 	local container = CreateFrame("Frame", name, DarkuiFrame)

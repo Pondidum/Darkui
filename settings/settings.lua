@@ -110,6 +110,25 @@ S["selfbuffs"] = {
 	},
 }
 
+S["Tracker"] = {
+	["enable"] = false,
+	["Auras"] = {
+		{
+			["name"] = "frost fever",
+			["unit"] = "target",
+			["filter"] = "PLAYER|HARMFUL",
+			["display"] = "First",
+		},
+		{
+			["name"] = "blood plague",
+			["unit"] = "target",
+			["filter"] = "PLAYER|HARMFUL",
+			["display"] = "Second",
+		}
+	},
+}
+
+
 S["actionbars"] = {
 	["enable"] = true,
 	["buttonsize"] = 25,

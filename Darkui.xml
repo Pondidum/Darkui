@@ -49,6 +49,7 @@
 	<Script file="modules\tracker\tracker.lua" />
 	<Script file="modules\tracker\stack.lua" />
 	<!--<Script file="modules\tracker\bar.lua" />-->
+	<Script file="modules\tracker\auras.lua" />
 
 	<Script file="modules\bags.lua" />
 	<Script file="modules\minimap.lua" />

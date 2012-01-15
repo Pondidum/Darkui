@@ -1,5 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
+if S.Tracker.enable ~= true then return end
+
 D.Tracker = {}
 
 local Tracker = D.Tracker

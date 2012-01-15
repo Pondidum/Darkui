@@ -1,12 +1,13 @@
 local D, S, E = unpack(select(2, ...))
 local T = D.Tracker
 
+if S.Tracker.enable ~= true then return end
 
 local function OnUnitAura()
 	
 	for i = 1, #S.Tracker.Auras do
 		
-		local current = tracked[i]
+		local current = S.Tracker.Auras[i]
 		
 		local name, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellid = UnitAura(current.unit, current.name, nil, current.filter)
 		
