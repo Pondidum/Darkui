@@ -6,12 +6,12 @@ if S.tracker.enable ~= true then return end
 function T.CreateBar(name, setup)
 
 	local container = CreateFrame("Frame", name, DarkuiFrame)
-	container:SetPoint(setup.location)
+	container:SetPoint(unpack(setup.location))
 	
 
 	if setup.sizemode == "FIXED" then
 
-		container:SetSize(setup.size)
+		container:SetSize(unpack(setup.containersize))
 
 	elseif setup.sizemode == "TOPDOWN" or setup.sizemode == "BOTTOMUP" then
 
@@ -41,36 +41,42 @@ function T.CreateBar(name, setup)
 				return "BOTTOM", "BOTTOM", 0, index * (icon:GetHeight() + 2)
 
 			elseif mode == "LEFTRIGHT" then
-				return "LEFT", "LEFT", index * (icon:GetWidth() + 2), 0 
+				return "LEFT", "LEFT", (index * (icon:GetWidth() + 2)), 0
 
-			elseif mode == "RIGHTLEFT"
+			elseif mode == "RIGHTLEFT" then
 				return "RIGHT", "RIGHT", index * (icon:GetWidth() + 2), 0 
-
 			end
 				
 		end
-
-		for i = 1, #collection do
-			
-			local current = collection[i]
-			
+		
+		local current
+		for _, current in pairs(collection) do
+						
 			if current.display then
-
+				
 				local icon = self.Cache[current.id]
 
 				if icon == nil then
 					icon = T.CreateIcon(self, self:GetName() .. current.id, setup.location, setup.size)
-					self.Cache[current.spellID] = icon
+					self.Cache[current.id] = icon
 				end
 
 				icon:UpdateIcon(current.texture)
 				icon:UpdateCooldown(current.expiry)
 
-				local anchor, relAnchor, x, y = GetAnchors(self.setup.sizemode, icon, displayed) 
-				icon:SetPoint(anchor, self, relAnchor, x, y) 
-
-				displayed = displayed + 1 
+				local anchor, relAnchor, x, y = GetAnchors(self.setup.mode, icon, displayed) 
+				icon:ClearAllPoints()
+				icon:SetPoint(anchor, self, "LEFT", x, y) 
+				icon:Show()
 				
+				displayed = displayed + 1 
+			else
+				
+				local icon = self.Cache[current.id]
+
+				if icon ~= nil then
+					icon:Hide()
+				end
 			end
 
 		end
