@@ -110,20 +110,18 @@ S["selfbuffs"] = {
 	},
 }
 
-S["Tracker"] = {
+S["tracker"] = {
 	["enable"] = false,
 	["Auras"] = {
-		{
-			["name"] = "frost fever",
-			["unit"] = "target",
-			["filter"] = "PLAYER|HARMFUL",
-			["display"] = "First",
+		DEATHKNIGHT = {
+			--{ ["name"] = "frost fever", 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "First" },
+			--{ ["name"] = "blood plague",	["unit"] = "target",	["filter"] = "PLAYER|HARMFUL",	["display"] = "Second" },
 		},
-		{
-			["name"] = "blood plague",
-			["unit"] = "target",
-			["filter"] = "PLAYER|HARMFUL",
-			["display"] = "Second",
+		DRUID = {
+			{ ["id"] = 33876,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "First" },	--mangle
+			{ ["id"] = 1822, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "First" },	--rake
+			{ ["id"] = 1079, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "First" },	--rip
+			{ ["id"] = 52610, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Second" }, 	--savage roar
 		}
 	},
 }

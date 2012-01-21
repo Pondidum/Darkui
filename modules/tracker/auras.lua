@@ -1,30 +1,37 @@
 local D, S, E = unpack(select(2, ...))
 local T = D.Tracker
 
-if S.Tracker.enable ~= true then return end
+if S.tracker.enable ~= true then return end
 
 local function OnUnitAura()
 	
-	for i = 1, #S.Tracker.Auras do
+	local auras = S.tracker.Auras[D.Player.class]
+
+	if auras == nil then
+		return
+	end
+
+	for i = 1, #auras do
 		
-		local current = S.Tracker.Auras[i]
+		local current = auras[i]
 		
-		local name, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellid = UnitAura(current.unit, current.name, nil, current.filter)
+		local name = GetSpellInfo(current.id)
+		local _, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellID = UnitAura(current.unit, name, nil, current.filter)
 		
-		if name ~= nil then
-			
-			local data = {
-				["id"] = spellid,
-				["display"] = true,
+		local data = {
+				["id"] = current.id,
+				["display"] = (spellID ~= nil),
 				["texture"] = icon,
 				["expiry"] = expires,
 			}
-			
-			D.Tracker.UpdateDisplayData(current.display, data)
-		end
+				
+		D.Tracker.UpdateDisplayData(current.display, data)
+		
 	end
 
 end
 	
 
 E:Register("UNIT_AURA", OnUnitAura)
+E:Register("PLAYER_TARGET_CHANGED", OnUnitAura)
+E:Register("PLAYER_FOCUS_CHANGED", OnUnitAura)

@@ -1,7 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 local T = D.Tracker
 
-if S.Tracker.enable ~= true then return end
+if S.tracker.enable ~= true then return end
 
 function T.CreateBar(name, setup)
 
@@ -56,10 +56,10 @@ function T.CreateBar(name, setup)
 			
 			if current.display then
 
-				local icon = self.Cache[current.spellID]
+				local icon = self.Cache[current.id]
 
 				if icon == nil then
-					icon = T.CreateIcon(self, self:GetName() .. current.SpellID, setup.location, setup.size)
+					icon = T.CreateIcon(self, self:GetName() .. current.id, setup.location, setup.size)
 					self.Cache[current.spellID] = icon
 				end
 

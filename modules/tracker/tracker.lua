@@ -1,6 +1,6 @@
 local D, S, E = unpack(select(2, ...))
 
-if S.Tracker.enable ~= true then return end
+if S.tracker.enable ~= true then return end
 
 D.Tracker = {}
 
