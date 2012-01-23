@@ -1,7 +1,40 @@
 local D, S, E = unpack(select(2, ...))
-local T = D.Tracker
 
 if S.tracker.enable ~= true then return end
+
+local T = D.Tracker
+
+local function GetAnchors(mode, icon, index)
+	
+	if mode == "TOPDOWN" then
+
+		return "TOP", "TOP", 0, index * (icon:GetHeight() + 4)
+
+	elseif mode == "BOTTOMUP" then
+
+		return "BOTTOM", "BOTTOM", 0, index * (icon:GetHeight() + 4)
+
+	elseif mode == "LEFTRIGHT" then
+
+		return "LEFT", "LEFT", index * (icon:GetWidth() + 4), 0
+
+	elseif mode == "RIGHTLEFT" then
+
+		return "RIGHT", "RIGHT", index * (icon:GetWidth() + 4), 0 
+
+	end
+		
+end
+
+local function CalculateFrameSize(containerSize)
+
+	if containerSize[1] < containerSize[2] then
+		return containerSize[1], containerSize[1]
+	else
+		return containerSize[2], containerSize[2]
+	end
+
+end
 
 function T.CreateBar(name, setup)
 
@@ -28,40 +61,7 @@ function T.CreateBar(name, setup)
 	container.Cache = {}
 
 	container.UpdateDisplay = function(self)
-		
-		local function GetAnchors(mode, icon, index)
-			
-			if mode == "TOPDOWN" then
-
-				return "TOP", "TOP", 0, index * (icon:GetHeight() + 4)
-
-			elseif mode == "BOTTOMUP" then
-
-				return "BOTTOM", "BOTTOM", 0, index * (icon:GetHeight() + 4)
-
-			elseif mode == "LEFTRIGHT" then
-
-				return "LEFT", "LEFT", index * (icon:GetWidth() + 4), 0
-
-			elseif mode == "RIGHTLEFT" then
-
-				return "RIGHT", "RIGHT", index * (icon:GetWidth() + 4), 0 
-
-			end
 				
-		end
-
-		local function CalculateFrameSize(containerSize)
-
-			if containerSize[1] < containerSize[2] then
-				return containerSize[1], containerSize[1]
-			else
-				return containerSize[2], containerSize[2]
-			end
-
-		end
-
-		
 		local current
 		local collection = self.Data
 		local displayed = 0 
@@ -86,7 +86,7 @@ function T.CreateBar(name, setup)
 				icon:Show()
 
 				displayed = displayed + 1 
-				
+
 			else
 				
 				if icon ~= nil then
