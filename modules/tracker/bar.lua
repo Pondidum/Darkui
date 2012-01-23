@@ -67,11 +67,11 @@ function T.CreateBar(name, setup)
 		local displayed = 0 
 
 		for _, current in pairs(collection) do
-						
-			if current.display then
 				
-				local icon = self.Cache[current.id]
-
+			local icon = self.Cache[current.id]		
+			
+			if current.display then
+			
 				if icon == nil then
 					icon = T.CreateIcon(self, self:GetName() .. current.id, setup.location, {CalculateFrameSize(setup.size)})
 					self.Cache[current.id] = icon
@@ -86,13 +86,13 @@ function T.CreateBar(name, setup)
 				icon:Show()
 
 				displayed = displayed + 1 
+				
 			else
 				
-				local icon = self.Cache[current.id]
-
 				if icon ~= nil then
 					icon:Hide()
 				end
+
 			end
 
 		end
