@@ -11,6 +11,22 @@ local function GetPos(val, valMax, base)
 	return r > 1 and 1 or r		
 end
 
+local function GetAnchor(current)
+
+	if current.filter == nil or current.filter == "" then
+		return "CENTER", 0
+	end
+
+	if string.find(current.filter, "HARMFUL") then
+		return "BOTTOM", 5
+	elseif string.find(current.filter, "HELPFUL") then
+		return "TOP", -5
+	end
+
+	return "CENTER", 0
+
+end
+
 
 local function CalculateFrameSize(containerSize)
 	
@@ -68,9 +84,10 @@ function T.CreateLine(name, setup)
 				
 				local base = 0.3 --parent.settings.bar.time_compression
 				local pos = GetPos(remaining, timeMax, base) * self:GetWidth()
-				
+				local anchor, offset = GetAnchor(current)
+
 				icon:ClearAllPoints()
-				icon:SetPoint("CENTER", self, "LEFT", pos, 0)
+				icon:SetPoint(anchor, self, "LEFT", pos, offset)
 				icon:Show()
 				
 			else
