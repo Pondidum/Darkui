@@ -112,7 +112,7 @@ S["selfbuffs"] = {
 
 S["tracker"] = {
 	["enable"] = false,
-	["Auras"] = {
+	["auras"] = {
 		DEATHKNIGHT = {
 			--{ ["name"] = "frost fever", 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "First" },
 			--{ ["name"] = "blood plague",	["unit"] = "target",	["filter"] = "PLAYER|HARMFUL",	["display"] = "Second" },
@@ -125,8 +125,19 @@ S["tracker"] = {
 		},
 		SHAMAN = {
 			{ ["id"] = 8050, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--savage roar
+		},
+		GENERAL = {
+			--potions
+			{ ["id"] = 79633,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Potion of the Tolvir
+			{ ["id"] = 79634,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Golemblood Potion
+			{ ["id"] = 79475,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Earthen Potion	
+			{ ["id"] = 79476,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Volcanic Potion
+			
 		}
 	},
+	["totems"] = {
+		{ ["slot"] = 1, ["display"] = "Main" },
+	}
 }
 
 

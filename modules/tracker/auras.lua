@@ -3,13 +3,7 @@ local T = D.Tracker
 
 if S.tracker.enable ~= true then return end
 
-local function OnUnitAura()
-	
-	local auras = S.tracker.Auras[D.Player.class]
-
-	if auras == nil then
-		return
-	end
+local function ApplyAuras(auras)
 
 	for i = 1, #auras do
 		
@@ -23,11 +17,28 @@ local function OnUnitAura()
 				["display"] = (spellID ~= nil),
 				["texture"] = icon,
 				["expiry"] = expires,
+				["filter"] = current.filter,
 			}
 				
 		D.Tracker.UpdateDisplayData(current.display, data)
 		
 	end
+
+end
+
+local function OnUnitAura()
+
+	local general = S.tracker.auras["GENERAL"]
+
+	ApplyAuras(general)
+	
+	local auras = S.tracker.auras[D.Player.class]
+
+	if auras == nil then
+		return
+	end
+
+	ApplyAuras(auras)
 
 end
 	
