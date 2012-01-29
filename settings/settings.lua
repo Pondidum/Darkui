@@ -133,6 +133,16 @@ S["tracker"] = {
 			{ ["id"] = 79475,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Earthen Potion	
 			{ ["id"] = 79476,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Volcanic Potion
 			
+			--professions:
+			{ ["id"] = 96228,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Synapse Springs - agility
+			{ ["id"] = 96229,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Synapse Springs - strength
+			{ ["id"] = 96230,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Synapse Springs - intellect
+
+			--racials:
+			{ ["id"] = 33702,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Blood Fury - Spell Power
+			{ ["id"] = 20572,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Blood Fury - Attack Power
+
+			{ ["id"] = 26297,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },	--Berserking
 		}
 	},
 	["totems"] = {
