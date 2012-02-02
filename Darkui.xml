@@ -52,6 +52,7 @@
 	<Script file="modules\tracker\line.lua" />
 	<Script file="modules\tracker\auras.lua" />
 	<Script file="modules\tracker\totems.lua" />
+	<Script file="modules\tracker\display.lua" />
 
 	<Script file="modules\bags.lua" />
 	<Script file="modules\minimap.lua" />
