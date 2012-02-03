@@ -8,3 +8,9 @@ D.Tracker.CreateDisplay("Line", "Main",
 	["size"] = {500, 32},
 	["maxtime"] = 60,
 })
+
+D.Tracker.CreateDisplay("Stack", "Cooldown1",
+{
+	["location"] = {"CENTER", UIParent, "CENTER", 0, -250},
+	["size"] = {32, 32},
+})
