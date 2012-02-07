@@ -51,7 +51,7 @@ function T.CreateLine(name, setup)
 	D.CreateBackground(line)
 	D.CreateShadow(line)
 	
-	container.setup = setup
+	container.Setup = setup
 	container.Data = {}
 	container.Cache = {}
 	

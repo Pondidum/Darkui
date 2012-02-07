@@ -13,4 +13,5 @@ D.Tracker.CreateDisplay("Stack", "Cooldown1",
 {
 	["location"] = {"CENTER", UIParent, "CENTER", 0, -250},
 	["size"] = {32, 32},
+	["state"] = "COMBAT",
 })

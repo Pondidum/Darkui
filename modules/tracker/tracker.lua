@@ -113,7 +113,7 @@ function Tracker.CreateIcon(parent, name, location, size)
 
 	frame.UpdateCooldown = function(self, expiry)
 
-		if expiry > 0 and expiry ~= self.cd.expiry then
+		if expiry and expiry > 0 and expiry ~= self.cd.expiry then
 
 			self.cd:SetCooldown(GetTime(), expiry - GetTime())
 			self.cd.expiry = expiry
