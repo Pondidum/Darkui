@@ -141,6 +141,7 @@ S["tracker"] = {
 		},
 		ROGUE = {
 			{ ["id"] = 73651, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--recuperate
+			{ ["id"] = 5171, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--slice n dice	
 		},
 		SHAMAN = {
 			{ ["id"] = 8050, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--flameshock
@@ -169,8 +170,8 @@ S["tracker"] = {
 			{ ["id"] = 26297,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Berserking
 
 			--spells
-			{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--bloodlust
-			{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--timewarp
+			{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",	["display"] = "Main" },		--bloodlust
+			{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",	["display"] = "Main" },		--timewarp
 
 			--enchants
 			{ ["id"] = 74241,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--power torrent
@@ -178,9 +179,26 @@ S["tracker"] = {
 		}
 
 	},
+	["cooldowns"] = {
+		SHAMAN = {
+			{ ["id"] = 51505, 	["spec"] = "Elemental",	["display"] = "Cooldown1" },		--lava burst
+		},
+		GCD = {
+			["DEATHKNIGHT"] = 47541, 
+			["DRUID"] = 18960, 
+			["HUNTER"] = 56641, 
+			["MAGE"] = 133, 
+			["PALADIN"] = 20154, 
+			["PRIEST"] = 585, 
+			["SHAMAN"] = 403, 
+			["WARLOCK"] = 686, 
+			["WARRIOR"] = 34428, 
+			["ROGUE"] = 1752,
+		}
+	},
 	["totems"] = {
 		{ ["slot"] = 1, ["display"] = "Main" },
-	}
+	},
 }
 
 

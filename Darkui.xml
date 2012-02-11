@@ -51,6 +51,7 @@
 	<Script file="modules\tracker\bar.lua" />
 	<Script file="modules\tracker\line.lua" />
 	<Script file="modules\tracker\auras.lua" />
+	<Script file="modules\tracker\cooldowns.lua" />
 	<Script file="modules\tracker\totems.lua" />
 	<Script file="modules\tracker\display.lua" />
 
