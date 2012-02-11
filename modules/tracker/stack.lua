@@ -19,7 +19,7 @@ function T.CreateStack(name, setup)
 
 			if current.display then
 
-				shouldDisplay = (current.expiry == nil or current.expiry >= GetTime())
+				shouldDisplay = (current.expiry == nil or current.expiry >= GetTime() or (current.type and current.type == "STATIC"))
 
 				self:UpdateIcon(current.texture)
 				self:UpdateCooldown(current.expiry)

@@ -4,6 +4,39 @@ local last = 0
 local gcdDetect = S.tracker.cooldowns.GCD[D.Player.class]
 local cooldowns = S.tracker.cooldowns[D.Player.class]
 
+
+local function ShouldDisplayForSpec(cooldown)
+
+	if cooldown.spec == nil then
+		return true 
+	end
+
+	if cooldown.spec == D.Player.spec then
+		return true 
+	end
+
+	local forSpec = strupper(cooldown.spec)		--screw you turkish i
+	local currentSpec = strupper(D.Player.spec)
+  
+	if forSpec == "ALL" then
+		return true 
+	end
+
+	if forSpec == currentSpec then
+		return true 
+	end
+
+	local specs = {strsplit("|", forSpec)}
+
+	if tContains(specs, currentSpec) then
+		return true
+	end
+
+	return false 
+
+end
+
+
 --thanks to the thread here: http://www.voximmortalis.com/threads/4328-WeakAuras-Tutoring-Thread
 local function OnUpdate(self, elapsed)
 	
@@ -20,7 +53,7 @@ local function OnUpdate(self, elapsed)
 	end
 
 	for i = 1, #cooldowns do
-		
+	
 		local current = cooldowns[i]
 
 		local t = GetTime();
@@ -39,15 +72,15 @@ local function OnUpdate(self, elapsed)
 		
 		local data = {
 			["id"] = current.id,
-			["display"] = ready,
+			["display"] = ready and ShouldDisplayForSpec(current),
 			["texture"] = icon,
-			["expiry"] = expires,
+			["expiry"] = s + d,
 			["filter"] = "HELPFUL",
 			["type"] = "STATIC"
 		}
 
 		D.Tracker.UpdateDisplayData(current.display, data)
-		
+	
 
 	end
 	
