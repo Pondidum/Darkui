@@ -16,7 +16,7 @@ local function ShouldDisplayForSpec(cooldown)
 	end
 
 	local forSpec = strupper(cooldown.spec)		--screw you turkish i
-	local currentSpec = strupper(D.Player.spec)
+	local currentSpec = strupper(D.Player.spec or "")
   
 	if forSpec == "ALL" then
 		return true 
@@ -37,7 +37,7 @@ local function ShouldDisplayForSpec(cooldown)
 end
 
 
---thanks to the thread here: http://www.voximmortalis.com/threads/4328-WeakAuras-Tutoring-Thread
+--thanks to the thread here for the gcd detector: http://www.voximmortalis.com/threads/4328-WeakAuras-Tutoring-Thread
 local function OnUpdate(self, elapsed)
 	
 	last = last + elapsed
