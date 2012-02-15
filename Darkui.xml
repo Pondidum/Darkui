@@ -13,6 +13,7 @@
 	<Script file="core\commands.lua" />
 	
 	<Script file="settings\settings.lua" />
+	<Script file="settings\tracker.lua" />
 	<Script file="settings\media.lua" />
 	<Script file="settings\colors.lua" />
 	<Script file="settings\layouts.lua" />
