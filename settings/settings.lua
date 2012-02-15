@@ -149,7 +149,20 @@ S["tracker"] = {
 			{ ["id"] = 55277, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--stoneclaw totem
 			{ ["id"] = 79206, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--spiritwalker's grace
 			{ ["id"] = 64701, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--elemental mastery
-			
+		},
+		WARRIOR = {
+			{ ["id"] = 94009,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--rend
+			{ ["id"] = 12294,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--mortal strike
+			{ ["id"] = 86346,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--colossus smash
+
+			{ ["id"] = 12964, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--battle trance
+			{ ["id"] = 86627, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--Incite
+
+
+			{ ["id"] = 85730, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--deadly calm
+			{ ["id"] = 1719,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Recklessness
+			{ ["id"] = 12328,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Sweeping Strikes
+			 
 		},
 		GENERAL = {
 			--potions
