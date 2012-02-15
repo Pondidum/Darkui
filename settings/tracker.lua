@@ -1,3 +1,4 @@
+local D, S, E = unpack(select(2, ...))
 
 S["tracker"] = {
 	["enable"] = false,
