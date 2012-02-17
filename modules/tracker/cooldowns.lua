@@ -91,5 +91,4 @@ local function OnUpdate(self, elapsed)
 	
 end
 
-local event = CreateFrame("Frame", nil, UIParent)
-event:SetScript("OnUpdate", OnUpdate)
+E:RegisterOnUpdate("TrackerCooldowns", OnUpdate)
