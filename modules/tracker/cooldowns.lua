@@ -15,8 +15,12 @@ local function ShouldDisplayForSpec(cooldown)
 		return true 
 	end
 
+	if currentSpec == "" or currentSpec == nil then
+		return
+	end
+	
 	local forSpec = strupper(cooldown.spec)		--screw you turkish i
-	local currentSpec = strupper(D.Player.spec or "")
+	local currentSpec = strupper(D.Player.spec)
   
 	if forSpec == "ALL" then
 		return true 
@@ -31,7 +35,7 @@ local function ShouldDisplayForSpec(cooldown)
 	if tContains(specs, currentSpec) then
 		return true
 	end
-
+	
 	return false 
 
 end

@@ -57,3 +57,5 @@ SetupSystem()
 
 E:Register("PLAYER_LEVEL_UP", SetupPlayer)
 E:Register("ACTIVE_TALENT_GROUP_CHANGED", SetupPlayer)
+E:Register("LEARNED_SPELL_IN_TAB", SetupPlayer)
+E:Register("PLAYER_ENTERING_WORLD", SetupPlayer)
