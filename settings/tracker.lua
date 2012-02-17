@@ -84,7 +84,7 @@ S["tracker"] = {
 	},
 	["cooldowns"] = {
 		SHAMAN = {
-			{ ["id"] = 51505, 	["spec"] = "Elemental",	["display"] = "Cooldown1" },		--lava burst
+			{ ["id"] = 51505, 	["spec"] = "Elemental",	["display"] = "CooldownCenter" },		--lava burst
 		},
 		GCD = {
 			["DEATHKNIGHT"] = 47541, 

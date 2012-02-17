@@ -9,9 +9,23 @@ D.Tracker.CreateDisplay("Line", "Main",
 	["maxtime"] = 60,
 })
 
-D.Tracker.CreateDisplay("Stack", "Cooldown1",
+D.Tracker.CreateDisplay("Stack", "CooldownCenter",
 {
 	["location"] = {"CENTER", UIParent, "CENTER", 0, -100},
+	["size"] = {32, 32},
+	["state"] = "COMBAT",
+})
+
+D.Tracker.CreateDisplay("Stack", "CooldownCenterLeft",
+{
+	["location"] = {"CENTER", UIParent, "CENTER", -50, -100},
+	["size"] = {32, 32},
+	["state"] = "COMBAT",
+})
+
+D.Tracker.CreateDisplay("Stack", "CooldownCenterRight",
+{
+	["location"] = {"CENTER", UIParent, "CENTER", 50, -100},
 	["size"] = {32, 32},
 	["state"] = "COMBAT",
 })
