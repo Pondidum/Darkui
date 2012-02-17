@@ -16,9 +16,6 @@ function Tracker.UpdateDisplays()
 
 end
 
-local f = CreateFrame("Frame")
-f:SetScript("OnUpdate", D.Tracker.UpdateDisplays)
-
 function Tracker.CreateDisplay(type, name, setup)
 
 	local functionName = "Create" .. type	--fix casing 
@@ -125,4 +122,6 @@ function Tracker.CreateIcon(parent, name, location, size)
 	return frame
 
 end
+
+E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
 

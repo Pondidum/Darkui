@@ -1,9 +1,9 @@
---local F, C, L, E = unpack(select(2, ...)) 
 local D, S, E = unpack(select(2, ...))
 
-local registeredEvents = {}
-
 local eventFrame = DarkuiFrame
+
+local registeredEvents = {}
+local onUpdateActions = {}
 
 function E:Register(event, func, id)
 	if not event then 
@@ -34,13 +34,38 @@ end
 function E:CreateFrame()
 
 	eventFrame:SetScript("OnEvent", function(self, event, ...)
+		
 		if (registeredEvents[event]) then
 			for _, func in pairs(registeredEvents[event]) do
 				func(self, event, ...)
 			end
 		end
+
+	end)
+
+	eventFrame:SetScript("OnUpdate", function(...)
+		
+		for k, func in pairs(onUpdateActions) do 
+			func(...)
+		end
+
 	end)
 
 end
+
+
+
+function E:RegisterOnUpdate(id, func)
+	onUpdateActions[id] = func
+end
+
+function E:UnregisterOnUpdate(id)
+
+	if onUpdateActions[id] ~= nil then 
+		onUpdateActions[id] = nil
+	end
+
+end
+
 
 E:CreateFrame()
