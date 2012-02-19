@@ -2,6 +2,7 @@ local D, S, E = unpack(DarkUI)
 local T = D.Tracker
 
 if S.tracker.enable ~= true then return end
+if D.Player.class ~= "SHAMAN" and D.Player.class ~= "DEATHKNIGHT" then return end
 
 local function OnTotemUpdate()
 	
