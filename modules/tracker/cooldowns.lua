@@ -16,7 +16,7 @@ local function ShouldDisplayForSpec(cooldown)
 	end
 
 	if currentSpec == "" or currentSpec == nil then
-		return
+		return true
 	end
 	
 	local forSpec = strupper(cooldown.spec)		--screw you turkish i
