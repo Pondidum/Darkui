@@ -9,6 +9,27 @@ function T.CreateStack(name, setup)
 	
 	icon.Setup = setup
 	icon.Data = {}
+		
+	icon.CombatEnter = function(self)
+		
+		if self.Setup.state == "COMBAT" then
+			self:SetAlpha(1)
+		elseif self.Setup.state == "COMBATFADE" then
+			self:SetAlpha(self.Setup.combatalpha)
+		end
+		
+	end
+	
+	icon.CombatExit = function(self)
+		
+		if self.Setup.state == "COMBAT" then
+			self:SetAlpha(0)
+		elseif self.Setup.state == "COMBATFADE" then
+			self:SetAlpha(self.Setup.outofcombatalpha)
+		end
+
+	end
+
 	icon.UpdateDisplay = function(self)
 
 		local shouldDisplay = false

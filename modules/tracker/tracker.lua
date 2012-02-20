@@ -16,6 +16,32 @@ function Tracker.UpdateDisplays()
 
 end
 
+function Tracker.CombatEnter()
+	
+	for name, value in pairs(Tracker.Displays) do
+		value:CombatEnter()
+	end
+
+end
+
+function Tracker.CombatExit()
+
+	for name, value in pairs(Tracker.Displays) do
+		value:CombatExit()
+	end
+
+end
+
+function Tracker.SetCombatState()
+
+	if InCombatLockdown() then
+		D.Tracker.CombatEnter()
+	else
+		D.Tracker.CombatExit()
+	end
+
+end
+
 function Tracker.CreateDisplay(type, name, setup)
 
 	local functionName = "Create" .. type	--fix casing 
@@ -125,3 +151,6 @@ end
 
 E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
 
+E:Register("PLAYER_REGEN_ENABLED", D.Tracker.CombatExit)
+E:Register("PLAYER_REGEN_DISABLED", D.Tracker.CombatEnter)
+E:Register("PLAYER_ENTERING_WORLD", D.Tracker.SetCombatState)

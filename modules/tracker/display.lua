@@ -13,19 +13,25 @@ D.Tracker.CreateDisplay("Stack", "CooldownCenter",
 {
 	["location"] = {"CENTER", UIParent, "CENTER", 0, -100},
 	["size"] = {32, 32},
-	["state"] = "COMBAT",
+	["state"] = "COMBATFADE",
+	["combatalpha"] = 1,
+	["outofcombatalpha"] = 0.2,
 })
 
 D.Tracker.CreateDisplay("Stack", "CooldownCenterLeft",
 {
 	["location"] = {"CENTER", UIParent, "CENTER", -50, -100},
 	["size"] = {32, 32},
-	["state"] = "COMBAT",
+	["state"] = "COMBATFADE",
+	["combatalpha"] = 1,
+	["outofcombatalpha"] = 0.2,
 })
 
 D.Tracker.CreateDisplay("Stack", "CooldownCenterRight",
 {
 	["location"] = {"CENTER", UIParent, "CENTER", 50, -100},
 	["size"] = {32, 32},
-	["state"] = "COMBAT",
+	["state"] = "COMBATFADE",
+	["combatalpha"] = 1,
+	["outofcombatalpha"] = 0.2,
 })

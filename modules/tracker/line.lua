@@ -55,6 +55,13 @@ function T.CreateLine(name, setup)
 	container.Data = {}
 	container.Cache = {}
 	
+	container.CombatEnter = function(self)
+		
+	end
+	
+	container.CombatExit = function(self)
+		
+	end
 	
 	container.UpdateDisplay = function(self)
 		
