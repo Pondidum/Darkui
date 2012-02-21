@@ -149,6 +149,23 @@ function Tracker.CreateIcon(parent, name, location, size)
 
 end
 
+function Tracker.GetAlpha(setup, display)
+
+	if InCombatLockdown() then
+
+		if display then
+			return setup.readyalpha
+		else
+			return setup.combatalpha
+		end
+
+	else
+		return setup.outofcombatalpha
+	end
+
+end
+
+
 E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
 
 E:Register("PLAYER_REGEN_ENABLED", D.Tracker.CombatExit)

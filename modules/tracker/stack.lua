@@ -3,23 +3,6 @@ local T = D.Tracker
 
 if S.tracker.enable ~= true then return end
 
-local function GetAlpha(setup, display)
-
-	if InCombatLockdown() then
-
-		if display then
-			return setup.readyalpha
-		else
-			return setup.combatalpha
-		end
-
-	else
-		return setup.outofcombatalpha
-	end
-
-end
-
-
 function T.CreateStack(name, setup) 
 
 	local icon = T.CreateIcon(DarkuiFrame, name, setup.location, setup.size)
@@ -29,13 +12,13 @@ function T.CreateStack(name, setup)
 		
 	icon.CombatEnter = function(self)
 		
-		self:SetAlpha(GetAlpha(self.Setup, false))
+		self:SetAlpha(T.GetAlpha(self.Setup, false))
 		
 	end
 	
 	icon.CombatExit = function(self)
 		
-		self:SetAlpha(GetAlpha(self.Setup, false))
+		self:SetAlpha(T.GetAlpha(self.Setup, false))
 
 	end
 
@@ -60,7 +43,7 @@ function T.CreateStack(name, setup)
 
 		end
 
-		self:SetAlpha(GetAlpha(self.Setup, shouldDisplay))
+		self:SetAlpha(T.GetAlpha(self.Setup, shouldDisplay))
 
 	end
 
