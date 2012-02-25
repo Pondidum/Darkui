@@ -7,6 +7,9 @@ D.Tracker.CreateDisplay("Line", "Main",
 	["location"] = {"CENTER", UIParent, "CENTER", 0, -200},
 	["size"] = {500, 32},
 	["maxtime"] = 60,
+	["readyalpha"] = 1,
+	["combatalpha"] = 0.3,
+	["outofcombatalpha"] = 0.1,
 })
 
 D.Tracker.CreateDisplay("Stack", "CooldownCenter",

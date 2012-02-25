@@ -22,21 +22,20 @@ end
 
 function Tracker.CombatEnter()
 	
+	inCombat = true 
+
 	for name, value in pairs(Tracker.Displays) do
 		value:CombatEnter()
 	end
-
-	inCombat = true 
 
 end
 
 function Tracker.CombatExit()
 
+	inCombat = false
 	for name, value in pairs(Tracker.Displays) do
 		value:CombatExit()
-	end
-
-	inCombat = false
+	end	
 
 end
 

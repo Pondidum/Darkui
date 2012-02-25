@@ -57,11 +57,11 @@ function T.CreateLine(name, setup)
 	container.RunOutOfCombat = true
 	
 	container.CombatEnter = function(self)
-		
+		self:SetAlpha(T.GetAlpha(self.Setup, true))
 	end
 	
 	container.CombatExit = function(self)
-		
+		self:SetAlpha(T.GetAlpha(self.Setup, true))
 	end
 	
 	container.UpdateDisplay = function(self)
