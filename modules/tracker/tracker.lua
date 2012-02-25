@@ -12,8 +12,8 @@ local inCombat = false
 
 function Tracker.UpdateDisplays()
 
-	if inCombat then
-		for name, value in pairs(Tracker.Displays) do
+	for name, value in pairs(Tracker.Displays) do
+		if inCombat or value.RunOutOfCombat then
 			value:UpdateDisplay()
 		end
 	end

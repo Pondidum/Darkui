@@ -54,6 +54,7 @@ function T.CreateLine(name, setup)
 	container.Setup = setup
 	container.Data = {}
 	container.Cache = {}
+	container.RunOutOfCombat = true
 	
 	container.CombatEnter = function(self)
 		
