@@ -14,14 +14,14 @@ local function ShouldDisplayForSpec(cooldown)
 	if cooldown.spec == D.Player.spec then
 		return true 
 	end
-
-	if currentSpec == "" or currentSpec == nil then
-		return true
-	end
 	
 	local forSpec = strupper(cooldown.spec)		--screw you turkish i
 	local currentSpec = strupper(D.Player.spec)
   
+	if currentSpec == "" or currentSpec == nil then
+		return true
+	end
+
 	if forSpec == "ALL" then
 		return true 
 	end
@@ -60,31 +60,37 @@ local function OnUpdate(self, elapsed)
 	
 		local current = cooldowns[i]
 
-		local t = GetTime();
-		local _, g = GetSpellCooldown(gcdDetect)
-		local s, d = GetSpellCooldown(current.id)
-		
-		local delta = s + d - t
-		
-		local ready = false
+		if ShouldDisplayForSpec(current) then
 
-		if (s and s == 0) or (s and (delta <= g) and (g > 0 and g <= 1.5)) then
-			ready = true
+			local t = GetTime();
+			local _, g = GetSpellCooldown(gcdDetect)
+			local s, d = GetSpellCooldown(current.id)
+			
+			local delta = s + d - t
+			
+			local ready = false
+			local expiry = s + d
+
+			if (s and s == 0) or (s and (delta <= g) and (g > 0 and g <= 1.5)) then
+				ready = true
+				expiry = t
+			end
+
+			local name, rank, icon = GetSpellInfo(current.id)
+			
+			local data = {
+				["id"] = current.id,
+				["display"] = ready,
+				["texture"] = icon,
+				["expiry"] = expiry,
+				["filter"] = "HELPFUL",
+			}
+
+			D.Tracker.UpdateDisplayData(current.display, data)
+
+		else
+			D.Tracker.UpdateDisplayData(current.display, {["id"] = current.id, ["remove"] = true})			
 		end
-
-		local name, rank, icon = GetSpellInfo(current.id)
-		
-		local data = {
-			["id"] = current.id,
-			["display"] = ready and ShouldDisplayForSpec(current),
-			["texture"] = icon,
-			["expiry"] = s + d,
-			["filter"] = "HELPFUL",
-			["type"] = "STATIC"
-		}
-
-		D.Tracker.UpdateDisplayData(current.display, data)
-	
 
 	end
 	

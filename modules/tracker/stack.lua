@@ -9,7 +9,7 @@ function T.CreateStack(name, setup)
 	
 	icon.Setup = setup
 	icon.Data = {}
-		
+	
 	icon.CombatEnter = function(self)
 		
 		self:SetAlpha(T.GetAlpha(self.Setup, false))
@@ -25,25 +25,33 @@ function T.CreateStack(name, setup)
 	icon.UpdateDisplay = function(self)
 
 		local shouldDisplay = false
+		local shouldHide = true			--if a cd is not tracked for this spec, hides the frame completly
 		local collection = self.Data
 
 		local current
 		for _, current in pairs(collection) do
 
-			if current.display then
+			if current ~= nil then
 
-				shouldDisplay = (current.expiry == nil or current.expiry >= GetTime() or (current.type and current.type == "STATIC"))
+				shouldHide = false
+				shouldDisplay = (current.expiry == nil or current.expiry <= GetTime()) and current.display
 
 				self:UpdateIcon(current.texture)
-				self:UpdateCooldown(current.expiry)
-				
-				break
-				
+				self:UpdateCooldown(current.expiry)	
+
+				if shouldDisplay then
+					break
+				end
 			end
 
 		end
 
-		self:SetAlpha(T.GetAlpha(self.Setup, shouldDisplay))
+		if shouldHide then
+			self:Hide()
+		else
+			self:Show()
+			self:SetAlpha(T.GetAlpha(self.Setup, shouldDisplay))	
+		end
 
 	end
 

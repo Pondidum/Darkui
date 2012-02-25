@@ -99,19 +99,7 @@ function Tracker.UpdateDisplayData(name, data)
 	local collection = display.Data
 
 	if data.remove then
-		
-		local newCollection = {}
-
-		for key, value in pairs(collection) do
-		
-			if key ~= data.id then
-				newCollection[key] = value
-			end
-
-		end
-
-		collection = newCollection
-
+		collection[data.id] = nil
 	else
 		collection[data.id] = data
 	end
