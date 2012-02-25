@@ -8,10 +8,14 @@ local Tracker = D.Tracker
 
 Tracker.Displays = {}
 
+local inCombat = false 
+
 function Tracker.UpdateDisplays()
 
-	for name, value in pairs(Tracker.Displays) do
-		value:UpdateDisplay()
+	if inCombat then
+		for name, value in pairs(Tracker.Displays) do
+			value:UpdateDisplay()
+		end
 	end
 
 end
@@ -22,6 +26,8 @@ function Tracker.CombatEnter()
 		value:CombatEnter()
 	end
 
+	inCombat = true 
+
 end
 
 function Tracker.CombatExit()
@@ -29,6 +35,8 @@ function Tracker.CombatExit()
 	for name, value in pairs(Tracker.Displays) do
 		value:CombatExit()
 	end
+
+	inCombat = false
 
 end
 
@@ -151,7 +159,7 @@ end
 
 function Tracker.GetAlpha(setup, display)
 
-	if InCombatLockdown() then
+	if inCombat then
 
 		if display then
 			return setup.readyalpha
