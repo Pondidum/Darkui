@@ -40,6 +40,16 @@ S["tracker"] = {
 			{ ["id"] = 79206, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--spiritwalker's grace
 			{ ["id"] = 64701, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--elemental mastery
 		},
+		WARLOCK = {
+			{ ["id"] = 172,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--corruption
+			{ ["id"] = 603,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--bane of doom
+			{ ["id"] = 348,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--immolate
+			{ ["id"] = 86000,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--hand of guldan
+
+			{ ["id"] = 47241, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--metamorphosis
+			{ ["id"] = 79460, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felhunter
+			{ ["id"] = 79462, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felguard
+		},
 		WARRIOR = {
 			{ ["id"] = 94009,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--rend
 			{ ["id"] = 12294,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--mortal strike
@@ -62,9 +72,10 @@ S["tracker"] = {
 			{ ["id"] = 79476,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Volcanic Potion
 			
 			--professions:
-			{ ["id"] = 96228,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Synapse Springs - agility
-			{ ["id"] = 96229,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Synapse Springs - strength
-			{ ["id"] = 96230,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Synapse Springs - intellect
+			{ ["id"] = 96228,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Engineering - Synapse Springs - Agility
+			{ ["id"] = 96229,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Engineering - Synapse Springs - Strength
+			{ ["id"] = 96230,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Engineering - Synapse Springs - Intellect
+			{ ["id"] = 75170,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Tailoring - Lightweave
 
 			--racials:
 			{ ["id"] = 33702,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Blood Fury - Spell Power
@@ -87,6 +98,13 @@ S["tracker"] = {
 			{ ["id"] = 51505, 	["spec"] = "Elemental",	["display"] = "CooldownCenter" },		--lava burst
 			{ ["id"] = 57994,	["spec"] = "All", 		["display"] = "CooldownCenterRight" },	--wind shear
 			{ ["id"] = 8042,	["spec"] = "All", 		["display"] = "CooldownCenterLeft" },	--earth shock
+		},
+		WARLOCK = {
+			{ ["id"] = 71521, 	["spec"] = "All",		["display"] = "CooldownCenter" },		--hand of guldan
+			{ ["id"] = 47897,	["spec"] = "All", 		["display"] = "CooldownCenterLeft" },	--shadowflame
+			{ ["id"] = 77801,	["spec"] = "All", 		["display"] = "CooldownCenterRight" },	--demon soul
+			{ ["id"] = 47241,	["spec"] = "All", 		["display"] = "CooldownRight" },		--metamorphosis
+			{ ["id"] = 74434,	["spec"] = "All", 		["display"] = "CooldownLeft" },			--soulburn
 		},
 		GCD = {
 			["DEATHKNIGHT"] = 47541, 
