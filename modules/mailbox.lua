@@ -162,4 +162,8 @@ E:Register("MAIL_SHOW",	function ()
 		Initialise()
 end)
 
-E:Register("MAIL_INBOX_UPDATE", function() DarkuiTakeGold.Label:SetText(GetGold()) end)
+E:Register("MAIL_INBOX_UPDATE", function()
+	if DarkuiTakeGold ~= nil then 
+		DarkuiTakeGold.Label:SetText(GetGold()) 
+	end 
+end)
