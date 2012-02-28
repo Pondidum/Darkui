@@ -1,5 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
+if S.tracker.enable ~= true then return end
+
 local last = 0
 local gcdDetect = S.tracker.cooldowns.GCD[D.Player.class]
 local cooldowns = S.tracker.cooldowns[D.Player.class]
@@ -15,12 +17,12 @@ local function ShouldDisplayForSpec(cooldown)
 		return true 
 	end
 	
-	local forSpec = strupper(cooldown.spec)		--screw you turkish i
-	local currentSpec = strupper(D.Player.spec)
-  
-	if currentSpec == "" or currentSpec == nil then
+	if D.Player.spec == "" or D.Player.spec == nil then
 		return true
 	end
+
+	local forSpec = strupper(cooldown.spec)		--screw you turkish i
+	local currentSpec = strupper(D.Player.spec)
 
 	if forSpec == "ALL" then
 		return true 
