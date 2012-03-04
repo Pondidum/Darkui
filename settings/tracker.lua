@@ -49,6 +49,8 @@ S["tracker"] = {
 			{ ["id"] = 47241, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--metamorphosis
 			{ ["id"] = 79460, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felhunter
 			{ ["id"] = 79462, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felguard
+			{ ["id"] = 63167, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--decimation	
+
 		},
 		WARRIOR = {
 			{ ["id"] = 94009,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--rend
@@ -94,6 +96,11 @@ S["tracker"] = {
 
 	},
 	["cooldowns"] = {
+		DEATHKNIGHT = {
+			{ ["id"] = 77575, 	["spec"] = "All",		["display"] = "CooldownCenter" },		--outbreak
+			{ ["id"] = 46584, 	["spec"] = "All",		["display"] = "CooldownCenterLeft" },		--raise dead
+			{ ["id"] = 51271, 	["spec"] = "Frost",		["display"] = "CooldownCenterRight" },	--pillar of frost
+		},
 		SHAMAN = {
 			{ ["id"] = 51505, 	["spec"] = "Elemental",	["display"] = "CooldownCenter" },		--lava burst
 			{ ["id"] = 57994,	["spec"] = "All", 		["display"] = "CooldownCenterRight" },	--wind shear
