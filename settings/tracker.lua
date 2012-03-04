@@ -86,32 +86,39 @@ S["tracker"] = {
 			{ ["id"] = 26297,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Berserking
 
 			--spells
-			{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",	["display"] = "Main" },		--bloodlust
-			{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",	["display"] = "Main" },		--timewarp
+			{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",			["display"] = "Main" },		--bloodlust
+			{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",			["display"] = "Main" },		--timewarp
 
 			--enchants
 			{ ["id"] = 74241,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--power torrent
 			
+
+			--trinkets
+			{ ["id"] = 102662,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--foul gift
 		}
 
 	},
 	["cooldowns"] = {
 		DEATHKNIGHT = {
-			{ ["id"] = 77575, 	["spec"] = "All",		["display"] = "CooldownCenter" },		--outbreak
-			{ ["id"] = 46584, 	["spec"] = "All",		["display"] = "CooldownCenterLeft" },		--raise dead
-			{ ["id"] = 51271, 	["spec"] = "Frost",		["display"] = "CooldownCenterRight" },	--pillar of frost
+			{ ["id"] = 77575, 	["spec"] = "All",			["display"] = "CooldownCenter" },		--outbreak
+			{ ["id"] = 46584, 	["spec"] = "All",			["display"] = "CooldownCenterLeft" },		--raise dead
+			{ ["id"] = 51271, 	["spec"] = "Frost",			["display"] = "CooldownCenterRight" },	--pillar of frost
 		},
 		SHAMAN = {
-			{ ["id"] = 51505, 	["spec"] = "Elemental",	["display"] = "CooldownCenter" },		--lava burst
-			{ ["id"] = 57994,	["spec"] = "All", 		["display"] = "CooldownCenterRight" },	--wind shear
-			{ ["id"] = 8042,	["spec"] = "All", 		["display"] = "CooldownCenterLeft" },	--earth shock
+			{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
+			{ ["id"] = 57994,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--wind shear
+			{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterLeft" },	--earth shock
+
+			{ ["id"] = 73920,	["spec"] = "Restoration",	["display"] = "CooldownCenterRight" },	--healing rain
+			{ ["id"] = 61295,	["spec"] = "Restoration",	["display"] = "CooldownCenter" },		--riptide
+			{ ["id"] = 73680,	["spec"] = "Restoration",	["display"] = "CooldownCenterLeft" },	--unleash elements
 		},
 		WARLOCK = {
-			{ ["id"] = 71521, 	["spec"] = "All",		["display"] = "CooldownCenter" },		--hand of guldan
-			{ ["id"] = 47897,	["spec"] = "All", 		["display"] = "CooldownCenterLeft" },	--shadowflame
-			{ ["id"] = 77801,	["spec"] = "All", 		["display"] = "CooldownCenterRight" },	--demon soul
-			{ ["id"] = 47241,	["spec"] = "All", 		["display"] = "CooldownRight" },		--metamorphosis
-			{ ["id"] = 74434,	["spec"] = "All", 		["display"] = "CooldownLeft" },			--soulburn
+			{ ["id"] = 71521, 	["spec"] = "All",			["display"] = "CooldownCenter" },		--hand of guldan
+			{ ["id"] = 47897,	["spec"] = "All", 			["display"] = "CooldownCenterLeft" },	--shadowflame
+			{ ["id"] = 77801,	["spec"] = "All", 			["display"] = "CooldownCenterRight" },	--demon soul
+			{ ["id"] = 47241,	["spec"] = "All", 			["display"] = "CooldownRight" },		--metamorphosis
+			{ ["id"] = 74434,	["spec"] = "All", 			["display"] = "CooldownLeft" },			--soulburn
 		},
 		GCD = {
 			["DEATHKNIGHT"] = 47541, 
