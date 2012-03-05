@@ -64,9 +64,8 @@ if S.selfbuffs.enable and buffs and buffs[1]  then
 	D.CreateShadow(buffFrame)
 	
 	buffFrame.icon = buffFrame:CreateTexture(nil, "OVERLAY")
-	buffFrame.icon:SetPoint("CENTER")
+	buffFrame.icon:SetAllPoints(buffFrame)
 	buffFrame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	buffFrame.icon:SetSize(36, 36)
 	
 	buffFrame:Hide()
 	
