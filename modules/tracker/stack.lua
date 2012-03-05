@@ -38,7 +38,8 @@ function T.CreateStack(name, setup)
 
 				self:UpdateIcon(current.texture)
 				self:UpdateCooldown(current.expiry)	
-
+				self:UpdateStacks(current.stacks)
+				
 				if shouldDisplay then
 					break
 				end

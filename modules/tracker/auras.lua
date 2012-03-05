@@ -18,6 +18,7 @@ local function ApplyAuras(auras)
 				["texture"] = icon,
 				["expiry"] = expires,
 				["filter"] = current.filter,
+				["stacks"] = count,
 			}
 				
 		D.Tracker.UpdateDisplayData(current.display, data)

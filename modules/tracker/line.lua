@@ -82,6 +82,7 @@ function T.CreateLine(name, setup)
 				
 				icon:UpdateIcon(current.texture)
 				icon:UpdateCooldown(current.expiry)
+				icon:UpdateStacks(current.stacks)
 				
 				local timeMax = setup.maxtime
 				local remaining = current.expiry - GetTime()

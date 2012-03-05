@@ -122,6 +122,10 @@ function Tracker.CreateIcon(parent, name, location, size)
 	frame.cd:SetReverse(true)
 	frame.cd.expiry = nil
 
+	frame.stacks = D.CreateFontString(frame, S.fonts.normal, S.fonts.default.size + 4, S.fonts.default.style)
+	frame.stacks:SetPoint("TOP", 2, 0)
+	frame.stacks:SetJustifyH("CENTER")
+
 	D.CreateBackground(frame)
 	D.CreateShadow(frame)
 
@@ -130,12 +134,26 @@ function Tracker.CreateIcon(parent, name, location, size)
 	end
 
 	frame.UpdateCooldown = function(self, expiry)
+		
+		if self.cd.timer then
+			self.cd.timer.text:SetPoint("BOTTOM", 2, 0)	
+		end
 
 		if expiry and expiry > 0 and expiry ~= self.cd.expiry then
 
 			self.cd:SetCooldown(GetTime(), expiry - GetTime())
 			self.cd.expiry = expiry
 				
+		end
+
+	end
+
+	frame.UpdateStacks = function(self, count)
+
+		if count == nil or count == 0 then
+			self.stacks:SetText("")
+		else
+			self.stacks:SetText(count)
 		end
 
 	end
