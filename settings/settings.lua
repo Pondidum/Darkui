@@ -117,6 +117,7 @@ S["actionbars"] = {
 	["barspacing"] = 14,
 	["showgrid"] = true,
 	["showhotkey"] = true,
+	["showmacrokey"] = true,
 	["hideshapeshift"] = false,
 	["petbaronside"] = false,
 }

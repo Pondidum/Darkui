@@ -82,8 +82,18 @@ local function style(self)
 	Count:SetFont(S.fonts.normal, 12, "OUTLINE")
  
  	if Btname then
-		Btname:SetText("")
-		D.Kill(Btname)
+ 		Btname:SetTextColor(HotKey:GetTextColor())
+		Btname:SetFont(S.fonts.normal, 10, "OUTLINE")
+		Btname:SetJustifyH("LEFT")
+
+		Btname:ClearAllPoints()
+		Btname:SetPoint("TOPLEFT", Button, 0, 0)
+
+		if S.actionbars.showmacrokey == false  Btname:GetText() == nil or Btname:GetText() == "" then
+			Btname:SetText("")
+		else
+			Btname:SetText("M")
+		end
 	end
  
 	if not _G[name.."Panel"] then
@@ -107,8 +117,10 @@ local function style(self)
 	end
 
 	HotKey:ClearAllPoints()
-	HotKey:SetPoint("TOPRIGHT", 0, 0)
+	HotKey:SetPoint("TOPRIGHT", 2, 0)
 	HotKey:SetFont(S.fonts.normal, 10, "OUTLINE")
+	HotKey:SetJustifyH("RIGHT")
+
 	HotKey.ClearAllPoints = D.Dummy
 	HotKey.SetPoint = D.Dummy
  
