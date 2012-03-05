@@ -89,7 +89,7 @@ local function style(self)
 		Btname:ClearAllPoints()
 		Btname:SetPoint("TOPLEFT", Button, 0, 0)
 
-		if S.actionbars.showmacrokey == false  Btname:GetText() == nil or Btname:GetText() == "" then
+		if S.actionbars.showmacrokey == false or Btname:GetText() == nil or Btname:GetText() == "" then
 			Btname:SetText("")
 		else
 			Btname:SetText("M")
