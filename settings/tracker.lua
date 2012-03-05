@@ -38,6 +38,8 @@ S.tracker.auras = {
 		{ ["id"] = 55277, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--stoneclaw totem
 		{ ["id"] = 79206, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--spiritwalker's grace
 		{ ["id"] = 64701, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--elemental mastery
+
+		{ ["id"] = 324, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "CooldownLeft" }, 	--elemental mastery
 	},
 	WARLOCK = {
 		{ ["id"] = 172,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--corruption
