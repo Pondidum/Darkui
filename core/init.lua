@@ -9,21 +9,7 @@ end
 
 local GetPlayerSpecName = function()
 
-	local mostSpent = 0
-	local specName
-
-	for i = 1, 3 do
-
-		local id, name, description, texture, points = GetTalentTabInfo(i)
-
-		if points > mostSpent or points >= 31 then
-			mostSpent = points
-			specName = name
-		end
-
-	end
-
-	return specName
+	return select(2, GetTalentTabInfo(GetPrimaryTalentTree()))
 
 end
 
@@ -59,3 +45,4 @@ E:Register("PLAYER_LEVEL_UP", SetupPlayer)
 E:Register("ACTIVE_TALENT_GROUP_CHANGED", SetupPlayer)
 E:Register("LEARNED_SPELL_IN_TAB", SetupPlayer)
 E:Register("PLAYER_ENTERING_WORLD", SetupPlayer)
+E:Register("PLAYER_ALIVE", SetupPlayer)
