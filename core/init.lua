@@ -9,7 +9,13 @@ end
 
 local GetPlayerSpecName = function()
 
-	return select(2, GetTalentTabInfo(GetPrimaryTalentTree()))
+	local tab = GetPrimaryTalentTree()
+
+	if tab == nil then
+		return ""
+	end
+
+	return select(2, GetTalentTabInfo(tab))
 
 end
 
