@@ -66,7 +66,7 @@ local function CreateBag(parent, bagID, numSlots, maxSlots)
 		
 		if i == 1 then
 			slot:SetPoint("TOPLEFT", bag, "TOPLEFT", 0, 0)
-		elseif i % (1+maxSlots) == 0 then
+		elseif (i - 1) % maxSlots == 0 then
 			slot:SetPoint("TOPLEFT", slots[i-maxSlots], "BOTTOMLEFT", 0, -slotSpacing)
 		else
 			slot:SetPoint("LEFT", slots[i-1], "RIGHT", slotSpacing, 0)
