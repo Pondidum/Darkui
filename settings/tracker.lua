@@ -39,7 +39,7 @@ S.tracker.auras = {
 		{ ["id"] = 79206, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--spiritwalker's grace
 		{ ["id"] = 64701, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--elemental mastery
 
-		{ ["id"] = 324, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "CooldownLeft" }, 	--elemental mastery
+		{ ["id"] = 324, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "CooldownLeft",	["stacks"] = "ONLY" }, 	--elemental mastery
 	},
 	WARLOCK = {
 		{ ["id"] = 172,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--corruption
@@ -51,6 +51,7 @@ S.tracker.auras = {
 		{ ["id"] = 79460, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felhunter
 		{ ["id"] = 79462, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felguard
 		{ ["id"] = 63167, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--decimation	
+		{ ["id"] = 71165, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main", 			["stacks"] = "ONLY"  }, 	--decimation	
 
 	},
 	WARRIOR = {

@@ -80,9 +80,7 @@ function T.CreateLine(name, setup)
 					self.Cache[current.id] = icon
 				end
 				
-				icon:UpdateIcon(current.texture)
-				icon:UpdateCooldown(current.expiry)
-				icon:UpdateStacks(current.stacks)
+				icon:Update(current)
 				
 				local timeMax = setup.maxtime
 				local remaining = current.expiry - GetTime()

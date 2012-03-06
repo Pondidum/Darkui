@@ -36,9 +36,7 @@ function T.CreateStack(name, setup)
 				shouldHide = false
 				shouldDisplay = (current.expiry == nil or current.expiry <= GetTime()) and current.display
 
-				self:UpdateIcon(current.texture)
-				self:UpdateCooldown(current.expiry)	
-				self:UpdateStacks(current.stacks)
+				self:Update(current)
 				
 				if shouldDisplay then
 					break

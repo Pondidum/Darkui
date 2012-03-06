@@ -19,6 +19,7 @@ local function ApplyAuras(auras)
 				["expiry"] = expires,
 				["filter"] = current.filter,
 				["stacks"] = count,
+				["stacksmode"] = current.stacks
 			}
 				
 		D.Tracker.UpdateDisplayData(current.display, data)
