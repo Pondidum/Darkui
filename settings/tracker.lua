@@ -28,6 +28,9 @@ S.tracker.auras = {
 		{ ["id"] = 50334, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--Berserk
 		 
 	},
+	PALADIN = {
+		{ ["id"] = 84963, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--inquisition
+	},
 	ROGUE = {
 		{ ["id"] = 73651, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--recuperate
 		{ ["id"] = 5171, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--slice n dice	
@@ -46,6 +49,9 @@ S.tracker.auras = {
 		{ ["id"] = 603,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--bane of doom
 		{ ["id"] = 348,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--immolate
 		{ ["id"] = 86000,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--hand of guldan
+
+		{ ["id"] = 30108,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--unstable affliction
+		{ ["id"] = 48181,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--haunt
 
 		{ ["id"] = 47241, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--metamorphosis
 		{ ["id"] = 79460, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felhunter
@@ -104,7 +110,7 @@ S.tracker.auras = {
 S.tracker.cooldowns = {
 	DEATHKNIGHT = {
 		{ ["id"] = 77575, 	["spec"] = "All",			["display"] = "CooldownCenter" },		--outbreak
-		{ ["id"] = 46584, 	["spec"] = "All",			["display"] = "CooldownCenterLeft" },		--raise dead
+		{ ["id"] = 46584, 	["spec"] = "All",			["display"] = "CooldownCenterLeft" },	--raise dead
 		{ ["id"] = 51271, 	["spec"] = "Frost",			["display"] = "CooldownCenterRight" },	--pillar of frost
 	},
 	SHAMAN = {
@@ -117,11 +123,15 @@ S.tracker.cooldowns = {
 		{ ["id"] = 73680,	["spec"] = "Restoration",	["display"] = "CooldownCenterLeft" },	--unleash elements
 	},
 	WARLOCK = {
-		{ ["id"] = 71521, 	["spec"] = "All",			["display"] = "CooldownCenter" },		--hand of guldan
-		{ ["id"] = 47897,	["spec"] = "All", 			["display"] = "CooldownCenterLeft" },	--shadowflame
-		{ ["id"] = 77801,	["spec"] = "All", 			["display"] = "CooldownCenterRight" },	--demon soul
-		{ ["id"] = 47241,	["spec"] = "All", 			["display"] = "CooldownRight" },		--metamorphosis
 		{ ["id"] = 74434,	["spec"] = "All", 			["display"] = "CooldownLeft" },			--soulburn
+		{ ["id"] = 47897,	["spec"] = "All", 			["display"] = "CooldownCenterLeft" },	--shadowflame
+
+		{ ["id"] = 71521, 	["spec"] = "Demonology",	["display"] = "CooldownCenter" },		--hand of guldan
+		{ ["id"] = 77801,	["spec"] = "Demonology", 	["display"] = "CooldownCenterRight" },	--demon soul
+		{ ["id"] = 47241,	["spec"] = "Demonology", 	["display"] = "CooldownRight" },		--metamorphosis
+
+		{ ["id"] = 48181,	["spec"] = "Affliction", 	["display"] = "CooldownCenter" },		--haunt
+		{ ["id"] = 86213,	["spec"] = "Affliction", 	["display"] = "CooldownRight" },		--soul swap
 	},
 	GCD = {
 		["DEATHKNIGHT"] = 47541, 
