@@ -9,6 +9,24 @@ local Tracker = D.Tracker
 Tracker.Displays = {}
 
 local inCombat = false 
+local failedDisplays = {}
+
+local function GetDisplay(name)
+
+	local display = Tracker.Displays[name]
+
+	if display then
+		return display 
+	end
+
+	if not failedDisplays[name] then
+		print("Unable to find a display called " .. name .. ".")
+		failedDisplays[name] = true
+	end
+
+	return nil 
+
+end
 
 function Tracker.UpdateDisplays()
 
@@ -65,10 +83,9 @@ end
 
 function Tracker.ClearDisplayData(name)
 
-	local display = Tracker.Displays[name]
+	local display = GetDisplay(name)
 
-	if display == nil then
-		print("Unable to find a display called " .. name .. ".")
+	if not display then
 		return
 	end
 
@@ -88,10 +105,9 @@ function Tracker.UpdateDisplayData(name, data)
 		return
 	end
 
-	local display = Tracker.Displays[name]
+	local display = GetDisplay(name)
 
-	if display == nil then
-		print("Unable to find a display called " .. name .. ".")
+	if not display then
 		return
 	end
 
