@@ -16,6 +16,7 @@ S.tracker.auras = {
 
 		{ ["id"] = 53365,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--unholy strength (rune of the fallen crusader)
 		{ ["id"] = 51271,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--pillar of frost
+		{ ["id"] = 59052,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main",	["stacks"] = "ONLY" },		--freezing fog (rime)
 
 	},
 	DRUID = {
