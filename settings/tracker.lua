@@ -105,7 +105,7 @@ S.tracker.auras = {
 		{ ["id"] = 102662,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--foul gift
 	}
 
-}
+}	
 
 S.tracker.cooldowns = {
 	DEATHKNIGHT = {
@@ -149,4 +149,73 @@ S.tracker.cooldowns = {
 
 S.tracker.totems = {
 	{ ["slot"] = 1, ["display"] = "Main" },
+}
+
+S.tracker.displays = {
+	["Main"] = {
+		["type"] = "Line", 
+		["setup"] =  {
+			["location"] = {"CENTER", UIParent, "CENTER", 0, -200},
+			["size"] = {500, 32},
+			["maxtime"] = 60,
+			["readyalpha"] = 1,
+			["combatalpha"] = 0.3,
+			["outofcombatalpha"] = 0.1
+		}
+	},
+	["CooldownCenter"] = {
+		["type"] = "Stack",
+		["setup"] = {
+			["location"] = {"CENTER", UIParent, "CENTER", 0, -100},
+			["size"] = {32, 32},
+			["state"] = "COMBATFADE",
+			["readyalpha"] = 1,
+			["combatalpha"] = 0.3,
+			["outofcombatalpha"] = 0.1,
+		}
+	},
+	["CooldownCenterLeft"] = {
+		["type"] = "Stack",
+		["setup"] = {
+			["location"] = {"CENTER", UIParent, "CENTER", -50, -100},
+			["size"] = {32, 32},
+			["state"] = "COMBATFADE",
+			["readyalpha"] = 1,
+			["combatalpha"] = 0.3,
+			["outofcombatalpha"] = 0.1,
+		}
+	},
+	["CooldownCenterRight"] = {
+		["type"] = "Stack",
+		["setup"] = {
+			["location"] = {"CENTER", UIParent, "CENTER", 50, -100},
+			["size"] = {32, 32},
+			["state"] = "COMBATFADE",
+			["readyalpha"] = 1,
+			["combatalpha"] = 0.3,
+			["outofcombatalpha"] = 0.1,
+		}
+	},
+	["CooldownLeft"] = {
+		["type"] = "Stack",
+		["setup"] = {
+			["location"] = {"CENTER", UIParent, "CENTER", -100, -100},
+			["size"] = {32, 32},
+			["state"] = "COMBATFADE",
+			["readyalpha"] = 1,
+			["combatalpha"] = 0.3,
+			["outofcombatalpha"] = 0.1,
+		}
+	},
+	["CooldownRight"] = {
+		["type"] = "Stack",
+		["setup"] = {
+			["location"] = {"CENTER", UIParent, "CENTER", 100, -100},
+			["size"] = {32, 32},
+			["state"] = "COMBATFADE",
+			["readyalpha"] = 1,
+			["combatalpha"] = 0.3,
+			["outofcombatalpha"] = 0.1,
+		}
+	}
 }

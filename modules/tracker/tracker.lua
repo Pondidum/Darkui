@@ -249,6 +249,9 @@ function Tracker.GetAlpha(setup, display)
 
 end
 
+for name, content in pairs(S.tracker.displays) do
+	D.Tracker.CreateDisplay(content.type, name, content.setup)	
+end
 
 E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
 
