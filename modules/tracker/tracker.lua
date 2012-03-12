@@ -5,11 +5,10 @@ if S.tracker.enable ~= true then return end
 D.Tracker = {}
 
 local Tracker = D.Tracker
-
-Tracker.Displays = {}
-
 local inCombat = false 
 local failedDisplays = {}
+
+Tracker.Displays = {}
 
 local function GetDisplay(name)
 
@@ -71,10 +70,10 @@ function Tracker.CreateDisplay(type, name, setup)
 
 	local functionName = "Create" .. type	--fix casing 
 
+
 	if Tracker[functionName] then
 		
 		local trackerName = "DarkuiTracker" .. type .. name
-
 		Tracker.Displays[name] = Tracker[functionName](trackerName, setup)
 		
 	end
@@ -247,10 +246,6 @@ function Tracker.GetAlpha(setup, display)
 		return setup.outofcombatalpha
 	end
 
-end
-
-for name, content in pairs(S.tracker.displays) do
-	D.Tracker.CreateDisplay(content.type, name, content.setup)	
 end
 
 E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
