@@ -29,6 +29,13 @@ S.tracker.auras = {
 		{ ["id"] = 50334, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--Berserk
 		 
 	},
+	HUNTER = {
+		{ ["id"] = 1978, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--serpent sting
+		{ ["id"] = 3674, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--black arrow
+		{ ["id"] = 53301, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--explosive shot
+
+		{ ["id"] = 56453, 	["unit"] = "target", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--lock n load
+	},
 	PALADIN = {
 		{ ["id"] = 84963, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--inquisition
 	},
@@ -113,6 +120,11 @@ S.tracker.cooldowns = {
 		{ ["id"] = 77575, 	["spec"] = "All",			["display"] = "CooldownCenter" },		--outbreak
 		{ ["id"] = 46584, 	["spec"] = "All",			["display"] = "CooldownCenterLeft" },	--raise dead
 		{ ["id"] = 51271, 	["spec"] = "Frost",			["display"] = "CooldownCenterRight" },	--pillar of frost
+	},
+	HUNTER = {
+		{ ["id"] = 53301, 	["spec"] = "Survival",		["display"] = "CooldownCenter" },		--explosive shot
+		{ ["id"] = 3674, 	["spec"] = "Survival",		["display"] = "CooldownCenterLeft" },	--black arrow
+		{ ["id"] = 3045, 	["spec"] = "Survival",		["display"] = "CooldownCenterRight" },	--rapid fire
 	},
 	SHAMAN = {
 		{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
