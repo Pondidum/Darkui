@@ -145,3 +145,8 @@ S["utilities"] = {
 		["height"] = 6,
 	}
 }
+
+
+S["tracker"] = {
+	["enable"] = true,
+}

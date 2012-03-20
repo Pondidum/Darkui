@@ -13,6 +13,7 @@
 	<Script file="core\commands.lua" />
 	
 	<Script file="settings\settings.lua" />
+	<Script file="settings\tracker.lua" />
 	<Script file="settings\media.lua" />
 	<Script file="settings\colors.lua" />
 	<Script file="settings\layouts.lua" />
@@ -46,6 +47,15 @@
 	<Script file="modules\chatlinks.lua" />
 	<Script file="modules\chatformatting.lua" />
 	
+	<Script file="modules\tracker\tracker.lua" />
+	<Script file="modules\tracker\stack.lua" />
+	<Script file="modules\tracker\bar.lua" />
+	<Script file="modules\tracker\line.lua" />
+	<Script file="modules\tracker\auras.lua" />
+	<Script file="modules\tracker\cooldowns.lua" />
+	<Script file="modules\tracker\totems.lua" />
+	<Script file="modules\tracker\display.lua" />
+
 	<Script file="modules\bags.lua" />
 	<Script file="modules\minimap.lua" />
 	<Script file="modules\merchant.lua" />
@@ -53,7 +63,7 @@
 	<Script file="modules\macros.lua" />
 	<Script file="modules\objectives.lua" />
 	<Script file="modules\lootroll.lua" />
-	
+
 	<Script file="modules\statspanel.lua" />
 	<Script file="modules\stats\durability.lua" />
 	<Script file="modules\stats\memory.lua" />
