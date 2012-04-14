@@ -39,6 +39,11 @@ S.tracker.auras = {
 	PALADIN = {
 		{ ["id"] = 84963, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--inquisition
 	},
+	PRIEST = {
+		{ ["id"] = 2944, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--devouring plague
+		{ ["id"] = 589, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--SW:P
+		{ ["id"] = 34914, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--vampiric touch
+	},
 	ROGUE = {
 		{ ["id"] = 73651, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--recuperate
 		{ ["id"] = 5171, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--slice n dice	
@@ -125,6 +130,11 @@ S.tracker.cooldowns = {
 		{ ["id"] = 53301, 	["spec"] = "Survival",		["display"] = "CooldownCenter" },		--explosive shot
 		{ ["id"] = 3674, 	["spec"] = "Survival",		["display"] = "CooldownCenterLeft" },	--black arrow
 		{ ["id"] = 3045, 	["spec"] = "Survival",		["display"] = "CooldownCenterRight" },	--rapid fire
+	},
+	PRIEST = {
+		{ ["id"] = 34433, 	["spec"] = "Shadow",		["display"] = "CooldownCenterLeft" },	--shadowfiend
+		{ ["id"] = 8092, 	["spec"] = "Shadow",		["display"] = "CooldownCenter" },		--mind blast
+		{ ["id"] = 32379, 	["spec"] = "Shadow",		["display"] = "CooldownCenterRight" },	--shadow word: death
 	},
 	SHAMAN = {
 		{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
