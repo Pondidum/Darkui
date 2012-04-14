@@ -12,7 +12,8 @@ S.tracker.auras = {
 		{ ["id"] = 81256,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--dancing rune weapon
 		{ ["id"] = 49039,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--lichborne
 		{ ["id"] = 55233,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--vampiric blood
-		{ ["id"] = 49222,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--bone shield
+		{ ["id"] = 49222,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main",	["stacks"] = "ONLY"  },		--bone shield
+		{ ["id"] = 45529,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--blood tap
 
 		{ ["id"] = 53365,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--unholy strength (rune of the fallen crusader)
 		{ ["id"] = 51271,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--pillar of frost
@@ -43,6 +44,8 @@ S.tracker.auras = {
 		{ ["id"] = 2944, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--devouring plague
 		{ ["id"] = 589, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--SW:P
 		{ ["id"] = 34914, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--vampiric touch
+
+		{ ["id"] = 87153, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--dark archangel
 	},
 	ROGUE = {
 		{ ["id"] = 73651, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--recuperate
