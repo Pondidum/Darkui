@@ -1,7 +1,5 @@
 local D, S, E = unpack(select(2, ...))
 
-if S.slackcheck.enable ~= true then return end
-
 local flaskTable = {
 	92679, --Flask of Battle
 	94160, --Flask of Flowing Water
@@ -180,7 +178,11 @@ end
 local DarkReadyCheck = function()
 	
 	if IsRaidLeader() or IsRaidOfficer() then
-		DarkSlackCheck()	
+
+		if S.slackcheck.enable == true then 
+			DarkSlackCheck()	
+		end
+				
 	end
 	
 end
