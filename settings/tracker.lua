@@ -35,7 +35,7 @@ S.tracker.auras = {
 		{ ["id"] = 3674, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--black arrow
 		{ ["id"] = 53301, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--explosive shot
 
-		{ ["id"] = 56453, 	["unit"] = "target", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--lock n load
+		{ ["id"] = 56453, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main",	["stacks"] = "ONLY" },		--lock n load
 	},
 	PALADIN = {
 		{ ["id"] = 84963, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--inquisition
