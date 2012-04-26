@@ -108,6 +108,11 @@ D.RGBToHex = function(r, g, b)
 	return string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
 end
 
+D.HexToRGB = function(hex)
+	local rhex, ghex, bhex = string.sub(hex, 1, 2), string.sub(hex, 3, 4), string.sub(hex, 5, 6)
+	return tonumber(rhex, 16) / 255, tonumber(ghex, 16) / 255, tonumber(bhex, 16) / 255
+end
+
 D.Round = function(number, decimals)
 	if not decimals then decimals = 0 end
     return (("%%.%df"):format(decimals)):format(number)

@@ -19,6 +19,8 @@
 	<Script file="settings\layouts.lua" />
 	<Script file="settings\profiles.lua" />
 	
+	<Script file="modules\layoutengine.lua" />
+
 	<Script file="modules\actionbars\bars.lua" />
 	<Script file="modules\actionbars\bar1.lua" />
 	<Script file="modules\actionbars\bar2.lua" />
