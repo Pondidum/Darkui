@@ -30,6 +30,8 @@ local function DarkAddMessage(frame, text, ...)
     return
   end
   
+  text = date("|cffffffff[%H:%M:%S]|r ") .. text 
+
   return originals[frame](frame, text, ...)
   
 end
@@ -43,6 +45,7 @@ for i = 1, NUM_CHAT_WINDOWS do
 		originals[frame] = frame.AddMessage
 		frame.AddMessage = DarkAddMessage
 	end
+
 end
       
       
