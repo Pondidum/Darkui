@@ -7,6 +7,7 @@ S["textures"] = {
 	["raidicons"] = [[Interface\AddOns\Darkui\media\textures\raidicons.blp]],
 	["buttonhover"] = [[Interface\AddOns\Darkui\media\textures\button_hover]],
 	["mail"] = [[Interface\AddOns\Darkui\media\textures\mail]],
+	["nameplateglow"] = [[Interface\AddOns\Darkui\media\textures\nameplateGlow]],
 }
 
 S["fonts"] = {
