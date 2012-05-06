@@ -42,6 +42,7 @@
 	
 	<Script file="ui\tags.lua" />
 	<Script file="ui\unitframes.lua" />
+	<Script file="modules\nameplates.lua" />
 	
 	<Script file="modules\tooltip.lua" />
 	
