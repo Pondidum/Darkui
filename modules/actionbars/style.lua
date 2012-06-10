@@ -50,7 +50,7 @@ function D.StyleButton(b, c)
 	end
 end
 
-local function style(self)
+function D.Style(self)
 	local name = self:GetName()
 	
 	--> fixing a taint issue while changing totem flyout button in combat.
@@ -69,18 +69,22 @@ local function style(self)
 	local shine = _G[name.."Shine"]
 	local background = _G[name.."FloatingBG"]
 	
-	Flash:SetTexture("")
 	Button:SetNormalTexture("")
- 
+
+	if Flash then
+		Flash:SetTexture("")
+	end
+	 
  	if Border then
 		Border:Hide()
 		Border = D.Dummy
 	end
  
-	Count:ClearAllPoints()
-	Count:SetPoint("BOTTOMRIGHT", 0, 2)
-	Count:SetFont(S.fonts.normal, 12, "OUTLINE")
- 
+ 	if Count then
+		Count:ClearAllPoints()
+		Count:SetPoint("BOTTOMRIGHT", 0, 2)
+		Count:SetFont(S.fonts.normal, 12, "OUTLINE")
+ 	end 
  	if Btname then
  		Btname:SetTextColor(HotKey:GetTextColor())
 		Btname:SetFont(S.fonts.normal, 10, "OUTLINE")
@@ -254,7 +258,7 @@ local function SetupFlyoutButton()
 	for i=1, buttons do
 		--prevent error if you don't have max ammount of buttons
 		if _G["SpellFlyoutButton"..i] then
-			style(_G["SpellFlyoutButton"..i])
+			D.Style(_G["SpellFlyoutButton"..i])
 			D.StyleButton(_G["SpellFlyoutButton"..i], true)
 		end
 	end
@@ -329,7 +333,7 @@ do
 	end
 end
 
-hooksecurefunc("ActionButton_Update", style)
+hooksecurefunc("ActionButton_Update", D.Style)
 hooksecurefunc("ActionButton_UpdateHotkeys", updatehotkey)
 hooksecurefunc("ActionButton_UpdateFlyout", styleflyout)
 
