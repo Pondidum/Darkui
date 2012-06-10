@@ -7,8 +7,8 @@ local L = D.LayoutEngine
 L.Engines = {
 	["HORIZONTAL"] = function(self) 
 		
-		local x = self.Margin
-		local y = self.Margin
+		local x = self.MarginLeft
+		local y = self.MarginTop
 		local currentRowHeight = 0
 		
 		for i = 1, #self.frames do
@@ -16,14 +16,14 @@ L.Engines = {
 			local current = self.frames[i]
 			
 			if self.Wrap and x + current:GetWidth() > self:GetWidth() then
-				x = self.Margin
-				y = y + currentRowHeight + self.Margin
+				x = self.MarginLeft
+				y = y + currentRowHeight + self.MarginTop
 				currentRowHeight = current:GetHeight()
 			end
 			
 			current:SetPoint(self.Origin, self, self.Origin, x, -y)
 			
-			x = x + current:GetWidth() + self.Margin
+			x = x + current:GetWidth() + self.MarginRight
 			
 			if current:GetHeight() > currentRowHeight then
 				currentRowHeight = current:GetHeight()
@@ -34,8 +34,8 @@ L.Engines = {
 	end,
 	["VERTICAL"] = function(self) 
 		
-		local x = self.Margin
-		local y = self.Margin
+		local x = self.MarginLeft
+		local y = self.MarginTop
 		local currentColWidth = 0
 		
 		for i = 1, #self.frames do
@@ -43,14 +43,14 @@ L.Engines = {
 			local current = self.frames[i]
 			
 			if self.Wrap and y + current:GetHeight() > self:GetHeight() then
-				y = self.Margin
-				x = x + currentColWidth + self.Margin
+				y = self.MarginTop
+				x = x + currentColWidth + self.MarginLeft
 				currentColWidth = currentColWidth:GetWidth()
 			end
 			
 			current:SetPoint(self.Origin, self, self.Origin, x, y)
 			
-			y = y + current:GetHeight() + self.Margin
+			y = y + current:GetHeight() + self.MarginBottom
 			
 			if current:GetWidth() > currentColWidth then
 				currentColWidth = current:GetWidth()
@@ -68,7 +68,10 @@ L.Init = function(self, other)
 	other.Wrap = false
 	
 	other.DefaultSize = {32, 32}
-	other.Margin = 4
+	other.MarginLeft = 4
+	other.MarginRight = 4
+	other.MarginTop = 4
+	other.MarginBottom = 4
 	
 	other.frames = {}
 	other.Engines = self.Engines
@@ -91,6 +94,8 @@ L.Init = function(self, other)
 		
 		self:PerformLayout()
 		
+		return item
+
 	end
 	
 	other.Clear = function(self)
