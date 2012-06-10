@@ -37,6 +37,17 @@ S.tracker.auras = {
 
 		{ ["id"] = 56453, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main",	["stacks"] = "ONLY" },		--lock n load
 	},
+	MAGE = {
+		{ ["id"] = 92315, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--pyroblast!
+		{ ["id"] = 12654, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--ignite
+		{ ["id"] = 44457, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--living bomb
+		{ ["id"] = 83853, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--combustion
+		{ ["id"] = 22959, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--critical mass
+		{ ["id"] = 31661, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--dragons breath
+
+		{ ["id"] = 48108, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--hot streak
+		{ ["id"] = 64343, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--impact
+	},
 	PALADIN = {
 		{ ["id"] = 84963, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--inquisition
 	},
