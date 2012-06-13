@@ -140,6 +140,11 @@ S.tracker.cooldowns = {
 		{ ["id"] = 46584, 	["spec"] = "All",			["display"] = "CooldownCenterLeft" },	--raise dead
 		{ ["id"] = 51271, 	["spec"] = "Frost",			["display"] = "CooldownCenterRight" },	--pillar of frost
 	},
+	DRUID = {
+		{ ["id"] = 5217, 	["spec"] = "Feral Combat",	["display"] = "CooldownCenter" },		--Tigers Fury
+		{ ["id"] = 49376, 	["spec"] = "Feral Combat",	["display"] = "CooldownCenterLeft" },	--feral charge
+		{ ["id"] = 50334, 	["spec"] = "Feral Combat",	["display"] = "CooldownCenterRight" },	--berserk
+	},
 	HUNTER = {
 		{ ["id"] = 53301, 	["spec"] = "Survival",		["display"] = "CooldownCenter" },		--explosive shot
 		{ ["id"] = 3674, 	["spec"] = "Survival",		["display"] = "CooldownCenterLeft" },	--black arrow
