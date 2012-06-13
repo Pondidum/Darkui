@@ -245,12 +245,16 @@ local function Init()
 	E:Unregister("PLAYER_ENTERING_WORLD", "Darkui_Bags_PlayerEnteringWorld")
 	
 	bagFrame = CreateFrame("Frame", "DarkuiBag", DarkuiFrame)
+	D.CreateBackground(bagFrame)
+	D.CreateShadow(bagFrame)
 	bagFrame:Hide()
 	
 	bagFrame:SetScript("OnShow", BagOnShow)
 	bagFrame:SetScript("OnHide", BagOnHide)
 
 	bankFrame = CreateFrame("Frame", "DarkuiBank", DarkuiFrame)
+	D.CreateBackground(bankFrame)
+	D.CreateShadow(bankFrame)
 	bankFrame:Hide()
 	bankFrame:SetScript("OnHide", BankOnHide)
 	E:Register("BANKFRAME_OPENED", BankOnShow)
