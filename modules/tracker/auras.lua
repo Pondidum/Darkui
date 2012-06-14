@@ -12,6 +12,14 @@ local function ApplyAuras(auras)
 		local name = GetSpellInfo(current.id)
 		local _, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellID = UnitAura(current.unit, name, nil, current.filter)
 		
+		if current.highlight == "MAXSTACKS" then
+
+			if count == current.maxstacks then
+				expires = nil
+			end
+
+		end
+
 		local data = {
 				["id"] = current.id,
 				["display"] = (spellID ~= nil),
@@ -21,7 +29,7 @@ local function ApplyAuras(auras)
 				["stacks"] = count,
 				["stacksmode"] = current.stacks
 			}
-				
+		
 		D.Tracker.UpdateDisplayData(current.display, data)
 		
 	end

@@ -69,7 +69,7 @@ S.tracker.auras = {
 		{ ["id"] = 79206, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--spiritwalker's grace
 		{ ["id"] = 64701, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--elemental mastery
 
-		{ ["id"] = 324, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "CooldownLeft",	["stacks"] = "ONLY" }, 	--elemental mastery
+		{ ["id"] = 324, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "CooldownLeft",	["stacks"] = "ONLY", ["highlight"] = "MAXSTACKS", ["maxstacks"] = 9 }, 	--lightning shield
 	},
 	WARLOCK = {
 		{ ["id"] = 172,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--corruption
