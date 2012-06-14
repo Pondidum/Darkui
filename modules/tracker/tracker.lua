@@ -73,8 +73,8 @@ function Tracker.CreateDisplay(type, name, setup)
 
 	if Tracker[functionName] then
 		
-		local trackerName = "DarkuiTracker" .. type .. name
-		Tracker.Displays[name] = Tracker[functionName](trackerName, setup)
+		setup.name = "DarkuiTracker" .. type .. name
+		Tracker.Displays[name] = Tracker[functionName](setup.name, setup)
 		
 	end
 

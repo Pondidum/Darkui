@@ -4,13 +4,13 @@ if S.tracker.enable ~= true then return end
 
 local function CreateDisplays()
 
-	for name, content in pairs(S.tracker.displays) do
-		D.Tracker.CreateDisplay(content.type, name, content.setup)	
+	for i, content in ipairs(S.tracker.displays) do
+		D.Tracker.CreateDisplay(content.type, content.name, content.setup)	
 	end
 
 end
 
-function PostProcessAuras()
+local function PostProcessAuras()
 
 	local filters = {
 		["player"] = "PLAYER|HELPFUL",
@@ -34,9 +34,33 @@ function PostProcessAuras()
 
 end
 
+local function PostProcessDisplays()
+
+	for i, content in ipairs(S.tracker.displays) do
+
+		local setup = content.setup
+
+		if setup.readyalpha == nil then
+			setup.readyalpha = 1
+		end
+
+		if setup.combatalpha == nil then
+			setup.combatalpha = 0.3
+		end
+
+		if setup.outofcombatalpha == nil then
+			setup.outofcombatalpha = 0.1
+		end
+
+	end
+
+end
+
+
 local function OnPlayerEnteringWorld()
 
 	PostProcessAuras()
+	PostProcessDisplays()
 
 	CreateDisplays()
 	D.Tracker.SetCombatState()

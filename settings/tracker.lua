@@ -193,70 +193,58 @@ S.tracker.totems = {
 }
 
 S.tracker.displays = {
-	["Main"] = {
+	[1] = {
+		["name"] = "Main",
 		["type"] = "Line", 
 		["setup"] =  {
 			["location"] = {"CENTER", UIParent, "CENTER", 0, -200},
 			["size"] = {500, 32},
 			["maxtime"] = 60,
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1
 		}
 	},
-	["CooldownCenter"] = {
+	[2] = {
+		["name"] = "CooldownCenter",	
 		["type"] = "Stack",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", 0, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 0, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownCenterLeft"] = {
+	[3] = {
+		["name"] = "CooldownCenterLeft",	
 		["type"] = "Stack",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", -50, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", -50, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownCenterRight"] = {
+	[4] = {
+		["name"] = "CooldownCenterRight",	
 		["type"] = "Stack",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", 50, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 50, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownLeft"] = {
+	[5] = {
+		["name"] = "CooldownLeft",	
 		["type"] = "Stack",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", -100, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", -100, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownRight"] = {
+	[6] = {
+		["name"] = "CooldownRight",	
 		["type"] = "Stack",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", 100, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 100, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	}
 }
