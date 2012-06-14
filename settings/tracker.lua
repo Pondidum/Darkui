@@ -69,7 +69,7 @@ S.tracker.auras = {
 		{ ["id"] = 79206, 	["unit"] = "player", 	["display"] = "Main" }, 	--spiritwalker's grace
 		{ ["id"] = 64701, 	["unit"] = "player", 	["display"] = "Main" }, 	--elemental mastery
 
-		{ ["id"] = 324, 	["unit"] = "player", 	["display"] = "CooldownLeft",	["stacks"] = "ONLY", ["highlight"] = "MAXSTACKS", ["maxstacks"] = 9 }, 	--lightning shield
+		{ ["id"] = 324, 	["unit"] = "player", 	["display"] = "CooldownCenterLeft",	["stacks"] = "ONLY", ["highlight"] = "MAXSTACKS", ["maxstacks"] = 9 }, 	--lightning shield
 	},
 	WARLOCK = {
 		{ ["id"] = 172,		["unit"] = "target", 	["display"] = "Main" },		--corruption
@@ -157,8 +157,7 @@ S.tracker.cooldowns = {
 	},
 	SHAMAN = {
 		{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
-		{ ["id"] = 57994,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--wind shear
-		{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterLeft" },	--earth shock
+		{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--earth shock
 
 		{ ["id"] = 73920,	["spec"] = "Restoration",	["display"] = "CooldownCenterRight" },	--healing rain
 		{ ["id"] = 61295,	["spec"] = "Restoration",	["display"] = "CooldownCenter" },		--riptide
