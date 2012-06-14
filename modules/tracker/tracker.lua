@@ -258,7 +258,7 @@ local function SetupFilters(collection)
 
 				item.filter = "PLAYER|HELPFUL"
 
-			elseif item.unit == "target" then
+			elseif item.unit == "target" or item.unit == "focus" then
 
 				item.filter = "PLAYER|HARMFUL"
 
@@ -278,8 +278,3 @@ end
 
 InitaliseSettings()
 
-E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
-
-E:Register("PLAYER_REGEN_ENABLED", D.Tracker.CombatExit)
-E:Register("PLAYER_REGEN_DISABLED", D.Tracker.CombatEnter)
-E:Register("PLAYER_ENTERING_WORLD", D.Tracker.SetCombatState)
