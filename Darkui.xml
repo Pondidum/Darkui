@@ -51,9 +51,9 @@
 	<Script file="modules\chatformatting.lua" />
 	
 	<Script file="modules\tracker\tracker.lua" />
-	<Script file="modules\tracker\stack.lua" />
-	<Script file="modules\tracker\bar.lua" />
-	<Script file="modules\tracker\line.lua" />
+	<Script file="modules\tracker\displays\stack.lua" />
+	<Script file="modules\tracker\displays\bar.lua" />
+	<Script file="modules\tracker\displays\line.lua" />
 	<Script file="modules\tracker\scanners\auras.lua" />
 	<Script file="modules\tracker\scanners\cooldowns.lua" />
 	<Script file="modules\tracker\scanners\totems.lua" />
