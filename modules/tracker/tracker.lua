@@ -248,33 +248,3 @@ function Tracker.GetAlpha(setup, display)
 
 end
 
-local function SetupFilters(collection)
-
-	for i, item in ipairs(collection) do
-
-		if item.filter == nil then
-
-			if item.unit == "player" then
-
-				item.filter = "PLAYER|HELPFUL"
-
-			elseif item.unit == "target" or item.unit == "focus" then
-
-				item.filter = "PLAYER|HARMFUL"
-
-			end
-
-		end
-
-	end
-end
-
-function InitaliseSettings()
-
-	SetupFilters(S.tracker.auras[D.Player.class])
-	SetupFilters(S.tracker.auras["GENERAL"])
-
-end
-
-InitaliseSettings()
-
