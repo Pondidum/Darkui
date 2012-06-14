@@ -72,6 +72,7 @@
 	<Script file="modules\stats\memory.lua" />
 	<Script file="modules\stats\fps.lua" />
 	
+	<Script file="modules\professions.lua" />
 	<Script file="modules\selfbuffs.lua" />
 	<Script file="modules\slackcheck.lua" />
 

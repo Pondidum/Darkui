@@ -143,7 +143,10 @@ S["utilities"] = {
 		["enable"] = true,
 		["width"] = 10,
 		["height"] = 6,
-	}
+	},
+	["professions"] = {
+		["doublewidth"] = true,
+	},
 }
 
 
