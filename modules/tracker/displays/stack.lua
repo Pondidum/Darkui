@@ -34,7 +34,7 @@ function T.CreateStack(name, setup)
 			if current ~= nil then
 
 				shouldHide = false
-				shouldDisplay = (current.expiry == nil or current.expiry <= GetTime()) and current.display
+				shouldDisplay = (current.expiry == nil or current.expiry <= GetTime())
 
 				self:Update(current)
 				

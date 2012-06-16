@@ -82,7 +82,6 @@ local function OnUpdate(self, elapsed)
 			
 			local data = {
 				["id"] = current.id,
-				["display"] = ready,
 				["texture"] = icon,
 				["expiry"] = expiry,
 				["filter"] = "HELPFUL",
