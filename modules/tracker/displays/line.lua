@@ -13,6 +13,10 @@ end
 
 local function GetAnchor(current)
 
+	if current.anchor and current.anchoroffset then
+		return current.anchor, current.anchoroffset
+	end
+
 	if current.filter == nil or current.filter == "" then
 		return "CENTER", 0
 	end
