@@ -26,6 +26,10 @@ local function PostProcessAuras()
 				item.filter = f[item.unit]
 			end
 
+			if item.display == nil then
+				item.display = S.tracker.displays[1].name
+			end
+
 		end
 	end
 

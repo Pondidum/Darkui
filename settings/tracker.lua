@@ -3,133 +3,133 @@ local D, S, E = unpack(select(2, ...))
 
 S.tracker.auras = {
 	DEATHKNIGHT = {
-		{ ["id"] = 55095, 	["unit"] = "target", 	["display"] = "Main" },		--frost fever
-		{ ["id"] = 55078,	["unit"] = "target",	["display"] = "Main" },		--blood plague
+		{ ["id"] = 55095, 	["unit"] = "target" },		--frost fever
+		{ ["id"] = 55078,	["unit"] = "target" },		--blood plague
 		
-		{ ["id"] = 48707,	["unit"] = "player",	["display"] = "Main" },		--ams
-		{ ["id"] = 48792,	["unit"] = "player",	["display"] = "Main" },		--ice bound fortitude
-		{ ["id"] = 77535,	["unit"] = "player",	["display"] = "Main" },		--blood shield
-		{ ["id"] = 81256,	["unit"] = "player",	["display"] = "Main" },		--dancing rune weapon
-		{ ["id"] = 49039,	["unit"] = "player",	["display"] = "Main" },		--lichborne
-		{ ["id"] = 55233,	["unit"] = "player",	["display"] = "Main" },		--vampiric blood
-		{ ["id"] = 49222,	["unit"] = "player",	["display"] = "Main",	["stacks"] = "ONLY"  },		--bone shield
-		{ ["id"] = 45529,	["unit"] = "player",	["display"] = "Main" },		--blood tap
+		{ ["id"] = 48707,	["unit"] = "player" },		--ams
+		{ ["id"] = 48792,	["unit"] = "player" },		--ice bound fortitude
+		{ ["id"] = 77535,	["unit"] = "player" },		--blood shield
+		{ ["id"] = 81256,	["unit"] = "player" },		--dancing rune weapon
+		{ ["id"] = 49039,	["unit"] = "player" },		--lichborne
+		{ ["id"] = 55233,	["unit"] = "player" },		--vampiric blood
+		{ ["id"] = 49222,	["unit"] = "player", 	["stacks"] = "ONLY"  },		--bone shield
+		{ ["id"] = 45529,	["unit"] = "player" },		--blood tap
 
-		{ ["id"] = 53365,	["unit"] = "player",	["display"] = "Main" },		--unholy strength (rune of the fallen crusader)
-		{ ["id"] = 51271,	["unit"] = "player",	["display"] = "Main" },		--pillar of frost
-		{ ["id"] = 59052,	["unit"] = "player",	["display"] = "Main",	["stacks"] = "ONLY" },		--freezing fog (rime)
+		{ ["id"] = 53365,	["unit"] = "player" },		--unholy strength (rune of the fallen crusader)
+		{ ["id"] = 51271,	["unit"] = "player" },		--pillar of frost
+		{ ["id"] = 59052,	["unit"] = "player", 	["stacks"] = "ONLY" },		--freezing fog (rime)
 
 	},
 	DRUID = {
-		{ ["id"] = 33876,	["unit"] = "target", 	["display"] = "Main" },		--mangle
-		{ ["id"] = 1822, 	["unit"] = "target", 	["display"] = "Main" },		--rake
-		{ ["id"] = 1079, 	["unit"] = "target", 	["display"] = "Main" },		--rip
+		{ ["id"] = 33876,	["unit"] = "target" },		--mangle
+		{ ["id"] = 1822, 	["unit"] = "target" },		--rake
+		{ ["id"] = 1079, 	["unit"] = "target" },		--rip
 
-		{ ["id"] = 52610, 	["unit"] = "player", 	["display"] = "Main" }, 	--savage roar
-		{ ["id"] = 5217, 	["unit"] = "player", 	["display"] = "Main" }, 	--tigers fury
-		{ ["id"] = 50334, 	["unit"] = "player", 	["display"] = "Main" }, 	--Berserk
+		{ ["id"] = 52610, 	["unit"] = "player" }, 		--savage roar
+		{ ["id"] = 5217, 	["unit"] = "player" }, 		--tigers fury
+		{ ["id"] = 50334, 	["unit"] = "player" }, 		--Berserk
 		 
 	},
 	HUNTER = {
-		{ ["id"] = 1978, 	["unit"] = "target", 	["display"] = "Main" },		--serpent sting
-		{ ["id"] = 3674, 	["unit"] = "target", 	["display"] = "Main" },		--black arrow
-		{ ["id"] = 53301, 	["unit"] = "target", 	["display"] = "Main" },		--explosive shot
+		{ ["id"] = 1978, 	["unit"] = "target" },		--serpent sting
+		{ ["id"] = 3674, 	["unit"] = "target" },		--black arrow
+		{ ["id"] = 53301, 	["unit"] = "target" },		--explosive shot
 
-		{ ["id"] = 56453, 	["unit"] = "player", 	["display"] = "Main",	["stacks"] = "ONLY" },		--lock n load
+		{ ["id"] = 56453, 	["unit"] = "player", 	["stacks"] = "ONLY" },		--lock n load
 	},
 	MAGE = {
-		{ ["id"] = 92315, 	["unit"] = "target", 	["display"] = "Main" }, 	--pyroblast!
-		{ ["id"] = 12654, 	["unit"] = "target", 	["display"] = "Main" }, 	--ignite
-		{ ["id"] = 44457, 	["unit"] = "target", 	["display"] = "Main" }, 	--living bomb
-		{ ["id"] = 83853, 	["unit"] = "target", 	["display"] = "Main" }, 	--combustion
-		{ ["id"] = 22959, 	["unit"] = "target", 	["display"] = "Main" }, 	--critical mass
-		{ ["id"] = 31661, 	["unit"] = "target", 	["display"] = "Main" }, 	--dragons breath
+		{ ["id"] = 92315, 	["unit"] = "target" },		--pyroblast!
+		{ ["id"] = 12654, 	["unit"] = "target" },		--ignite
+		{ ["id"] = 44457, 	["unit"] = "target" },		--living bomb
+		{ ["id"] = 83853, 	["unit"] = "target" },		--combustion
+		{ ["id"] = 22959, 	["unit"] = "target" },		--critical mass
+		{ ["id"] = 31661, 	["unit"] = "target" },		--dragons breath
 
-		{ ["id"] = 48108, 	["unit"] = "player", 	["display"] = "Main" }, 	--hot streak
-		{ ["id"] = 64343, 	["unit"] = "player", 	["display"] = "Main" }, 	--impact
+		{ ["id"] = 48108, 	["unit"] = "player" },		--hot streak
+		{ ["id"] = 64343, 	["unit"] = "player" },		--impact
 	},
 	PALADIN = {
-		{ ["id"] = 84963, 	["unit"] = "player", 	["display"] = "Main" }, 	--inquisition
+		{ ["id"] = 84963, 	["unit"] = "player" },		--inquisition
 	},
 	PRIEST = {
-		{ ["id"] = 2944, 	["unit"] = "target", 	["display"] = "Main" }, 	--devouring plague
-		{ ["id"] = 589, 	["unit"] = "target", 	["display"] = "Main" }, 	--SW:P
-		{ ["id"] = 34914, 	["unit"] = "target", 	["display"] = "Main" }, 	--vampiric touch
+		{ ["id"] = 2944, 	["unit"] = "target" },		--devouring plague
+		{ ["id"] = 589, 	["unit"] = "target" },		--SW:P
+		{ ["id"] = 34914, 	["unit"] = "target" },		--vampiric touch
 
-		{ ["id"] = 87153, 	["unit"] = "player", 	["display"] = "Main" }, 	--dark archangel
+		{ ["id"] = 87153, 	["unit"] = "player" },		--dark archangel
 	},
 	ROGUE = {
-		{ ["id"] = 73651, 	["unit"] = "player", 	["display"] = "Main" }, 	--recuperate
-		{ ["id"] = 5171, 	["unit"] = "player", 	["display"] = "Main" }, 	--slice n dice	
+		{ ["id"] = 73651, 	["unit"] = "player" },		--recuperate
+		{ ["id"] = 5171, 	["unit"] = "player" },		--slice n dice	
 	},
 	SHAMAN = {
-		{ ["id"] = 8050, 	["unit"] = "target", 	["display"] = "Main" }, 	--flameshock
+		{ ["id"] = 8050, 	["unit"] = "target" },		--flameshock
 
-		{ ["id"] = 55277, 	["unit"] = "player", 	["display"] = "Main" }, 	--stoneclaw totem
-		{ ["id"] = 79206, 	["unit"] = "player", 	["display"] = "Main" }, 	--spiritwalker's grace
-		{ ["id"] = 64701, 	["unit"] = "player", 	["display"] = "Main" }, 	--elemental mastery
+		{ ["id"] = 55277, 	["unit"] = "player" },		--stoneclaw totem
+		{ ["id"] = 79206, 	["unit"] = "player" },		--spiritwalker's grace
+		{ ["id"] = 64701, 	["unit"] = "player" },		--elemental mastery
 
 		{ ["id"] = 324, 	["unit"] = "player", 	["display"] = "CooldownCenterLeft",	["stacks"] = "ONLY", ["highlight"] = "MAXSTACKS", ["maxstacks"] = 9 }, 	--lightning shield
 	},
 	WARLOCK = {
-		{ ["id"] = 172,		["unit"] = "target", 	["display"] = "Main" },		--corruption
-		{ ["id"] = 603,		["unit"] = "target", 	["display"] = "Main" },		--bane of doom
-		{ ["id"] = 348,		["unit"] = "target", 	["display"] = "Main" },		--immolate
-		{ ["id"] = 86000,	["unit"] = "target", 	["display"] = "Main" },		--hand of guldan
+		{ ["id"] = 172,		["unit"] = "target" },		--corruption
+		{ ["id"] = 603,		["unit"] = "target" },		--bane of doom
+		{ ["id"] = 348,		["unit"] = "target" },		--immolate
+		{ ["id"] = 86000,	["unit"] = "target" },		--hand of guldan
 
-		{ ["id"] = 30108,	["unit"] = "target", 	["display"] = "Main" },		--unstable affliction
-		{ ["id"] = 48181,	["unit"] = "target", 	["display"] = "Main" },		--haunt
+		{ ["id"] = 30108,	["unit"] = "target" },		--unstable affliction
+		{ ["id"] = 48181,	["unit"] = "target" },		--haunt
 
-		{ ["id"] = 47241, 	["unit"] = "player", 	["display"] = "Main" }, 	--metamorphosis
-		{ ["id"] = 79460, 	["unit"] = "player", 	["display"] = "Main" }, 	--demon soul: felhunter
-		{ ["id"] = 79462, 	["unit"] = "player", 	["display"] = "Main" }, 	--demon soul: felguard
-		{ ["id"] = 63167, 	["unit"] = "player", 	["display"] = "Main" }, 	--decimation	
-		{ ["id"] = 71165, 	["unit"] = "player", 	["display"] = "Main", 			["stacks"] = "ONLY"  }, 	--decimation	
+		{ ["id"] = 47241, 	["unit"] = "player" },		--metamorphosis
+		{ ["id"] = 79460, 	["unit"] = "player" },		--demon soul: felhunter
+		{ ["id"] = 79462, 	["unit"] = "player" },		--demon soul: felguard
+		{ ["id"] = 63167, 	["unit"] = "player" },		--decimation	
+		{ ["id"] = 71165, 	["unit"] = "player", 	["stacks"] = "ONLY"  }, 	--decimation	
 
 	},
 	WARRIOR = {
-		{ ["id"] = 94009,	["unit"] = "target", 	["display"] = "Main" },		--rend
-		{ ["id"] = 12294,	["unit"] = "target", 	["display"] = "Main" },		--mortal strike
-		{ ["id"] = 86346,	["unit"] = "target", 	["display"] = "Main" },		--colossus smash
+		{ ["id"] = 94009,	["unit"] = "target" },		--rend
+		{ ["id"] = 12294,	["unit"] = "target" },		--mortal strike
+		{ ["id"] = 86346,	["unit"] = "target" },		--colossus smash
 
-		{ ["id"] = 12964, 	["unit"] = "player", 	["display"] = "Main" }, 	--battle trance
-		{ ["id"] = 86627, 	["unit"] = "player", 	["display"] = "Main" }, 	--Incite
+		{ ["id"] = 12964, 	["unit"] = "player" },		--battle trance
+		{ ["id"] = 86627, 	["unit"] = "player" },		--Incite
 
 
-		{ ["id"] = 85730, 	["unit"] = "player", 	["display"] = "Main" }, 	--deadly calm
-		{ ["id"] = 1719,	["unit"] = "player", 	["display"] = "Main" },		--Recklessness
-		{ ["id"] = 12328,	["unit"] = "player", 	["display"] = "Main" },		--Sweeping Strikes
+		{ ["id"] = 85730, 	["unit"] = "player" },		--deadly calm
+		{ ["id"] = 1719,	["unit"] = "player" },		--Recklessness
+		{ ["id"] = 12328,	["unit"] = "player" },		--Sweeping Strikes
 		 
 	},
 	GENERAL = {
 		--potions
-		{ ["id"] = 79633,	["unit"] = "player", 	["display"] = "Main" },		--Potion of the Tolvir
-		{ ["id"] = 79634,	["unit"] = "player", 	["display"] = "Main" },		--Golemblood Potion
-		{ ["id"] = 79475,	["unit"] = "player", 	["display"] = "Main" },		--Earthen Potion	
-		{ ["id"] = 79476,	["unit"] = "player", 	["display"] = "Main" },		--Volcanic Potion
+		{ ["id"] = 79633,	["unit"] = "player" },		--Potion of the Tolvir
+		{ ["id"] = 79634,	["unit"] = "player" },		--Golemblood Potion
+		{ ["id"] = 79475,	["unit"] = "player" },		--Earthen Potion	
+		{ ["id"] = 79476,	["unit"] = "player" },		--Volcanic Potion
 		
 		--professions:
-		{ ["id"] = 96228,	["unit"] = "player", 	["display"] = "Main" },		--Engineering - Synapse Springs - Agility
-		{ ["id"] = 96229,	["unit"] = "player", 	["display"] = "Main" },		--Engineering - Synapse Springs - Strength
-		{ ["id"] = 96230,	["unit"] = "player", 	["display"] = "Main" },		--Engineering - Synapse Springs - Intellect
-		{ ["id"] = 75170,	["unit"] = "player", 	["display"] = "Main" },		--Tailoring - Lightweave
+		{ ["id"] = 96228,	["unit"] = "player" },		--Engineering - Synapse Springs - Agility
+		{ ["id"] = 96229,	["unit"] = "player" },		--Engineering - Synapse Springs - Strength
+		{ ["id"] = 96230,	["unit"] = "player" },		--Engineering - Synapse Springs - Intellect
+		{ ["id"] = 75170,	["unit"] = "player" },		--Tailoring - Lightweave
 
 		--racials:
-		{ ["id"] = 33702,	["unit"] = "player", 	["display"] = "Main" },		--Blood Fury - Spell Power
-		{ ["id"] = 20572,	["unit"] = "player", 	["display"] = "Main" },		--Blood Fury - Attack Power
+		{ ["id"] = 33702,	["unit"] = "player" },		--Blood Fury - Spell Power
+		{ ["id"] = 20572,	["unit"] = "player" },		--Blood Fury - Attack Power
 
-		{ ["id"] = 26297,	["unit"] = "player", 	["display"] = "Main" },		--Berserking
+		{ ["id"] = 26297,	["unit"] = "player" },		--Berserking
 
 		--spells
-		{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",			["display"] = "Main" },		--bloodlust
-		{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",			["display"] = "Main" },		--timewarp
+		{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",	},		--bloodlust
+		{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",	},		--timewarp
 
 		--enchants
-		{ ["id"] = 74241,	["unit"] = "player", 	["display"] = "Main" },		--power torrent
+		{ ["id"] = 74241,	["unit"] = "player" },		--power torrent
 		
 
 		--trinkets
-		{ ["id"] = 102662,	["unit"] = "player", 	["display"] = "Main" },		--foul gift
+		{ ["id"] = 102662,	["unit"] = "player" },		--foul gift
 	}
 
 }	
