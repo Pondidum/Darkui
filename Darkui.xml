@@ -51,6 +51,7 @@
 	<Script file="modules\chatformatting.lua" />
 	
 	<Script file="modules\tracker\tracker.lua" />
+	<Script file="modules\tracker\display.lua" />
 	<Script file="modules\tracker\displays\icon.lua" />
 	<Script file="modules\tracker\displays\line.lua" />
 	<Script file="modules\tracker\scanners\auras.lua" />
