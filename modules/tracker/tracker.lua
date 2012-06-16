@@ -152,7 +152,7 @@ local function BottomDisplay(frame, x, y)
 	frame:Show()
 end
 
-function Tracker.CreateIcon(parent, name, location, size)
+function Tracker.CreateSpellIcon(parent, name, location, size)
 
 	local frame = CreateFrame("Frame", name, parent)
 	frame:SetPoint(unpack(location))

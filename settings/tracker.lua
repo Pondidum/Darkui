@@ -204,7 +204,7 @@ S.tracker.displays = {
 	},
 	[2] = {
 		["name"] = "CooldownCenter",	
-		["type"] = "Stack",
+		["type"] = "Icon",
 		["setup"] = {
 			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 0, 40},
 			["size"] = {32, 32},
@@ -213,7 +213,7 @@ S.tracker.displays = {
 	},
 	[3] = {
 		["name"] = "CooldownCenterLeft",	
-		["type"] = "Stack",
+		["type"] = "Icon",
 		["setup"] = {
 			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", -50, 40},
 			["size"] = {32, 32},
@@ -222,7 +222,7 @@ S.tracker.displays = {
 	},
 	[4] = {
 		["name"] = "CooldownCenterRight",	
-		["type"] = "Stack",
+		["type"] = "Icon",
 		["setup"] = {
 			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 50, 40},
 			["size"] = {32, 32},
@@ -231,7 +231,7 @@ S.tracker.displays = {
 	},
 	[5] = {
 		["name"] = "CooldownLeft",	
-		["type"] = "Stack",
+		["type"] = "Icon",
 		["setup"] = {
 			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", -100, 40},
 			["size"] = {32, 32},
@@ -240,7 +240,7 @@ S.tracker.displays = {
 	},
 	[6] = {
 		["name"] = "CooldownRight",	
-		["type"] = "Stack",
+		["type"] = "Icon",
 		["setup"] = {
 			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 100, 40},
 			["size"] = {32, 32},

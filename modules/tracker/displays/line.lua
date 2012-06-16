@@ -74,7 +74,7 @@ function T.CreateLine(name, setup)
 			local icon = self.Cache[current.id]
 			
 			if icon == nil then
-				icon = T.CreateIcon(self, self:GetName() .. current.id, setup.location, {CalculateFrameSize(setup.size)})
+				icon = T.CreateSpellIcon(self, self:GetName() .. current.id, setup.location, {CalculateFrameSize(setup.size)})
 				self.Cache[current.id] = icon
 			end
 			
