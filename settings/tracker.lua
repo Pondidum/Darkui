@@ -3,133 +3,133 @@ local D, S, E = unpack(select(2, ...))
 
 S.tracker.auras = {
 	DEATHKNIGHT = {
-		{ ["id"] = 55095, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--frost fever
-		{ ["id"] = 55078,	["unit"] = "target",	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--blood plague
+		{ ["id"] = 55095, 	["unit"] = "target" },		--frost fever
+		{ ["id"] = 55078,	["unit"] = "target" },		--blood plague
 		
-		{ ["id"] = 48707,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--ams
-		{ ["id"] = 48792,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--ice bound fortitude
-		{ ["id"] = 77535,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--blood shield
-		{ ["id"] = 81256,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--dancing rune weapon
-		{ ["id"] = 49039,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--lichborne
-		{ ["id"] = 55233,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--vampiric blood
-		{ ["id"] = 49222,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main",	["stacks"] = "ONLY"  },		--bone shield
-		{ ["id"] = 45529,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--blood tap
+		{ ["id"] = 48707,	["unit"] = "player" },		--ams
+		{ ["id"] = 48792,	["unit"] = "player" },		--ice bound fortitude
+		{ ["id"] = 77535,	["unit"] = "player" },		--blood shield
+		{ ["id"] = 81256,	["unit"] = "player" },		--dancing rune weapon
+		{ ["id"] = 49039,	["unit"] = "player" },		--lichborne
+		{ ["id"] = 55233,	["unit"] = "player" },		--vampiric blood
+		{ ["id"] = 49222,	["unit"] = "player", 	["stacks"] = "ONLY"  },		--bone shield
+		{ ["id"] = 45529,	["unit"] = "player" },		--blood tap
 
-		{ ["id"] = 53365,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--unholy strength (rune of the fallen crusader)
-		{ ["id"] = 51271,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--pillar of frost
-		{ ["id"] = 59052,	["unit"] = "player",	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main",	["stacks"] = "ONLY" },		--freezing fog (rime)
+		{ ["id"] = 53365,	["unit"] = "player" },		--unholy strength (rune of the fallen crusader)
+		{ ["id"] = 51271,	["unit"] = "player" },		--pillar of frost
+		{ ["id"] = 59052,	["unit"] = "player", 	["stacks"] = "ONLY" },		--freezing fog (rime)
 
 	},
 	DRUID = {
-		{ ["id"] = 33876,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--mangle
-		{ ["id"] = 1822, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--rake
-		{ ["id"] = 1079, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--rip
+		{ ["id"] = 33876,	["unit"] = "target" },		--mangle
+		{ ["id"] = 1822, 	["unit"] = "target" },		--rake
+		{ ["id"] = 1079, 	["unit"] = "target" },		--rip
 
-		{ ["id"] = 52610, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--savage roar
-		{ ["id"] = 5217, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--tigers fury
-		{ ["id"] = 50334, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--Berserk
+		{ ["id"] = 52610, 	["unit"] = "player" }, 		--savage roar
+		{ ["id"] = 5217, 	["unit"] = "player" }, 		--tigers fury
+		{ ["id"] = 50334, 	["unit"] = "player" }, 		--Berserk
 		 
 	},
 	HUNTER = {
-		{ ["id"] = 1978, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--serpent sting
-		{ ["id"] = 3674, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--black arrow
-		{ ["id"] = 53301, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--explosive shot
+		{ ["id"] = 1978, 	["unit"] = "target" },		--serpent sting
+		{ ["id"] = 3674, 	["unit"] = "target" },		--black arrow
+		{ ["id"] = 53301, 	["unit"] = "target" },		--explosive shot
 
-		{ ["id"] = 56453, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main",	["stacks"] = "ONLY" },		--lock n load
+		{ ["id"] = 56453, 	["unit"] = "player", 	["stacks"] = "ONLY" },		--lock n load
 	},
 	MAGE = {
-		{ ["id"] = 92315, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--pyroblast!
-		{ ["id"] = 12654, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--ignite
-		{ ["id"] = 44457, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--living bomb
-		{ ["id"] = 83853, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--combustion
-		{ ["id"] = 22959, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--critical mass
-		{ ["id"] = 31661, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--dragons breath
+		{ ["id"] = 92315, 	["unit"] = "target" },		--pyroblast!
+		{ ["id"] = 12654, 	["unit"] = "target" },		--ignite
+		{ ["id"] = 44457, 	["unit"] = "target" },		--living bomb
+		{ ["id"] = 83853, 	["unit"] = "target" },		--combustion
+		{ ["id"] = 22959, 	["unit"] = "target" },		--critical mass
+		{ ["id"] = 31661, 	["unit"] = "target" },		--dragons breath
 
-		{ ["id"] = 48108, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--hot streak
-		{ ["id"] = 64343, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--impact
+		{ ["id"] = 48108, 	["unit"] = "player" },		--hot streak
+		{ ["id"] = 64343, 	["unit"] = "player" },		--impact
 	},
 	PALADIN = {
-		{ ["id"] = 84963, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--inquisition
+		{ ["id"] = 84963, 	["unit"] = "player" },		--inquisition
 	},
 	PRIEST = {
-		{ ["id"] = 2944, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--devouring plague
-		{ ["id"] = 589, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--SW:P
-		{ ["id"] = 34914, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--vampiric touch
+		{ ["id"] = 2944, 	["unit"] = "target" },		--devouring plague
+		{ ["id"] = 589, 	["unit"] = "target" },		--SW:P
+		{ ["id"] = 34914, 	["unit"] = "target" },		--vampiric touch
 
-		{ ["id"] = 87153, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--dark archangel
+		{ ["id"] = 87153, 	["unit"] = "player" },		--dark archangel
 	},
 	ROGUE = {
-		{ ["id"] = 73651, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--recuperate
-		{ ["id"] = 5171, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--slice n dice	
+		{ ["id"] = 73651, 	["unit"] = "player" },		--recuperate
+		{ ["id"] = 5171, 	["unit"] = "player" },		--slice n dice	
 	},
 	SHAMAN = {
-		{ ["id"] = 8050, 	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" }, 	--flameshock
+		{ ["id"] = 8050, 	["unit"] = "target" },		--flameshock
 
-		{ ["id"] = 55277, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--stoneclaw totem
-		{ ["id"] = 79206, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--spiritwalker's grace
-		{ ["id"] = 64701, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--elemental mastery
+		{ ["id"] = 55277, 	["unit"] = "player" },		--stoneclaw totem
+		{ ["id"] = 79206, 	["unit"] = "player" },		--spiritwalker's grace
+		{ ["id"] = 64701, 	["unit"] = "player" },		--elemental mastery
 
-		{ ["id"] = 324, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "CooldownLeft",	["stacks"] = "ONLY", ["highlight"] = "MAXSTACKS", ["maxstacks"] = 9 }, 	--lightning shield
+		{ ["id"] = 324, 	["unit"] = "player", 	["display"] = "CooldownCenterLeft",	["stacks"] = "ONLY", ["highlight"] = "MAXSTACKS", ["maxstacks"] = 9 }, 	--lightning shield
 	},
 	WARLOCK = {
-		{ ["id"] = 172,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--corruption
-		{ ["id"] = 603,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--bane of doom
-		{ ["id"] = 348,		["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--immolate
-		{ ["id"] = 86000,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--hand of guldan
+		{ ["id"] = 172,		["unit"] = "target" },		--corruption
+		{ ["id"] = 603,		["unit"] = "target" },		--bane of doom
+		{ ["id"] = 348,		["unit"] = "target" },		--immolate
+		{ ["id"] = 86000,	["unit"] = "target" },		--hand of guldan
 
-		{ ["id"] = 30108,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--unstable affliction
-		{ ["id"] = 48181,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--haunt
+		{ ["id"] = 30108,	["unit"] = "target" },		--unstable affliction
+		{ ["id"] = 48181,	["unit"] = "target" },		--haunt
 
-		{ ["id"] = 47241, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--metamorphosis
-		{ ["id"] = 79460, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felhunter
-		{ ["id"] = 79462, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--demon soul: felguard
-		{ ["id"] = 63167, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--decimation	
-		{ ["id"] = 71165, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main", 			["stacks"] = "ONLY"  }, 	--decimation	
+		{ ["id"] = 47241, 	["unit"] = "player" },		--metamorphosis
+		{ ["id"] = 79460, 	["unit"] = "player" },		--demon soul: felhunter
+		{ ["id"] = 79462, 	["unit"] = "player" },		--demon soul: felguard
+		{ ["id"] = 63167, 	["unit"] = "player" },		--decimation	
+		{ ["id"] = 71165, 	["unit"] = "player", 	["stacks"] = "ONLY"  }, 	--decimation	
 
 	},
 	WARRIOR = {
-		{ ["id"] = 94009,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--rend
-		{ ["id"] = 12294,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--mortal strike
-		{ ["id"] = 86346,	["unit"] = "target", 	["filter"] = "PLAYER|HARMFUL",	["display"] = "Main" },		--colossus smash
+		{ ["id"] = 94009,	["unit"] = "target" },		--rend
+		{ ["id"] = 12294,	["unit"] = "target" },		--mortal strike
+		{ ["id"] = 86346,	["unit"] = "target" },		--colossus smash
 
-		{ ["id"] = 12964, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--battle trance
-		{ ["id"] = 86627, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--Incite
+		{ ["id"] = 12964, 	["unit"] = "player" },		--battle trance
+		{ ["id"] = 86627, 	["unit"] = "player" },		--Incite
 
 
-		{ ["id"] = 85730, 	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" }, 	--deadly calm
-		{ ["id"] = 1719,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Recklessness
-		{ ["id"] = 12328,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Sweeping Strikes
+		{ ["id"] = 85730, 	["unit"] = "player" },		--deadly calm
+		{ ["id"] = 1719,	["unit"] = "player" },		--Recklessness
+		{ ["id"] = 12328,	["unit"] = "player" },		--Sweeping Strikes
 		 
 	},
 	GENERAL = {
 		--potions
-		{ ["id"] = 79633,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Potion of the Tolvir
-		{ ["id"] = 79634,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Golemblood Potion
-		{ ["id"] = 79475,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Earthen Potion	
-		{ ["id"] = 79476,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Volcanic Potion
+		{ ["id"] = 79633,	["unit"] = "player" },		--Potion of the Tolvir
+		{ ["id"] = 79634,	["unit"] = "player" },		--Golemblood Potion
+		{ ["id"] = 79475,	["unit"] = "player" },		--Earthen Potion	
+		{ ["id"] = 79476,	["unit"] = "player" },		--Volcanic Potion
 		
 		--professions:
-		{ ["id"] = 96228,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Engineering - Synapse Springs - Agility
-		{ ["id"] = 96229,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Engineering - Synapse Springs - Strength
-		{ ["id"] = 96230,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Engineering - Synapse Springs - Intellect
-		{ ["id"] = 75170,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Tailoring - Lightweave
+		{ ["id"] = 96228,	["unit"] = "player" },		--Engineering - Synapse Springs - Agility
+		{ ["id"] = 96229,	["unit"] = "player" },		--Engineering - Synapse Springs - Strength
+		{ ["id"] = 96230,	["unit"] = "player" },		--Engineering - Synapse Springs - Intellect
+		{ ["id"] = 75170,	["unit"] = "player" },		--Tailoring - Lightweave
 
 		--racials:
-		{ ["id"] = 33702,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Blood Fury - Spell Power
-		{ ["id"] = 20572,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Blood Fury - Attack Power
+		{ ["id"] = 33702,	["unit"] = "player" },		--Blood Fury - Spell Power
+		{ ["id"] = 20572,	["unit"] = "player" },		--Blood Fury - Attack Power
 
-		{ ["id"] = 26297,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--Berserking
+		{ ["id"] = 26297,	["unit"] = "player" },		--Berserking
 
 		--spells
-		{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",			["display"] = "Main" },		--bloodlust
-		{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",			["display"] = "Main" },		--timewarp
+		{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",	},		--bloodlust
+		{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",	},		--timewarp
 
 		--enchants
-		{ ["id"] = 74241,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--power torrent
+		{ ["id"] = 74241,	["unit"] = "player" },		--power torrent
 		
 
 		--trinkets
-		{ ["id"] = 102662,	["unit"] = "player", 	["filter"] = "PLAYER|HELPFUL",	["display"] = "Main" },		--foul gift
+		{ ["id"] = 102662,	["unit"] = "player" },		--foul gift
 	}
 
 }	
@@ -157,8 +157,7 @@ S.tracker.cooldowns = {
 	},
 	SHAMAN = {
 		{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
-		{ ["id"] = 57994,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--wind shear
-		{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterLeft" },	--earth shock
+		{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--earth shock
 
 		{ ["id"] = 73920,	["spec"] = "Restoration",	["display"] = "CooldownCenterRight" },	--healing rain
 		{ ["id"] = 61295,	["spec"] = "Restoration",	["display"] = "CooldownCenter" },		--riptide
@@ -194,70 +193,58 @@ S.tracker.totems = {
 }
 
 S.tracker.displays = {
-	["Main"] = {
+	[1] = {
+		["name"] = "Main",
 		["type"] = "Line", 
 		["setup"] =  {
 			["location"] = {"CENTER", UIParent, "CENTER", 0, -200},
 			["size"] = {500, 32},
 			["maxtime"] = 60,
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1
 		}
 	},
-	["CooldownCenter"] = {
-		["type"] = "Stack",
+	[2] = {
+		["name"] = "CooldownCenter",	
+		["type"] = "Icon",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", 0, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 0, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownCenterLeft"] = {
-		["type"] = "Stack",
+	[3] = {
+		["name"] = "CooldownCenterLeft",	
+		["type"] = "Icon",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", -50, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", -50, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownCenterRight"] = {
-		["type"] = "Stack",
+	[4] = {
+		["name"] = "CooldownCenterRight",	
+		["type"] = "Icon",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", 50, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 50, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownLeft"] = {
-		["type"] = "Stack",
+	[5] = {
+		["name"] = "CooldownLeft",	
+		["type"] = "Icon",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", -100, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", -100, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	},
-	["CooldownRight"] = {
-		["type"] = "Stack",
+	[6] = {
+		["name"] = "CooldownRight",	
+		["type"] = "Icon",
 		["setup"] = {
-			["location"] = {"CENTER", UIParent, "CENTER", 100, -100},
+			["location"] = {"BOTTOM", "DarkuiTrackerLineMain", "TOP", 100, 40},
 			["size"] = {32, 32},
 			["state"] = "COMBATFADE",
-			["readyalpha"] = 1,
-			["combatalpha"] = 0.3,
-			["outofcombatalpha"] = 0.1,
 		}
 	}
 }

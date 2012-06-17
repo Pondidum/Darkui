@@ -22,7 +22,6 @@ local function ApplyAuras(auras)
 
 		local data = {
 				["id"] = current.id,
-				["display"] = (spellID ~= nil),
 				["texture"] = icon,
 				["expiry"] = expires,
 				["filter"] = current.filter,

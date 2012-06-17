@@ -82,10 +82,10 @@ local function OnUpdate(self, elapsed)
 			
 			local data = {
 				["id"] = current.id,
-				["display"] = ready,
 				["texture"] = icon,
 				["expiry"] = expiry,
-				["filter"] = "HELPFUL",
+				["anchor"] = "TOP",
+				["anchoroffset"] = -5,
 			}
 
 			D.Tracker.UpdateDisplayData(current.display, data)

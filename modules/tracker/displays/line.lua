@@ -13,6 +13,10 @@ end
 
 local function GetAnchor(current)
 
+	if current.anchor and current.anchoroffset then
+		return current.anchor, current.anchoroffset
+	end
+
 	if current.filter == nil or current.filter == "" then
 		return "CENTER", 0
 	end
@@ -73,22 +77,24 @@ function T.CreateLine(name, setup)
 			
 			local icon = self.Cache[current.id]
 			
-			if current.display then
-				
-				if icon == nil then
-					icon = T.CreateIcon(self, self:GetName() .. current.id, setup.location, {CalculateFrameSize(setup.size)})
-					self.Cache[current.id] = icon
-				end
-				
-				icon:Update(current)
-				
-				local timeMax = setup.maxtime
-				local remaining = current.expiry - GetTime()
-				
-				if remaining > timeMax then
-					remaining = timeMax
-				end
-				
+			if icon == nil then
+				icon = T.CreateSpellIcon(self, self:GetName() .. current.id, setup.location, {CalculateFrameSize(setup.size)})
+				self.Cache[current.id] = icon
+			end
+			
+			icon:Update(current)
+
+			local timeMax = setup.maxtime
+			local remaining = (current.expiry or 0) - GetTime()
+			
+			if remaining > timeMax then
+				remaining = timeMax
+			end
+			
+			if remaining <= 0 then
+				icon:Hide()
+			else
+
 				local base = 0.3 --parent.settings.bar.time_compression
 				local pos = GetPos(remaining, timeMax, base) * self:GetWidth()
 				local anchor, offset = GetAnchor(current)
@@ -96,12 +102,6 @@ function T.CreateLine(name, setup)
 				icon:ClearAllPoints()
 				icon:SetPoint(anchor, self, "LEFT", pos, offset)
 				icon:Show()
-				
-			else
-				
-				if icon ~= nil then
-					icon:Hide()
-				end
 				
 			end
 			
