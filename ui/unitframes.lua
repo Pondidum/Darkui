@@ -67,18 +67,18 @@ local function PostCreateAura(element, button)
 	
 end
 
-local function PostUpdateAura(icons, unit, icon, index, offset, filter, isDebuff, duration, timeLeft)
-	local _, _, _, _, dtype, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, icon.filter)
+local function PostUpdateAura(self, unit, icon, index, offset)
 
-	if(icon.debuff) then
-		if(not UnitIsFriend("player", unit) and icon.owner ~= "player" and icon.owner ~= "vehicle") then
-			--icon:SetBackdropBorderColor(unpack(C["media"].bordercolor))
+	local _, _, _, _, dispellType, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, icon.filter)
+
+	if icon.isDebuff then
+
+		if not UnitIsFriend("player", unit) and icon.owner ~= "player" and icon.owner ~= "vehicle" then
 			icon.icon:SetDesaturated(true)
 		else
-			local color = DebuffTypeColor[dtype] or DebuffTypeColor.none
-			--icon:SetBackdropBorderColor(color.r * 0.6, color.g * 0.6, color.b * 0.6)
 			icon.icon:SetDesaturated(false)
 		end
+		
 	end
 	
 end
