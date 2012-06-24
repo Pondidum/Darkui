@@ -57,6 +57,7 @@ S.tracker.auras = {
 		{ ["id"] = 34914, 	["unit"] = "target" },		--vampiric touch
 
 		{ ["id"] = 87153, 	["unit"] = "player" },		--dark archangel
+		{ ["id"] = 87118, 	["unit"] = "player", 	["stacks"] = "SHOW" },		--dark evanglism
 	},
 	ROGUE = {
 		{ ["id"] = 73651, 	["unit"] = "player" },		--recuperate
