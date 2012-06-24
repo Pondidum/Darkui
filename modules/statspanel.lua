@@ -8,7 +8,7 @@ local FRAME_SPACING = 5
 local panel = CreateFrame("Frame", D.Addon.name .. "Stats", DarkuiFrame)
 S.stats.panel = panel
 
-panel:SetPoint("BOTTOMRIGHT", DarkuiActionBarBackground, "BOTTOMLEFT", 0, 0)
+panel:SetPoint("TOP", DarkuiActionBarBackground, "BOTTOM", 0, -3)
 panel:SetSize(unpack(S.chat.editsize))
 panel.frames = {}
 
