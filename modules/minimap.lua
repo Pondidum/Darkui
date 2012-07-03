@@ -51,15 +51,6 @@ GuildInstanceDifficulty:ClearAllPoints()
 GuildInstanceDifficulty:SetParent(Minimap)
 GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 0)
 
-
-local function UpdateLFGTooltip()
-	LFGSearchStatus:SetPoint("BOTTOMRIGHT", MiniMapLFGFrame, "BOTTOMRIGHT", 0, 0)
-end
-E:Register("PLAYER_LOGIN", UpdateLFGTooltip)
-
-
-
-
 --enable mousewheel
 Minimap:EnableMouseWheel(true)
 Minimap:SetScript("OnMouseWheel", function(self, d)
