@@ -9,30 +9,36 @@ local function ApplyAuras(auras)
 		
 		local current = auras[i]
 		
-
 		if D.Tracker.ShouldDisplayForSpec(current) then
 
 			local name = GetSpellInfo(current.id)
 			local _, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellID = UnitAura(current.unit, name, nil, current.filter)
+		
+			if name ~= nil then
 			
-			if current.highlight == "MAXSTACKS" then
+				if current.highlight == "MAXSTACKS" then
 
-				if count == current.maxstacks then
-					expires = nil
+					if count == current.maxstacks then
+						expires = nil
+					end
 				end
 
+				local data = {
+						["id"] = current.id,
+						["texture"] = icon,
+						["expiry"] = expires,
+						["filter"] = current.filter,
+						["stacks"] = count,
+						["stacksmode"] = current.stacks
+					}
+			
+				D.Tracker.UpdateDisplayData(current.display, data)
+			
+			else
+
+				print(current.id)
 			end
 
-			local data = {
-					["id"] = current.id,
-					["texture"] = icon,
-					["expiry"] = expires,
-					["filter"] = current.filter,
-					["stacks"] = count,
-					["stacksmode"] = current.stacks
-				}
-			
-			D.Tracker.UpdateDisplayData(current.display, data)
 		end
 		
 	end

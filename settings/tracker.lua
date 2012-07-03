@@ -39,7 +39,6 @@ S.tracker.auras = {
 
 		{ ["id"] = 56453, 	["unit"] = "player", 	
 							["stacks"] = "ONLY" },		--lock n load
-		{ ["id"] = 56453, 	["unit"] = "player" },		--lock n load
 	},
 	MAGE = {
 		{ ["id"] = 92315, 	["unit"] = "target" },		--pyroblast!
@@ -71,9 +70,7 @@ S.tracker.auras = {
 	SHAMAN = {
 		{ ["id"] = 8050, 	["unit"] = "target" },		--flameshock
 
-		{ ["id"] = 55277, 	["unit"] = "player" },		--stoneclaw totem
 		{ ["id"] = 79206, 	["unit"] = "player" },		--spiritwalker's grace
-		{ ["id"] = 64701, 	["unit"] = "player" },		--elemental mastery
 
 		{ ["id"] = 324, 	["unit"]      = "player", 	
 							["display"]   = "CooldownCenterLeft",	
@@ -131,7 +128,6 @@ S.tracker.auras = {
 		{ ["id"] = 96228,	["unit"] = "player" },		--Engineering - Synapse Springs - Agility
 		{ ["id"] = 96229,	["unit"] = "player" },		--Engineering - Synapse Springs - Strength
 		{ ["id"] = 96230,	["unit"] = "player" },		--Engineering - Synapse Springs - Intellect
-		{ ["id"] = 75170,	["unit"] = "player" },		--Tailoring - Lightweave
 
 		--racials:
 		{ ["id"] = 33702,	["unit"] = "player" },		--Blood Fury - Spell Power
