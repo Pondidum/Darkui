@@ -324,7 +324,6 @@ do
 	end
 		 
 	for i=1, 10 do
-		D.StyleButton(_G["ShapeshiftButton"..i], true)
 		D.StyleButton(_G["PetActionButton"..i], true)
 	end
 

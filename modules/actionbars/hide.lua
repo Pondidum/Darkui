@@ -9,15 +9,11 @@ if not S.actionbars.enable == true then return end
 do
 	MainMenuBar:SetScale(0.00001)
 	MainMenuBar:EnableMouse(false)
-	VehicleMenuBar:SetScale(0.00001)
-	VehicleMenuBar:EnableMouse(false)
 	PetActionBarFrame:EnableMouse(false)
-	ShapeshiftBarFrame:EnableMouse(false)
 	
 	local elements = {
-		MainMenuBar, MainMenuBarArtFrame, BonusActionBarFrame, VehicleMenuBar,
-		PossessBarFrame, PetActionBarFrame, ShapeshiftBarFrame,
-		ShapeshiftBarLeft, ShapeshiftBarMiddle, ShapeshiftBarRight,
+		MainMenuBar, MainMenuBarArtFrame, BonusActionBarFrame,
+		PossessBarFrame, PetActionBarFram
 	}
 	for _, element in pairs(elements) do
 		if element:GetObjectType() == "Frame" then
