@@ -151,5 +151,5 @@ S["utilities"] = {
 
 
 S["tracker"] = {
-	["enable"] = true,
+	["enable"] = false,
 }

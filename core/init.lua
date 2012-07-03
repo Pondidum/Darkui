@@ -9,13 +9,13 @@ end
 
 local GetPlayerSpecName = function()
 
-	local tab = GetPrimaryTalentTree()
+	local spec = GetSpecialization()
 
-	if tab == nil then
+	if spec == nil then
 		return ""
 	end
 
-	return select(2, GetTalentTabInfo(tab))
+	return select(2, GetSpecializationInfo(spec))
 
 end
 
