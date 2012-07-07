@@ -69,10 +69,12 @@ local function OnPlayerEnteringWorld()
 	CreateDisplays()
 	D.Tracker.SetCombatState()
 
+	E:Unregister("PLAYER_ENTERING_WORLD", "Darkui_Tracker_PlayerEnteringWorld")
+	
 end
 
 E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
 
 E:Register("PLAYER_REGEN_ENABLED", D.Tracker.CombatExit)
 E:Register("PLAYER_REGEN_DISABLED", D.Tracker.CombatEnter)
-E:Register("PLAYER_ENTERING_WORLD", OnPlayerEnteringWorld)
+E:Register("PLAYER_ENTERING_WORLD", OnPlayerEnteringWorld, "Darkui_Tracker_PlayerEnteringWorld")

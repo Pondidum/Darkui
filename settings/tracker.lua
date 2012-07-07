@@ -70,7 +70,12 @@ S.tracker.auras = {
 		{ ["id"] = 79206, 	["unit"] = "player" },		--spiritwalker's grace
 		{ ["id"] = 64701, 	["unit"] = "player" },		--elemental mastery
 
-		{ ["id"] = 324, 	["unit"] = "player", 	["display"] = "CooldownCenterLeft",	["stacks"] = "ONLY", ["highlight"] = "MAXSTACKS", ["maxstacks"] = 9 }, 	--lightning shield
+		{ ["id"] = 324, 	["unit"] = "player", 	
+							["display"] = "CooldownCenterLeft",	
+							["stacks"] = "ONLY", 
+							["highlight"] = "MAXSTACKS", 
+							["maxstacks"] = 9,
+							["spec"] = "Elemental" }, --lightning shield
 	},
 	WARLOCK = {
 		{ ["id"] = 172,		["unit"] = "target" },		--corruption
@@ -85,7 +90,8 @@ S.tracker.auras = {
 		{ ["id"] = 79460, 	["unit"] = "player" },		--demon soul: felhunter
 		{ ["id"] = 79462, 	["unit"] = "player" },		--demon soul: felguard
 		{ ["id"] = 63167, 	["unit"] = "player" },		--decimation	
-		{ ["id"] = 71165, 	["unit"] = "player", 	["stacks"] = "ONLY"  }, 	--decimation	
+		{ ["id"] = 71165, 	["unit"] = "player", 	
+							["stacks"] = "ONLY"  }, 	--decimation	
 
 	},
 	WARRIOR = {
@@ -122,8 +128,11 @@ S.tracker.auras = {
 		{ ["id"] = 26297,	["unit"] = "player" },		--Berserking
 
 		--spells
-		{ ["id"] = 2825,	["unit"] = "player", 	["filter"] = "HELPFUL",	},		--bloodlust
-		{ ["id"] = 80353,	["unit"] = "player", 	["filter"] = "HELPFUL",	},		--timewarp
+		{ ["id"] = 2825,	["unit"] = "player", 	
+							["filter"] = "HELPFUL",	},		--bloodlust
+
+		{ ["id"] = 80353,	["unit"] = "player", 	
+							["filter"] = "HELPFUL",	},		--timewarp
 
 		--enchants
 		{ ["id"] = 74241,	["unit"] = "player" },		--power torrent
@@ -159,6 +168,8 @@ S.tracker.cooldowns = {
 	SHAMAN = {
 		{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
 		{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--earth shock
+
+		{ ["id"] = 51533,	["spec"] = "Enhancement",	["display"] = "CooldownCenter" },		--earth shock
 
 		{ ["id"] = 73920,	["spec"] = "Restoration",	["display"] = "CooldownCenterRight" },	--healing rain
 		{ ["id"] = 61295,	["spec"] = "Restoration",	["display"] = "CooldownCenter" },		--riptide

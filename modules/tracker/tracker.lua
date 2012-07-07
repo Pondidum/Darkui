@@ -82,6 +82,42 @@ function Tracker.GetAlpha(setup, display)
 
 end
 
+
+function Tracker.ShouldDisplayForSpec(item)
+
+	if item.spec == nil then
+		return true 
+	end
+
+	if item.spec == D.Player.spec then
+		return true 
+	end
+	
+	if D.Player.spec == "" or D.Player.spec == nil then
+		return true
+	end
+
+	local forSpec = strupper(item.spec)		--screw you turkish i
+	local currentSpec = strupper(D.Player.spec)
+
+	if forSpec == "ALL" then
+		return true 
+	end
+
+	if forSpec == currentSpec then
+		return true 
+	end
+
+	local specs = {strsplit("|", forSpec)}
+
+	if tContains(specs, currentSpec) then
+		return true
+	end
+	
+	return false 
+
+end
+
 function Tracker.CreateDisplay(type, name, setup)
 
 	local functionName = "Create" .. type	--fix casing 
