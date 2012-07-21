@@ -457,65 +457,65 @@ local bordercolors = {
 	{.42,.18,.74},   -- Air
 }
 
-local function StyleTotemSlotButton(button, index)
-	D.CreateShadow(button)
+-- local function StyleTotemSlotButton(button, index)
+-- 	D.CreateShadow(button)
 	
-	button.overlayTex:SetTexture(nil)
-	button.background:SetDrawLayer("ARTWORK")
-	button.background:ClearAllPoints()
-	button.background:SetPoint("TOPLEFT",button,"TOPLEFT",0,0)
-	button.background:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",0,0)
-	if not InCombatLockdown() then 
-		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize) 
-	end
-	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
-	D.StyleButton(button)
-end
-hooksecurefunc("MultiCastSlotButton_Update",function(self, slot) StyleTotemSlotButton(self,tonumber( string.match(self:GetName(),"MultiCastSlotButton(%d)"))) end)
+-- 	button.overlayTex:SetTexture(nil)
+-- 	button.background:SetDrawLayer("ARTWORK")
+-- 	button.background:ClearAllPoints()
+-- 	button.background:SetPoint("TOPLEFT",button,"TOPLEFT",0,0)
+-- 	button.background:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",0,0)
+-- 	if not InCombatLockdown() then 
+-- 		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize) 
+-- 	end
+-- 	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
+-- 	D.StyleButton(button)
+-- end
+-- hooksecurefunc("MultiCastSlotButton_Update",function(self, slot) StyleTotemSlotButton(self,tonumber( string.match(self:GetName(),"MultiCastSlotButton(%d)"))) end)
 
 -- Skin the actual totem buttons
-local function StyleTotemActionButton(button, index)
-	local icon = select(1,button:GetRegions())
+-- local function StyleTotemActionButton(button, index)
+-- 	local icon = select(1,button:GetRegions())
 	
-	icon:SetTexCoord(.09,.91,.09,.91)
-	icon:SetDrawLayer("ARTWORK")
-	icon:SetPoint("TOPLEFT",button,"TOPLEFT",0,0)
-	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",0,0)
+-- 	icon:SetTexCoord(.09,.91,.09,.91)
+-- 	icon:SetDrawLayer("ARTWORK")
+-- 	icon:SetPoint("TOPLEFT",button,"TOPLEFT",0,0)
+-- 	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",0,0)
 	
-	button.overlayTex:SetTexture(nil)
-	button.overlayTex:Hide()
-	button:GetNormalTexture():SetTexCoord(0,0,0,0)
+-- 	button.overlayTex:SetTexture(nil)
+-- 	button.overlayTex:Hide()
+-- 	button:GetNormalTexture():SetTexCoord(0,0,0,0)
 	
-	if not InCombatLockdown() and button.slotButton then
-		button:ClearAllPoints()
-		button:SetAllPoints(button.slotButton)
-		button:SetFrameLevel(button.slotButton:GetFrameLevel()+1)
-	end
+-- 	if not InCombatLockdown() and button.slotButton then
+-- 		button:ClearAllPoints()
+-- 		button:SetAllPoints(button.slotButton)
+-- 		button:SetFrameLevel(button.slotButton:GetFrameLevel()+1)
+-- 	end
 	
-	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
-	button:SetBackdropColor(0,0,0,0)
+-- 	button:SetBackdropBorderColor(unpack(bordercolors[((index-1) % 4) + 1]))
+-- 	button:SetBackdropColor(0,0,0,0)
 	
-	D.StyleButton(button, true)
+-- 	D.StyleButton(button, true)
 	
-end
-hooksecurefunc("MultiCastActionButton_Update",function(actionButton, actionId, actionIndex, slot) StyleTotemActionButton(actionButton,actionIndex) end)
+-- end
+-- hooksecurefunc("MultiCastActionButton_Update",function(actionButton, actionId, actionIndex, slot) StyleTotemActionButton(actionButton,actionIndex) end)
 
 -- Skin the summon and recall buttons
-local function StyleTotemSpellButton(button, index)
-	if not button then return end
-	local icon = select(1,button:GetRegions())
-	icon:SetTexCoord(.09,.91,.09,.91)
-	icon:SetDrawLayer("ARTWORK")
-	icon:SetPoint("TOPLEFT",button,"TOPLEFT", 0, 0)
-	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT", 0, 0)
-	D.CreateShadow(button)
-	button:GetNormalTexture():SetTexture(nil)
-	if not InCombatLockdown() then 
-		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize) 
-	end
-	_G[button:GetName().."Highlight"]:SetTexture(nil)
-	_G[button:GetName().."NormalTexture"]:SetTexture(nil)
-	D.StyleButton(button)
-end
-hooksecurefunc("MultiCastSummonSpellButton_Update", function(self) StyleTotemSpellButton(self,0) end)
-hooksecurefunc("MultiCastRecallSpellButton_Update", function(self) StyleTotemSpellButton(self,5) end)
+-- local function StyleTotemSpellButton(button, index)
+-- 	if not button then return end
+-- 	local icon = select(1,button:GetRegions())
+-- 	icon:SetTexCoord(.09,.91,.09,.91)
+-- 	icon:SetDrawLayer("ARTWORK")
+-- 	icon:SetPoint("TOPLEFT",button,"TOPLEFT", 0, 0)
+-- 	icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT", 0, 0)
+-- 	D.CreateShadow(button)
+-- 	button:GetNormalTexture():SetTexture(nil)
+-- 	if not InCombatLockdown() then 
+-- 		button:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize) 
+-- 	end
+-- 	_G[button:GetName().."Highlight"]:SetTexture(nil)
+-- 	_G[button:GetName().."NormalTexture"]:SetTexture(nil)
+-- 	D.StyleButton(button)
+-- end
+-- hooksecurefunc("MultiCastSummonSpellButton_Update", function(self) StyleTotemSpellButton(self,0) end)
+-- hooksecurefunc("MultiCastRecallSpellButton_Update", function(self) StyleTotemSpellButton(self,5) end)
