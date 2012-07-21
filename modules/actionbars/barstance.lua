@@ -99,6 +99,8 @@ E:Register("PLAYER_LOGIN", function()
 		local _, name = GetShapeshiftFormInfo(i)
 		if name then
 			button:Show()
+		else
+			button:Hide()
 		end
 		
 	end
