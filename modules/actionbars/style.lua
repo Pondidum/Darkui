@@ -190,8 +190,8 @@ local function stylesmallbutton(normal, button, icon, name, pet)
 end
 
 function D.StyleShift()
-	for i=1, NUM_SHAPESHIFT_SLOTS do
-		local name = "ShapeshiftButton"..i
+	for i=1, NUM_STANCE_SLOTS do
+		local name = "StanceButton"..i
 		local button  = _G[name]
 		local icon  = _G[name.."Icon"]
 		local normal  = _G[name.."NormalTexture"]
@@ -236,7 +236,7 @@ local function updatehotkey(self, actionButtonType)
 end
 
 -- rescale cooldown spiral to fix texture.
-local buttonNames = { "ActionButton",  "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarLeftButton", "MultiBarRightButton", "ShapeshiftButton", "PetActionButton", "MultiCastActionButton"}
+local buttonNames = { "ActionButton",  "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarLeftButton", "MultiBarRightButton", "StanceButton", "PetActionButton", "MultiCastActionButton"}
 for _, name in ipairs( buttonNames ) do
 	for index = 1, 12 do
 		local buttonName = name .. tostring(index)
@@ -324,6 +324,7 @@ do
 	end
 		 
 	for i=1, 10 do
+		D.StyleButton(_G["StanceButton"..i], true)
 		D.StyleButton(_G["PetActionButton"..i], true)
 	end
 

@@ -30,6 +30,7 @@
 	<Script file="modules\actionbars\bar5.lua" />
 	<Script file="modules\actionbars\barextra.lua" />
 	<Script file="modules\actionbars\barpet.lua" />
+	<Script file="modules\actionbars\barstance.lua" />
 	<Script file="modules\actionbars\bars.lua" />
 	<Script file="modules\actionbars\bartotem.lua" />
 	<Script file="modules\actionbars\bind.lua" />

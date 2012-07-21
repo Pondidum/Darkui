@@ -10,8 +10,10 @@ do
 	MainMenuBar:SetScale(0.00001)
 	MainMenuBar:EnableMouse(false)
 	PetActionBarFrame:EnableMouse(false)
+	StanceBarFrame:EnableMouse(false)
 	
 	local elements = {
+		StanceBarFrame,	StanceBarLeft, StanceBarMiddle, StanceBarRight,
 		MainMenuBar, MainMenuBarArtFrame, BonusActionBarFrame,
 		PossessBarFrame, PetActionBarFram
 	}
@@ -42,7 +44,7 @@ do
 		"MultiBarRight",
 		"MultiBarBottomLeft",
 		"MultiBarBottomRight",
-		"ShapeshiftBarFrame",
+		"StanceBarFrame",
 		"PossessBarFrame",
 		"PETACTIONBAR_YPOS",
 		"MultiCastActionBarFrame",
