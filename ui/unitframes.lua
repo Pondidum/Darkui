@@ -543,7 +543,7 @@ local ClassSpecific = {
 		runes[3]:SetPoint("BOTTOMLEFT", runes[1], "TOPLEFT", 0, offset)
 		runes[5]:SetPoint("BOTTOMLEFT", runes[3], "TOPLEFT", 0, offset)
 		
-		self.Runes = runes
+		self.DarkRunes = runes
 	end,
 	
 	DRUID = function(self, ...)
