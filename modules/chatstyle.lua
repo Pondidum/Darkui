@@ -13,25 +13,9 @@ local function SetupChatStyle(frame)
 	tabtext:ClearAllPoints()
 	tabtext:SetPoint("LEFT", tab, "LEFT")
 
-	-- frame:SetClampRectInsets(0,0,0,0)
-	-- frame:SetClampedToScreen(false)
-	
-	-- frame:ClearAllPoints()
-	-- frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, S.chat.editsize[2] + 5)
-	-- frame:SetPoint("BOTTOMRIGHT", "DarkuiActionBarBackground", "BOTTOMLEFT", 0, 0)
-	-- frame:SetHeight(S.chat.size[2])
-
 	SetChatWindowSavedDimensions(id, unpack(S.chat.size))
 	FCF_SavePositionAndDimensions(frame)
-	
-	-- frame.ClearAllPoints = D.Dummy
-	-- frame.SetPoint = D.Dummy
-	-- frame.SetSize = D.Dummy
 
-	-- for j = 1, #CHAT_FRAME_TEXTURES do
-	-- 	_G[chat..CHAT_FRAME_TEXTURES[j]]:SetTexture(nil)
-	-- end
-	
 	-- Removes Default ChatFrame Tabs texture
 	D.Kill(_G[format("ChatFrame%sTabLeft", id)])
 	D.Kill(_G[format("ChatFrame%sTabMiddle", id)])
@@ -50,14 +34,6 @@ local function SetupChatStyle(frame)
 	D.Kill(_G[format("ChatFrame%sTabSelectedMiddle", id)])
 	D.Kill(_G[format("ChatFrame%sTabSelectedRight", id)])
 	
-	-- -- Kills off the new method of handling the Chat Frame scroll buttons as well as the resize button
-	-- -- Note: This also needs to include the actual frame textures for the ButtonFrame onHover
-	-- D.Kill(_G[format("ChatFrame%sButtonFrameUpButton", id)])
-	-- D.Kill(_G[format("ChatFrame%sButtonFrameDownButton", id)])
-	-- D.Kill(_G[format("ChatFrame%sButtonFrameBottomButton", id)])
-	-- D.Kill(_G[format("ChatFrame%sButtonFrameMinimizeButton", id)])
-	-- D.Kill(_G[format("ChatFrame%sButtonFrame", id)])
-	
 	if id > 2 then
 	
 		tab:ClearAllPoints()
@@ -65,11 +41,6 @@ local function SetupChatStyle(frame)
 		tab.ClearAllPoints = D.Dummy
 
 	end
-	
-	-- if frame ~= COMBATLOG then
-	-- 	frame:SetFading(S.chat.enablefading)
-	-- 	frame:SetTimeVisible(S.chat.fadetime)
-	-- end
 	
 end
 
@@ -91,20 +62,30 @@ local function SizeFrame(id, frame)
 	frame:SetClampedToScreen(false)
 
 	local offset = 5 --S.chat.editsize[2] + 5
+	local height = S.chat.size[2]
 	
 	if frame == COMBATLOG then
 		offset = 0
+		height = height - CombatLogQuickButtonFrame_Custom:GetHeight()
 	end
 
-	frame:ClearAllPoints()
-	frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, offset)
-	frame:SetPoint("BOTTOMRIGHT", "DarkuiActionBarBackground", "BOTTOMLEFT", 0, 0)
-	frame:SetHeight(S.chat.size[2])
+	if frame.isDocked then
+		
+		frame:ClearAllPoints()
+		frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, offset)
+		frame:SetPoint("BOTTOMRIGHT", "DarkuiActionBarBackground", "BOTTOMLEFT", -5, 0)
 
-	frame.ClearAllPoints = D.Dummy
-	frame.SetPoint = D.Dummy
-	frame.SetSize = D.Dummy
+		frame:SetHeight(height)
 
+		frame.ClearAllPoints = D.Dummy
+		frame.SetPoint = D.Dummy
+		frame.SetSize = D.Dummy
+
+	end
+
+	frame:SetHeight(height)
+
+	
 end
 
 local function RemoveBackground(frame)
@@ -146,7 +127,7 @@ local function SetupEditBox(frame)
 	
 	edit:ClearAllPoints()
 	edit:SetPoint("TOPLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 0)
-	edit:SetPoint("RIGHT", DarkuiActionBarBackground, "LEFT", 0, 0)
+	edit:SetPoint("RIGHT", DarkuiActionBarBackground, "LEFT", -5, 0)
 	edit:SetHeight(S.chat.editsize[2])
 	
 	-- Kills off the retarded new circle around the editbox
@@ -174,13 +155,18 @@ end
 local function AddBackground()
 
 	if S.chat.background then
+
 		local frame = CreateFrame("Frame", D.Addon.name .. "ChatBackground", DarkuiFrame)
+		
 		frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 2)
-		frame:SetSize(S.chat.size[1], S.chat.size[2] + (S.chat.editsize[2] * 2))
+		frame:SetPoint("BOTTOMRIGHT", "DarkuiActionBarBackground", "BOTTOMLEFT", -5, 0)
+		frame:SetHeight(S.chat.size[2])
+
 		frame:SetFrameStrata("BACKGROUND")
 		
 		D.CreateShadow(frame)
 		D.CreateBackground(frame)
+
 	end
 
 end
@@ -202,10 +188,8 @@ local function SetupChat(self)
 
 		local frame = _G[format("ChatFrame%s", i)]
 
-		--SetupChatStyle(frame)
 		SetupEditBox(frame)
 		StyleChatFrame(frame)
-		--FCFTab_UpdateAlpha(frame)
 
 	end
 	
@@ -232,10 +216,6 @@ end
 
 D.Kill(FriendsMicroButton)
 D.Kill(ChatFrameMenuButton)
-
--- GeneralDockManager:ClearAllPoints()
--- GeneralDockManager:SetSize(unpack(S.chat.editsize))
--- GeneralDockManager:SetPoint("BottomLeft", DarkuiFrame, "BottomLeft", 0, 0)
 
 ToggleChatColorNamesByClassGroup(true, "SAY")
 ToggleChatColorNamesByClassGroup(true, "EMOTE")
