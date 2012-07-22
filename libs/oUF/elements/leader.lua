@@ -39,7 +39,14 @@ local Update = function(self, event)
 	end
 
 	local unit = self.unit
-	local isLeader = (UnitInParty(unit) or UnitInRaid(unit)) and (WoW5 and UnitIsGroupLeader(unit) or UnitIsPartyLeader(unit))
+	local isLeader = (UnitInParty(unit) or UnitInRaid(unit))
+
+	if WoW5 then
+		isLeader = isLeader and UnitIsGroupLeader(unit)
+	else
+		isLeader = isLeader and UnitIsPartyLeader(unit)
+	end
+
 	if(isLeader) then
 		leader:Show()
 	else
