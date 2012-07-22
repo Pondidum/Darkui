@@ -27,6 +27,9 @@ S.tracker.auras = {
 		{ ["id"] = 1822, 	["unit"] = "target" },		--rake
 		{ ["id"] = 1079, 	["unit"] = "target" },		--rip
 
+		{ ["id"] = 8921, 	["unit"] = "target" },		--moonfire
+		{ ["id"] = 93402, 	["unit"] = "target" },		--sunfire
+
 		{ ["id"] = 52610, 	["unit"] = "player" }, 		--savage roar
 		{ ["id"] = 5217, 	["unit"] = "player" }, 		--tigers fury
 		{ ["id"] = 50334, 	["unit"] = "player" }, 		--Berserk
