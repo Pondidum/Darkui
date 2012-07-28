@@ -89,6 +89,44 @@ S.unitframes.layouts["healer"] = {
 	},
 }
 
-
-
+S.unitframes.layouts["hybrid"] = {
+	["floatingcastbars"] = true,
+	["buffwatch"] = false,
+	["player"] = {
+		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 180},
+		["size"] = {240, 18},
+	},
+	["pet"] = {
+		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
+		["size"] = {132, 18},
+	},
+	["target"] = {
+		["point"] = {"LEFT", "oUF_DarkuiPlayer", "RIGHT", 50, 50},
+		["size"] = {240, 18},
+	},
+	["focus"] = {
+		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -50, 50},
+		["size"] = {240, 18},
+	},
+	["targettarget"] = {
+		["point"] = {"LEFT", "oUF_DarkuiTarget", "RIGHT", 25, 0},
+		["size"] = {132, 18},
+	},
+	["focustarget"] = {
+		["point"] = {"RIGHT", "oUF_DarkuiFocus", "LEFT", -25, 0},
+		["size"] = {132, 18},
+	},
+	["boss"] = {
+		["point"] = {"BOTTOMRIGHT", "DarkuiBar5", "BOTTOMLEFT", -50, -15},
+		["size"] = {132, 18},
+	},
+	["raidheader"] = {		--note raidheader has is position set, and not its size
+		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 50}, 
+		["size"] = {},
+	},
+	["raid"] = {			--note raid has is size set, and not its position
+		["point"] = {},
+		["size"] = {70 , 18},
+	},
+}
 

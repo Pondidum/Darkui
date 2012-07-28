@@ -8,4 +8,9 @@ if D.Player.name == "Youhan" then
 	S.selfbuffs.enable = false
 end
 
+if D.Player.name == "Sugimoto" then
+	S.unitframes.layout = "hybrid"
+end
+
+
 --S.slackcheck.enable = false
