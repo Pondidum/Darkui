@@ -177,13 +177,24 @@ end
 
 local DarkReadyCheck = function()
 	
-	if IsRaidLeader() or IsRaidOfficer() then
 
-		if S.slackcheck.enable == true then 
-			DarkSlackCheck()	
-		end
-				
+	if not IsRaidLeader() then 
+		return 
 	end
+	
+	if not IsRaidOfficer() then 
+		return 
+	end
+
+	if IsPartyLFG() and IsInLFGDungeon() then
+		return 
+	end
+
+	if S.slackcheck.enable ~= true then 
+		return
+	end
+
+	DarkSlackCheck()	
 	
 end
 
