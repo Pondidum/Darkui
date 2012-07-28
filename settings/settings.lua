@@ -149,7 +149,10 @@ S["utilities"] = {
 	},
 }
 
-
 S["tracker"] = {
+	["enable"] = true,
+}
+
+S["bags"] = {
 	["enable"] = true,
 }

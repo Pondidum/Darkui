@@ -1,5 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
+if S.bags.enable ~= true then return end
+
 local slotSize = 24
 local slotSpacing = 5
 
