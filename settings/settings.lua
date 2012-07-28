@@ -156,3 +156,10 @@ S["tracker"] = {
 S["bags"] = {
 	["enable"] = true,
 }
+
+S["interrupt"] = {
+	["enabled"] = true,
+	["channel"] = "SAY",
+	["style"] = "SHORT",
+	["filterzones"] = false,
+}

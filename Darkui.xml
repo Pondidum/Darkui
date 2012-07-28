@@ -76,6 +76,7 @@
 	<Script file="modules\professions.lua" />
 	<Script file="modules\selfbuffs.lua" />
 	<Script file="modules\slackcheck.lua" />
+	<Script file="modules\interrupt.lua" />
 
 	<Script file="ui\Font.lua" />
 	
