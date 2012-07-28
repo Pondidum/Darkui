@@ -265,11 +265,13 @@ local function Init()
 	
 	ToggleBackpack = DarkuiBagsToggle
 	ToggleBag = DarkuiBagsToggleBag
+	ToggleAllBags = DarkuiBagsToggleBag
+
 	OpenAllBags = DarkuiBagsOpen
 	OpenBackpack = DarkuiBagsOpen
 	CloseAllBags = DarkuiBagsClose
 	CloseBackpack = DarkuiBagsClose
-	
+
 	BankFrame:UnregisterAllEvents()
 	
 end
