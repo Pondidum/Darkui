@@ -224,7 +224,7 @@ S.tracker.displays = {
 		["name"] = "Main",
 		["type"] = "Line", 
 		["setup"] =  {
-			["location"] = {"CENTER", UIParent, "CENTER", 0, -200},
+			["location"] = {"BOTTOM", "oUF_DarkuiPlayer", "TOP", 0, 150},
 			["size"] = {500, 32},
 			["maxtime"] = 60,
 		}
