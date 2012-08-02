@@ -1,8 +1,0 @@
-## Interface: 40200
-## Author: Darkend
-## Version: 40200.10-Release
-## Title: oUF Runebar
-## Notes: Rune Bar modifier for oUF layouts.
-## RequiredDeps: oUF
-
-oUF_Runebar.lua
