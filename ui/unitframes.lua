@@ -563,6 +563,39 @@ local ClassSpecific = {
 
 		self.EclipseBar = eclipseBar
 		self.EclipseBar.Text = eclipseBarText
+
+
+		if S.unitframes.druidmushrooms then
+
+			local mushrooms = {}
+			mushrooms.colors = {
+				[1] = {0.65, 0.63, 0.35, 0.6},
+				[2] = {0.65, 0.63, 0.35, 0.6},
+				[3] = {0.65, 0.63, 0.35, 0.6},
+			}
+
+			for i = 1, 3 do
+	 
+	 			local mushroom = CreateFrame("StatusBar", nil, self)
+				mushroom:SetStatusBarTexture(S.textures.normal)
+				mushroom:GetStatusBarTexture():SetHorizTile(false)
+
+				D.CreateShadow(mushroom)
+				D.CreateBackground(mushroom)
+				mushroom.bg = mushroom:CreateTexture(nil, 'BORDER')
+
+				mushrooms[i] = mushroom
+				
+			end
+
+			LayoutSegments(self, mushrooms) 
+
+			local anchor = self.Debuffs or self.Buffs or self.Power
+			mushrooms[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
+
+			self.DarkTotems = mushrooms
+
+		end	
 	end,
 	
 	PALADIN = function(self, ...)
@@ -578,9 +611,9 @@ local ClassSpecific = {
 
 		local totems = {}
 
-		for i = 1, 4 do
+		for i = 1, MAX_TOTEMS do
  
- 			local totem = CreateFrame("StatusBar", "DarkuiTotem"..i, self)
+ 			local totem = CreateFrame("StatusBar", nil, self)
 			totem:SetStatusBarTexture(S.textures.normal)
 			totem:GetStatusBarTexture():SetHorizTile(false)
 
@@ -600,7 +633,7 @@ local ClassSpecific = {
 		self.DarkTotems = totems
 
 	end,
-	
+
 	WARLOCK = function(self, ...)
 		
 		local shards = CreateSegments(self, 3)

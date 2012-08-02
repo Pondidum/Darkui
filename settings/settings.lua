@@ -122,6 +122,10 @@ S["actionbars"] = {
 	["petbaronside"] = false,
 }
 
+S["unitframes"] = {
+	["druidmushrooms"] = false,
+}
+
 S["tooltip"] = {
 	["enable"] = true,
 	["hideincombat"] = false,
