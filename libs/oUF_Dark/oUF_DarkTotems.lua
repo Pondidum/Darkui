@@ -103,7 +103,9 @@ local UpdateTotem = function(self, event, slot)
 	local totem = totems[priorities[slot]]
 	local haveTotem, name, start, duration, icon = GetTotemInfo(slot)
 	
-	totem:SetStatusBarColor(unpack(colors[slot]))
+	local colorMap =  totems.colors or colors
+
+	totem:SetStatusBarColor(unpack(colorMap[slot]))
 
 	if duration > 0  then
 		
@@ -132,7 +134,7 @@ local Path = function(self, ...)
 end
 
 local Update = function(self, event)
-	for i = 1, MAX_TOTEMS do
+	for i = 1, #self.DarkTotems do
 		Path(self, event, i)
 	end
 end
@@ -164,7 +166,7 @@ local Enable = function(self)
 		totems.__owner = self
 		totems.ForceUpdate = ForceUpdate
 
-		for i = 1, MAX_TOTEMS do
+		for i = 1, #totems do
 			local totem = totems[i]
 
 			totem:SetID(priorities[i])
