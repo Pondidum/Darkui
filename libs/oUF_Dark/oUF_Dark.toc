@@ -1,0 +1,8 @@
+## Interface: 40300
+## Author: Darkend
+## Version: 1.0.0
+## Title: oUF Dark
+## Notes: Rune Bar modifier for oUF layouts.
+## RequiredDeps: oUF
+
+oUF_Dark.xml
