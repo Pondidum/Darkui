@@ -581,6 +581,33 @@ local ClassSpecific = {
 		self.EclipseBar = eclipseBar
 		self.EclipseBar.Text = eclipseBarText
 	end,
+
+	SHAMAN = function(self, ...)
+
+		local totems = {}
+
+		for i = 1, 4 do
+ 
+ 			local totem = CreateFrame("StatusBar", "DarkuiTotem"..i, self)
+			totem:SetStatusBarTexture(S.textures.normal)
+			totem:GetStatusBarTexture():SetHorizTile(false)
+
+			D.CreateShadow(totem)
+			D.CreateBackground(totem)
+			totem.bg = totem:CreateTexture(nil, 'BORDER')
+
+			totems[i] = totem
+			
+		end
+
+		LayoutSegments(self, totems) 
+
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		totems[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
+
+		self.DarkTotems = totems
+		
+	end,
 }
 
 local UnitSpecific = {
