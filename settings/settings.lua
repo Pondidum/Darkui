@@ -163,3 +163,19 @@ S["interrupt"] = {
 	["style"] = "SHORT",
 	["filterzones"] = false,
 }
+
+S["errors"]= {
+	["mode"] = "BLACKLIST",
+	["blacklist"] = {
+		[ERR_ABILITY_COOLDOWN] = true,
+		[ERR_GENERIC_NO_TARGET] = true,
+		[ERR_SPELL_COOLDOWN] = true,
+		[SPELL_FAILED_SPELL_IN_PROGRESS] = true,
+		[ACTION_SPELL_INTERRUPT] = true,
+		[INTERRUPTED] = true,
+		[SPELL_FAILED_MOVING] = true,
+	},
+	["whitelist"] = {
+		[INVENTORY_FULL] = true,
+	},
+}

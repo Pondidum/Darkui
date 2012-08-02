@@ -67,6 +67,7 @@
 	<Script file="modules\macros.lua" />
 	<Script file="modules\objectives.lua" />
 	<Script file="modules\lootroll.lua" />
+	<Script file="modules\errorfilter.lua" />
 
 	<Script file="modules\statspanel.lua" />
 	<Script file="modules\stats\durability.lua" />
