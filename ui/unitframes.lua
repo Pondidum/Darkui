@@ -494,23 +494,6 @@ end
 
 
 local ClassSpecific = {
-	WARLOCK = function(self, ...)
-		
-		local shards = CreateSegments(self, 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		shards[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.SoulShards = shards
-	end,
-	
-	PALADIN = function(self, ...)
-		
-		local holyPower = CreateSegments(self, 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		holyPower[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.HolyPower = holyPower
-	end,
 	
 	DEATHKNIGHT = function(self, ...)
 		
@@ -581,6 +564,15 @@ local ClassSpecific = {
 		self.EclipseBar = eclipseBar
 		self.EclipseBar.Text = eclipseBarText
 	end,
+	
+	PALADIN = function(self, ...)
+		
+		local holyPower = CreateSegments(self, 3)
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		
+		holyPower[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
+		self.HolyPower = holyPower
+	end,
 
 	SHAMAN = function(self, ...)
 
@@ -606,7 +598,16 @@ local ClassSpecific = {
 		totems[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
 
 		self.DarkTotems = totems
+
+	end,
+	
+	WARLOCK = function(self, ...)
 		
+		local shards = CreateSegments(self, 3)
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		
+		shards[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
+		self.SoulShards = shards
 	end,
 }
 
