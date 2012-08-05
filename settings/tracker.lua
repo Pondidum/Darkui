@@ -84,7 +84,7 @@ S.tracker.auras = {
 
 		{ ["id"] = 53817, 	["unit"]      = "player", 	
 							["display"]   = "CooldownCenterRight",	
-							["stacks"] 	  = "SHOW", 
+							["stacks"] 	  = "ONLY", 
 							["highlight"] = "MAXSTACKS", 
 							["maxstacks"] = 5,
 							["spec"] 	  = "Enhancement" }, 	--maelstrom weapon
@@ -102,13 +102,15 @@ S.tracker.auras = {
 		{ ["id"] = 79460, 	["unit"] = "player" },		--demon soul: felhunter
 		{ ["id"] = 79462, 	["unit"] = "player" },		--demon soul: felguard
 		{ ["id"] = 63167, 	["unit"] = "player" },		--decimation	
-		{ ["id"] = 71165, 	["unit"] = "player", 	
-							["stacks"] = "ONLY"  }, 	--decimation	
+		{ ["id"] = 71165, 	["unit"] 	= "player", 	
+							["stacks"]	= "ONLY"  }, 	--Molten Core	
 
 	},
 	WARRIOR = {
 		{ ["id"] = 94009,	["unit"] = "target" },		--rend
 		{ ["id"] = 86346,	["unit"] = "target" },		--colossus smash
+		{ ["id"] = 58567,	["unit"] = "target", 
+							["filter"] = "HARMFUL" },	--sunder armor
 
 		{ ["id"] = 12964, 	["unit"] = "player" },		--battle trance
 		{ ["id"] = 86627, 	["unit"] = "player" },		--Incite
