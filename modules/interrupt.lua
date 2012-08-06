@@ -1,80 +1,118 @@
 local D, S, E = unpack(select(2, ...))
 
-if S.interrupt.enabled == false then return end
+local InterruptAnnounce = {
+	New = function(config, eventSource)
 
-local ShortMessages = {
-	["SPELL_INTERRUPT"] = function(targetSpellID, targetName, sourceSpellID) 
-		return "Interrupted " .. GetSpellLink(targetSpellID) .. "." 
-	end,
-	["SPELL_STOLEN"] = function(targetSpellID, targetName, sourceSpellID) 
-		return "Spellstolen " .. GetSpellLink(targetSpellID) .. "."
-	end
-}
+		local this = {}
+		local getMessage, channel, enableZoneFilter = nil, nil, nil
+		local playerName = UnitName("player")
 
-local LongMessages = {
-	["SPELL_INTERRUPT"] = function(targetSpellID, targetName, sourceSpellID) 
-		return "Interrupted " .. targetName .. "'s "  .. GetSpellLink(targetSpellID) .. " with " .. GetSpellLink(sourceSpellID) .. "." 
-	end,
-	["SPELL_STOLEN"] = function(targetSpellID, targetName, sourceSpellID) 
-		return "Spellstolen " .. targetName .. "'s " .. GetSpellLink(targetSpellID) .. "."
-	end
-}
+		--cached global functions
+		local GetSpellLink = GetSpellLink
+		local UnitInParty, UnitInRaid, GetNumPartyMembers = UnitInParty, UnitInRaid, GetNumPartyMembers
+		local GetRealZoneText = GetRealZoneText
+		local SendChatMessage = SendChatMessage
 
-local filterZones = {
-	"Tol Barad", 
-	"Wintergrasp", 
-	"Alterac Vally", 
-	"Arathi Basin", 
-	"Eye of the Storm", 
-	"Isle of Conquest", 
-	"Strand of the Ancients", 
-	"The Battle for Gilneas", 
-	"Twin Peaks", 
-	"Warsong Gulch",
-}
+		local filterZones = {
+			["Tol Barad"] = true, 
+			["Wintergrasp"] = true, 
+			["Alterac Vally"] = true, 
+			["Arathi Basin"] = true, 
+			["Eye of the Storm"] = true, 
+			["Isle of Conquest"] = true, 
+			["Strand of the Ancients"] = true, 
+			["The Battle for Gilneas"] = true, 
+			["Twin Peaks"] = true, 
+			["Warsong Gulch"] = true,
+		}
 
-local shouldAnnounce = {
-	["SAY"] = function() return true end,
-	["PARTY"] = function() return UnitInParty("player") and GetNumPartyMembers() > 0 end,
-	["RAID"] = function() return UnitInRaid("player") end,
-}
+		local shortMessages = {
+			["SPELL_INTERRUPT"] = function(targetSpellID, targetName, sourceSpellID) 
+				return "Interrupted " .. GetSpellLink(targetSpellID) .. "." 
+			end,
+			["SPELL_STOLEN"] = function(targetSpellID, targetName, sourceSpellID) 
+				return "Spellstolen " .. GetSpellLink(targetSpellID) .. "."
+			end
+		}
 
-local getmessage = ShortMessages
+		local longMessages = {
+			["SPELL_INTERRUPT"] = function(targetSpellID, targetName, sourceSpellID) 
+				return "Interrupted " .. targetName .. "'s "  .. GetSpellLink(targetSpellID) .. " with " .. GetSpellLink(sourceSpellID) .. "." 
+			end,
+			["SPELL_STOLEN"] = function(targetSpellID, targetName, sourceSpellID) 
+				return "Spellstolen " .. targetName .. "'s " .. GetSpellLink(targetSpellID) .. "."
+			end
+		}
 
-local function OnCombatLogUnfiltered(self, event, ...)
+		local shouldAnnounce = {
+			["SAY"] = function() return true end,
+			["PARTY"] = function() return UnitInParty("player") and GetNumPartyMembers() > 0 end,
+			["RAID"] = function() return UnitInRaid("player") end,
+		}
 
-	if S.interrupt.filterzones == false or tContains(filterZones, GetRealZoneText()) == false then
+		local onCombatLogUnfiltered = function(self, event, ...)
 
-		local timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellName, _, extraskillID, extraskillname = ...;
-		local messageFormat = getmessage[eventType]
+			if enableZoneFilter and filterZones[GetRealZoneText()] then
+				return
+			end
 
-		if sourceName == D.Player.name and messageFormat ~= nil then
+			local _, eventType, _, _, sourceName, _, _, _, destName, _, _, spellID, _, _, extraskillID, _ = ...
+			local messageFormat = getMessage[eventType]
 
-			local message = getmessage[eventType](extraskillID, destName, spellID)
-			local targetChannel = S.interrupt.channel
+			if sourceName == playerName and messageFormat ~= nil and shouldAnnounce[channel] then
 
-			if shouldAnnounce[targetChannel]() then
-				SendChatMessage(message, targetChannel)
+				SendChatMessage(messageFormat(extraskillID, destName, spellID), channel)
+
 			end
 
 		end
 
-	end
 
-end
+		--enables or disables announcing interrupts and spellsteals
+		local setEnabled = function(enable)
 
-local function OnPlayerLogin()
+			if enable then
+				eventSource:Register("COMBAT_LOG_EVENT_UNFILTERED", onCombatLogUnfiltered, "Darkui_InterruptAnnounce_OnCombatLogUnfiltered")
+			else
+				eventSource:Unregister("COMBAT_LOG_EVENT_UNFILTERED", "Darkui_InterruptAnnounce_OnCombatLogUnfiltered")
+			end
 
-	E:Unregister("PLAYER_LOGIN", OnPlayerLogin, "Darkui_Interrupt_OnPlayerEnteringWorld")
+		end
+		this.SetEnabled = setEnabled
 
-	if S.interrupt.style == "LONG" then
-		getmessage = LongMessages
-	else
-		getmessage = ShortMessages
-	end
+		--sets the channel to announce to : SAY, PARTY, RAID
+		local setChannel = function(chan)
+			channel = chan
+		end
+		this.SetChannel = setChannel
 
-	E:Register("COMBAT_LOG_EVENT_UNFILTERED", OnCombatLogUnfiltered)
+		--sets the style of announcements: LONG, SHORT
+		local setMessageStyle = function(mode)
 
-end
+			if mode == "LONG" then
+				getMessage = longMessages
+			else
+				getMessage = shortMessages
+			end
+		end
+		this.SetMessageStyle = setMessageStyle
 
-E:Register("PLAYER_ENTERING_WORLD", OnPlayerLogin, "Darkui_Interrupt_OnPlayerEnteringWorld")
+		--sets if the zone should be checked before announcing
+		local setZoneFiltering = function(enable)
+			enableZoneFilter = enable
+		end
+		this.SetZoneFiltering = setZoneFiltering
+
+
+		--initial config
+		setMessageStyle(config.style)
+		setEnabled(config.enabled)
+		setChannel(config.channel)
+		setZoneFiltering(config.filterzones)
+
+		return this
+
+	end,
+}
+
+D.InterruptAnnounce = InterruptAnnounce.New(S.interrupt, E)
