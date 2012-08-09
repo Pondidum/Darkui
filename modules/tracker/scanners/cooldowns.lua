@@ -7,7 +7,74 @@ local gcdDetect = S.tracker.cooldowns.GCD[D.Player.class]
 local cooldowns = S.tracker.cooldowns[D.Player.class]
 
 
---thanks to the thread here for the gcd detector: http://www.voximmortalis.com/threads/4328-WeakAuras-Tutoring-Thread
+local function GetCooldown(id, detectGcd)
+	--thanks to the thread here for the gcd detector: http://www.voximmortalis.com/threads/4328-WeakAuras-Tutoring-Thread
+
+	if not detectGcd then
+		
+		local s, d = GetSpellCooldown(id)
+		return s + d
+
+	else
+
+		local t = GetTime();
+		local _, g = GetSpellCooldown(gcdDetect)
+		local s, d = GetSpellCooldown(id)
+		
+		local delta = s + d - t
+		
+		local ready = false
+		local expiry = s + d
+
+		if (s and s == 0) or (s and (delta <= g) and (g > 0 and g <= 1.5)) then
+			ready = true
+			expiry = t
+		end
+
+		return expiry
+
+	end
+
+
+end
+
+local function Clear()
+
+	for specName, specSpells in pairs(cooldowns) do 
+
+		for i, spell in ipairs(specSpells) do 
+
+			local data = { 
+				id = spell.id, 
+				remove = true
+			}
+
+			D.Tracker.UpdateDisplayData(spell.display, data)
+
+		end
+
+	end
+
+end
+
+local function UpdateSpell(spell)
+
+	local expiry = GetCooldown(spell.id, true)
+	local name, rank, icon = GetSpellInfo(spell.id)
+
+	local data = {
+		["id"] = spell.id,
+		["texture"] = icon,
+		["expiry"] = expiry,
+		["anchor"] = "TOP",
+		["anchoroffset"] = -5,
+	}
+
+	D.Tracker.UpdateDisplayData(spell.display, data)
+
+end
+
+
 local function OnUpdate(self, elapsed)
 	
 	last = last + elapsed
@@ -22,45 +89,26 @@ local function OnUpdate(self, elapsed)
 		return
 	end
 
-	for i = 1, #cooldowns do
-	
-		local current = cooldowns[i]
+	if cooldowns["All"] then 
 
-		if D.Tracker.ShouldDisplayForSpec(current) then
-
-			local t = GetTime();
-			local _, g = GetSpellCooldown(gcdDetect)
-			local s, d = GetSpellCooldown(current.id)
-			
-			local delta = s + d - t
-			
-			local ready = false
-			local expiry = s + d
-
-			if (s and s == 0) or (s and (delta <= g) and (g > 0 and g <= 1.5)) then
-				ready = true
-				expiry = t
-			end
-
-			local name, rank, icon = GetSpellInfo(current.id)
-			
-			local data = {
-				["id"] = current.id,
-				["texture"] = icon,
-				["expiry"] = expiry,
-				["anchor"] = "TOP",
-				["anchoroffset"] = -5,
-			}
-
-			D.Tracker.UpdateDisplayData(current.display, data)
-
-		else
-			D.Tracker.UpdateDisplayData(current.display, {["id"] = current.id, ["remove"] = true})			
+		for i, spell in ipairs(cooldowns["All"]) do
+			UpdateSpell(spell)
 		end
 
 	end
-	
+
+	if cooldowns[D.Player.spec] then
+
+		for i, spell in ipairs(cooldowns[D.Player.spec]) do 
+			UpdateSpell(spell)
+		end
+
+	end	
 	
 end
 
 E:RegisterOnUpdate("TrackerCooldowns", OnUpdate)
+
+
+E:Register("LEARNED_SPELL_IN_TAB", Clear)
+E:Register("SPELLS_CHANGED", Clear)

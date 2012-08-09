@@ -3,6 +3,39 @@ local T = D.Tracker
 
 if S.tracker.enable ~= true then return end
 
+local function Clear()
+
+	local general = S.tracker.auras["GENERAL"]
+	
+	for i, current in pairs(general) do 
+
+		local data = { 
+			id = current.id, 
+			remove = true
+		}
+
+		D.Tracker.UpdateDisplayData(current.display, data)
+
+	end
+
+	local class = S.tracker.auras[D.Player.class]
+
+	if class then
+		for i, current in pairs(class) do 
+
+			local data = { 
+				id = current.id, 
+				remove = true
+			}
+
+			D.Tracker.UpdateDisplayData(current.display, data)
+
+		end
+	end
+	
+
+end
+
 local function ApplyAuras(auras)
 
 	for i = 1, #auras do
@@ -59,3 +92,7 @@ end
 E:Register("UNIT_AURA", OnUnitAura)
 E:Register("PLAYER_TARGET_CHANGED", OnUnitAura)
 E:Register("PLAYER_FOCUS_CHANGED", OnUnitAura)
+
+
+E:Register("LEARNED_SPELL_IN_TAB", Clear)
+E:Register("SPELLS_CHANGED", Clear)

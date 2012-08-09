@@ -159,50 +159,78 @@ S.tracker.auras = {
 }	
 
 S.tracker.cooldowns = {
+
 	DEATHKNIGHT = {
-		{ ["id"] = 77575, 	["spec"] = "All",			["display"] = "CooldownCenter" },		--outbreak
-		{ ["id"] = 46584, 	["spec"] = "All",			["display"] = "CooldownCenterLeft" },	--raise dead
-		{ ["id"] = 51271, 	["spec"] = "Frost",			["display"] = "CooldownCenterRight" },	--pillar of frost
+		["All"] = {
+			{ ["id"] = 77575, 	["display"] = "CooldownCenter" },		--outbreak
+			{ ["id"] = 46584, 	["display"] = "CooldownCenterLeft" },	--raise dead
+		},
+		["Frost"] = {
+			{ ["id"] = 51271, 	["display"] = "CooldownCenterRight" },	--pillar of frost
+		},		
 	},
+
 	DRUID = {
-		{ ["id"] = 5217, 	["spec"] = "Feral Combat",	["display"] = "CooldownCenter" },		--Tigers Fury
-		{ ["id"] = 49376, 	["spec"] = "Feral Combat",	["display"] = "CooldownCenterLeft" },	--feral charge
-		{ ["id"] = 50334, 	["spec"] = "Feral Combat",	["display"] = "CooldownCenterRight" },	--berserk
+		["Feral Combat"] = {
+			{ ["id"] = 5217, 	["display"] = "CooldownCenter" },		--Tigers Fury
+			{ ["id"] = 49376, 	["display"] = "CooldownCenterLeft" },	--feral charge
+			{ ["id"] = 50334, 	["display"] = "CooldownCenterRight" },	--berserk
+		},
 	},
+
 	HUNTER = {
-		{ ["id"] = 53301, 	["spec"] = "Survival",		["display"] = "CooldownCenter" },		--explosive shot
-		{ ["id"] = 3674, 	["spec"] = "Survival",		["display"] = "CooldownCenterLeft" },	--black arrow
-		{ ["id"] = 3045, 	["spec"] = "Survival",		["display"] = "CooldownCenterRight" },	--rapid fire
+		["Survival"] = {
+			{ ["id"] = 53301, 	["display"] = "CooldownCenter" },		--explosive shot
+			{ ["id"] = 3674, 	["display"] = "CooldownCenterLeft" },	--black arrow
+			{ ["id"] = 3045, 	["display"] = "CooldownCenterRight" },	--rapid fire
+		},
 	},
+
 	PRIEST = {
-		{ ["id"] = 34433, 	["spec"] = "Shadow",		["display"] = "CooldownCenterLeft" },	--shadowfiend
-		{ ["id"] = 8092, 	["spec"] = "Shadow",		["display"] = "CooldownCenter" },		--mind blast
-		{ ["id"] = 32379, 	["spec"] = "Shadow",		["display"] = "CooldownCenterRight" },	--shadow word: death
+		["Shadow"] = {
+			{ ["id"] = 34433, 	["display"] = "CooldownCenterLeft" },	--shadowfiend
+			{ ["id"] = 8092, 	["display"] = "CooldownCenter" },		--mind blast
+			{ ["id"] = 32379, 	["display"] = "CooldownCenterRight" },	--shadow word: death
+		},
 	},
+
 	SHAMAN = {
-		{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
-		{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--earth shock
-
-		{ ["id"] = 51533,	["spec"] = "Enhancement",	["display"] = "CooldownCenter" },		--earth shock
-
-		{ ["id"] = 73920,	["spec"] = "Restoration",	["display"] = "CooldownCenterRight" },	--healing rain
-		{ ["id"] = 61295,	["spec"] = "Restoration",	["display"] = "CooldownCenter" },		--riptide
-		{ ["id"] = 73680,	["spec"] = "Restoration",	["display"] = "CooldownCenterLeft" },	--unleash elements
+		["Elemental"] = {
+			{ ["id"] = 51505, 	["display"] = "CooldownCenter" },		--lava burst
+			{ ["id"] = 8042,	["display"] = "CooldownCenterRight" },	--earth shock
+		},
+		["Enhancement"] = {
+			{ ["id"] = 51533,	["display"] = "CooldownCenter" },		--earth shock
+		},
+		["Restoration"] = {
+			{ ["id"] = 73920,	["display"] = "CooldownCenterRight" },	--healing rain
+			{ ["id"] = 61295,	["display"] = "CooldownCenter" },		--riptide
+			{ ["id"] = 73680,	["display"] = "CooldownCenterLeft" },	--unleash elements
+		},
 	},
+
 	WARLOCK = {
-		{ ["id"] = 74434,	["spec"] = "All", 			["display"] = "CooldownLeft" },			--soulburn
-		{ ["id"] = 47897,	["spec"] = "All", 			["display"] = "CooldownCenterLeft" },	--shadowflame
-
-		{ ["id"] = 71521, 	["spec"] = "Demonology",	["display"] = "CooldownCenter" },		--hand of guldan
-		{ ["id"] = 77801,	["spec"] = "Demonology", 	["display"] = "CooldownCenterRight" },	--demon soul
-		{ ["id"] = 47241,	["spec"] = "Demonology", 	["display"] = "CooldownRight" },		--metamorphosis
-
-		{ ["id"] = 48181,	["spec"] = "Affliction", 	["display"] = "CooldownCenter" },		--haunt
-		{ ["id"] = 86213,	["spec"] = "Affliction", 	["display"] = "CooldownRight" },		--soul swap
+		["All"] = {
+			{ ["id"] = 74434,	["display"] = "CooldownLeft" },			--soulburn
+			{ ["id"] = 47897,	["display"] = "CooldownCenterLeft" },	--shadowflame
+		},
+		["Demonology"] = {
+			{ ["id"] = 71521, 	["display"] = "CooldownCenter" },		--hand of guldan
+			{ ["id"] = 77801,	["display"] = "CooldownCenterRight" },	--demon soul
+			{ ["id"] = 47241,	["display"] = "CooldownRight" },		--metamorphosis
+		},
+		["Affliction"] = {
+			{ ["id"] = 48181,	["display"] = "CooldownCenter" },		--haunt
+			{ ["id"] = 86213,	["display"] = "CooldownRight" },		--soul swap
+		},
 	},
+
 	WARRIOR = {
-		{ ["id"] = 12294, 	["spec"] = "Arms",			["display"] = "CooldownCenter" },		--mortal strike
+		["Arms"] = {
+			{ ["id"] = 12294, 	["display"] = "CooldownCenter" },		--mortal strike
+		},
 	},
+	
 	GCD = {
 		["DEATHKNIGHT"] = 47541, 
 		["DRUID"] = 18960, 
