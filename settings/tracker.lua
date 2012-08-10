@@ -150,6 +150,7 @@ S.tracker.auras = {
 
 		--enchants
 		{ id = 74241,	unit = "player" },		--power torrent
+		{ id = 74245,	unit = "player" },		--landslide
 		
 
 		--trinkets

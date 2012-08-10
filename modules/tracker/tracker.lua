@@ -9,6 +9,7 @@ local inCombat = false
 local failedDisplays = {}
 
 Tracker.Displays = {}
+Tracker.Scanners = {}
 
 local function GetDisplay(name)
 

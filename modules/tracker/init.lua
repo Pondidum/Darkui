@@ -61,15 +61,23 @@ local function PostProcessDisplays()
 end
 
 
-local function OnPlayerEnteringWorld()
+local function OnPlayerAlive()
 
 	PostProcessAuras()
 	PostProcessDisplays()
 
 	CreateDisplays()
+
+	for i, scanner in ipairs(D.Tracker.Scanners) do
+		
+		local s = scanner.New(E)
+		s.Init(S.tracker)
+
+	end
+
 	D.Tracker.SetCombatState()
 
-	E:Unregister("PLAYER_ENTERING_WORLD", "Darkui_Tracker_PlayerEnteringWorld")
+	E:Unregister("PLAYER_ALIVE", "Darkui_Tracker_PlayerAlive")
 	
 end
 
@@ -77,4 +85,4 @@ E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
 
 E:Register("PLAYER_REGEN_ENABLED", D.Tracker.CombatExit)
 E:Register("PLAYER_REGEN_DISABLED", D.Tracker.CombatEnter)
-E:Register("PLAYER_ENTERING_WORLD", OnPlayerEnteringWorld, "Darkui_Tracker_PlayerEnteringWorld")
+E:Register("PLAYER_ALIVE", OnPlayerAlive, "Darkui_Tracker_PlayerAlive")
