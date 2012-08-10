@@ -148,10 +148,12 @@ S.tracker.auras = {
 		--enchants
 		{ id = 74241,	unit = "player" },		--power torrent
 		{ id = 74245,	unit = "player" },		--landslide
+		{ id = 120032,	unit = "player" },		--dancing steel
 		
 
 		--trinkets
-		{ id = 102662,	unit = "player" },		--foul gift
+		{ id = 126707,	unit = "player" },		--malevolent gladiator's insignia of conquest
+
 	}
 
 }	
