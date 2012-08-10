@@ -1,12 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 
 	<Include file="libs\oUF\oUF.xml" />
+	<Include file="libs\oUF_Dark\oUF_Dark.xml" />
 	<Script file="libs\oUF_Experience\oUF_Experience.lua" />
 	<Script file="libs\oUF_Reputation\oUF_Reputation.lua" />
 	<Script file="libs\oUF_AuraWatch\oUF_AuraWatch.lua" />
-	<Script file="libs\oUF_Dark\oUF_DarkRunes.lua" />
-	<Script file="libs\oUF_Dark\oUF_DarkTotems.lua" />
-	
+
 	<Script file="core\core.lua" />
 	<Script file="core\functions.lua" />
 	<Script file="core\events.lua" />
@@ -67,6 +66,7 @@
 	<Script file="modules\macros.lua" />
 	<Script file="modules\objectives.lua" />
 	<Script file="modules\lootroll.lua" />
+	<Script file="modules\errorfilter.lua" />
 
 	<Script file="modules\statspanel.lua" />
 	<Script file="modules\stats\durability.lua" />
@@ -76,6 +76,7 @@
 	<Script file="modules\professions.lua" />
 	<Script file="modules\selfbuffs.lua" />
 	<Script file="modules\slackcheck.lua" />
+	<Script file="modules\interrupt.lua" />
 
 	<Script file="ui\Font.lua" />
 	

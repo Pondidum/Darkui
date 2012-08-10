@@ -177,13 +177,25 @@ end
 
 local DarkReadyCheck = function()
 	
-	if UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") then
 
-		if S.slackcheck.enable == true then 
-			DarkSlackCheck()	
-		end
-				
+	if not UnitIsGroupLeader("player") then 
+		return 
 	end
+	
+	if not UnitIsGroupAssistant("player") then 
+		return 
+	end
+
+	if IsPartyLFG() and IsInLFGDungeon() then
+		return 
+	end
+
+	if S.slackcheck.enable ~= true then 
+		return
+	end
+
+	DarkSlackCheck()	
+
 	
 end
 

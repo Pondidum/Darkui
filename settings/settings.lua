@@ -122,6 +122,10 @@ S["actionbars"] = {
 	["petbaronside"] = false,
 }
 
+S["unitframes"] = {
+	["druidmushrooms"] = false,
+}
+
 S["tooltip"] = {
 	["enable"] = true,
 	["hideincombat"] = false,
@@ -149,7 +153,33 @@ S["utilities"] = {
 	},
 }
 
-
 S["tracker"] = {
 	["enable"] = true,
+}
+
+S["bags"] = {
+	["enable"] = true,
+}
+
+S["interrupt"] = {
+	["enabled"] = true,
+	["channel"] = "SAY",
+	["style"] = "SHORT",
+	["filterzones"] = false,
+}
+
+S["errors"]= {
+	["mode"] = "BLACKLIST",
+	["blacklist"] = {
+		[ERR_ABILITY_COOLDOWN] = true,
+		[ERR_GENERIC_NO_TARGET] = true,
+		[ERR_SPELL_COOLDOWN] = true,
+		[SPELL_FAILED_SPELL_IN_PROGRESS] = true,
+		[ACTION_SPELL_INTERRUPT] = true,
+		[INTERRUPTED] = true,
+		[SPELL_FAILED_MOVING] = true,
+	},
+	["whitelist"] = {
+		[INVENTORY_FULL] = true,
+	},
 }

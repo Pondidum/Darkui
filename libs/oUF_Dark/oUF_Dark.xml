@@ -1,0 +1,4 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='oUF_DarkRunes.lua' />
+	<Script file='oUF_DarkTotems.lua' />
+</Ui>

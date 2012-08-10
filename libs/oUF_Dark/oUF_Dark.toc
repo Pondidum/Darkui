@@ -1,9 +1,8 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Darkend
-## Version: 40200.10-Release
+## Version: 1.0.0
 ## Title: oUF Dark
 ## Notes: Rune Bar modifier for oUF layouts.
 ## RequiredDeps: oUF
 
-oUF_DarkRunes.lua
-oUF_DarkTotems.lua
+oUF_Dark.xml

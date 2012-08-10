@@ -3,65 +3,88 @@ local T = D.Tracker
 
 if S.tracker.enable ~= true then return end
 
-local function ApplyAuras(auras)
+local AuraScanner = {
+	New = function(events)
 
-	for i = 1, #auras do
-		
-		local current = auras[i]
-		
-		if D.Tracker.ShouldDisplayForSpec(current) then
+		local this = {}
+		local auras = {}
 
-			local name = GetSpellInfo(current.id)
-			local _, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellID = UnitAura(current.unit, name, nil, current.filter)
-		
-			if name ~= nil then
-			
-				if current.highlight == "MAXSTACKS" then
+		local init = function(config)
 
-					if count == current.maxstacks then
-						expires = nil
-					end
-				end
+			auras = {}
 
-				local data = {
-						["id"] = current.id,
-						["texture"] = icon,
-						["expiry"] = expires,
-						["filter"] = current.filter,
-						["stacks"] = count,
-						["stacksmode"] = current.stacks
-					}
-			
-				D.Tracker.UpdateDisplayData(current.display, data)
-			
-			else
+			local general = config.auras["GENERAL"] or {}
+			local class = config.auras[D.Player.class] or {}
 
-				print(current.id)
+			for i, spell in ipairs(general) do
+				table.insert(auras, spell)
+			end
+
+			for i, spell in ipairs(class) do 
+				table.insert(auras, spell)
 			end
 
 		end
-		
-	end
+		this.Init = init
 
-end
 
-local function OnUnitAura()
+		local clear = function()
 
-	local general = S.tracker.auras["GENERAL"]
+			for i, spell in ipairs(auras) do
+				D.Tracker.UpdateDisplayData(spell.display, { id = spell.id, remove = true })	
+			end
 
-	ApplyAuras(general)
-	
-	local auras = S.tracker.auras[D.Player.class]
+		end
+		this.Clear = clear
 
-	if auras == nil then
-		return
-	end
 
-	ApplyAuras(auras)
+		local update = function()
 
-end
-	
+			for i, spell in ipairs(auras) do
+			
+				if D.Tracker.ShouldDisplayForSpec(spell) then
 
-E:Register("UNIT_AURA", OnUnitAura)
-E:Register("PLAYER_TARGET_CHANGED", OnUnitAura)
-E:Register("PLAYER_FOCUS_CHANGED", OnUnitAura)
+					local name = GetSpellInfo(spell.id)
+
+					if name == nil then
+						print(spell.id)
+					end
+
+					local _, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellID = UnitAura(spell.unit, name, nil, spell.filter)
+					
+					if spell.highlight == "MAXSTACKS" then
+
+						if count == spell.maxstacks then
+							expires = nil
+						end
+
+					end
+
+					local data = {
+							["id"] = spell.id,
+							["texture"] = icon,
+							["expiry"] = expires,
+							["filter"] = spell.filter,
+							["stacks"] = count,
+							["stacksmode"] = spell.stacks
+						}
+					
+					D.Tracker.UpdateDisplayData(spell.display, data)
+
+				end
+
+			end
+
+		end
+		this.Update = update
+
+		events:Register("UNIT_AURA", update)
+		events:Register("PLAYER_TARGET_CHANGED", update)
+		events:Register("PLAYER_FOCUS_CHANGED", update)
+
+		return this
+
+	end,
+}
+
+table.insert(D.Tracker.Scanners, AuraScanner)
