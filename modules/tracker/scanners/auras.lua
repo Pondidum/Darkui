@@ -77,9 +77,6 @@ local AuraScanner = {
 		events:Register("PLAYER_TARGET_CHANGED", update)
 		events:Register("PLAYER_FOCUS_CHANGED", update)
 
-		events:Register("LEARNED_SPELL_IN_TAB", clear)
-		events:Register("SPELLS_CHANGED", clear)
-
 		return this
 
 	end,

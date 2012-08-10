@@ -60,8 +60,16 @@ local function PostProcessDisplays()
 
 end
 
+local initDone = false
+local activeScanners = {}
 
-local function OnPlayerAlive()
+local function OnInitialise()
+
+	if initDone then 
+		return 
+	end
+
+	initDone = true
 
 	PostProcessAuras()
 	PostProcessDisplays()
@@ -73,16 +81,39 @@ local function OnPlayerAlive()
 		local s = scanner.New(E)
 		s.Init(S.tracker)
 
+		table.insert(activeScanners, s)
 	end
 
 	D.Tracker.SetCombatState()
 
 	E:Unregister("PLAYER_ALIVE", "Darkui_Tracker_PlayerAlive")
-	
+	E:Unregister("PLAYER_ENTERING_WORLD", "Darkui_Tracker_PlayerEnteringWorld")	
 end
 
 E:RegisterOnUpdate("TrackerUpdateDisplays", D.Tracker.UpdateDisplays)
 
 E:Register("PLAYER_REGEN_ENABLED", D.Tracker.CombatExit)
 E:Register("PLAYER_REGEN_DISABLED", D.Tracker.CombatEnter)
-E:Register("PLAYER_ALIVE", OnPlayerAlive, "Darkui_Tracker_PlayerAlive")
+E:Register("PLAYER_ALIVE", OnInitialise, "Darkui_Tracker_PlayerAlive")
+E:Register("PLAYER_ENTERING_WORLD", OnInitialise, "Darkui_Tracker_PlayerEnteringWorld")
+
+
+
+local function Reload()
+
+	if not initDone then return end
+
+	for i, s in ipairs(activeScanners) do
+		
+		s.Clear()
+		s.Init(S.tracker)
+		s.Update()
+
+	end
+
+end
+
+E:Register("LEARNED_SPELL_IN_TAB", Reload)
+E:Register("SPELLS_CHANGED", Reload)
+E:Register("PLAYER_ALIVE", Reload)
+E:Register("PLAYER_ENTERING_WORLD", Reload)

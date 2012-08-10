@@ -43,10 +43,6 @@ local CooldownScanner = {
 			gcdDetect = config.cooldowns.GCD[D.Player.class]
 
 			local class = config.cooldowns[D.Player.class]
-
-			print(D.Player.class)
-			print(D.Player.spec)
-
 			local classSpells = class["All"] or {}
 			local specSpells = class[D.Player.spec] or {}
 
@@ -58,8 +54,7 @@ local CooldownScanner = {
 			for i, spell in ipairs(specSpells) do
 				table.insert(cooldowns, spell)
 			end
-
-			print(#cooldowns)
+			
 		end
 		this.Init = init
 
@@ -113,9 +108,6 @@ local CooldownScanner = {
 		end
 
 		events:RegisterOnUpdate("TrackerCooldowns", onUpdate)
-
-		events:Register("LEARNED_SPELL_IN_TAB", clear)
-		events:Register("SPELLS_CHANGED", clear)
 
 		return this
 
