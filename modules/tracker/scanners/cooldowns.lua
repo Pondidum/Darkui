@@ -42,7 +42,7 @@ local CooldownScanner = {
 			cooldowns = {}
 			gcdDetect = config.cooldowns.GCD[D.Player.class]
 
-			local class = config.cooldowns[D.Player.class]
+			local class = config.cooldowns[D.Player.class] or {}
 			local classSpells = class["All"] or {}
 			local specSpells = class[D.Player.spec] or {}
 
@@ -54,7 +54,7 @@ local CooldownScanner = {
 			for i, spell in ipairs(specSpells) do
 				table.insert(cooldowns, spell)
 			end
-			
+
 		end
 		this.Init = init
 
