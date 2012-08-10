@@ -494,6 +494,65 @@ end
 
 
 local ClassSpecific = {
+
+	SHAMAN = function(self, ...)
+
+		local totems = {}
+
+		for i = 1, 4 do
+ 
+ 			local totem = CreateFrame("StatusBar", "DarkuiTotem"..i, self)
+			totem:SetStatusBarTexture(S.textures.normal)
+			totem:GetStatusBarTexture():SetHorizTile(false)
+
+			D.CreateShadow(totem)
+			D.CreateBackground(totem)
+			totem.bg = totem:CreateTexture(nil, 'BORDER')
+
+			totems[i] = totem
+			
+		end
+
+		LayoutSegments(self, totems) 
+
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		totems[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
+
+		self.DarkTotems = totems
+
+	--[[	
+		local offset = 5
+		local anchor = self.Debuffs or self.Buffs or self.Power
+		
+		local runes = CreateFrame("Frame", "DarkuiRunes", self)
+		runes:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, offset)
+		runes:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", 0, offset)
+		runes:SetHeight((segmentHeight * 3) + (offset * 2))
+		
+		for i = 1, 6 do
+			
+			local rune = CreateFrame("StatusBar", "DarkuiRune"..i, self)
+			rune:SetStatusBarTexture(S.textures.normal)
+			rune:GetStatusBarTexture():SetHorizTile(false)
+			
+			D.CreateShadow(rune)
+			D.CreateBackground(rune)
+			rune.bg = rune:CreateTexture(nil, 'BORDER')
+			
+			runes[i] = rune
+		end
+	
+		LayoutSegments(self, {runes[1], runes[2]} ) 
+		LayoutSegments(self, {runes[3], runes[4]} ) 
+		LayoutSegments(self, {runes[5], runes[6]} ) 
+		
+		runes[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 0)
+		runes[3]:SetPoint("BOTTOMLEFT", runes[1], "TOPLEFT", 0, offset)
+		runes[5]:SetPoint("BOTTOMLEFT", runes[3], "TOPLEFT", 0, offset)
+		
+		self.DarkRunes = runes]]--
+	end,
+
 	WARLOCK = function(self, ...)
 		
 		local shards = CreateSegments(self, 3)
