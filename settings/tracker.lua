@@ -74,6 +74,8 @@ S.tracker.auras = {
 		{ ["id"] = 8050, 	["unit"] = "target" },		--flameshock
 
 		{ ["id"] = 79206, 	["unit"] = "player" },		--spiritwalker's grace
+		{ ["id"] = 73683, 	["unit"] = "player" },		--unleash flame
+		{ ["id"] = 73681, 	["unit"] = "player" },		--unleash wind
 
 		{ ["id"] = 324, 	["unit"]      = "player", 	
 							["display"]   = "CooldownCenterLeft",	
@@ -84,7 +86,7 @@ S.tracker.auras = {
 
 		{ ["id"] = 53817, 	["unit"]      = "player", 	
 							["display"]   = "CooldownCenterRight",	
-							["stacks"] 	  = "SHOW", 
+							["stacks"] 	  = "ONLY", 
 							["highlight"] = "MAXSTACKS", 
 							["maxstacks"] = 5,
 							["spec"] 	  = "Enhancement" }, 	--maelstrom weapon
@@ -147,7 +149,8 @@ S.tracker.auras = {
 
 		--enchants
 		{ ["id"] = 74241,	["unit"] = "player" },		--power torrent
-		
+		{ ["id"] = 120032, 	["unit"] = "player" },		--dancing steel
+		{ ["id"] = 126707, 	["unit"] = "player" },		--malevolent gladiator's insignia of conquest
 
 		--trinkets
 		{ ["id"] = 102662,	["unit"] = "player" },		--foul gift
@@ -180,7 +183,13 @@ S.tracker.cooldowns = {
 		{ ["id"] = 51505, 	["spec"] = "Elemental",		["display"] = "CooldownCenter" },		--lava burst
 		{ ["id"] = 8042,	["spec"] = "Elemental",		["display"] = "CooldownCenterRight" },	--earth shock
 
-		{ ["id"] = 51533,	["spec"] = "Enhancement",	["display"] = "CooldownCenter" },		--earth shock
+		--{ ["id"] = 51533,	["spec"] = "Enhancement",	["display"] = "CooldownCenter" },		--feral spirits
+		{ ["id"] = 8050,	["spec"] = "Enhancement",	["display"] = "CooldownLeft" },		--feral spirits
+		{ ["id"] = 60103,	["spec"] = "Enhancement",	["display"] = "CooldownCenterLeft" },		--feral spirits
+		{ ["id"] = 17364,	["spec"] = "Enhancement",	["display"] = "CooldownCenter" },		--feral spirits
+		--maelstrom stacks show here
+		{ ["id"] = 73680,	["spec"] = "Enhancement",	["display"] = "CooldownRight" },		--feral spirits
+
 
 		{ ["id"] = 73920,	["spec"] = "Restoration",	["display"] = "CooldownCenterRight" },	--healing rain
 		{ ["id"] = 61295,	["spec"] = "Restoration",	["display"] = "CooldownCenter" },		--riptide
