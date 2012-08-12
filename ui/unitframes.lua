@@ -717,7 +717,7 @@ local UnitSpecific = {
 		local range = {insideAlpha = 1, outsideAlpha = 0.3}
 		self.Range = range
 		
-		self:Tag(self.HealthValue, '[' .. D.Addon.name .. ':healthshort]')
+		--self:Tag(self.HealthValue, '[' .. D.Addon.name .. ':healthshort]')
 	end,
 	
 }
@@ -797,33 +797,41 @@ oUF:Factory(function(self)
 	self:SetActiveStyle(D.Addon.name .. "Raid")
 	local raidHeader = CreateFrame("Frame", "oUF_DarkuiRaid", UIParent)
 	local raid = {}
-	local partWidth, parthHeight = unpack( layout.raid.size )
 	
+	local unitWidth, unitHeight = unpack( layout.raidunit.size )
+	local unitAnchor, _, unitOtherAnchor, unitXoffset, unitYoffset = unpack( layout.raidunit.point)
+
+	local groupAnchor, groupXoffset, groupYoffset = layout.raidgroup.anchor, layout.raidgroup.xoffset, layout.raidgroup.yoffset
+
+	print("unit:", unitAnchor, unitOtherAnchor, unitXoffset, unitYoffset)
+	print("group:", groupAnchor, groupXoffset, groupYoffset )
+
 	for i = 1, 8 do
+
 		local group = oUF:SpawnHeader(D.Addon.name .. 'Raid' ..i, nil, "raid,party",
 			'oUF-initialConfigFunction', ([[
 											self:SetWidth(%d)
 											self:SetHeight(%d)
-										 ]]):format(partWidth, parthHeight),
+										 ]]):format(unitWidth, unitHeight),
 			'showPlayer', true,
 			'showSolo', true,
 			'showParty', true,
 			'showRaid', true,
-			'xoffset', -5,
-			'yOffset', 0,
-			'point', "RIGHT",
+			'xoffset', groupXoffset,
+			'yOffset', groupYoffset,
+			'point', groupAnchor,
 			'groupFilter', i)
 		
+
 		if i == 1 then
-			group:SetPoint("BOTTOMRIGHT", raidHeader, "BOTTOMRIGHT", 0, 0)
+			group:SetPoint(unitAnchor, raidHeader, unitAnchor, 0, 0)
 		else
-			group:SetPoint("BOTTOMRIGHT", raid[i-1], "TOPRIGHT", 0, 5)
+			group:SetPoint(unitAnchor, raid[i-1], unitOtherAnchor, unitXoffset, unitYoffset)
 		end
-		
+
 		raid[i] = group
-	end
-	
-		
+
+	end		
 	
 	SetLayout(player, 		'player')
 	SetLayout(pet, 			'pet')
@@ -834,8 +842,8 @@ oUF:Factory(function(self)
 	SetLayout(raidHeader,	'raidheader')
 	SetLayout(boss[1], 		'boss')
 	
-	local raidWidth = (partWidth + 5) * 5
-	local raidHeight = (parthHeight + 5) * 8
+	local raidWidth = (unitWidth + 5) * 5
+	local raidHeight = (unitHeight + 5) * 8
 	raidHeader:SetSize(raidWidth - 5, raidHeight - 5)
 	
 end)

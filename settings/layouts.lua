@@ -41,8 +41,13 @@ S.unitframes.layouts["default"] = {
 		["point"] = {"BOTTOMRIGHT", "DarkuiFrame", "BOTTOMRIGHT", 0, 0}, 
 		["size"] = {},
 	},
-	["raid"] = {			--note raid has is size set, and not its position
-		["point"] = {},
+	["raidgroup"] = {
+		anchor = "RIGHT",
+		xoffset = -5,
+		yoffset = 0,
+	},
+	["raidunit"] = {			--note raid has is size set, and not its position
+		["point"] = {"BOTTOMRIGHT", "", "TOPRIGHT", 0, 5},
 		["size"] = {70 , 18},
 	},
 }
@@ -83,8 +88,13 @@ S.unitframes.layouts["healer"] = {
 		["point"] = {"BOTTOM", "DarkuiFrame", "BOTTOM", 0, 150}, 
 		["size"] = {},
 	},
-	["raid"] = {		--note raid has is size set, and not its position
-		["point"] = {}, 
+	["raidgroup"] = {
+		anchor = "RIGHT",
+		xoffset = -5,
+		yoffset = 0,
+	},
+	["raidunit"] = {		--note raid has is size set, and not its position
+		["point"] = {"BOTTOMLEFT", "", "TOPLEFT", 0, 5},
 		["size"] = {80 , 36},
 	},
 }
@@ -101,15 +111,15 @@ S.unitframes.layouts["hybrid"] = {
 		["size"] = {132, 18},
 	},
 	["target"] = {
-		["point"] = {"LEFT", "oUF_DarkuiPlayer", "RIGHT", 50, 50},
+		["point"] = {"LEFT", "oUF_DarkuiPlayer", "RIGHT", 50, 0},
 		["size"] = {240, 18},
 	},
 	["focus"] = {
-		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -50, 50},
+		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -50, 0},
 		["size"] = {240, 18},
 	},
 	["targettarget"] = {
-		["point"] = {"LEFT", "oUF_DarkuiTarget", "RIGHT", 25, 0},
+		["point"] = {"TOPRIGHT", "oUF_DarkuiTarget", "BOTTOMRIGHT", 0, -25},
 		["size"] = {132, 18},
 	},
 	["focustarget"] = {
@@ -122,11 +132,15 @@ S.unitframes.layouts["hybrid"] = {
 	},
 	["raidheader"] = {		--note raidheader has is position set, and not its size
 		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 50}, 
-		["size"] = {},
 	},
-	["raid"] = {			--note raid has is size set, and not its position
-		["point"] = {},
-		["size"] = {70 , 18},
+	["raidgroup"] = {
+		anchor = "LEFT",
+		xoffset = 5,
+		yoffset = 0,
+	},
+	["raidunit"] = {			--note raid has is size set, and not its position
+		["point"] = {"BOTTOMLEFT", "", "TOPLEFT", 0, 5},
+		["size"] = {60 , 18},
 	},
 }
 
