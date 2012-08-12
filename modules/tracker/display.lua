@@ -48,6 +48,7 @@ function T.CreateSpellIcon(parent, name, location, size)
 	frame.cd:SetAllPoints(frame)
 	frame.cd:SetReverse(true)
 	frame.cd.expiry = nil
+	--frame.cd.timer:SetParent(frame)
 
 	frame.stacks = D.CreateFontString(frame, S.fonts.normal, S.fonts.default.size + 4, S.fonts.default.style)
 	frame.stacks:SetPoint("TOP", 2, 0)
@@ -91,10 +92,10 @@ function T.CreateSpellIcon(parent, name, location, size)
 
 	frame.UpdateCooldown = function(self, expiry)
 
-		if expiry and expiry > 0 and expiry ~= self.cd.expiry then
+		if expiry and expiry > 0 and math.floor(expiry) ~= self.cd.expiry then
 
 			self.cd:SetCooldown(GetTime(), expiry - GetTime())
-			self.cd.expiry = expiry
+			self.cd.expiry = math.floor(expiry)
 				
 		end
 
