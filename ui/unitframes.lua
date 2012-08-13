@@ -717,7 +717,7 @@ local UnitSpecific = {
 		local range = {insideAlpha = 1, outsideAlpha = 0.3}
 		self.Range = range
 		
-		--self:Tag(self.HealthValue, '[' .. D.Addon.name .. ':healthshort]')
+		self:Tag(self.HealthValue, '')
 	end,
 	
 }
@@ -802,9 +802,6 @@ oUF:Factory(function(self)
 	local unitAnchor, _, unitOtherAnchor, unitXoffset, unitYoffset = unpack( layout.raidunit.point)
 
 	local groupAnchor, groupXoffset, groupYoffset = layout.raidgroup.anchor, layout.raidgroup.xoffset, layout.raidgroup.yoffset
-
-	print("unit:", unitAnchor, unitOtherAnchor, unitXoffset, unitYoffset)
-	print("group:", groupAnchor, groupXoffset, groupYoffset )
 
 	for i = 1, 8 do
 
