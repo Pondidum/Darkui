@@ -1,7 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
 S["unitframes"] = {
-	["layout"] = "default",
+	["layout"] = "hybrid",
 	["layouts"] = {}
 }
 
@@ -123,7 +123,7 @@ S.unitframes.layouts["hybrid"] = {
 		["size"] = {132, 18},
 	},
 	["focustarget"] = {
-		["point"] = {"RIGHT", "oUF_DarkuiFocus", "LEFT", -25, 0},
+		["point"] = {"TOPLEFT", "oUF_DarkuiFocus", "BOTTOMLEFT", 0, -25},
 		["size"] = {132, 18},
 	},
 	["boss"] = {
