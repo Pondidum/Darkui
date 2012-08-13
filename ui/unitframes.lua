@@ -284,7 +284,7 @@ local function CreateBuffs(self)
 	buffs:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", -1, 5)
 	buffs:SetHeight(buffHeight)
 	buffs.size = buffHeight
-	buffs.num = 8
+	buffs.num = 7
 	buffs.spacing = 1
 	buffs.initialAnchor = 'BOTTOMLEFT'
 	
@@ -303,7 +303,7 @@ local function CreateDebuffs(self)
 	debuffs:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", -1, 5)
 	debuffs:SetHeight(buffHeight)
 	debuffs.size = buffHeight
-	debuffs.num = 8
+	debuffs.num = 7
 	debuffs.spacing = 1
 	debuffs.initialAnchor = 'BOTTOMLEFT'
 	

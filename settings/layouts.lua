@@ -104,7 +104,7 @@ S.unitframes.layouts["hybrid"] = {
 	["buffwatch"] = false,
 	["player"] = {
 		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 180},
-		["size"] = {240, 18},
+		["size"] = {220, 18},
 	},
 	["pet"] = {
 		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
@@ -112,11 +112,11 @@ S.unitframes.layouts["hybrid"] = {
 	},
 	["target"] = {
 		["point"] = {"LEFT", "oUF_DarkuiPlayer", "RIGHT", 50, 0},
-		["size"] = {240, 18},
+		["size"] = {220, 18},
 	},
 	["focus"] = {
 		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -50, 0},
-		["size"] = {240, 18},
+		["size"] = {220, 18},
 	},
 	["targettarget"] = {
 		["point"] = {"TOPRIGHT", "oUF_DarkuiTarget", "BOTTOMRIGHT", 0, -25},
