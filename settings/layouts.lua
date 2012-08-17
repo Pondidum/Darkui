@@ -131,16 +131,16 @@ S.unitframes.layouts["hybrid"] = {
 		["size"] = {132, 18},
 	},
 	["raidheader"] = {		--note raidheader has is position set, and not its size
-		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 50}, 
+		["point"] = {"TOPRIGHT", "DarkuiBar5", "TOPLEFT",  -10, 0}, 
 	},
 	["raidgroup"] = {
-		anchor = "LEFT",
-		xoffset = 5,
-		yoffset = 0,
+		anchor = "TOP",
+		xoffset = 0,
+		yoffset = -5,
 	},
 	["raidunit"] = {			--note raid has is size set, and not its position
-		["point"] = {"BOTTOMLEFT", "", "TOPLEFT", 0, 5},
-		["size"] = {60 , 18},
+		["point"] = {"TOPRIGHT", "", "BOTTOMRIGHT", 0, -5},
+		["size"] = {60 , 16},
 	},
 }
 
