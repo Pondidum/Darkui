@@ -189,7 +189,7 @@ local function InitBank(parent)
 	end
 	
 	parent.Bags[BANK_CONTAINER] = bank
-	parent:SetPoint("TOPLEFT", DarkuiFrame, "TOPLEFT", 0, 0)
+	parent:SetPoint("TOPLEFT", D.Frame, "TOPLEFT", 0, 0)
 	
 end
 
@@ -246,7 +246,7 @@ local function Init()
 
 	E:Unregister("PLAYER_ENTERING_WORLD", "Darkui_Bags_PlayerEnteringWorld")
 	
-	bagFrame = CreateFrame("Frame", "DarkuiBag", DarkuiFrame)
+	bagFrame = CreateFrame("Frame", "DarkuiBag", D.Frame)
 	D.CreateBackground(bagFrame)
 	D.CreateShadow(bagFrame)
 	bagFrame:Hide()
@@ -254,7 +254,7 @@ local function Init()
 	bagFrame:SetScript("OnShow", BagOnShow)
 	bagFrame:SetScript("OnHide", BagOnHide)
 
-	bankFrame = CreateFrame("Frame", "DarkuiBank", DarkuiFrame)
+	bankFrame = CreateFrame("Frame", "DarkuiBank", D.Frame)
 	D.CreateBackground(bankFrame)
 	D.CreateShadow(bankFrame)
 	bankFrame:Hide()

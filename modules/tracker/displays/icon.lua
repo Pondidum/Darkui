@@ -5,7 +5,7 @@ if S.tracker.enable ~= true then return end
 
 function T.CreateIcon(name, setup) 
 
-	local icon = T.CreateSpellIcon(DarkuiFrame, name, setup.location, setup.size)
+	local icon = T.CreateSpellIcon(D.Frame, name, setup.location, setup.size)
 	
 	icon.Setup = setup
 	icon.Data = {}

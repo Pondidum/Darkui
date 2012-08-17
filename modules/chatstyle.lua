@@ -72,7 +72,7 @@ local function SizeFrame(id, frame)
 	if frame.isDocked then
 		
 		frame:ClearAllPoints()
-		frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, offset)
+		frame:SetPoint("BOTTOMLEFT", D.Frame, "BOTTOMLEFT", 0, offset)
 		frame:SetPoint("BOTTOMRIGHT", "DarkuiActionBarBackground", "BOTTOMLEFT", -5, 0)
 
 		frame:SetHeight(height)
@@ -126,7 +126,7 @@ local function SetupEditBox(frame)
 	local edit = _G[chat.."EditBox"]
 	
 	edit:ClearAllPoints()
-	edit:SetPoint("TOPLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 0)
+	edit:SetPoint("TOPLEFT", D.Frame, "BOTTOMLEFT", 0, 0)
 	edit:SetPoint("RIGHT", DarkuiActionBarBackground, "LEFT", -5, 0)
 	edit:SetHeight(S.chat.editsize[2])
 	
@@ -156,9 +156,9 @@ local function AddBackground()
 
 	if S.chat.background then
 
-		local frame = CreateFrame("Frame", D.Addon.name .. "ChatBackground", DarkuiFrame)
+		local frame = CreateFrame("Frame", D.Addon.name .. "ChatBackground", D.Frame)
 		
-		frame:SetPoint("BOTTOMLEFT", DarkuiFrame, "BOTTOMLEFT", 0, 2)
+		frame:SetPoint("BOTTOMLEFT", D.Frame, "BOTTOMLEFT", 0, 2)
 		frame:SetPoint("BOTTOMRIGHT", "DarkuiActionBarBackground", "BOTTOMLEFT", -5, 0)
 		frame:SetHeight(S.chat.size[2])
 

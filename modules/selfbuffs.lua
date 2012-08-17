@@ -57,9 +57,9 @@ end
 
 if S.selfbuffs.enable and buffs and buffs[1]  then
 	
-	buffFrame = CreateFrame("Frame", D.Addon.name .. "SelfBuffReminder", DarkuiFrame)
+	buffFrame = CreateFrame("Frame", D.Addon.name .. "SelfBuffReminder", D.Frame)
 	buffFrame:SetSize(40, 40)
-	buffFrame:SetPoint("CENTER", DarkuiFrame, "CENTER", 0, 200)
+	buffFrame:SetPoint("CENTER", D.Frame, "CENTER", 0, 200)
 	
 	D.CreateShadow(buffFrame)
 	

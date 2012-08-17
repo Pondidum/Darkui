@@ -1,6 +1,6 @@
 local D, S, E = unpack(DarkUI)
 
-local minimap = CreateFrame("Frame", D.Addon.name .. "Minimap", DarkuiFrame)
+local minimap = CreateFrame("Frame", D.Addon.name .. "Minimap", D.Frame)
 minimap:SetPoint("TOPRIGHT")
 minimap:SetSize(140, 140)
 

@@ -1,6 +1,6 @@
 local D, S, E = unpack(select(2, ...))
 
-local eventFrame = DarkuiFrame
+local eventFrame = D.Frame
 
 local registeredEvents = {}
 local onUpdateActions = {}

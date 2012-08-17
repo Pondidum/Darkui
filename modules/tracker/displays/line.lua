@@ -44,7 +44,7 @@ end
 
 function T.CreateLine(name, setup)
 	
-	local container = CreateFrame("Frame", name, DarkuiFrame)
+	local container = CreateFrame("Frame", name, D.Frame)
 	container:SetPoint(unpack(setup.location))
 	container:SetSize(unpack(setup.size))
 	
