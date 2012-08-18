@@ -13,8 +13,7 @@ D.UnitFrames.ClassSpecific = {
 		local runes = CreateFrame("Frame", "DarkuiRunes", self)
 		runes:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, offset)
 		runes:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", 0, offset)
-		runes:SetHeight((segmentHeight * 3) + (offset * 2))
-		
+			
 		for i = 1, 6 do
 			
 			local rune = CreateFrame("StatusBar", "DarkuiRune"..i, self)
@@ -36,6 +35,8 @@ D.UnitFrames.ClassSpecific = {
 		runes[3]:SetPoint("BOTTOMLEFT", runes[1], "TOPLEFT", 0, offset)
 		runes[5]:SetPoint("BOTTOMLEFT", runes[3], "TOPLEFT", 0, offset)
 		
+		runes:SetHeight(( runes[1]:GetHeight() * 3) + (offset * 2))
+
 		self.DarkRunes = runes
 	end,
 	
@@ -44,7 +45,7 @@ D.UnitFrames.ClassSpecific = {
 		local anchor = self.Debuffs or self.Buffs or self.Power
 
 		local eclipseBar = CreateFrame('Frame', "EclipseBar", self)
-		eclipseBar:SetHeight(segmentHeight)
+		--eclipseBar:SetHeight(segmentHeight)
 		
 		D.CreateShadow(eclipseBar)
 		D.CreateBackground(eclipseBar)
