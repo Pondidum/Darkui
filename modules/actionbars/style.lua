@@ -58,18 +58,18 @@ function D.Style(self)
 	if name:match("ExtraActionButton") then return end
 	
 	local action = self.action
-	local Button = self
+	local button = self
 	local Icon = _G[name.."Icon"]
 	local Count = _G[name.."Count"]
 	local Flash	 = _G[name.."Flash"]
-	local HotKey = _G[name.."HotKey"]
+	local hotkey = _G[name.."HotKey"]
 	local Border  = _G[name.."Border"]
 	local Btname = _G[name.."Name"]
 	local normal  = _G[name.."NormalTexture"]
 	local shine = _G[name.."Shine"]
 	local background = _G[name.."FloatingBG"]
 	
-	Button:SetNormalTexture("")
+	button:SetNormalTexture("")
 
 	if Flash then
 		Flash:SetTexture("")
@@ -86,12 +86,12 @@ function D.Style(self)
 		Count:SetFont(S.fonts.normal, 12, "OUTLINE")
  	end 
  	if Btname then
- 		Btname:SetTextColor(HotKey:GetTextColor())
+ 		Btname:SetTextColor(hotkey:GetTextColor())
 		Btname:SetFont(S.fonts.normal, 10, "OUTLINE")
 		Btname:SetJustifyH("LEFT")
 
 		Btname:ClearAllPoints()
-		Btname:SetPoint("TOPLEFT", Button, 0, 0)
+		Btname:SetPoint("TOPLEFT", button, 0, 0)
 
 		if S.actionbars.showmacrokey == false or Btname:GetText() == nil or Btname:GetText() == "" then
 			Btname:SetText("")
@@ -114,23 +114,27 @@ function D.Style(self)
 		panel:SetFrameStrata(self:GetFrameStrata())
 		panel:SetFrameLevel(self:GetFrameLevel() - 1)
  
-		Icon:SetTexCoord(.08, .92, .08, .92)
-		Icon:SetPoint("TOPLEFT", Button, 0, 0)
-		Icon:SetPoint("BOTTOMRIGHT", Button, 0, 0)
+ 		if Icon then
+			Icon:SetTexCoord(.08, .92, .08, .92)
+			Icon:SetPoint("TOPLEFT", button, 0, 0)
+			Icon:SetPoint("BOTTOMRIGHT", button, 0, 0)
+		end
 
 	end
 
-	HotKey:ClearAllPoints()
-	HotKey:SetPoint("TOPRIGHT", 2, 0)
-	HotKey:SetFont(S.fonts.normal, 10, "OUTLINE")
-	HotKey:SetJustifyH("RIGHT")
+	if hotkey then
+		hotkey:ClearAllPoints()
+		hotkey:SetPoint("TOPRIGHT", 2, 0)
+		hotkey:SetFont(S.fonts.normal, 10, "OUTLINE")
+		hotkey:SetJustifyH("RIGHT")
 
-	HotKey.ClearAllPoints = D.Dummy
-	HotKey.SetPoint = D.Dummy
- 
+		hotkey.ClearAllPoints = D.Dummy
+		hotkey.SetPoint = D.Dummy
+	end
+
 	if not S.actionbars.showhotkey == true then
-		HotKey:SetText("")
-		D.Kill(HotKey)
+		hotkey:SetText("")
+		D.Kill(hotkey)
 	end
  
 	if normal then

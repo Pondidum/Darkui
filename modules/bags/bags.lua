@@ -169,7 +169,7 @@ local function InitBags(parent)
 	E:Register("TRADE_MONEY_CHANGED", updateGold)
 	updateGold()
 	
-	parent:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, 50)
+	parent:SetPoint("BOTTOMRIGHT", DarkuiBagBar, "BOTTOMLEFT", -15, 0)
 
 end
 

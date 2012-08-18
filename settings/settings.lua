@@ -159,6 +159,7 @@ S["tracker"] = {
 
 S["bags"] = {
 	["enable"] = true,
+	["buttonsize"] = 25,
 }
 
 S["interrupt"] = {

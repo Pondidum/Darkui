@@ -60,7 +60,9 @@
 	<Script file="modules\tracker\scanners\totems.lua" />
 	<Script file="modules\tracker\init.lua" />
 
-	<Script file="modules\bags.lua" />
+	<Script file="modules\bags\bagbar.lua" />
+	<Script file="modules\bags\bags.lua" />
+
 	<Script file="modules\minimap.lua" />
 	<Script file="modules\merchant.lua" />
 	<Script file="modules\mailbox.lua" />
