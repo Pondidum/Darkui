@@ -4,13 +4,14 @@ local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
-local layout =  S.unitframes.layouts[S.unitframes.layout]
+
+local ctor = D.UnitFrames.Constructor
+local layout = D.UnitFrames.CurrentLayout
  
 local castHeight = 16
 local castOffset = -20
 local powerHeight = 5
 local buffHeight = 29
-local segmentHeight = 8 --used for runes, totems, holypower, soulshards etc
 local auraHeight = 16
 
 if layout.floatingcastbars then
@@ -123,53 +124,6 @@ local function CreateAltBar(self)
 	
 end
 
-local function LayoutSegments(parent, segments)
-
-	--Hack:
-	--What i would like to do is to anchor each frame to the previous, anchor 1 to parent left, and N to parent right.
-	--But you dont seem to be able to do that :(
-	local partWidth, parthHeight = unpack( layout.player.size )
-	
-	local spacing = 4
-	local totalSpacing = (#segments - 1) * spacing 
-	local segmentWidth = (partWidth  - totalSpacing) / #segments
-	
-	-- note we dont attach the first one to anything
-	for i = 1, #segments do
-		
-		segments[i]:SetHeight(segmentHeight)
-		segments[i]:SetWidth(segmentWidth)
-		
-		if i > 1 then
-			segments[i]:SetPoint("LEFT", segments[i-1], "RIGHT", spacing, 0)
-		end
-		
-	end
-	
-end
-
-local function CreateSegments(parent, number)
-
-	local segments = {}
-	
-	for i = 1, number do
-	
-		segments[i] = CreateFrame("Frame", nil, parent)
-
-		D.CreateBackground(segments[i])
-		D.CreateShadow(segments[i])
-	
-		segments[i].bg:SetBackdropColor(0.65, 0.63, 0.35, 0.6)
-	
-	end
-	
-	LayoutSegments(parent, segments)
-	
-	return segments
-	
-end
-
-
 local function CreateExperienceBar(self)
 
 	local experience = CreateAltBar(self)
@@ -268,7 +222,7 @@ end
 
 local function CreateComboPoints(self)
 	
-	local points = CreateSegments(self, 5)
+	local points = ctor.CreateSegments(self, layout.player.size[1], 5)
 	
 	points.unit = PlayerFrame.unit
 	points[1]:SetPoint("TOPLEFT", self.Castbar, "BOTTOMLEFT", 0, -5)
@@ -492,158 +446,6 @@ local function Shared(self, unit)
 	
 end
 
-
-local ClassSpecific = {
-	
-	DEATHKNIGHT = function(self, ...)
-		
-		local offset = 5
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		local runes = CreateFrame("Frame", "DarkuiRunes", self)
-		runes:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, offset)
-		runes:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", 0, offset)
-		runes:SetHeight((segmentHeight * 3) + (offset * 2))
-		
-		for i = 1, 6 do
-			
-			local rune = CreateFrame("StatusBar", "DarkuiRune"..i, self)
-			rune:SetStatusBarTexture(S.textures.normal)
-			rune:GetStatusBarTexture():SetHorizTile(false)
-			
-			D.CreateShadow(rune)
-			D.CreateBackground(rune)
-			rune.bg = rune:CreateTexture(nil, 'BORDER')
-			
-			runes[i] = rune
-		end
-	
-		LayoutSegments(self, {runes[1], runes[2]} ) 
-		LayoutSegments(self, {runes[3], runes[4]} ) 
-		LayoutSegments(self, {runes[5], runes[6]} ) 
-		
-		runes[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 0)
-		runes[3]:SetPoint("BOTTOMLEFT", runes[1], "TOPLEFT", 0, offset)
-		runes[5]:SetPoint("BOTTOMLEFT", runes[3], "TOPLEFT", 0, offset)
-		
-		self.DarkRunes = runes
-	end,
-	
-	DRUID = function(self, ...)
-
-		local anchor = self.Debuffs or self.Buffs or self.Power
-
-		local eclipseBar = CreateFrame('Frame', "EclipseBar", self)
-		eclipseBar:SetHeight(segmentHeight)
-		
-		D.CreateShadow(eclipseBar)
-		D.CreateBackground(eclipseBar)
-		LayoutSegments(self, {eclipseBar})
-
-		eclipseBar:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 0)
-
-		local lunarBar = CreateFrame('StatusBar', nil, eclipseBar)
-		lunarBar:SetPoint('LEFT', eclipseBar, 'LEFT', 0, 0)
-		lunarBar:SetSize(eclipseBar:GetWidth(), eclipseBar:GetHeight())
-		lunarBar:SetStatusBarTexture(S.textures.normal)
-		lunarBar:SetStatusBarColor(.50, .52, .70)
-		eclipseBar.LunarBar = lunarBar
-
-		local solarBar = CreateFrame('StatusBar', nil, eclipseBar)
-		solarBar:SetPoint('LEFT', lunarBar:GetStatusBarTexture(), 'RIGHT', 0, 0)
-		solarBar:SetSize(eclipseBar:GetWidth(), eclipseBar:GetHeight())
-		solarBar:SetStatusBarTexture(S.textures.normal)
-		solarBar:SetStatusBarColor(.80, .82,  .60)
-		eclipseBar.SolarBar = solarBar
-
-		local eclipseBarText = eclipseBar:CreateFontString(nil, 'OVERLAY')
-		eclipseBarText:SetPoint('BOTTOM', eclipseBar, 'TOP')
-		eclipseBarText:SetFont(S.fonts.unitframe, 12)
-		eclipseBar.PostUpdatePower = EclipseDirection
-
-		self.EclipseBar = eclipseBar
-		self.EclipseBar.Text = eclipseBarText
-
-
-		if S.unitframes.druidmushrooms then
-
-			local mushrooms = {}
-			mushrooms.colors = {
-				[1] = {0.65, 0.63, 0.35, 0.6},
-				[2] = {0.65, 0.63, 0.35, 0.6},
-				[3] = {0.65, 0.63, 0.35, 0.6},
-			}
-
-			for i = 1, 3 do
-	 
-	 			local mushroom = CreateFrame("StatusBar", nil, self)
-				mushroom:SetStatusBarTexture(S.textures.normal)
-				mushroom:GetStatusBarTexture():SetHorizTile(false)
-
-				D.CreateShadow(mushroom)
-				D.CreateBackground(mushroom)
-				mushroom.bg = mushroom:CreateTexture(nil, 'BORDER')
-
-				mushrooms[i] = mushroom
-				
-			end
-
-			LayoutSegments(self, mushrooms) 
-
-			local anchor = self.Debuffs or self.Buffs or self.Power
-			mushrooms[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-
-			self.DarkTotems = mushrooms
-
-		end	
-	end,
-	
-	PALADIN = function(self, ...)
-		
-		local holyPower = CreateSegments(self, 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		holyPower[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.HolyPower = holyPower
-	end,
-
-	SHAMAN = function(self, ...)
-
-		local totems = {}
-
-		for i = 1, MAX_TOTEMS do
- 
- 			local totem = CreateFrame("StatusBar", nil, self)
-			totem:SetStatusBarTexture(S.textures.normal)
-			totem:GetStatusBarTexture():SetHorizTile(false)
-
-			D.CreateShadow(totem)
-			D.CreateBackground(totem)
-			totem.bg = totem:CreateTexture(nil, 'BORDER')
-
-			totems[i] = totem
-			
-		end
-
-		LayoutSegments(self, totems) 
-
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		totems[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-
-		self.DarkTotems = totems
-
-	end,
-
-	WARLOCK = function(self, ...)
-		
-		local shards = CreateSegments(self, 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		shards[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.SoulShards = shards
-	end,
-}
-
 local UnitSpecific = {
 
 	player = function(self, ...)
@@ -661,8 +463,10 @@ local UnitSpecific = {
 			CreateReputationBar(self)
 		end
 		
-		if ClassSpecific[D.Player.class] then
-			ClassSpecific[D.Player.class](self)
+		local class =D.UnitFrames.ClassSpecific
+
+		if class[D.Player.class] then
+			class[D.Player.class](self)
 		end
 	end,
 	
