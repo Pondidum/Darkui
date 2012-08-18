@@ -7,7 +7,7 @@ local BagBar = {
 
 		local frame = CreateFrame("Frame", D.Addon.name .. "BagBar", D.Frame)
 
-		frame:SetPoint("BOTTOMRIGHT", D.Frame, "BOTTOMRIGHT", 0, 0)
+		frame:SetPoint("BOTTOMRIGHT", D.Frame, "BOTTOMRIGHT", 0, -4)
 		frame:SetWidth(config.buttonsize)
 
 		D.LayoutEngine:Init(frame)
