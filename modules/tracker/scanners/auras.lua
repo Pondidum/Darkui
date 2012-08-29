@@ -45,6 +45,11 @@ local AuraScanner = {
 				if D.Tracker.ShouldDisplayForSpec(spell) then
 
 					local name = GetSpellInfo(spell.id)
+
+					if name == nil then
+						print(spell.id)
+					end
+
 					local _, rank, icon, count, dispelType, duration, expires, caster, stealable, consolidate, spellID = UnitAura(spell.unit, name, nil, spell.filter)
 					
 					if spell.highlight == "MAXSTACKS" then

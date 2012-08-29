@@ -49,7 +49,7 @@ local DarkSlackCheck = function()
 		groups = 5
 	end
 	
-	for i = 1, GetNumRaidMembers() do 
+	for i = 1, GetNumGroupMembers() do 
 		
 		local name, _, subgroup, _, _, _, _, online, isDead = GetRaidRosterInfo(i)
 		
@@ -170,7 +170,7 @@ local DarkSlackCheck = function()
 	end 
 	
 	if raidFoodMessage == "" and raidFlaskMessage == "" and #notChecked == 0 then
-	SendChatMessage(S.slackcheck.prefix .. ": Everyone has Flask and Food.", "RAID")	
+		SendChatMessage(S.slackcheck.prefix .. ": Everyone has Flask and Food.", "RAID")	
 	end
 	
 end
@@ -178,11 +178,11 @@ end
 local DarkReadyCheck = function()
 	
 
-	if not IsRaidLeader() then 
+	if not UnitIsGroupLeader("player") then 
 		return 
 	end
 	
-	if not IsRaidOfficer() then 
+	if not UnitIsGroupAssistant("player") then 
 		return 
 	end
 
@@ -195,6 +195,7 @@ local DarkReadyCheck = function()
 	end
 
 	DarkSlackCheck()	
+
 	
 end
 

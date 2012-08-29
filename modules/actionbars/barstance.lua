@@ -2,7 +2,7 @@ local D, S, E = unpack(select(2, ...))
 
 if not S.actionbars.enable == true then return end
 
----------------------------------------------------------------------------
+-------------------------------------------------------------------------
 -- Setup Shapeshift Bar
 ---------------------------------------------------------------------------
 
@@ -12,14 +12,14 @@ local function ShiftBarUpdate()
 	local texture, name, isActive, isCastable
 	local button, icon, cooldown
 	local start, duration, enable
-	for i = 1, NUM_SHAPESHIFT_SLOTS do
-		button = _G["ShapeshiftButton"..i]
-		icon = _G["ShapeshiftButton"..i.."Icon"]
+	for i = 1, NUM_STANCE_SLOTS do
+		button = _G["StanceButton"..i]
+		icon = _G["StanceButton"..i.."Icon"]
 		if i <= numForms then
 			texture, name, isActive, isCastable = GetShapeshiftFormInfo(i)
 			icon:SetTexture(texture)
 			
-			cooldown = _G["ShapeshiftButton"..i.."Cooldown"]
+			cooldown = _G["StanceButton"..i.."Cooldown"]
 			if texture then
 				cooldown:SetAlpha(1)
 			else
@@ -30,7 +30,7 @@ local function ShiftBarUpdate()
 			CooldownFrame_SetTimer(cooldown, start, duration, enable)
 			
 			if isActive then
-				ShapeshiftBarFrame.lastSelected = button:GetID()
+				StanceBarFrame.lastSelected = button:GetID()
 				button:SetChecked(1)
 			else
 				button:SetChecked(0)
@@ -68,8 +68,8 @@ E:Register("UPDATE_SHAPESHIFT_FORMS", function(self, event, ...)
 	-- I seriously don't know if it's the best way to do it on spec changes or when we learn a new stance.
 	if InCombatLockdown() then return end -- > just to be safe ;p
 	local button
-	for i = 1, NUM_SHAPESHIFT_SLOTS do
-		button = _G["ShapeshiftButton"..i]
+	for i = 1, NUM_STANCE_SLOTS do
+		button = _G["StanceButton"..i]
 		local _, name = GetShapeshiftFormInfo(i)
 		if name then
 			button:Show()
@@ -83,22 +83,24 @@ end)
 E:Register("PLAYER_LOGIN", function()  
 
 	local button
-	for i = 1, NUM_SHAPESHIFT_SLOTS do
+	for i = 1, NUM_STANCE_SLOTS do
 		
-		button = _G["ShapeshiftButton"..i]
+		button = _G["StanceButton"..i]
 		button:ClearAllPoints()
 		button:SetParent(DarkuiBarShift)
 		
 		if i == 1 then
 			button:SetPoint("BOTTOMLEFT", DarkuiBarShift, 0, 0)
 		else
-			local previous = _G["ShapeshiftButton"..i-1]
+			local previous = _G["StanceButton"..i-1]
 			button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
 		end
 		
 		local _, name = GetShapeshiftFormInfo(i)
 		if name then
 			button:Show()
+		else
+			button:Hide()
 		end
 		
 	end

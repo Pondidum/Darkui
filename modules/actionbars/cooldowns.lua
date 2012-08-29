@@ -1,215 +1,605 @@
 local D, S, E = unpack(select(2, ...))
 --[[
-        An edited lightweight OmniCC for Tukui
-        A featureless, 'pure' version of OmniCC.
-        This version should work on absolutely everything, but I've removed pretty much all of the options
+	cc.lua
+		Displays text for cooldowns on widgets
+
+	cases when font size should be updated:
+		frame is resized
+		font is changed
+
+	cases when text should be hidden:
+		scale * fontSize < MIN_FONT_SIE
 --]]
 
-if IsAddOnLoaded("OmniCC") or IsAddOnLoaded("ncCooldown") or S.cooldowns.enable ~= true then return end
+--globals!
 
---constants!
-OmniCC = true --hack to work around detection from other addons for OmniCC
-local ICON_SIZE = 36 --the normal size for an icon (don't change this)
-local DAY, HOUR, MINUTE = 86400, 3600, 60 --used for formatting text
-local DAYISH, HOURISH, MINUTEISH = 3600 * 23.5, 60 * 59.5, 59.5 --used for formatting text at transition points
-local HALFDAYISH, HALFHOURISH, HALFMINUTEISH = DAY/2 + 0.5, HOUR/2 + 0.5, MINUTE/2 + 0.5 --used for calculating next update times
+local config = {}
 
---configuration settings
-local FONT_FACE = S.fonts.normal --what font to use
-local FONT_SIZE = 20 --the base font size to use at a scale of 1
-local MIN_SCALE = 0.5 --the minimum scale we want to show cooldown counts at, anything below this will be hidden
-local MIN_DURATION = 2.5 --the minimum duration to show cooldown text for
-local EXPIRING_DURATION = S.cooldowns.minimum --the minimum number of seconds a cooldown must be to use to display in the expiring format
+config.enabled = true
+config.minDuration = 2.5
+config.showCooldownModels = true	
+config.anchor = "CENTER"
+config.minSize = 0.5
 
-local EXPIRING_FORMAT = D.RGBToHex(1, 0, 0)..'%.1f|r' --format for timers that are soon to expire
-local SECONDS_FORMAT = D.RGBToHex(1, 1, 0)..'%d|r' --format for timers that have seconds remaining
-local MINUTES_FORMAT = D.RGBToHex(1, 1, 1)..'%dm|r' --format for timers that have minutes remaining
-local HOURS_FORMAT = D.RGBToHex(0.4, 1, 1)..'%dh|r' --format for timers that have hours remaining
-local DAYS_FORMAT = D.RGBToHex(0.4, 0.4, 1)..'%dh|r' --format for timers that have days remaining
+config.tenthsDuration = 8
+config.mmSSDuration = 0
 
---local bindings!
-local floor = math.floor
-local min = math.min
-local GetTime = GetTime
+config.fontFace = S.fonts.normal
+config.fontSize = 18
+config.fontOutline = 'OUTLINE'
+config.fontcolors = {
+	soon 	= { 1,		0,		0,		1, },
+	seconds = { 1,		1,		0,		1, },
+	minutes = {	1,		1,		1,		1, },
+	hours 	= { 0.7,	0.7,	0.7,	1, },
+}
 
---returns both what text to display, and how long until the next update
-local function getTimeText(s)
-	--format text as seconds when below a minute
-	if s < MINUTEISH then
-		local seconds = tonumber(D.Round(s))
-		if seconds > EXPIRING_DURATION then
-			return SECONDS_FORMAT, seconds, s - (seconds - 0.51)
-		else
-			return EXPIRING_FORMAT, s, 0.051
+
+local Classy = {}
+local OmniCC = {}
+
+function Classy:New(frameType, parentClass)
+	local class = CreateFrame(frameType)
+	class.mt = {__index = class}
+
+	if parentClass then
+		class = setmetatable(class, {__index = parentClass})
+		
+		class.super = function(self, method, ...)
+			parentClass[method](self, ...)
 		end
-	--format text as minutes when below an hour
-	elseif s < HOURISH then
-		local minutes = tonumber(D.Round(s/MINUTE))
-		return MINUTES_FORMAT, minutes, minutes > 1 and (s - (minutes*MINUTE - HALFMINUTEISH)) or (s - MINUTEISH)
-	--format text as hours when below a day
-	elseif s < DAYISH then
-		local hours = tonumber(D.Round(s/HOUR))
-		return HOURS_FORMAT, hours, hours > 1 and (s - (hours*HOUR - HALFHOURISH)) or (s - HOURISH)
-	--format text as days
+	end
+
+	class.Bind = function(self, obj)
+		return setmetatable(obj, self.mt)
+	end
+
+	return class
+end
+
+
+
+
+
+----------------------------------------------------------------------------------------------
+local ClassicUpdater = Classy:New('Frame');
+OmniCC.ClassicUpdater = ClassicUpdater
+
+local updaters = setmetatable({}, {__index = function(self, frame)
+	local updater = ClassicUpdater:New(frame)
+	self[frame] = updater
+
+	return updater
+end})
+
+
+--[[ Updater Retrieval ]]--
+
+function ClassicUpdater:Get(frame)
+	-- print('ClassicUpdater:Get', frame)
+
+	return updaters[frame]
+end
+
+function ClassicUpdater:GetActive(frame)
+	-- print('ClassicUpdater:GetActive', frame)
+
+	return rawget(updaters, frame)
+end
+
+function ClassicUpdater:New(frame)
+	-- print('ClassicUpdater:New', count, frame)
+
+	local updater = self:Bind(CreateFrame('Frame', nil)); updater:Hide()
+	updater:SetScript('OnUpdate', updater.OnUpdate)
+	updater.frame = frame
+
+	return updater
+end
+
+
+--[[ Updater Events ]]--
+
+function ClassicUpdater:OnUpdate(elapsed)
+	-- print('ClassicUpdater:OnUpdate', elapsed)
+
+	local delay = self.delay - elapsed
+	if delay > 0 then
+		self.delay = delay
 	else
-		local days = tonumber(D.Round(s/DAY))
-		return DAYS_FORMAT, days,  days > 1 and (s - (days*DAY - HALFDAYISH)) or (s - DAYISH)
+		self:OnFinished()
 	end
 end
 
---stops the timer
-local function Timer_Stop(self)
-	self.enabled = nil
-	self:Hide()
+function ClassicUpdater:OnFinished()
+	-- print('ClassicUpdater:OnFinished')
+
+	self:Cleanup()
+	self.frame:OnScheduledUpdate()
 end
 
---forces the given timer to update on the next frame
-local function Timer_ForceUpdate(self)
-	self.nextUpdate = 0
-	self:Show()
+
+--[[ Updater Updating ]]--
+
+function ClassicUpdater:ScheduleUpdate(delay)
+	-- print('ClassicUpdater:ScheduleUpdate', delay)
+
+	if delay > 0 then
+		self.delay = delay
+		self:Show()
+	else
+		self:OnFinished()
+	end
+end
+
+function ClassicUpdater:CancelUpdate()
+	-- print('ClassicUpdater:CancelUpdate')
+
+	self:Cleanup()
+end
+
+function ClassicUpdater:Cleanup()
+	-- print('ClassicUpdater:Cleanup')
+
+	self:Hide()
+	self.delay = nil
+end
+------------------------------------------------------------------------------------------------------
+
+
+function OmniCC:ScheduleUpdate(frame, delay)
+	local engine = OmniCC.ClassicUpdater 
+	local updater = engine:Get(frame)
+
+	updater:ScheduleUpdate(delay)
+end
+
+function OmniCC:CancelUpdate(frame)
+	local engine = OmniCC.ClassicUpdater 
+	local updater = engine:GetActive(frame)
+
+	if updater then
+		updater:CancelUpdate()
+	end
+end
+
+
+
+--constants!
+local ADDON = ...
+local ICON_SIZE = 36 --the normal size for an icon (don't change this)
+local DAY, HOUR, MINUTE = 86400, 3600, 60 --used for formatting text
+local DAYISH, HOURISH, MINUTEISH, SOONISH = 3600 * 23.5, 60 * 59.5, 59.5, 5.5 --used for formatting text at transition points
+local HALFDAYISH, HALFHOURISH, HALFMINUTEISH = DAY/2 + 0.5, HOUR/2 + 0.5, MINUTE/2 + 0.5 --used for calculating next update times
+local PADDING = 0 --amount of spacing between the timer text and the rest of the cooldown
+
+--local bindings!
+local floor, min, type = floor, min, type
+local round = function(x) return floor(x + 0.5) end
+local GetTime = GetTime
+
+--[[
+	the cooldown timer object:
+		displays time remaining for the given cooldown
+--]]
+
+local Timer = Classy:New('Frame'); Timer:Hide(); 
+OmniCC.Timer = Timer
+local timers = {}
+
+
+--[[ Constructorish ]]--
+
+function Timer:New(cooldown)
+	local timer = Timer:Bind(CreateFrame('Frame', nil, cooldown:GetParent())); timer.cooldown = cooldown
+	timer:SetFrameLevel(cooldown:GetFrameLevel() + 5)
+	timer:Hide()
+
+	timer.text = timer:CreateFontString(nil, 'OVERLAY')
+
+	--we set the timer to the center of the cooldown and manually set size information in order to allow me to scale text
+	--if we do set all points instead, then timer text tends to move around when the timer itself is scale)
+	timer:SetPoint('CENTER', cooldown)
+	timer:Size(cooldown:GetSize())
+
+	timers[cooldown] = timer
+	return timer
+end
+
+function Timer:Get(cooldown)
+	return timers[cooldown]
+end
+
+function Timer:OnScheduledUpdate()
+	--print('Timer:OnScheduledUpdate')
+	
+	self:UpdateText()
+end
+
+
+--[[ Updaters ]]--
+
+--starts the timer for the given cooldown
+function Timer:Start(start, duration)
+	self.start = start
+	self.visible = self.cooldown:IsVisible()
+	self.duration = duration
+	self.textStyle = nil
+	self.enabled = true
+
+	self:UpdateShown()
+end
+
+--stops the timer
+function Timer:Stop()
+	self.start, self.duration, self.enabled, self.visible, self.textStyle = nil
+	self:CancelUpdate()
+	self:Hide()
 end
 
 --adjust font size whenever the timer's parent size changes
 --hide if it gets too tiny
-local function Timer_OnSizeChanged(self, width, height)
-	local fontScale = D.Round(width) / ICON_SIZE
-	if fontScale == self.fontScale then
+function Timer:Size(width, height)
+	self.abRatio = round(width) / ICON_SIZE
+
+	self:SetSize(width, height)
+	self:UpdateTextPosition()
+
+	if self.enabled and self.visible then
+		self:UpdateText(true)
+	end
+end
+
+function Timer:UpdateText(forceStyleUpdate)
+	--print('Timer:UpdateText', forceStyleUpdate)
+	
+	--handle deathknight runes, which have timers that start in the future
+	if self.start > GetTime() then
+		self:ScheduleUpdate(self.start - GetTime())
 		return
 	end
 
-	self.fontScale = fontScale
-	if fontScale < MIN_SCALE then
-		self:Hide()
-	else
-		self.text:SetFont(FONT_FACE, fontScale * FONT_SIZE, 'OUTLINE')
-		self.text:SetShadowColor(0, 0, 0, 0.5)
-		self.text:SetShadowOffset(2, -2)
-		if self.enabled then
-			Timer_ForceUpdate(self)
-		end
-	end
-end
+	--if there's time left on the clock, then update the timer text
+	--otherwise stop the timer
+	local remain = self:GetRemain()
+	if remain > 0 then
+		local overallScale = self.abRatio * (self:GetEffectiveScale()/UIParent:GetScale()) --used to determine text visibility
 
---update timer text, if it needs to be
---hide the timer if done
-local function Timer_OnUpdate(self, elapsed)
-	if self.nextUpdate > 0 then
-		self.nextUpdate = self.nextUpdate - elapsed
-	else
-		local remain = self.duration - (GetTime() - self.start)
-		if tonumber(D.Round(remain)) > 0 then
-			if (self.fontScale * self:GetEffectiveScale() / UIParent:GetScale()) < MIN_SCALE then
-				self.text:SetText('')
-				self.nextUpdate  = 1
-			else
-				local formatStr, time, nextUpdate = getTimeText(remain)
-				self.text:SetFormattedText(formatStr, time)
-				self.nextUpdate = nextUpdate
-			end
+		--hide text if it's too small to display
+		--check again in one second
+		if overallScale < config.minSize then
+			self.text:Hide()
+			self:ScheduleUpdate(1)
 		else
-			Timer_Stop(self)
+			--update text style based on time remaining
+			local styleId = self:GetTextStyleId(remain)
+			if (styleId ~= self.textStyle) or forceStyleUpdate then
+				self.textStyle = styleId
+				self:UpdateTextStyle()
+			end
+
+			--make sure that we have text, and then set text
+			if self.text:GetFont() then
+				self.text:SetFormattedText(self:GetTimeText(remain))
+				self.text:Show()
+			end
+			self:ScheduleUpdate(self:GetNextUpdate(remain))
+		end
+	else
+		self:Stop()
+	end
+end
+
+function Timer:UpdateTextStyle()
+	--print('Timer:UpdateTextStyle')
+	
+	local font, size, outline = config.fontFace, config.fontSize, config.fontOutline
+	local color = config.fontcolors[self.textStyle]
+
+	--fallback to the standard font if the font we tried to set happens to be invalid
+	if size > 0 then
+		local fontSet = self.text:SetFont(font, size * self.abRatio, outline)
+		if not fontSet then
+			self.text:SetFont(STANDARD_TEXT_FONT, size * self.abRatio, outline)
+		end
+	end
+	self.text:SetTextColor(unpack(color))
+end
+
+function Timer:UpdateTextPosition()
+	local abRatio = self.abRatio or 1
+
+	local text = self.text
+	text:ClearAllPoints()
+	text:SetPoint(config.anchor, 0, 0)
+end
+
+function Timer:UpdateShown()
+	if self:ShouldShow() then
+		self:Show()
+		self:UpdateText()
+	else
+		self:Hide()
+	end
+end
+
+
+--[[ Update Scheduling ]]--
+
+function Timer:ScheduleUpdate(delay)
+	--print('Timer:ScheduleUpdate', delay)
+	OmniCC:ScheduleUpdate(self, delay)
+end
+
+function Timer:CancelUpdate()
+	--print('Timer:CancelUpdate')
+	OmniCC:CancelUpdate(self)
+end
+
+
+--[[ Accessors ]]--
+
+function Timer:GetRemain()
+	return self.duration - (GetTime() - self.start)
+end
+
+--retrieves the period style id associated with the given time frame
+--necessary to retrieve text coloring information from omnicc
+function Timer:GetTextStyleId(s)
+	if s < SOONISH then
+		return 'soon'
+	elseif s < MINUTEISH then
+		return 'seconds'
+	elseif s <  HOURISH then
+		return 'minutes'
+	else
+		return 'hours'
+	end
+end
+
+--return the time until the next text update
+function Timer:GetNextUpdate(remain)
+
+	if remain < (config.tenthsDuration + 0.5) then
+		return 0.1
+	elseif remain < MINUTEISH then
+		return remain - (round(remain) - 0.51)
+	elseif remain < config.mmSSDuration then
+		return remain - (round(remain) - 0.51)
+	elseif remain < HOURISH then
+		local minutes = round(remain/MINUTE)
+		if minutes > 1 then
+			return remain - (minutes*MINUTE - HALFMINUTEISH)
+		end
+		return remain - (MINUTEISH - 0.01)
+	elseif remain < DAYISH then
+		local hours = round(remain/HOUR)
+		if hours > 1 then
+			return remain - (hours*HOUR - HALFHOURISH)
+		end
+		return remain - (HOURISH - 0.01)
+	else
+		local days = round(remain/DAY)
+		if days > 1 then
+			return remain - (days*DAY - HALFDAYISH)
+		end
+		return remain - (DAYISH - 0.01)
+	end
+end
+
+--returns a format string, as well as any args for text to display
+function Timer:GetTimeText(remain)
+	
+	--show tenths of seconds below tenths threshold
+	if remain < config.tenthsDuration then
+		return '%.1f', remain
+	--format text as seconds when at 90 seconds or below
+	elseif remain < MINUTEISH then
+		--prevent 0 seconds from displaying
+		local seconds = round(remain)
+		return seconds ~= 0 and seconds or ''
+	--format text as MM:SS when below the MM:SS threshold
+	elseif remain < config.mmSSDuration then
+		local seconds = round(remain)
+		return '%d:%02d', seconds/MINUTE, seconds%MINUTE
+	--format text as minutes when below an hour
+	elseif remain < HOURISH then
+		return '%dm', round(remain/MINUTE)
+	--format text as hours when below a day
+	elseif remain < DAYISH then
+		return '%dh', round(remain/HOUR)
+	--format text as days
+	else
+		return '%dd', round(remain/DAY)
+	end
+end
+
+--returns true if the timer should be shown
+--and false otherwise
+function Timer:ShouldShow()
+	--the timer should have text to display and also have its cooldown be visible
+	if not (self.enabled and self.visible) or self.cooldown.noCooldownCount then
+		return false
+	end
+
+	if self.duration < config.minDuration then
+		return false
+	end
+
+	--the cooldown of the timer shouldn't be blacklisted
+	return config.enabled
+end
+
+
+--[[ Settings Methods ]]--
+
+--[[function Timer:GetSettings()
+	
+end]]--
+
+
+--[[ Meta Functions ]]--
+
+function Timer:ForAll(f, ...)
+	if type(f) == 'string' then
+		f = self[f]
+	end
+
+	for _, timer in pairs(timers) do
+		f(timer, ...)
+	end
+end
+
+function Timer:ForAllShown(f, ...)
+	if type(f) == 'string' then
+		f = self[f]
+	end
+
+	for _, timer in pairs(timers) do
+		if timer:IsShown() then
+			f(timer, ...)
 		end
 	end
 end
 
---returns a new timer object
-local function Timer_Create(self)
-	--a frame to watch for OnSizeChanged events
-	--needed since OnSizeChanged has funny triggering if the frame with the handler is not shown
-	local scaler = CreateFrame('Frame', nil, self)
-	scaler:SetAllPoints(self)
 
-	local timer = CreateFrame('Frame', nil, scaler); timer:Hide()
-	timer:SetAllPoints(scaler)
-	timer:SetScript('OnUpdate', Timer_OnUpdate)
+--[[ Cooldown Display ]]--
 
-	local text = timer:CreateFontString(nil, 'OVERLAY')
-	text:SetPoint("CENTER", 2, 0)
-	text:SetJustifyH("CENTER")
-	timer.text = text
-
-	Timer_OnSizeChanged(timer, scaler:GetSize())
-	scaler:SetScript('OnSizeChanged', function(self, ...) Timer_OnSizeChanged(timer, ...) end)
-
-	self.timer = timer
-	return timer
+--show the timer if the cooldown is shown
+local function cooldown_OnShow(self)
+	local timer = Timer:Get(self)
+	if timer and timer.enabled then
+		if timer:GetRemain() > 0 then
+			timer.visible = true
+			timer:UpdateShown()
+		else
+			timer:Stop()
+		end
+	end
 end
 
---hook the SetCooldown method of all cooldown frames
---ActionButton1Cooldown is used here since its likely to always exist
---and I'd rather not create my own cooldown frame to preserve a tiny bit of memory
-local function Timer_Start(self, start, duration)
-	if self.noOCC then return end
-	--start timer
-	if start > 0 and duration > MIN_DURATION then
-		local timer = self.timer or Timer_Create(self)
-		timer.start = start
-		timer.duration = duration
-		timer.enabled = true
-		timer.nextUpdate = 0
-		if timer.fontScale >= MIN_SCALE then timer:Show() end
+--hide the timer if the cooldown is hidden
+local function cooldown_OnHide(self)
+	local timer = Timer:Get(self)
+	if timer and timer.enabled then
+		timer.visible = nil
+		timer:Hide()
+	end
+end
+
+--adjust the size of the timer when the cooldown's size changes
+--facts to know:
+--OnSizeChanged occurs more frequently than you would think
+--so I've added a check to only resize timers when a cooldown's width changes
+local function cooldown_OnSizeChanged(self, ...)
+	local width = ...
+	if self.omniccw ~= width then
+		self.omniccw = width
+		local timer = Timer:Get(self)
+		if timer then
+			timer:Size(...)
+		end
+	end
+end
+
+local function cooldown_StopTimer(self)
+	local timer = Timer:Get(self)
+	if timer and timer.enabled then
+		timer:Stop()
+	end
+end
+
+--apply some extra functionality to the cooldown
+--so that we can track hide/show/and size changes
+local function cooldown_Init(self)
+	self:HookScript('OnShow', cooldown_OnShow)
+	self:HookScript('OnHide', cooldown_OnHide)
+	self:HookScript('OnSizeChanged', cooldown_OnSizeChanged)
+	self.omnicc = true
+end
+
+
+local function cooldown_Show(self, start, duration)
+	--don't do anything if there's no timer to display, or the timer has been blacklisted
+	if self.noCooldownCount or not(start and duration) then
+		cooldown_StopTimer(self)
+		return
+	end
+
+	--hide/show cooldown model as necessary
+	self:SetAlpha(config.showCooldownModels and 1 or 0)
+
+	--start timer if duration is over the min duration & the timer is enabled
+	if start > 0 and duration >= config.minDuration and config.enabled then
+		--apply methods to the cooldown frame if they do not exist yet
+		if not self.omnicc then
+			cooldown_Init(self)
+		end
+
+		--hide cooldown model if necessary and start the timer
+		local timer = Timer:Get(self) or Timer:New(self)
+		timer:Start(start, duration)
 	--stop timer
 	else
-		local timer = self.timer
-		if timer then
-			Timer_Stop(timer)
+		cooldown_StopTimer(self)
+	end
+end
+
+
+--[[ ActionUI Button ]]--
+
+local actions = {}
+local function action_OnShow(self)
+	actions[self] = true
+end
+
+local function action_OnHide(self)
+	actions[self] = nil
+end
+
+local function action_Add(button, action, cooldown)
+	if not cooldown.omniccAction then
+		cooldown:HookScript('OnShow', action_OnShow)
+		cooldown:HookScript('OnHide', action_OnHide)
+	end
+	cooldown.omniccAction = action
+end
+
+local function actions_Update()
+	for cooldown in pairs(actions) do
+        local start, duration = GetActionCooldown(cooldown.omniccAction)
+        cooldown_Show(cooldown, start, duration)
+    end
+end
+
+
+--[[ Events ]]--
+
+local f = CreateFrame('Frame'); f:Hide()
+f:SetScript('OnEvent', function(self, event, ...)
+	-- update action cooldowns
+	if event == 'ACTIONBAR_UPDATE_COOLDOWN' then
+		actions_Update()
+	
+	-- update visible timers on player_entering_world (arena update hack)
+	elseif event == 'PLAYER_ENTERING_WORLD' then
+		Timer:ForAllShown('UpdateText')
+		
+	-- hook cooldown stuff only after the addon is actually loaded
+	else
+		if ... == ADDON then
+			hooksecurefunc(getmetatable(ActionButton1Cooldown).__index, 'SetCooldown', cooldown_Show)
+			hooksecurefunc('SetActionUIButton', action_Add)
+			
+			for i, button in pairs(ActionBarButtonEventsFrame.frames) do
+			    action_Add(button, button.action, button.cooldown)
+			end
+			
+			self:UnregisterEvent('ADDON_LOADED')
 		end
 	end
-end
-
-
-hooksecurefunc(getmetatable(ActionButton1Cooldown).__index, "SetCooldown", Timer_Start)
-
-local active = {}
-local hooked = {}
-
-local function cooldown_OnShow(self)
-	active[self] = true
-end
-
-local function cooldown_OnHide(self)
-	active[self] = nil
-end
-
-local function cooldown_ShouldUpdateTimer(self, start, duration)
-	local timer = self.timer
-	if not timer then
-		return true
-	end
-	return timer.start ~= start
-end
-
-local function cooldown_Update(self)
-	local button = self:GetParent()
-	local start, duration, enable = GetActionCooldown(button.action)
-
-	if cooldown_ShouldUpdateTimer(self, start, duration) then
-		Timer_Start(self, start, duration)
-	end
-end
-
-local EventWatcher = CreateFrame("Frame")
-EventWatcher:Hide()
-EventWatcher:SetScript("OnEvent", function(self, event)
-	for cooldown in pairs(active) do
-		cooldown_Update(cooldown)
-	end
 end)
-EventWatcher:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
 
-local function actionButton_Register(frame)
-	local cooldown = frame.cooldown
-	if not hooked[cooldown] then
-		cooldown:HookScript("OnShow", cooldown_OnShow)
-		cooldown:HookScript("OnHide", cooldown_OnHide)
-		hooked[cooldown] = true
-	end
-end
-
-if _G["ActionBarButtonEventsFrame"].frames then
-	for i, frame in pairs(_G["ActionBarButtonEventsFrame"].frames) do
-		actionButton_Register(frame)
-	end
-end
-
-hooksecurefunc("ActionBarButtonEventsFrame_RegisterFrame", actionButton_Register)
+f:RegisterEvent('ACTIONBAR_UPDATE_COOLDOWN')
+f:RegisterEvent('PLAYER_ENTERING_WORLD')
+f:RegisterEvent('ADDON_LOADED')

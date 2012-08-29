@@ -18,10 +18,6 @@ local function EnteringWorldEventHandler(self, event)
 			button:SetAttribute("showgrid", 1)
 			ActionButton_ShowGrid(button)
 
-			button = _G[format("BonusActionButton%d", i)]
-			button:SetAttribute("showgrid", 1)
-			ActionButton_ShowGrid(button)
-			
 			button = _G[format("MultiBarRightButton%d", i)]
 			button:SetAttribute("showgrid", 1)
 			ActionButton_ShowGrid(button)

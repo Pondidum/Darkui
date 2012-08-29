@@ -73,18 +73,31 @@ local CooldownScanner = {
 
 			for i, spell in ipairs(cooldowns) do
 
-				local expiry = GetCooldown(spell.id, true)
-				local name, rank, icon = GetSpellInfo(spell.id)
+				local detect = spell.detectgcd
 
-				local data = {
-					["id"] = spell.id,
-					["texture"] = icon,
-					["expiry"] = expiry,
-					["anchor"] = "TOP",
-					["anchoroffset"] = -5,
-				}
+				if detect == nil then
+					detect = true
+				end
 
-				D.Tracker.UpdateDisplayData(spell.display, data)
+				local expiry = GetCooldown(spell.id, detect)
+				
+				if spell.expiry == nil or spell.expiry ~= expiry then
+
+					spell.expiry = expiry
+					
+					local name, rank, icon = GetSpellInfo(spell.id)
+
+					local data = {
+						["id"] = spell.id,
+						["texture"] = icon,
+						["expiry"] = expiry,
+						["anchor"] = "TOP",
+						["anchoroffset"] = -5,
+					}
+
+					D.Tracker.UpdateDisplayData(spell.display, data)
+
+				end
 
 			end
 

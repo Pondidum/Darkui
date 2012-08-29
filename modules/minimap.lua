@@ -41,12 +41,6 @@ MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, 3, 3)
 MiniMapMailBorder:Hide()
 MiniMapMailIcon:SetTexture(S.textures.mail)
 
--- Move battleground icon
-MiniMapBattlefieldFrame:ClearAllPoints()
-MiniMapBattlefieldFrame:SetPoint("BOTTOMRIGHT", Minimap, 3, 0)
-MiniMapBattlefieldBorder:Hide()
-
-
 -- shitty 3.3 flag to move
 MiniMapInstanceDifficulty:ClearAllPoints()
 MiniMapInstanceDifficulty:SetParent(Minimap)
@@ -56,24 +50,6 @@ MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 0)
 GuildInstanceDifficulty:ClearAllPoints()
 GuildInstanceDifficulty:SetParent(Minimap)
 GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 0)
-
--- LFG ICON
-
-local function UpdateLFG()
-	MiniMapLFGFrame:ClearAllPoints()
-	MiniMapLFGFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 2, 1)
-	MiniMapLFGFrameBorder:Hide()
-end
-hooksecurefunc("MiniMapLFG_Update", UpdateLFG)
-
-
-local function UpdateLFGTooltip()
-	LFGSearchStatus:SetPoint("BOTTOMRIGHT", MiniMapLFGFrame, "BOTTOMRIGHT", 0, 0)
-end
-E:Register("PLAYER_LOGIN", UpdateLFGTooltip)
-
-
-
 
 --enable mousewheel
 Minimap:EnableMouseWheel(true)

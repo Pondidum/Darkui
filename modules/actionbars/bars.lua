@@ -71,11 +71,11 @@ end
 petbg:SetAlpha(0)
 
 -- used for anchor totembar or shapeshiftbar
-local DarkuiShift = CreateFrame("Frame","DarkuiBarShift", UIParent, "SecureHandlerStateTemplate")
-DarkuiShift:SetPoint("BOTTOMLEFT", DarkuiBar2, "TOPLEFT",  0, S.actionbars.barspacing)
-DarkuiShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
-DarkuiShift:SetHeight(singleBarHeight)
-DarkuiShift:SetFrameStrata("HIGH")
+local DarkuiBarShift = CreateFrame("Frame","DarkuiBarShift", UIParent, "SecureHandlerStateTemplate")
+DarkuiBarShift:SetPoint("BOTTOMLEFT", DarkuiBar2, "TOPLEFT",  0, S.actionbars.barspacing)
+DarkuiBarShift:SetWidth((S.actionbars.buttonsize * 5) + (S.actionbars.buttonsize * 4))
+DarkuiBarShift:SetHeight(singleBarHeight)
+DarkuiBarShift:SetFrameStrata("HIGH")
 
 -- extra action button
 
@@ -86,7 +86,7 @@ DarkuiExtra:SetHeight(singleBarHeight)
 DarkuiExtra:SetFrameStrata("HIGH")
 
 -- hide it if not needed and stop executing code
-if S.actionbars.hideshapeshift then DarkuiShift:Hide() return end
+if S.actionbars.hideshapeshift then DarkuiBarShift:Hide() return end
 
 -- INVISIBLE FRAME COVERING BOTTOM ACTIONBARS JUST TO PARENT UF CORRECTLY
 local invbarbg = CreateFrame("Frame", "DarkuiActionBarBackground", UIParent)

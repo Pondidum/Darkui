@@ -72,9 +72,7 @@ S.tracker.auras = {
 	SHAMAN = {
 		{ id = 8050, 	unit = "target" },		--flameshock
 
-		{ id = 55277, 	unit = "player" },		--stoneclaw totem
 		{ id = 79206, 	unit = "player" },		--spiritwalker's grace
-		{ id = 64701, 	unit = "player" },		--elemental mastery
 
 		{ id = 324, 	unit      = "player", 	
 						display   = "CooldownCenterLeft",	
@@ -134,7 +132,6 @@ S.tracker.auras = {
 		{ id = 96228,	unit = "player" },		--Engineering - Synapse Springs - Agility
 		{ id = 96229,	unit = "player" },		--Engineering - Synapse Springs - Strength
 		{ id = 96230,	unit = "player" },		--Engineering - Synapse Springs - Intellect
-		{ id = 75170,	unit = "player" },		--Tailoring - Lightweave
 
 		--racials:
 		{ id = 33702,	unit = "player" },		--Blood Fury - Spell Power
@@ -152,10 +149,12 @@ S.tracker.auras = {
 		--enchants
 		{ id = 74241,	unit = "player" },		--power torrent
 		{ id = 74245,	unit = "player" },		--landslide
+		{ id = 120032,	unit = "player" },		--dancing steel
 		
 
 		--trinkets
-		{ id = 102662,	unit = "player" },		--foul gift
+		{ id = 126707,	unit = "player" },		--malevolent gladiator's insignia of conquest
+
 	}
 
 }	
@@ -202,7 +201,11 @@ S.tracker.cooldowns = {
 			{ id = 8042,	display = "CooldownCenterRight" },	--earth shock
 		},
 		["Enhancement"] = {
-			{ id = 51533,	display = "CooldownCenter" },		--earth shock
+			{ id = 8050,	display = "CooldownLeft" },			--flameshock
+			{ id = 60103,	display = "CooldownCenterLeft" },	--lavalash
+			{ id = 17364,	display = "CooldownCenter" },		--stormstrike
+			--maelstrom stacks show here
+			{ id = 73680,	display = "CooldownRight" },		--unleash elements
 		},
 		["Restoration"] = {
 			{ id = 73920,	display = "CooldownCenterRight" },	--healing rain
