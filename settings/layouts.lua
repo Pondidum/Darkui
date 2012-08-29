@@ -103,7 +103,7 @@ S.unitframes.layouts["hybrid"] = {
 	["floatingcastbars"] = true,
 	["buffwatch"] = false,
 	["player"] = {
-		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 180},
+		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 80},
 		["size"] = {220, 18},
 	},
 	["pet"] = {
@@ -111,11 +111,11 @@ S.unitframes.layouts["hybrid"] = {
 		["size"] = {132, 18},
 	},
 	["target"] = {
-		["point"] = {"LEFT", "oUF_DarkuiPlayer", "RIGHT", 50, 0},
+		["point"] = {"LEFT", "oUF_DarkuiPlayer", "RIGHT", 25, 100},
 		["size"] = {220, 18},
 	},
 	["focus"] = {
-		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -50, 0},
+		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 100},
 		["size"] = {220, 18},
 	},
 	["targettarget"] = {

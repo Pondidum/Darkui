@@ -114,8 +114,8 @@ end
 local function CreateAltBar(self)
 
 	local alt = CreateFrame("StatusBar", nil, self)
-	alt:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT",0, -5)
-	alt:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT",0, -5)
+	alt:SetPoint("BOTTOMLEFT", DarkuiBar4, "TOPLEFT",0, 5)
+	alt:SetPoint("BOTTOMRIGHT", DarkuiBar4, "TOPRIGHT",0, 5)
 	alt:SetHeight(5)
 
 	alt:SetStatusBarTexture(S.textures.blank)
@@ -149,7 +149,7 @@ local function CreateExperienceBar(self)
 	D.CreateBackground(experience.Rested)
 		
 	local resting = experience:CreateTexture(nil, "OVERLAY")
-	resting:SetPoint("BOTTOMLEFT", -17 , 12)
+	resting:SetPoint("CENTER", self.Health, "TOPLEFT", -2, 5) 
 	resting:SetSize(28, 28)
 	
 	resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
@@ -234,8 +234,8 @@ end
 local function CreateBuffs(self)
 	
 	local buffs = CreateFrame("Frame", nil, self)
-	buffs:SetPoint("BOTTOMLEFT", self.Power, "TOPLEFT", -1, 5)
-	buffs:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", -1, 5)
+	buffs:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", -1, 5)
+	buffs:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", -1, 5)
 	buffs:SetHeight(buffHeight)
 	buffs.size = buffHeight
 	buffs.num = 7
@@ -250,7 +250,7 @@ end
 
 local function CreateDebuffs(self)
 
-	local anchor = self.Buffs or self.Power
+	local anchor = self.Buffs or self.Health
 	
 	local debuffs = CreateFrame("Frame", nil, self)
 	debuffs:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", -1, 5)
@@ -419,8 +419,8 @@ local function Shared(self, unit)
 	self:Tag(name, '[name]')
 	
 	local power = CreateFrame('StatusBar', nil, self)
-	power:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, 5)
-	power:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, 5)
+	power:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -5)
+	power:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -5)
 	power:SetHeight(powerHeight)
 	
 	power:SetStatusBarTexture(S.textures.normal)

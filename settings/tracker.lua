@@ -67,6 +67,8 @@ S.tracker.auras = {
 	ROGUE = {
 		{ ["id"] = 73651, 	["unit"] = "player" },		--recuperate
 		{ ["id"] = 5171, 	["unit"] = "player" },		--slice n dice	
+
+		{ ["id"] = 1943, 	["unit"] = "target" },		-- rupture
 	},
 	SHAMAN = {
 		{ ["id"] = 8050, 	["unit"] = "target" },		--flameshock
@@ -226,8 +228,8 @@ S.tracker.displays = {
 		["name"] = "Main",
 		["type"] = "Line", 
 		["setup"] =  {
-			["location"] = {"BOTTOM", "oUF_DarkuiPlayer", "TOP", 0, 150},
-			["size"] = {500, 32},
+			["location"] = {"BOTTOM", "oUF_DarkuiPlayer", "TOP", 0, 250},
+			["size"] = {600, 32},
 			["maxtime"] = 60,
 		}
 	},
