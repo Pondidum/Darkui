@@ -42,15 +42,13 @@ S.tracker.auras = {
 		{ id = 56453, 	unit = "player" },		--lock n load
 	},
 	MAGE = {
-		{ id = 92315, 	unit = "target" },		--pyroblast!
+		{ id = 48108, 	unit = "target" },		--pyroblast!
 		{ id = 12654, 	unit = "target" },		--ignite
 		{ id = 44457, 	unit = "target" },		--living bomb
 		{ id = 83853, 	unit = "target" },		--combustion
-		{ id = 22959, 	unit = "target" },		--critical mass
 		{ id = 31661, 	unit = "target" },		--dragons breath
 
 		{ id = 48108, 	unit = "player" },		--hot streak
-		{ id = 64343, 	unit = "player" },		--impact
 	},
 	PALADIN = {
 		{ id = 84963, 	unit = "player" },		--inquisition
@@ -61,8 +59,6 @@ S.tracker.auras = {
 		{ id = 34914, 	unit = "target" },		--vampiric touch
 
 		{ id = 87153, 	unit = "player" },		--dark archangel
-		{ id = 87118, 	unit = "player", 	
-						stacks = "SHOW" },		--dark evanglism
 	},
 	ROGUE = {
 		{ id = 73651, 	unit = "player" },		--recuperate
@@ -92,31 +88,25 @@ S.tracker.auras = {
 		{ id = 172,		unit = "target" },		--corruption
 		{ id = 603,		unit = "target" },		--bane of doom
 		{ id = 348,		unit = "target" },		--immolate
-		{ id = 86000,	unit = "target" },		--hand of guldan
+		{ id = 47960,	unit = "target" },		--hand of guldan
 
 		{ id = 30108,	unit = "target" },		--unstable affliction
 		{ id = 48181,	unit = "target" },		--haunt
 
-		{ id = 47241, 	unit = "player" },		--metamorphosis
-		{ id = 79460, 	unit = "player" },		--demon soul: felhunter
-		{ id = 79462, 	unit = "player" },		--demon soul: felguard
-		{ id = 63167, 	unit = "player" },		--decimation	
-		{ id = 71165, 	unit 	= "player", 	
+		{ id = 103958, 	unit = "player" },		--metamorphosis
+		{ id = 113861, 	unit = "player" },		--dark soul: knowledge
+		{ id = 113860, 	unit = "player" },		--dark soul: misery
+		{ id = 108869, 	unit = "player" },		--decimation	
+		{ id = 122355, 	unit 	= "player", 	
 						stacks	= "ONLY"  }, 	--Molten Core	
 
 	},
 	WARRIOR = {
-		{ id = 94009,	unit = "target" },		--rend
 		{ id = 86346,	unit = "target" },		--colossus smash
-		{ id = 58567,	unit = "target", 
+		{ id = 113746,	unit = "target", 
 						filter = "HARMFUL" },	--sunder armor
 
-		{ id = 12964, 	unit = "player" },		--battle trance
-		{ id = 86627, 	unit = "player" },		--Incite
-
-
 		{ id = 85730, 	unit = "player" },		--deadly calm
-		{ id = 1134, 	unit = "player" },		--inner rage
 		{ id = 1719,	unit = "player" },		--Recklessness
 		{ id = 12328,	unit = "player" },		--Sweeping Strikes
 		 
