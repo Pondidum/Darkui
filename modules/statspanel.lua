@@ -5,7 +5,7 @@ if S.stats.enable == false then return end
 local FRAME_WIDTH = 75
 local FRAME_SPACING = 5
 
-local panel = CreateFrame("Frame", D.Addon.name .. "Stats", DarkuiFrame)
+local panel = CreateFrame("Frame", D.Addon.name .. "Stats", D.Frame)
 S.stats.panel = panel
 
 panel:SetPoint("TOP", DarkuiActionBarBackground, "BOTTOM", 0, -3)

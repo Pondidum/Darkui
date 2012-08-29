@@ -67,6 +67,7 @@ S.tracker.auras = {
 	ROGUE = {
 		{ id = 73651, 	unit = "player" },		--recuperate
 		{ id = 5171, 	unit = "player" },		--slice n dice	
+		{ id = 1943, 	unit = "target" },		-- rupture
 	},
 	SHAMAN = {
 		{ id = 8050, 	unit = "target" },		--flameshock

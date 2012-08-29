@@ -41,6 +41,9 @@
 	<Script file="modules\actionbars\range.lua" />
 	<Script file="modules\actionbars\style.lua" />
 	
+	<Script file="ui\init.lua" />
+	<Script file="ui\constructor.lua" />
+	<Script file="ui\classspecific.lua" />
 	<Script file="ui\tags.lua" />
 	<Script file="ui\unitframes.lua" />
 	<Script file="modules\nameplates.lua" />
@@ -60,7 +63,9 @@
 	<Script file="modules\tracker\scanners\totems.lua" />
 	<Script file="modules\tracker\init.lua" />
 
-	<Script file="modules\bags.lua" />
+	<Script file="modules\bags\bagbar.lua" />
+	<Script file="modules\bags\bags.lua" />
+
 	<Script file="modules\minimap.lua" />
 	<Script file="modules\merchant.lua" />
 	<Script file="modules\mailbox.lua" />

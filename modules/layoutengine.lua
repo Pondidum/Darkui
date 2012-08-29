@@ -10,6 +10,8 @@ L.Engines = {
 		local x = self.MarginLeft
 		local y = self.MarginTop
 		local currentRowHeight = 0
+
+		local total = 0
 		
 		for i = 1, #self.frames do
 			
@@ -29,6 +31,12 @@ L.Engines = {
 				currentRowHeight = current:GetHeight()
 			end
 			
+			total = x
+			
+		end
+
+		if self.AutoSize then
+			self:SetWidth(total)
 		end
 		
 	end,
@@ -38,9 +46,18 @@ L.Engines = {
 		local y = self.MarginTop
 		local currentColWidth = 0
 		
-		for i = 1, #self.frames do
+		local direction = -1
+
+		if self.Origin:find("BOTTOM") then
+			direction = 1
+		end
+	
+		local frames = self.frames
+		local total = 0
+
+		for i = 1, #frames do
 			
-			local current = self.frames[i]
+			local current = frames[i]
 			
 			if self.Wrap and y + current:GetHeight() > self:GetHeight() then
 				y = self.MarginTop
@@ -48,7 +65,7 @@ L.Engines = {
 				currentColWidth = currentColWidth:GetWidth()
 			end
 			
-			current:SetPoint(self.Origin, self, self.Origin, x, y)
+			current:SetPoint(self.Origin, self, self.Origin, x, y * direction)
 			
 			y = y + current:GetHeight() + self.MarginBottom
 			
@@ -56,6 +73,12 @@ L.Engines = {
 				currentColWidth = current:GetWidth()
 			end
 			
+			total = y
+
+		end
+
+		if self.AutoSize then
+			self:SetHeight(total)
 		end
 		
 	end,
@@ -66,6 +89,7 @@ L.Init = function(self, other)
 	other.Origin = "TOPLEFT" 
 	other.Direction = "HORIZONTAL"
 	other.Wrap = false
+	other.AutoSize = false
 	
 	other.DefaultSize = {32, 32}
 	other.MarginLeft = 4

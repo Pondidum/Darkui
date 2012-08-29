@@ -5,7 +5,7 @@ local button = WatchFrameCollapseExpandButton
 local header = WatchFrameHeader
 
 frame:ClearAllPoints()
-frame:SetPoint("LEFT", DarkuiFrame, "LEFT", 10, 0)
+frame:SetPoint("LEFT", D.Frame, "LEFT", 10, 0)
 frame:SetHeight(D.System.resolution.height / 2)
 frame.ClearAllPoints = D.Dummy
 

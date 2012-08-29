@@ -4,13 +4,14 @@ local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
-local layout =  S.unitframes.layouts[S.unitframes.layout]
+
+local ctor = D.UnitFrames.Constructor
+local layout = D.UnitFrames.CurrentLayout
  
 local castHeight = 16
 local castOffset = -20
 local powerHeight = 5
 local buffHeight = 29
-local segmentHeight = 8 --used for runes, totems, holypower, soulshards etc
 local auraHeight = 16
 
 if layout.floatingcastbars then
@@ -113,8 +114,8 @@ end
 local function CreateAltBar(self)
 
 	local alt = CreateFrame("StatusBar", nil, self)
-	alt:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT",0, -5)
-	alt:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT",0, -5)
+	alt:SetPoint("BOTTOMLEFT", DarkuiBar4, "TOPLEFT",0, 5)
+	alt:SetPoint("BOTTOMRIGHT", DarkuiBar4, "TOPRIGHT",0, 5)
 	alt:SetHeight(5)
 
 	alt:SetStatusBarTexture(S.textures.blank)
@@ -122,53 +123,6 @@ local function CreateAltBar(self)
 	return alt
 	
 end
-
-local function LayoutSegments(parent, segments)
-
-	--Hack:
-	--What i would like to do is to anchor each frame to the previous, anchor 1 to parent left, and N to parent right.
-	--But you dont seem to be able to do that :(
-	local partWidth, parthHeight = unpack( layout.player.size )
-	
-	local spacing = 4
-	local totalSpacing = (#segments - 1) * spacing 
-	local segmentWidth = (partWidth  - totalSpacing) / #segments
-	
-	-- note we dont attach the first one to anything
-	for i = 1, #segments do
-		
-		segments[i]:SetHeight(segmentHeight)
-		segments[i]:SetWidth(segmentWidth)
-		
-		if i > 1 then
-			segments[i]:SetPoint("LEFT", segments[i-1], "RIGHT", spacing, 0)
-		end
-		
-	end
-	
-end
-
-local function CreateSegments(parent, number)
-
-	local segments = {}
-	
-	for i = 1, number do
-	
-		segments[i] = CreateFrame("Frame", nil, parent)
-
-		D.CreateBackground(segments[i])
-		D.CreateShadow(segments[i])
-	
-		segments[i].bg:SetBackdropColor(0.65, 0.63, 0.35, 0.6)
-	
-	end
-	
-	LayoutSegments(parent, segments)
-	
-	return segments
-	
-end
-
 
 local function CreateExperienceBar(self)
 
@@ -195,7 +149,7 @@ local function CreateExperienceBar(self)
 	D.CreateBackground(experience.Rested)
 		
 	local resting = experience:CreateTexture(nil, "OVERLAY")
-	resting:SetPoint("BOTTOMLEFT", -17 , 12)
+	resting:SetPoint("CENTER", self.Health, "TOPLEFT", -2, 5) 
 	resting:SetSize(28, 28)
 	
 	resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
@@ -268,7 +222,7 @@ end
 
 local function CreateComboPoints(self)
 	
-	local points = CreateSegments(self, 5)
+	local points = ctor.CreateSegments(self, layout.player.size[1], 5)
 	
 	points.unit = PlayerFrame.unit
 	points[1]:SetPoint("TOPLEFT", self.Castbar, "BOTTOMLEFT", 0, -5)
@@ -280,11 +234,11 @@ end
 local function CreateBuffs(self)
 	
 	local buffs = CreateFrame("Frame", nil, self)
-	buffs:SetPoint("BOTTOMLEFT", self.Power, "TOPLEFT", -1, 5)
-	buffs:SetPoint("BOTTOMRIGHT", self.Power, "TOPRIGHT", -1, 5)
+	buffs:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", -1, 5)
+	buffs:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", -1, 5)
 	buffs:SetHeight(buffHeight)
 	buffs.size = buffHeight
-	buffs.num = 8
+	buffs.num = 7
 	buffs.spacing = 1
 	buffs.initialAnchor = 'BOTTOMLEFT'
 	
@@ -296,14 +250,14 @@ end
 
 local function CreateDebuffs(self)
 
-	local anchor = self.Buffs or self.Power
+	local anchor = self.Buffs or self.Health
 	
 	local debuffs = CreateFrame("Frame", nil, self)
 	debuffs:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", -1, 5)
 	debuffs:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", -1, 5)
 	debuffs:SetHeight(buffHeight)
 	debuffs.size = buffHeight
-	debuffs.num = 8
+	debuffs.num = 7
 	debuffs.spacing = 1
 	debuffs.initialAnchor = 'BOTTOMLEFT'
 	
@@ -465,8 +419,8 @@ local function Shared(self, unit)
 	self:Tag(name, '[name]')
 	
 	local power = CreateFrame('StatusBar', nil, self)
-	power:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, 5)
-	power:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, 5)
+	power:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -5)
+	power:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -5)
 	power:SetHeight(powerHeight)
 	
 	power:SetStatusBarTexture(S.textures.normal)
@@ -492,158 +446,6 @@ local function Shared(self, unit)
 	
 end
 
-
-local ClassSpecific = {
-	
-	DEATHKNIGHT = function(self, ...)
-		
-		local offset = 5
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		local runes = CreateFrame("Frame", "DarkuiRunes", self)
-		runes:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, offset)
-		runes:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", 0, offset)
-		runes:SetHeight((segmentHeight * 3) + (offset * 2))
-		
-		for i = 1, 6 do
-			
-			local rune = CreateFrame("StatusBar", "DarkuiRune"..i, self)
-			rune:SetStatusBarTexture(S.textures.normal)
-			rune:GetStatusBarTexture():SetHorizTile(false)
-			
-			D.CreateShadow(rune)
-			D.CreateBackground(rune)
-			rune.bg = rune:CreateTexture(nil, 'BORDER')
-			
-			runes[i] = rune
-		end
-	
-		LayoutSegments(self, {runes[1], runes[2]} ) 
-		LayoutSegments(self, {runes[3], runes[4]} ) 
-		LayoutSegments(self, {runes[5], runes[6]} ) 
-		
-		runes[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 0)
-		runes[3]:SetPoint("BOTTOMLEFT", runes[1], "TOPLEFT", 0, offset)
-		runes[5]:SetPoint("BOTTOMLEFT", runes[3], "TOPLEFT", 0, offset)
-		
-		self.DarkRunes = runes
-	end,
-	
-	DRUID = function(self, ...)
-
-		local anchor = self.Debuffs or self.Buffs or self.Power
-
-		local eclipseBar = CreateFrame('Frame', "EclipseBar", self)
-		eclipseBar:SetHeight(segmentHeight)
-		
-		D.CreateShadow(eclipseBar)
-		D.CreateBackground(eclipseBar)
-		LayoutSegments(self, {eclipseBar})
-
-		eclipseBar:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 0)
-
-		local lunarBar = CreateFrame('StatusBar', nil, eclipseBar)
-		lunarBar:SetPoint('LEFT', eclipseBar, 'LEFT', 0, 0)
-		lunarBar:SetSize(eclipseBar:GetWidth(), eclipseBar:GetHeight())
-		lunarBar:SetStatusBarTexture(S.textures.normal)
-		lunarBar:SetStatusBarColor(.50, .52, .70)
-		eclipseBar.LunarBar = lunarBar
-
-		local solarBar = CreateFrame('StatusBar', nil, eclipseBar)
-		solarBar:SetPoint('LEFT', lunarBar:GetStatusBarTexture(), 'RIGHT', 0, 0)
-		solarBar:SetSize(eclipseBar:GetWidth(), eclipseBar:GetHeight())
-		solarBar:SetStatusBarTexture(S.textures.normal)
-		solarBar:SetStatusBarColor(.80, .82,  .60)
-		eclipseBar.SolarBar = solarBar
-
-		local eclipseBarText = eclipseBar:CreateFontString(nil, 'OVERLAY')
-		eclipseBarText:SetPoint('BOTTOM', eclipseBar, 'TOP')
-		eclipseBarText:SetFont(S.fonts.unitframe, 12)
-		eclipseBar.PostUpdatePower = EclipseDirection
-
-		self.EclipseBar = eclipseBar
-		self.EclipseBar.Text = eclipseBarText
-
-
-		if S.unitframes.druidmushrooms then
-
-			local mushrooms = {}
-			mushrooms.colors = {
-				[1] = {0.65, 0.63, 0.35, 0.6},
-				[2] = {0.65, 0.63, 0.35, 0.6},
-				[3] = {0.65, 0.63, 0.35, 0.6},
-			}
-
-			for i = 1, 3 do
-	 
-	 			local mushroom = CreateFrame("StatusBar", nil, self)
-				mushroom:SetStatusBarTexture(S.textures.normal)
-				mushroom:GetStatusBarTexture():SetHorizTile(false)
-
-				D.CreateShadow(mushroom)
-				D.CreateBackground(mushroom)
-				mushroom.bg = mushroom:CreateTexture(nil, 'BORDER')
-
-				mushrooms[i] = mushroom
-				
-			end
-
-			LayoutSegments(self, mushrooms) 
-
-			local anchor = self.Debuffs or self.Buffs or self.Power
-			mushrooms[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-
-			self.DarkTotems = mushrooms
-
-		end	
-	end,
-	
-	PALADIN = function(self, ...)
-		
-		local holyPower = CreateSegments(self, 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		holyPower[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.HolyPower = holyPower
-	end,
-
-	SHAMAN = function(self, ...)
-
-		local totems = {}
-
-		for i = 1, MAX_TOTEMS do
- 
- 			local totem = CreateFrame("StatusBar", nil, self)
-			totem:SetStatusBarTexture(S.textures.normal)
-			totem:GetStatusBarTexture():SetHorizTile(false)
-
-			D.CreateShadow(totem)
-			D.CreateBackground(totem)
-			totem.bg = totem:CreateTexture(nil, 'BORDER')
-
-			totems[i] = totem
-			
-		end
-
-		LayoutSegments(self, totems) 
-
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		totems[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-
-		self.DarkTotems = totems
-
-	end,
-
-	WARLOCK = function(self, ...)
-		
-		local shards = CreateSegments(self, 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		shards[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.SoulShards = shards
-	end,
-}
-
 local UnitSpecific = {
 
 	player = function(self, ...)
@@ -661,8 +463,10 @@ local UnitSpecific = {
 			CreateReputationBar(self)
 		end
 		
-		if ClassSpecific[D.Player.class] then
-			ClassSpecific[D.Player.class](self)
+		local class =D.UnitFrames.ClassSpecific
+
+		if class[D.Player.class] then
+			class[D.Player.class](self)
 		end
 	end,
 	
@@ -717,7 +521,7 @@ local UnitSpecific = {
 		local range = {insideAlpha = 1, outsideAlpha = 0.3}
 		self.Range = range
 		
-		self:Tag(self.HealthValue, '[' .. D.Addon.name .. ':healthshort]')
+		self:Tag(self.HealthValue, '')
 	end,
 	
 }
@@ -797,33 +601,38 @@ oUF:Factory(function(self)
 	self:SetActiveStyle(D.Addon.name .. "Raid")
 	local raidHeader = CreateFrame("Frame", "oUF_DarkuiRaid", UIParent)
 	local raid = {}
-	local partWidth, parthHeight = unpack( layout.raid.size )
 	
+	local unitWidth, unitHeight = unpack( layout.raidunit.size )
+	local unitAnchor, _, unitOtherAnchor, unitXoffset, unitYoffset = unpack( layout.raidunit.point)
+
+	local groupAnchor, groupXoffset, groupYoffset = layout.raidgroup.anchor, layout.raidgroup.xoffset, layout.raidgroup.yoffset
+
 	for i = 1, 8 do
+
 		local group = oUF:SpawnHeader(D.Addon.name .. 'Raid' ..i, nil, "raid,party",
 			'oUF-initialConfigFunction', ([[
 											self:SetWidth(%d)
 											self:SetHeight(%d)
-										 ]]):format(partWidth, parthHeight),
+										 ]]):format(unitWidth, unitHeight),
 			'showPlayer', true,
 			'showSolo', true,
 			'showParty', true,
 			'showRaid', true,
-			'xoffset', -5,
-			'yOffset', 0,
-			'point', "RIGHT",
+			'xoffset', groupXoffset,
+			'yOffset', groupYoffset,
+			'point', groupAnchor,
 			'groupFilter', i)
 		
+
 		if i == 1 then
-			group:SetPoint("BOTTOMRIGHT", raidHeader, "BOTTOMRIGHT", 0, 0)
+			group:SetPoint(unitAnchor, raidHeader, unitAnchor, 0, 0)
 		else
-			group:SetPoint("BOTTOMRIGHT", raid[i-1], "TOPRIGHT", 0, 5)
+			group:SetPoint(unitAnchor, raid[i-1], unitOtherAnchor, unitXoffset, unitYoffset)
 		end
-		
+
 		raid[i] = group
-	end
-	
-		
+
+	end		
 	
 	SetLayout(player, 		'player')
 	SetLayout(pet, 			'pet')
@@ -834,8 +643,8 @@ oUF:Factory(function(self)
 	SetLayout(raidHeader,	'raidheader')
 	SetLayout(boss[1], 		'boss')
 	
-	local raidWidth = (partWidth + 5) * 5
-	local raidHeight = (parthHeight + 5) * 8
+	local raidWidth = (unitWidth + 5) * 5
+	local raidHeight = (unitHeight + 5) * 8
 	raidHeader:SetSize(raidWidth - 5, raidHeight - 5)
 	
 end)

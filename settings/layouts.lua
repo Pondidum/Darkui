@@ -1,7 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
 S["unitframes"] = {
-	["layout"] = "default",
+	["layout"] = "hybrid",
 	["layouts"] = {}
 }
 
@@ -41,8 +41,13 @@ S.unitframes.layouts["default"] = {
 		["point"] = {"BOTTOMRIGHT", "DarkuiFrame", "BOTTOMRIGHT", 0, 0}, 
 		["size"] = {},
 	},
-	["raid"] = {			--note raid has is size set, and not its position
-		["point"] = {},
+	["raidgroup"] = {
+		anchor = "RIGHT",
+		xoffset = -5,
+		yoffset = 0,
+	},
+	["raidunit"] = {			--note raid has is size set, and not its position
+		["point"] = {"BOTTOMRIGHT", "", "TOPRIGHT", 0, 5},
 		["size"] = {70 , 18},
 	},
 }
@@ -83,12 +88,59 @@ S.unitframes.layouts["healer"] = {
 		["point"] = {"BOTTOM", "DarkuiFrame", "BOTTOM", 0, 150}, 
 		["size"] = {},
 	},
-	["raid"] = {		--note raid has is size set, and not its position
-		["point"] = {}, 
+	["raidgroup"] = {
+		anchor = "RIGHT",
+		xoffset = -5,
+		yoffset = 0,
+	},
+	["raidunit"] = {		--note raid has is size set, and not its position
+		["point"] = {"BOTTOMLEFT", "", "TOPLEFT", 0, 5},
 		["size"] = {80 , 36},
 	},
 }
 
-
-
+S.unitframes.layouts["hybrid"] = {
+	["floatingcastbars"] = true,
+	["buffwatch"] = false,
+	["player"] = {
+		["point"] = {"BOTTOM", "DarkuiActionBarBackground", "TOP", 0, 80},
+		["size"] = {220, 18},
+	},
+	["pet"] = {
+		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 0},
+		["size"] = {132, 18},
+	},
+	["target"] = {
+		["point"] = {"LEFT", "oUF_DarkuiPlayer", "RIGHT", 25, 100},
+		["size"] = {220, 18},
+	},
+	["focus"] = {
+		["point"] = {"RIGHT", "oUF_DarkuiPlayer", "LEFT", -25, 100},
+		["size"] = {220, 18},
+	},
+	["targettarget"] = {
+		["point"] = {"TOPRIGHT", "oUF_DarkuiTarget", "BOTTOMRIGHT", 0, -25},
+		["size"] = {132, 18},
+	},
+	["focustarget"] = {
+		["point"] = {"TOPLEFT", "oUF_DarkuiFocus", "BOTTOMLEFT", 0, -25},
+		["size"] = {132, 18},
+	},
+	["boss"] = {
+		["point"] = {"BOTTOMRIGHT", "DarkuiBar5", "BOTTOMLEFT", -50, -15},
+		["size"] = {132, 18},
+	},
+	["raidheader"] = {		--note raidheader has is position set, and not its size
+		["point"] = {"TOPRIGHT", "DarkuiBar5", "TOPLEFT",  -10, 0}, 
+	},
+	["raidgroup"] = {
+		anchor = "TOP",
+		xoffset = 0,
+		yoffset = -5,
+	},
+	["raidunit"] = {			--note raid has is size set, and not its position
+		["point"] = {"TOPRIGHT", "", "BOTTOMRIGHT", 0, -5},
+		["size"] = {60 , 16},
+	},
+}
 
