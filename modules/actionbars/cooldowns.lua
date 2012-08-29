@@ -1,3 +1,4 @@
+local D, S, E = unpack(select(2, ...))
 --[[
 	cc.lua
 		Displays text for cooldowns on widgets
@@ -11,6 +12,28 @@
 --]]
 
 --globals!
+
+local config = {}
+
+config.enabled = true
+config.minDuration = 2.5
+config.showCooldownModels = true	
+config.anchor = "CENTER"
+config.minSize = 0.5
+
+config.tenthsDuration = 8
+config.mmSSDuration = 0
+
+config.fontFace = S.fonts.normal
+config.fontSize = 18
+config.fontOutline = 'OUTLINE'
+config.fontcolors = {
+	soon 	= { 1,		0,		0,		1, },
+	seconds = { 1,		1,		0,		1, },
+	minutes = {	1,		1,		1,		1, },
+	hours 	= { 0.7,	0.7,	0.7,	1, },
+}
+
 
 local Classy = {}
 local OmniCC = {}
@@ -33,6 +56,113 @@ function Classy:New(frameType, parentClass)
 
 	return class
 end
+
+
+
+
+
+----------------------------------------------------------------------------------------------
+local ClassicUpdater = Classy:New('Frame');
+OmniCC.ClassicUpdater = ClassicUpdater
+
+local updaters = setmetatable({}, {__index = function(self, frame)
+	local updater = ClassicUpdater:New(frame)
+	self[frame] = updater
+
+	return updater
+end})
+
+
+--[[ Updater Retrieval ]]--
+
+function ClassicUpdater:Get(frame)
+	-- print('ClassicUpdater:Get', frame)
+
+	return updaters[frame]
+end
+
+function ClassicUpdater:GetActive(frame)
+	-- print('ClassicUpdater:GetActive', frame)
+
+	return rawget(updaters, frame)
+end
+
+function ClassicUpdater:New(frame)
+	-- print('ClassicUpdater:New', count, frame)
+
+	local updater = self:Bind(CreateFrame('Frame', nil)); updater:Hide()
+	updater:SetScript('OnUpdate', updater.OnUpdate)
+	updater.frame = frame
+
+	return updater
+end
+
+
+--[[ Updater Events ]]--
+
+function ClassicUpdater:OnUpdate(elapsed)
+	-- print('ClassicUpdater:OnUpdate', elapsed)
+
+	local delay = self.delay - elapsed
+	if delay > 0 then
+		self.delay = delay
+	else
+		self:OnFinished()
+	end
+end
+
+function ClassicUpdater:OnFinished()
+	-- print('ClassicUpdater:OnFinished')
+
+	self:Cleanup()
+	self.frame:OnScheduledUpdate()
+end
+
+
+--[[ Updater Updating ]]--
+
+function ClassicUpdater:ScheduleUpdate(delay)
+	-- print('ClassicUpdater:ScheduleUpdate', delay)
+
+	if delay > 0 then
+		self.delay = delay
+		self:Show()
+	else
+		self:OnFinished()
+	end
+end
+
+function ClassicUpdater:CancelUpdate()
+	-- print('ClassicUpdater:CancelUpdate')
+
+	self:Cleanup()
+end
+
+function ClassicUpdater:Cleanup()
+	-- print('ClassicUpdater:Cleanup')
+
+	self:Hide()
+	self.delay = nil
+end
+------------------------------------------------------------------------------------------------------
+
+
+function OmniCC:ScheduleUpdate(frame, delay)
+	local engine = OmniCC.ClassicUpdater 
+	local updater = engine:Get(frame)
+
+	updater:ScheduleUpdate(delay)
+end
+
+function OmniCC:CancelUpdate(frame)
+	local engine = OmniCC.ClassicUpdater 
+	local updater = engine:GetActive(frame)
+
+	if updater then
+		updater:CancelUpdate()
+	end
+end
+
 
 
 --constants!
@@ -137,7 +267,7 @@ function Timer:UpdateText(forceStyleUpdate)
 
 		--hide text if it's too small to display
 		--check again in one second
-		if overallScale < self:GetSettings().minSize then
+		if overallScale < config.minSize then
 			self.text:Hide()
 			self:ScheduleUpdate(1)
 		else
@@ -156,11 +286,6 @@ function Timer:UpdateText(forceStyleUpdate)
 			self:ScheduleUpdate(self:GetNextUpdate(remain))
 		end
 	else
-		--if the timer was long enough to, and text is still visible
-		--then trigger a finish effect
-		if self.duration >= self:GetSettings().minEffectDuration then
-			OmniCC:TriggerEffect(self:GetSettings().effect, self.cooldown, self.duration)
-		end
 		self:Stop()
 	end
 end
@@ -168,32 +293,25 @@ end
 function Timer:UpdateTextStyle()
 	--print('Timer:UpdateTextStyle')
 	
-	local sets = self:GetSettings()
-	local font, size, outline = sets.fontFace, sets.fontSize, sets.fontOutline
-	local style = sets.styles[self.textStyle]
-	if sets.scaleText then
-		size = size * style.scale * (self.abRatio or 1)
-	else
-		size = size * style.scale
-	end
+	local font, size, outline = config.fontFace, config.fontSize, config.fontOutline
+	local color = config.fontcolors[self.textStyle]
 
 	--fallback to the standard font if the font we tried to set happens to be invalid
 	if size > 0 then
-		local fontSet = self.text:SetFont(font, size, outline)
+		local fontSet = self.text:SetFont(font, size * self.abRatio, outline)
 		if not fontSet then
-			self.text:SetFont(STANDARD_TEXT_FONT, size, outline)
+			self.text:SetFont(STANDARD_TEXT_FONT, size * self.abRatio, outline)
 		end
 	end
-	self.text:SetTextColor(style.r, style.g, style.b, style.a)
+	self.text:SetTextColor(unpack(color))
 end
 
 function Timer:UpdateTextPosition()
-	local sets = self:GetSettings()
 	local abRatio = self.abRatio or 1
 
 	local text = self.text
 	text:ClearAllPoints()
-	text:SetPoint(sets.anchor, sets.xOff * abRatio, sets.yOff * abRatio)
+	text:SetPoint(config.anchor, 0, 0)
 end
 
 function Timer:UpdateShown()
@@ -203,10 +321,6 @@ function Timer:UpdateShown()
 	else
 		self:Hide()
 	end
-end
-
-function Timer:UpdateCooldownShown()
-	self.cooldown:SetAlpha(self:GetSettings().showCooldownModels and 1 or 0)
 end
 
 
@@ -245,13 +359,12 @@ end
 
 --return the time until the next text update
 function Timer:GetNextUpdate(remain)
-	local sets = self:GetSettings()
 
-	if remain < (sets.tenthsDuration + 0.5) then
+	if remain < (config.tenthsDuration + 0.5) then
 		return 0.1
 	elseif remain < MINUTEISH then
 		return remain - (round(remain) - 0.51)
-	elseif remain < sets.mmSSDuration then
+	elseif remain < config.mmSSDuration then
 		return remain - (round(remain) - 0.51)
 	elseif remain < HOURISH then
 		local minutes = round(remain/MINUTE)
@@ -276,10 +389,9 @@ end
 
 --returns a format string, as well as any args for text to display
 function Timer:GetTimeText(remain)
-	local sets = self:GetSettings()
-
+	
 	--show tenths of seconds below tenths threshold
-	if remain < sets.tenthsDuration then
+	if remain < config.tenthsDuration then
 		return '%.1f', remain
 	--format text as seconds when at 90 seconds or below
 	elseif remain < MINUTEISH then
@@ -287,7 +399,7 @@ function Timer:GetTimeText(remain)
 		local seconds = round(remain)
 		return seconds ~= 0 and seconds or ''
 	--format text as MM:SS when below the MM:SS threshold
-	elseif remain < sets.mmSSDuration then
+	elseif remain < config.mmSSDuration then
 		local seconds = round(remain)
 		return '%d:%02d', seconds/MINUTE, seconds%MINUTE
 	--format text as minutes when below an hour
@@ -310,21 +422,16 @@ function Timer:ShouldShow()
 		return false
 	end
 
-	local sets = self:GetSettings()
-	if self.duration < sets.minDuration then
+	if self.duration < config.minDuration then
 		return false
 	end
 
 	--the cooldown of the timer shouldn't be blacklisted
-	return sets.enabled
+	return config.enabled
 end
 
 
 --[[ Settings Methods ]]--
-
-function Timer:GetSettings()
-	return OmniCC:GetGroupSettings(OmniCC:CDToGroup(self.cooldown))
-end
 
 --[[function Timer:GetSettings()
 	
@@ -419,13 +526,11 @@ local function cooldown_Show(self, start, duration)
 		return
 	end
 
-	local sets = OmniCC:GetGroupSettings(OmniCC:CDToGroup(self))
-
 	--hide/show cooldown model as necessary
-	self:SetAlpha(sets.showCooldownModels and 1 or 0)
+	self:SetAlpha(config.showCooldownModels and 1 or 0)
 
 	--start timer if duration is over the min duration & the timer is enabled
-	if start > 0 and duration >= sets.minDuration and sets.enabled then
+	if start > 0 and duration >= config.minDuration and config.enabled then
 		--apply methods to the cooldown frame if they do not exist yet
 		if not self.omnicc then
 			cooldown_Init(self)
