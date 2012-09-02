@@ -108,14 +108,14 @@ D.UnitFrames.ClassSpecific = {
 
 		end	
 	end,
-	
-	PALADIN = function(self, ...)
-		
-		local holyPower = ctor.CreateSegments(self, layout.player.size[1], 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		holyPower[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.HolyPower = holyPower
+
+
+	PRIEST = function(self, ...)
+
+		local a, b, c = unpack(self.ClassIcons)
+
+		ctor.LayoutSegments(self, layout.player.size[1], {a, b, c})
+
 	end,
 
 	SHAMAN = function(self, ...)
@@ -146,11 +146,11 @@ D.UnitFrames.ClassSpecific = {
 	end,
 
 	WARLOCK = function(self, ...)
-		
-		local shards = ctor.CreateSegments(self, layout.player.size[1], 3)
-		local anchor = self.Debuffs or self.Buffs or self.Power
-		
-		shards[1]:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 5)
-		self.SoulShards = shards
+
+		local a, b, c = unpack(self.ClassIcons)
+
+		ctor.LayoutSegments(self, layout.player.size[1], {a, b, c})
+
 	end,
+
 }

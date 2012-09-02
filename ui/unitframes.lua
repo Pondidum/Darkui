@@ -220,14 +220,35 @@ local function CreateRaidIcon(self)
 	
 end
 
-local function CreateComboPoints(self)
-	
-	local points = ctor.CreateSegments(self, layout.player.size[1], 5)
-	
-	points.unit = PlayerFrame.unit
-	points[1]:SetPoint("TOPLEFT", self.Castbar, "BOTTOMLEFT", 0, -5)
-	
-	self.CPoints = points
+local function CreateClassIcons(self)
+
+	local classIcons = ctor.CreateSegments(self, layout.player.size[1], 5)
+	classIcons[1]:SetPoint("TOPLEFT", self.Castbar, "BOTTOMLEFT", 0, -5)
+
+	classIcons.UpdateTexture = function(element, forceCP)
+
+		local red, green, blue
+		local class = D.Player.class
+		local colors = S.colors.class[class]
+
+		if forceCP  then
+			red, green, blue = 1, .96, .41
+
+		elseif colors ~= nil then 
+			red, green, blue = unpack(colors) 
+
+		else
+			red, green, blue = 1, .96, .41
+
+		end
+
+		for i = 1, 5 do
+			element[i].bg:SetBackdropColor(red, green, blue)
+		end
+
+	end
+
+	self.ClassIcons = classIcons
 	
 end
 
@@ -453,7 +474,7 @@ local UnitSpecific = {
 		
 		CreateCastbar(self)
 		CreateDebuffs(self)
-		CreateComboPoints(self)
+		CreateClassIcons(self)
 		CreateCombatIndicator(self)
 		CreateLeaderAndMasterLooter(self)
 		

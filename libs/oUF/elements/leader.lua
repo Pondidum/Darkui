@@ -28,7 +28,6 @@
                   to its internal function again.
 ]]
 
-local WoW5 = select(4, GetBuildInfo()) == 50001
 local parent, ns = ...
 local oUF = ns.oUF
 
@@ -39,14 +38,7 @@ local Update = function(self, event)
 	end
 
 	local unit = self.unit
-	local isLeader = (UnitInParty(unit) or UnitInRaid(unit))
-
-	if WoW5 then
-		isLeader = isLeader and UnitIsGroupLeader(unit)
-	else
-		isLeader = isLeader and UnitIsPartyLeader(unit)
-	end
-
+	local isLeader = (UnitInParty(unit) or UnitInRaid(unit)) and UnitIsGroupLeader(unit)
 	if(isLeader) then
 		leader:Show()
 	else
@@ -73,11 +65,7 @@ local Enable = function(self)
 		leader.ForceUpdate = ForceUpdate
 
 		self:RegisterEvent("PARTY_LEADER_CHANGED", Path, true)
-		if(WoW5) then
-			self:RegisterEvent("GROUP_ROSTER_UPDATE", Path, true)
-		else
-			self:RegisterEvent("PARTY_MEMBERS_CHANGED", Path, true)
-		end
+		self:RegisterEvent("GROUP_ROSTER_UPDATE", Path, true)
 
 		if(leader:IsObjectType"Texture" and not leader:GetTexture()) then
 			leader:SetTexture[[Interface\GroupFrame\UI-Group-LeaderIcon]]
@@ -91,12 +79,7 @@ local Disable = function(self)
 	local leader = self.Leader
 	if(leader) then
 		self:UnregisterEvent("PARTY_LEADER_CHANGED", Path)
-		if(WoW5) then
-			self:UnregisterEvent("GROUP_ROSTER_UPDATE", Path)
-		else
-			self:UnregisterEvent("PARTY_MEMBERS_CHANGED", Path)
-		end
-
+		self:UnregisterEvent("GROUP_ROSTER_UPDATE", Path)
 	end
 end
 
