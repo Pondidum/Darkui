@@ -368,6 +368,34 @@ hooksecurefunc(GameTooltip, "SetUnitDebuff", function(self,...)
 	end
 end)
 
+hooksecurefunc(GameTooltip, "SetSpellBookItem", function(self,...)
+
+	local index, book = ...
+	local link = GetSpellLink(index, book)
+
+	if link then
+
+		local index, length, color, ltype, id = string.find(link, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+)")
+
+		if id then
+			self:AddDoubleLine("SpellID:",id)
+			self:Show()
+		end
+	end
+
+end)
+
+hooksecurefunc(GameTooltip, "SetAction", function(self,...)
+
+	local type, id = GetActionInfo(...)
+
+	if id then
+		self:AddDoubleLine("SpellID:",id)
+		self:Show()
+	end
+end)
+
+
 hooksecurefunc(GameTooltip, "SetUnitAura", function(self,...)
 	local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId  = UnitAura(...)
 	if spellId then
