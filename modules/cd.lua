@@ -208,4 +208,6 @@ local config = {
 	}
 }
 
-ButtonFactory.new(config)
+if D.Player.name == "Darkend" then
+	ButtonFactory.new(config)
+end
