@@ -20,7 +20,7 @@ local CooldownScanner = {
 			else
 
 				local t = GetTime();
-				local _, g = GetSpellCooldown(gcdDetect)
+				local detectStart, g = GetSpellCooldown(gcdDetect)
 				local s, d = GetSpellCooldown(id)
 				
 				local delta = s + d - t

@@ -113,7 +113,7 @@ local function Init()
 
 	-- Reposition the unnamed textures, as well as initialize
 	-- the extra ones to cover up the extra areas
-	for _, child in ipairs(kids) do
+	for i, child in ipairs(kids) do
 		if child.GetTexture then
 			if child:GetTexture() == "Interface\\MacroFrame\\MacroPopup-TopLeft" then
 				MacroPopupFrame.largertexture1:SetTexture("Interface\\MacroFrame\\MacroPopup-TopLeft")
@@ -168,7 +168,7 @@ local function Init()
 	end
 
 	-- And some more for the scrollframe
-	for _, child in ipairs(kids2) do
+	for i, child in ipairs(kids2) do
 		if child.GetTexture then
 			local a, b, c, d = child:GetTexCoord()
 			if c - 0.0234375 < 0.01 then

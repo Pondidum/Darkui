@@ -51,7 +51,7 @@ local DarkSlackCheck = function()
 	
 	for i = 1, GetNumGroupMembers() do 
 		
-		local name, _, subgroup, _, _, _, _, online, isDead = GetRaidRosterInfo(i)
+		local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i)
 		
 		
 	if	subgroup > groups then
@@ -101,7 +101,7 @@ local DarkSlackCheck = function()
 		
 		if food ~= nil then
 			
-			local _, _, _, _, _, _, foodExpirationTime = UnitAura(name, GetSpellInfo(food))
+			local auraname, aurarank, auraicon, auracount, auradispelType, auraduration, foodExpirationTime = UnitAura(name, GetSpellInfo(food))
 			
 			if foodExpirationTime ~= 0 then
 			
@@ -120,7 +120,7 @@ local DarkSlackCheck = function()
 		
 		if flask ~= nil then
 			
-			local _, _, _, _, _, _, flaskExpirationTime = UnitAura(name, GetSpellInfo(flask))
+			local auraname, aurarank, auraicon, auracount, auradispelType, auraduration, flaskExpirationTime = UnitAura(name, GetSpellInfo(flask))
 			
 			if flaskExpirationTime ~= 0 then
 	

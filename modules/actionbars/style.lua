@@ -241,7 +241,7 @@ end
 
 -- rescale cooldown spiral to fix texture.
 local buttonNames = { "ActionButton",  "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarLeftButton", "MultiBarRightButton", "StanceButton", "PetActionButton", "MultiCastActionButton"}
-for _, name in ipairs( buttonNames ) do
+for i, name in ipairs( buttonNames ) do
 	for index = 1, 12 do
 		local buttonName = name .. tostring(index)
 		local button = _G[buttonName]
@@ -284,7 +284,7 @@ local function styleflyout(self)
 	
 	for i=1, GetNumFlyouts() do
 		local x = GetFlyoutID(i)
-		local _, _, numSlots, isKnown = GetFlyoutInfo(x)
+		local name, description, numSlots, isKnown = GetFlyoutInfo(x)
 		if isKnown then
 			buttons = numSlots
 			break
@@ -302,7 +302,8 @@ local function styleflyout(self)
 	if self:GetParent():GetParent():GetName() == "SpellBookSpellIconsFrame" then return end
 	
 	if self:GetAttribute("flyoutDirection") ~= nil then
-		local point, _, _, _, _ = self:GetParent():GetParent():GetPoint()
+
+		local point = self:GetParent():GetParent():GetPoint()
 		
 		if strfind(point, "BOTTOM") then
 			self.FlyoutArrow:ClearAllPoints()
@@ -386,7 +387,7 @@ local function StyleTotemFlyout(flyout)
 	-- Skin buttons
 	local last = nil
 	
-	for _,button in ipairs(flyout.buttons) do
+	for i,button in ipairs(flyout.buttons) do
 		D.CreateShadow(button)
 		local icon = select(1,button:GetRegions())
 		icon:SetTexCoord(.09,.91,.09,.91)
@@ -451,7 +452,7 @@ local function StyleTotemOpenButton(button, parent)
 	
 	button.visibleBut:SetBackdropBorderColor(parent:GetBackdropBorderColor())
 end
-hooksecurefunc("MultiCastFlyoutFrameOpenButton_Show",function(button,_, parent) StyleTotemOpenButton(button, parent) end)
+hooksecurefunc("MultiCastFlyoutFrameOpenButton_Show",function(button, slot, parent) StyleTotemOpenButton(button, parent) end)
 
 -- the color we use for border
 local bordercolors = {

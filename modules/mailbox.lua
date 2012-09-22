@@ -32,7 +32,7 @@ local function OpenMail(index)
 		return StopOpening("Reached the end.") 
 	end
 	
-	local _, _, _, _, money, COD, _, numItems = GetInboxHeaderInfo(index)
+	local mailIcon, stationaryIcon, sender, subject, money, COD, daysLeft, numItems = GetInboxHeaderInfo(index)
 	
 	if not takeCashOnly then
 	
@@ -66,7 +66,7 @@ local function OpenMail(index)
 				needsToWait = false
 				DarkuiTakeAll:SetScript("OnUpdate", nil)
 				
-				local _, _, _, _, money, COD, _, numItems = GetInboxHeaderInfo(lastopened)
+				local mailIcon, stationaryIcon, sender, subject, money, COD, daysLeft, numItems = GetInboxHeaderInfo(lastopened)
 				if money > 0 or ((not takeCashOnly) and COD <= 0 and numItems and (numItems > 0)) then
 					--The lastopened index inbox item still contains stuff we want
 					OpenMail(lastopened)

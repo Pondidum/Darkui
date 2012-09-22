@@ -56,7 +56,7 @@ local InterruptAnnounce = {
 				return
 			end
 
-			local _, eventType, _, _, sourceName, _, _, _, destName, _, _, spellID, _, _, extraskillID, _ = ...
+			local timestamp, eventType, hideCaster, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, destGuid, destName, destFlags, destRaidFlags, spellID, arg1, arg2, extraskillID = ...
 			local messageFormat = getMessage[eventType]
 
 			if sourceName == playerName and messageFormat ~= nil and shouldAnnounce[channel] then

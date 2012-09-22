@@ -17,7 +17,7 @@ do
 		MainMenuBar, MainMenuBarArtFrame, BonusActionBarFrame,
 		PossessBarFrame, PetActionBarFram
 	}
-	for _, element in pairs(elements) do
+	for i, element in pairs(elements) do
 		if element:GetObjectType() == "Frame" then
 			element:UnregisterAllEvents()
 		end
@@ -52,7 +52,7 @@ do
 		"ChatFrame1",
 		"ChatFrame2",
 	}
-	for _, frame in pairs(uiManagedFrames) do
+	for i, frame in pairs(uiManagedFrames) do
 		UIPARENT_MANAGED_FRAME_POSITIONS[frame] = nil
 	end
 	uiManagedFrames = nil

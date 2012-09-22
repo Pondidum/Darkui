@@ -73,7 +73,7 @@ function T.CreateLine(name, setup)
 		local current
 		local collection = self.Data
 		
-		for _, current in pairs(collection) do
+		for id, current in pairs(collection) do
 			
 			local icon = self.Cache[current.id]
 			

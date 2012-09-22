@@ -70,7 +70,7 @@ end
 
 local function PostUpdateAura(self, unit, icon, index, offset)
 
-	local _, _, _, _, dispellType, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, icon.filter)
+	local name, rank, auraIcon, count, dispellType, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, icon.filter)
 
 	if icon.isDebuff then
 
@@ -516,7 +516,7 @@ local UnitSpecific = {
 		
 		self:RegisterEvent("UNIT_PET", function(frame)
 		
-			for _, v in ipairs(frame.__elements) do
+			for i, v in ipairs(frame.__elements) do
 				v(frame, "UpdateElement", frame.unit)
 			end
 			
@@ -624,7 +624,7 @@ oUF:Factory(function(self)
 	local raid = {}
 	
 	local unitWidth, unitHeight = unpack( layout.raidunit.size )
-	local unitAnchor, _, unitOtherAnchor, unitXoffset, unitYoffset = unpack( layout.raidunit.point)
+	local unitAnchor, unitOther, unitOtherAnchor, unitXoffset, unitYoffset = unpack( layout.raidunit.point)
 
 	local groupAnchor, groupXoffset, groupYoffset = layout.raidgroup.anchor, layout.raidgroup.xoffset, layout.raidgroup.yoffset
 

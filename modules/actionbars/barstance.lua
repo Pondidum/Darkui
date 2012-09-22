@@ -70,7 +70,7 @@ E:Register("UPDATE_SHAPESHIFT_FORMS", function(self, event, ...)
 	local button
 	for i = 1, NUM_STANCE_SLOTS do
 		button = _G["StanceButton"..i]
-		local _, name = GetShapeshiftFormInfo(i)
+		local icon, name = GetShapeshiftFormInfo(i)
 		if name then
 			button:Show()
 		else
@@ -96,7 +96,7 @@ E:Register("PLAYER_LOGIN", function()
 			button:SetPoint("LEFT", previous, "RIGHT", S.actionbars.buttonspacing, 0)
 		end
 		
-		local _, name = GetShapeshiftFormInfo(i)
+		local icon, name = GetShapeshiftFormInfo(i)
 		if name then
 			button:Show()
 		else

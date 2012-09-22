@@ -494,13 +494,9 @@ local function InitFrame(frame)
 	frame.init = true
 
 	local healthBar, castBar = frame:GetChildren()
-	local _, castbarOverlay, shieldedRegion, spellIconRegion
-		= castBar:GetRegions()
+	local unknownRegion, castbarOverlay, shieldedRegion, spellIconRegion = castBar:GetRegions()
 	
-    local
-		glowRegion, overlayRegion, highlightRegion, nameTextRegion,
-		levelTextRegion, bossIconRegion, raidIconRegion, stateIconRegion
-		= frame:GetRegions() 
+    local glowRegion, overlayRegion, highlightRegion, nameTextRegion, levelTextRegion, bossIconRegion, raidIconRegion, stateIconRegion = frame:GetRegions() 
     
 	highlightRegion:SetTexture(nil)
 	bossIconRegion:SetTexture(nil)
@@ -726,12 +722,12 @@ end
 -- custom cast bar events ------------------------------------------------------
 function np.UNIT_SPELLCAST_START(frame, unit, channel)
 	local cb = frame.castbar
-	local name, _, text, texture, startTime, endTime, _, castID, notInterruptible
+	local name, subtext, text, texture, startTime, endTime, isTrade, castID, notInterruptible
 		
 	if channel then
-		name, _, text, texture, startTime, endTime, _, castID, notInterruptible = UnitChannelInfo(unit)
+		name, subtext, text, texture, startTime, endTime, isTrade, castID, notInterruptible = UnitChannelInfo(unit)
 	else
-		name, _, text, texture, startTime, endTime, _, castID, notInterruptible = UnitCastingInfo(unit)
+		name, subtext, text, texture, startTime, endTime, isTrade, castID, notInterruptible = UnitCastingInfo(unit)
 	end
 	
 	if not name then
@@ -764,12 +760,12 @@ end
 
 function np.UNIT_SPELLCAST_DELAYED(frame, unit, channel)
 	local cb = frame.castbar
-	local _, name, startTime, endTime
+	local name, subtext, text, texture, startTime, endTime
 	
 	if channel then
-		name, _, _, _, startTime, endTime = UnitChannelInfo(unit)
+		name, subtext, text, texture, startTime, endTime = UnitChannelInfo(unit)
 	else
-		name, _, _, _, startTime, endTime = UnitCastingInfo(unit)
+		name, subtext, text, texture, startTime, endTime = UnitCastingInfo(unit)
 	end
 	
 	if not name then
@@ -826,7 +822,7 @@ local function OnUnitCastEvent(self, e, unit, ...)
 
 	if e == 'UNIT_SPELLCAST_STOP' or e == 'UNIT_SPELLCAST_FAILED' or e == 'UNIT_SPELLCAST_INTERRUPTED' then
 		-- these occasionally fire after a new _START
-		local _, _, castID = ...
+		local spell, rank, castID = ...
 		if f.castbar.id ~= castID then
 			return
 		end

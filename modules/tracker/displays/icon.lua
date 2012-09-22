@@ -29,7 +29,7 @@ function T.CreateIcon(name, setup)
 		local collection = self.Data
 
 		local current
-		for _, current in pairs(collection) do
+		for id, current in pairs(collection) do
 
 			if current ~= nil then
 

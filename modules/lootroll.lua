@@ -276,7 +276,7 @@ local rollpairs = {
 }
 local function ParseRollChoice(msg)
 	for i,v in pairs(rollpairs) do
-		local _, _, playername, itemname = string.find(msg, i)
+		local index, length, playername, itemname = string.find(msg, i)
 		if locale == "ruRU" and (v == "greed" or v == "need" or v == "disenchant")  then 
 			local temp = playername
 			playername = itemname
@@ -289,7 +289,7 @@ end
 local function CHAT_MSG_LOOT(msg)
 	local playername, itemname, rolltype = ParseRollChoice(msg)
 	if playername and itemname and rolltype then
-		for _,f in ipairs(frames) do
+		for i,f in ipairs(frames) do
 			if f.rollid and f.button.link == itemname and not f.rolls[playername] then
 				f.rolls[playername] = rolltype
 				f[rolltype]:SetText(tonumber(f[rolltype]:GetText()) + 1)

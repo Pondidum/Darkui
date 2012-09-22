@@ -35,8 +35,8 @@ function E:CreateFrame()
 
 	eventFrame:SetScript("OnEvent", function(self, event, ...)
 		
-		if (registeredEvents[event]) then
-			for _, func in pairs(registeredEvents[event]) do
+		if registeredEvents[event] then
+			for i, func in pairs(registeredEvents[event]) do
 				func(self, event, ...)
 			end
 		end

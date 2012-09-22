@@ -445,7 +445,7 @@ function Timer:ForAll(f, ...)
 		f = self[f]
 	end
 
-	for _, timer in pairs(timers) do
+	for cd, timer in pairs(timers) do
 		f(timer, ...)
 	end
 end
@@ -455,7 +455,7 @@ function Timer:ForAllShown(f, ...)
 		f = self[f]
 	end
 
-	for _, timer in pairs(timers) do
+	for cd, timer in pairs(timers) do
 		if timer:IsShown() then
 			f(timer, ...)
 		end

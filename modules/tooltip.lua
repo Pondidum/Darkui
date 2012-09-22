@@ -97,7 +97,7 @@ end
 
 local function GetColor(unit)
 	if(UnitIsPlayer(unit) and not UnitHasVehicleUI(unit)) then
-		local _, class = UnitClass(unit)
+		local localClass, class = UnitClass(unit)
 		local color = RAID_CLASS_COLORS[class]
 		if not color then return end -- sometime unit too far away return nil for color :(
 		local r,g,b = color.r, color.g, color.b
@@ -135,7 +135,7 @@ GameTooltipStatusBar:SetScript("OnValueChanged", function(self, value)
 	if (value < min) or (value > max) then
 		return
 	end
-	local _, unit = GameTooltip:GetUnit()
+	local unitName, unit = GameTooltip:GetUnit()
 	
 	-- fix target of target returning nil
 	if (not unit) then
@@ -308,7 +308,7 @@ local BorderColor = function(self)
 		
 	else
 		
-		local _, link = self:GetItem()
+		local itemName, link = self:GetItem()
 		local quality = link and select(3, GetItemInfo(link))
 		
 		if quality and quality >= 2 then
@@ -331,7 +331,7 @@ end
 
 local function EnteringWorldEventHandler(self)
 	
-	for _, tt in pairs(Tooltips) do
+	for i, tt in pairs(Tooltips) do
 		tt:HookScript("OnShow", SetStyle)
 	end
 	

@@ -26,13 +26,13 @@ SlashCmdList.MOUSEOVERBIND = function()
 				GameTooltip_ShowCompareItem(self)
 				self.comparing = true
 			elseif ( self.comparing and not IsModifiedClick("COMPAREITEMS")) then
-				for _, frame in pairs(self.shoppingTooltips) do
+				for key, frame in pairs(self.shoppingTooltips) do
 					frame:Hide()
 				end
 				self.comparing = false
 			end
 		end)
-		hooksecurefunc(GameTooltip, "Hide", function(self) for _, tt in pairs(self.shoppingTooltips) do tt:Hide() end end)
+		hooksecurefunc(GameTooltip, "Hide", function(self) for key, tt in pairs(self.shoppingTooltips) do tt:Hide() end end)
 
 		bind:SetScript("OnEvent", function(self) self:Deactivate(false) end)
 		bind:SetScript("OnLeave", function(self) self:HideFrame() end)
