@@ -36,7 +36,7 @@ L.Engines = {
 		end
 
 		if self.AutoSize then
-			self:SetWidth(total)
+			self:SetSize(total, currentRowHeight)
 		end
 		
 	end,
