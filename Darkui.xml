@@ -85,4 +85,5 @@
 
 	<Script file="ui\Font.lua" />
 	
+	<Script file="modules\cd.lua" />
 </Ui>
