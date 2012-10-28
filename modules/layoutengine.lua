@@ -78,7 +78,7 @@ L.Engines = {
 		end
 
 		if self.AutoSize then
-			self:SetHeight(total)
+			self:SetSize(currentColWidth, total)
 		end
 		
 	end,
