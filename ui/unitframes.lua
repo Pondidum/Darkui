@@ -4,6 +4,7 @@ local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, D.Addon.name .. " was unable to locate oUF install.")
 
+if S.unitframes.enable == false then return end
 
 local ctor = D.UnitFrames.Constructor
 local layout = D.UnitFrames.CurrentLayout

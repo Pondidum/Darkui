@@ -31,10 +31,10 @@ S["merchant"] = {
 S["buffwatch"] = {
 	["buffids"] = {
 		PRIEST = {
-			{6788, "TOPLEFT", {1, 0, 0}, true}, -- Weakened Soul
+			{6788, "LEFT", {1, 0, 0}, true}, -- Weakened Soul
 			{33076, "TOPRIGHT", {0.2, 0.7, 0.2}}, -- Prayer of Mending
 			{139, "BOTTOMLEFT", {0.4, 0.7, 0.2}}, -- Renew
-			{17, "BOTTOMRIGHT", {0.81, 0.85, 0.1}, true}, -- Power Word: Shield
+			{17, "RIGHT", {0.81, 0.85, 0.1}, true}, -- Power Word: Shield
 		},
 		DRUID = {
 			{8936, "TOPRIGHT", {0.2, 0.8, 0.2}}, -- Regrowth
@@ -48,7 +48,6 @@ S["buffwatch"] = {
 		SHAMAN = {
 			{61295, "TOPLEFT", {0.7, 0.3, 0.7}}, -- Riptide 
 			{51945, "TOPRIGHT", {0.2, 0.7, 0.2}}, -- Earthliving
-			{16177, "BOTTOMLEFT", {0.4, 0.7, 0.2}}, -- Ancestral Fortitude
 			{974, "BOTTOMRIGHT", {0.7, 0.4, 0}, true}, -- Earth Shield
 		},
 		ALL = {
@@ -82,6 +81,7 @@ S["selfbuffs"] = {
 			13159, 	-- pack
 			20043, 	-- wild
 			82661, 	-- fox
+			109260,	-- iron hawk
 		},
 		MAGE = {
 			7302, -- frost armor
@@ -89,8 +89,6 @@ S["selfbuffs"] = {
 			30482, -- molten armor
 		},
 		WARLOCK = {
-			28176, -- fel armor
-			687, -- demon armor
 		},
 		SHAMAN = {
 			52127, -- water shield
@@ -123,6 +121,7 @@ S["actionbars"] = {
 }
 
 S["unitframes"] = {
+	["enable"] = true,
 	["druidmushrooms"] = false,
 }
 
