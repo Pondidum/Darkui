@@ -50,6 +50,11 @@ S.tracker.auras = {
 
 		{ id = 48108, 	unit = "player" },		--hot streak
 	},
+	MONK = {
+		{ id = 125359,	unit = "player" },		--tiger power
+		{ id = 125195,	unit = "player",		--tiger eye brew
+						stacks= "ONLY",},		
+	},
 	PALADIN = {
 		{ id = 84963, 	unit = "player" },		--inquisition
 	},
@@ -70,29 +75,29 @@ S.tracker.auras = {
 
 		{ id = 79206, 	unit = "player" },		--spiritwalker's grace
 
-		{ id = 324, 	unit      = "player", 	
+		--[[{ id = 324, 	unit      = "player", 	
 						display   = "CooldownCenterLeft",	
 						stacks    = "ONLY", 
 						highlight = "MAXSTACKS", 
 						maxstacks = 9,
-						spec 	  = "Elemental" }, 	--lightning shield
+						spec 	  = "Elemental" }, 	--lightning shield]]
 
-		{ id = 53817, 	unit      = "player", 	
+		--[[{ id = 53817, 	unit      = "player", 	
 						display   = "CooldownCenterRight",	
 						stacks 	  = "ONLY", 
 						highlight = "MAXSTACKS", 
 						maxstacks = 5,
-						spec 	  = "Enhancement" }, 	--maelstrom weapon
+						spec 	  = "Enhancement" }, 	--maelstrom weapon]]
 	},
 	WARLOCK = {
 		{ id = 172,		unit = "target" },		--corruption
-		{ id = 603,		unit = "target" },		--bane of doom
 		{ id = 348,		unit = "target" },		--immolate
 		{ id = 47960,	unit = "target" },		--hand of guldan
 
 		{ id = 30108,	unit = "target" },		--unstable affliction
 		{ id = 48181,	unit = "target" },		--haunt
-
+		{ id = 980,		unit = "target" },		--agony
+		
 		{ id = 103958, 	unit = "player" },		--metamorphosis
 		{ id = 113861, 	unit = "player" },		--dark soul: knowledge
 		{ id = 113860, 	unit = "player" },		--dark soul: misery
@@ -177,6 +182,10 @@ S.tracker.cooldowns = {
 		},
 	},
 
+	MONK = {
+
+	},
+
 	PRIEST = {
 		["Shadow"] = {
 			{ id = 34433, 	display = "CooldownCenterLeft" },	--shadowfiend
@@ -191,11 +200,11 @@ S.tracker.cooldowns = {
 			{ id = 8042,	display = "CooldownCenterRight" },	--earth shock
 		},
 		["Enhancement"] = {
-			{ id = 8050,	display = "CooldownLeft" },			--flameshock
+		--[[	{ id = 8050,	display = "CooldownLeft" },			--flameshock
 			{ id = 60103,	display = "CooldownCenterLeft" },	--lavalash
 			{ id = 17364,	display = "CooldownCenter" },		--stormstrike
 			--maelstrom stacks show here
-			{ id = 73680,	display = "CooldownRight" },		--unleash elements
+			{ id = 73680,	display = "CooldownRight" },		--unleash elements]]--
 		},
 		["Restoration"] = {
 			{ id = 73920,	display = "CooldownCenterRight" },	--healing rain
@@ -205,7 +214,7 @@ S.tracker.cooldowns = {
 	},
 
 	WARLOCK = {
-		["All"] = {
+		--[[["All"] = {
 			{ id = 74434,	display = "CooldownLeft" },			--soulburn
 			{ id = 47897,	display = "CooldownCenterLeft" },	--shadowflame
 		},
@@ -217,7 +226,7 @@ S.tracker.cooldowns = {
 		["Affliction"] = {
 			{ id = 48181,	display = "CooldownCenter" },		--haunt
 			{ id = 86213,	display = "CooldownRight" },		--soul swap
-		},
+		},]]
 	},
 
 	WARRIOR = {
@@ -249,7 +258,7 @@ S.tracker.displays = {
 		name = "Main",
 		type = "Line", 
 		setup =  {
-			location = {"BOTTOM", "oUF_DarkuiPlayer", "TOP", 0, 150},
+			location = {"CENTER", "UIParent", "CENTER", 0, 0},
 			size = {500, 32},
 			maxtime = 60,
 		}
