@@ -111,7 +111,7 @@ S.tracker.auras = {
 		{ id = 113746,	unit = "target", 
 						filter = "HARMFUL" },	--sunder armor
 
-		{ id = 85730, 	unit = "player" },		--deadly calm
+		--{ id = 85730, 	unit = "player" },		--deadly calm
 		{ id = 1719,	unit = "player" },		--Recklessness
 		{ id = 12328,	unit = "player" },		--Sweeping Strikes
 		 
@@ -144,7 +144,8 @@ S.tracker.auras = {
 		--enchants
 		{ id = 74241,	unit = "player" },		--power torrent
 		{ id = 74245,	unit = "player" },		--landslide
-		{ id = 120032,	unit = "player" },		--dancing steel
+		{ id = 120032,	unit = "player",
+						filter	= "HELPFUL" },	--dancing steel
 		
 
 		--trinkets
@@ -258,7 +259,7 @@ S.tracker.displays = {
 		name = "Main",
 		type = "Line", 
 		setup =  {
-			location = {"CENTER", "UIParent", "CENTER", 0, 0},
+			location = {"CENTER", "UIParent", "CENTER", 0, -50},
 			size = {500, 32},
 			maxtime = 60,
 		}

@@ -9,7 +9,7 @@ local halfBarWidth = (S.actionbars.buttonsize * 6) + (S.actionbars.buttonspacing
 local singleBarHeight = S.actionbars.buttonsize
 local doubleBarHeight = (S.actionbars.buttonsize * 2) + S.actionbars.barspacing
 
-if not S.actionbars.enable == true then return end
+--if not S.actionbars.enable == true then return end
 
 D.Kill(InterfaceOptionsActionBarsPanelBottomLeft)
 D.Kill(InterfaceOptionsActionBarsPanelBottomRight)

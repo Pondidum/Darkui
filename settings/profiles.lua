@@ -8,8 +8,17 @@ end
 
 if D.Player.name == "Ikeya" then
 	S.unitframes.enable = false
+	S.tracker.enable = false
 end
 
 if D.Player.name == "Söphie" then
 	S.actionbars.enable = false
 end
+
+if D.Player.name == "Lightend" then
+	
+	
+end
+
+
+S.tracker.enable = false

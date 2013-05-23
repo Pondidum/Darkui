@@ -15,9 +15,9 @@ local function SellTrash()
 			
 			if l and lid then
 				
-				local p = select(11, GetItemInfo(l)) * select(2, GetContainerItemInfo(bag, slot))
-				
 				if select(3, GetItemInfo(l))==0 then
+
+					local p = select(11, GetItemInfo(l)) * select(2, GetContainerItemInfo(bag, slot))
 					
 					UseContainerItem(bag, slot)
 					PickupMerchantItem()

@@ -1,5 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
+if S.chat.enable ~= true then return end
+
 local function SetupChatStyle(frame)
 	
 	local id = frame:GetID()

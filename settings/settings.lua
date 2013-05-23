@@ -1,11 +1,16 @@
 local D, S, E = unpack(select(2, ...))
 
+S["minimap"] = {
+	["enable"] = false,
+}
+
 S["cooldowns"] = {
 	["enable"] = true,
 	["minimum"] = 8,
 }
 
 S["chat"] = {
+	["enable"] = false,
 	["size"] = {550, 120},
 	["editsize"] = {550, 15},
 	["background"] = true,

@@ -1,6 +1,69 @@
 local D, S, E = unpack(select(2, ...))
 
 if not S.actionbars.enable == true then return end
+---------------------------------------------------------------------------
+
+
+
+local function stylesmallbutton(normal, button, icon, name)
+	
+	normal:SetTexture(nil)	
+	normal:Hide()
+	normal:SetAlpha(0)
+	-- normal.SetNormalTexture = D.Dummy
+	
+	local Flash	 = _G[name.."Flash"]
+	Flash:SetTexture(S.textures.buttonhover)
+	
+	if not _G[name.."Panel"] then
+
+		button:SetWidth(S.actionbars.buttonsize)
+		button:SetHeight(S.actionbars.buttonsize)
+		
+		local panel = CreateFrame("Frame", name.."Panel", button)
+		panel:SetPoint("CENTER", button, "CENTER", 0, 0)
+		panel:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
+		panel:SetBackdropColor(.1, .1, .1)
+		panel:SetFrameStrata(button:GetFrameStrata())
+		panel:SetFrameLevel(button:GetFrameLevel() - 1)
+
+		if S.actionbars.buttonsize < 30 then
+			local autocast = _G[name.."AutoCastable"]
+			autocast:SetAlpha(0)
+		end
+
+		local shine = _G[name.."Shine"]
+		shine:SetSize(S.actionbars.buttonsize, S.actionbars.buttonsize)
+		shine:ClearAllPoints()
+		shine:SetPoint("CENTER", button, 0, 0)
+
+		icon:SetTexCoord(.08, .92, .08, .92)
+		icon:ClearAllPoints()
+		icon:SetPoint("TOPLEFT", button, 0, 0)
+		icon:SetPoint("BOTTOMRIGHT", button, 0, 0)
+
+
+	end
+	
+	if normal then
+		normal:ClearAllPoints()
+		normal:SetPoint("TOPLEFT")
+		normal:SetPoint("BOTTOMRIGHT")
+	end
+end
+
+
+function stylePet()
+	for i=1, NUM_PET_ACTION_SLOTS do
+		local name = "PetActionButton"..i
+		local button  = _G[name]
+		local icon  = _G[name.."Icon"]
+		local normal  = _G[name.."NormalTexture2"]
+		stylesmallbutton(normal, button, icon, name)
+	end
+end
+
+
 
 ---------------------------------------------------------------------------
 -- setup PetActionBar
@@ -103,7 +166,7 @@ E:Register("PLAYER_LOGIN", function()
 
 	PetActionBarFrame.showgrid = 1 -- hack to never hide pet button. :X
 	
-	D.StylePet()
+	stylePet()
 	
 	local button		
 	for i = 1, 10 do

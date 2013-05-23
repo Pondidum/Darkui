@@ -1,5 +1,7 @@
 local D, S, E = unpack(select(2, ...))
 
+if S.chat.enable ~= true then return end
+
 _G.CHAT_BATTLEGROUND_GET = "|Hchannel:Battleground|h[BG]|h %s:\32"
 _G.CHAT_BATTLEGROUND_LEADER_GET = "|Hchannel:Battleground|h[BG]|h %s:\32"
 _G.CHAT_BN_WHISPER_GET = "From %s:\32"
