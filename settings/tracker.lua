@@ -30,6 +30,7 @@ S.tracker.auras = {
 		{ id = 52610, 	unit = "player" }, 		--savage roar
 		{ id = 5217, 	unit = "player" }, 		--tigers fury
 		{ id = 50334, 	unit = "player" }, 		--Berserk
+		{ id = 69369, 	unit = "player" }, 		--predatory switftness
 		 
 	},
 	HUNTER = {
@@ -65,6 +66,11 @@ S.tracker.auras = {
 
 		{ id = 87153, 	unit = "player" },		--dark archangel
 	},
+
+	MONK = {
+
+	},
+	
 	ROGUE = {
 		{ id = 73651, 	unit = "player" },		--recuperate
 		{ id = 5171, 	unit = "player" },		--slice n dice	
@@ -184,7 +190,6 @@ S.tracker.cooldowns = {
 	},
 
 	MONK = {
-
 	},
 
 	PRIEST = {
