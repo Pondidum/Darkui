@@ -1,4 +1,4 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
 
 	<Include file="libs\oUF\oUF.xml" />
 	<Include file="libs\oUF_Dark\oUF_Dark.xml" />
@@ -9,81 +9,22 @@
 	<Script file="core\core.lua" />
 	<Script file="core\functions.lua" />
 	<Script file="core\events.lua" />
-		
+
 	<Script file="core\init.lua" />
-	<Script file="core\commands.lua" />
-	
+
 	<Script file="settings\settings.lua" />
 	<Script file="settings\layouts.lua" />
 	<Script file="settings\colors.lua" />
 	<Script file="settings\media.lua" />
-	<Script file="settings\tracker.lua" />
 	<Script file="settings\profiles.lua" />
-	
-	<Script file="modules\layoutengine.lua" />
 
-	<Script file="modules\actionbars\bars.lua" />
-	<Script file="modules\actionbars\bar1.lua" />
-	<Script file="modules\actionbars\bar2.lua" />
-	<Script file="modules\actionbars\bar3.lua" />
-	<Script file="modules\actionbars\bar4.lua" />
-	<Script file="modules\actionbars\bar5.lua" />
-	<Script file="modules\actionbars\barextra.lua" />
-	<Script file="modules\actionbars\barpet.lua" />
-	<Script file="modules\actionbars\barstance.lua" />
-	<Script file="modules\actionbars\bars.lua" />
-	<Script file="modules\actionbars\bind.lua" />
-	<Script file="modules\actionbars\buttons.lua" />
-	<Script file="modules\actionbars\cooldowns.lua" />
-	<Script file="modules\actionbars\hide.lua" />
-	<Script file="modules\actionbars\others.lua" />
-	<Script file="modules\actionbars\range.lua" />
-	<Script file="modules\actionbars\style.lua" />
-	
-	<Script file="ui\init.lua" />
-	<Script file="ui\constructor.lua" />
-	<Script file="ui\classspecific.lua" />
-	<Script file="ui\tags.lua" />
-	<Script file="ui\unitframes.lua" />
-	<Script file="modules\nameplates.lua" />
-	
-	<Script file="modules\tooltip.lua" />
-	
-	<Script file="modules\chatstyle.lua" />
-	<Script file="modules\chatlinks.lua" />
-	<Script file="modules\chatformatting.lua" />
-	
-	<Script file="modules\tracker\tracker.lua" />
-	<Script file="modules\tracker\display.lua" />
-	<Script file="modules\tracker\displays\icon.lua" />
-	<Script file="modules\tracker\displays\line.lua" />
-	<Script file="modules\tracker\scanners\auras.lua" />
-	<Script file="modules\tracker\scanners\cooldowns.lua" />
-	<Script file="modules\tracker\scanners\totems.lua" />
-	<Script file="modules\tracker\init.lua" />
-
-	<Script file="modules\bags\bagbar.lua" />
 	<Script file="modules\bags\bags.lua" />
-
-	<Script file="modules\minimap.lua" />
-	<Script file="modules\merchant.lua" />
-	<Script file="modules\mailbox.lua" />
-	<Script file="modules\macros.lua" />
-	<Script file="modules\objectives.lua" />
-	<Script file="modules\lootroll.lua" />
-	<Script file="modules\errorfilter.lua" />
 
 	<Script file="modules\statspanel.lua" />
 	<Script file="modules\stats\durability.lua" />
 	<Script file="modules\stats\memory.lua" />
 	<Script file="modules\stats\fps.lua" />
-	
+
 	<Script file="modules\professions.lua" />
 	<Script file="modules\selfbuffs.lua" />
-	<Script file="modules\slackcheck.lua" />
-	<Script file="modules\interrupt.lua" />
-
-	<Script file="ui\Font.lua" />
-	
-	<Script file="modules\cd.lua" />
 </Ui>
